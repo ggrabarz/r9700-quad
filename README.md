@@ -123,6 +123,8 @@ From the board manual (rev. 1.07) and product specifications:
 
 The block diagram is unambiguous: four x16 slots and four x4 M.2 sockets all hang directly off the sTR5 CPU. There is no chipset bottleneck and no lane-sharing switch to decode.
 
+**Board alternative — ASRock WRX90 WS EVO.** At the same snapshot it is **more capable on paper and cheaper** (€808.05 vs €896.75): 7× PCIe 5.0 x16, 1× Gen5 M.2 + 1× Gen4 M.2 + 2× Gen5 MCIO + 2× Gen4 SlimSAS, IPMI, dual 10GbE, 18+3+3 VRM. The catches: with four 2-slot R9700s the extra x16 slots are covered (the slots are 1-slot pitch; cards go in 1/3/5/7), so there is no free carrier slot, and the 4-drive RAID 0 is **3 Gen5 + 1 Gen4** (1 Gen5 M.2 + 2 Gen5 MCIO + 1 Gen4 M.2) unless you use MCIO adapters/drives. For the simplest all-Gen5 4×M.2 array, the Gigabyte is better; for IPMI, six NVMe ports and a giant-model library, the ASRock is better. The full comparison and the SSD-streaming analysis are in [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md).
+
 ### 2.2 Ryzen Threadripper PRO 9955WX
 
 | Property | 9955WX | 7965WX | 9965WX | 9975WX |
@@ -594,6 +596,7 @@ All prices are from 2026-11-06 and include VAT. The exact line items, sources an
 | [`docs/SABER.md`](docs/SABER.md) | Evaluation of the Saber engine: TP=2 limit, MXFP4 packs, 95.4 GiB PLE, fit against this build. |
 | [`docs/SABER-4X.md`](docs/SABER-4X.md) | Code-level answer to “expand the 2× config to 4×”: why Flash-Next cannot be dense-TP=4, the three 4-GPU paths, and the BOM impact. |
 | [`docs/RAM-START.md`](docs/RAM-START.md) | 1×64 GB vs 2×64 GB at the start: capacity, bandwidth, PLE/cache impact, upgrade path and a one-stick test plan. |
+| [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md) | ASRock WRX90 WS EVO vs the TRX50 AI TOP: slots, 4×M.2 topology, IPMI, price, and what 4× RAID 0 sequential read does and does not buy for giant-model streaming. |
 | [`patches/`](patches/) | Upstream Saber docs/RFC patch (against `cebec82`), apply/submit instructions and PR body. |
 | [`docs/VALIDATION.md`](docs/VALIDATION.md) | Acceptance and benchmark protocol. |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | Source links and what each one verifies. |

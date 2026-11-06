@@ -7,6 +7,9 @@ Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not
 | Source | What it verifies |
 |---|---|
 | [Gigabyte TRX50 AI TOP specification](https://www.gigabyte.com/Motherboard/TRX50-AI-TOP/sp) (blocked to some crawlers; the manual PDF is the accessible copy) | 4× PCIe 5.0 x16, 4× M.2, 8× DDR5 RDIMM, 4× SATA, 2× 10GbE, E-ATX 30.5×33.0 cm. |
+| [ASRock WRX90 WS EVO specification](https://www.asrock.com/mb/AMD/WRX90%20WS%20EVO/index.asp) | 7× PCIe 5.0 x16, 1× Gen5 M.2 + 1× Gen4 M.2, 2× MCIO Gen5, 2× SlimSAS Gen4, 8× DDR5 RDIMM (2 TB), IPMI/AST2600, dual 10GbE, EEB 30.5×33.0 cm. |
+| [ASRock WRX90 WS EVO manual (PDF)](https://download.asrock.com/Manual/WRX90%20WS%20EVO.pdf) | Slot layout (PCIE1-7), MCIO/SlimSAS wiring, 6-pin GFX 12V requirement, memory population, form factor. |
+| [ASRock WRX90 WS EVO price](https://geizhals.eu/asrock-wrx90-ws-evo-90-mxbmh0-a0uayz-a3167681.html) | €808.05 from 59 offers on 2026-11-06 (vs €896.75 for the TRX50 AI TOP). |
 | [TRX50 AI TOP manual, rev. 1.07 (PDF)](https://download.gigabyte.com/FileList/Manual/mb_manual_trx50-ai-top_107_e.pdf) | 8-channel with PRO 9000WX/7000WX; 4-channel with non-PRO; M2D disabled on non-PRO; PCIEX16_4 Gen4 on TR 7000; 4× PCIe 8-pin aux (PCIE_12V1/2 for one PSU); memory population A1/C1/E1/G1 for quad-channel. |
 | [AMD Ryzen Threadripper PRO 9955WX](https://www.amd.com/en/products/processors/workstations/ryzen-threadripper/9000-wx-series/amd-ryzen-threadripper-pro-9955wx.html) | 16C/32T, 5.4 GHz, 350 W, 128 PCIe 5.0 lanes, 8-channel DDR5 ECC. |
 | [AMD Radeon AI PRO R9700](https://www.amd.com/en/products/graphics/workstations/radeon-ai-pro/ai-9000-series/amd-radeon-ai-pro-r9700.html) | 32 GB GDDR6, 300 W, 2-slot blower, 1× 12V-2x6, 267 mm. |
