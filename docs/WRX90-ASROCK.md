@@ -175,6 +175,19 @@ The practical difference is largest at the **8×64 GB = 512 GB endgame**:
 
 The 9955WX is a **350 W** part; the TRX50 AI TOP’s 16+8+4 VRM is adequate for it, and Gigabyte supports the combination. The WRX90 AI TOP’s 32+3+3+3 stage is **not required for a 16-core 9955WX**; it is margin — lower phase current/temperature, better transient response, and headroom for a future 64/96-core PRO or a sustained all-core workload. In a 4-GPU case, the active VRM and memory fans also help the 8-DIMM configuration. For the 9955WX + 2×64 GB build, this is comfort, not a performance requirement; for the 8×64 GB/512 GB endgame and 24/7 operation, it is the safer envelope.
 
+### Memory speed ceilings
+
+| | Gigabyte TRX50 AI TOP | ASRock WRX90 WS EVO | Gigabyte WRX90 AI TOP |
+|---|---|---|---|
+| CPU official (9955WX) | **6400 MT/s** | **6400 MT/s** | **6400 MT/s** |
+| Board OC claim | no published max; TRX50 OC R-DIMM kits ~7200 | **7600+ OC** | **7800 OC** |
+| With the specified 2×64 GB 2Rx4 **5600** modules | 5600 | 5600 | 5600 |
+| With 2×64 GB 2Rx4 **6400** modules | 6400 (QVL) | 6400 (QVL) | 6400 (QVL) |
+| With 8×64 GB 2Rx4 **5600** | 5600 (358.4 GB/s) | 5600 (358.4 GB/s) | 5600 (358.4 GB/s) |
+| With 8×64 GB 2Rx4 **6400** | 6400 if QVL (409.6 GB/s) | 6400 if QVL (409.6 GB/s) | 6400 if QVL (409.6 GB/s) |
+
+The board OC numbers are **2–4 DIMM OC R-DIMM** figures (usually 16/24/32 GB modules), not 8×64 GB 2Rx4. The 9955WX’s official 6400 is the realistic JEDEC ceiling; 7600/7800 requires EXPO OC R-DIMM kits, a lucky IMC and the board’s QVL. With the build’s current 5600 modules, all three boards run **5600** — the module is the limit, not the board. If you want 6400, buy 6400 64 GB 2Rx4 modules and check the QVL; the 8×64 endgame is 6400 at best, not 7600/7800.
+
 ### BMC: integrated, not an add-on
 
 - The **WRX90 AI TOP** and **ASRock WRX90 WS EVO** have an **integrated ASPEED AST2600 BMC** with a dedicated IPMI LAN port. It is soldered on the board; there is no “BMC module” to buy or install.
