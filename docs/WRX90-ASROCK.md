@@ -76,6 +76,23 @@ The ASRock’s 4-drive array at 3 Gen5 + 1 Gen4 is not a disaster: RAID 0 sums s
 
 So: **3× Gen5 is the clean all-Gen5 compromise** — 1 TB and 25% throughput less than 4× Gen5, but faster than 4× Gen4 and imageable on the 4 TB SATA. If capacity is the priority, 4× Gen4; if maximum array speed, 4× Gen5 on the TRX50 AI TOP; if all-Gen5 plus IPMI/proper WRX90, 3× Gen5 on the ASRock.
 
+**Six Gen4 drives:** the ASRock is the only one of the three boards that can do this natively — its six NVMe ports (2 M.2 + 2 MCIO + 2 SlimSAS) take six 990 PRO 1 TB drives, all at Gen4. The result is **6 TB, ~44 GB/s sequential, ~7.2M 4K IOPS**, using four adapter cables (2 MCIO-to-M.2, 2 SlimSAS-to-NVMe). The catch is the backup: a 6 TB array does **not** fit on the 4 TB SATA (3.6 TB usable), so add an **8 TB SATA HDD** (~€250) for a full array image; the 4 TB SATA stays the OS/model archive. The six-drive RAID 0 also has a higher failure probability than three or four drives, and no redundancy; the 8 TB image is the mitigation.
+
+| | 3× Gen5 1 TB | **6× Gen4 1 TB** | 4× Gen5 1 TB | 4× Gen4 1 TB |
+|---|---:|---:|---:|---:|
+| Capacity | 3 TB | **6 TB** | 4 TB | 4 TB |
+| Sequential read (approx.) | 42–44 GB/s | **44–45 GB/s** | 56–59 GB/s | 28–30 GB/s |
+| 4K random IOPS (approx.) | ~6.6M | **~7.2M** | ~8.8M | ~4.8M |
+| Full image on the 4 TB SATA | **yes** | no (needs 8 TB HDD) | no | no |
+| Relative cost | ~€1.4–1.55k | **~€2.0–2.1k** | ~€1.4–1.6k | ~€1.05–1.15k |
+| Board support | ASRock / WRX90 AI TOP | **ASRock only** | TRX50 (4 M.2) | any |
+
+- **6× Gen4 vs 3× Gen5:** double the capacity, similar sequential and slightly higher random IOPS, for roughly **+€520–630** including the eight adapters/HDD; the cost per TB is better (~€335 vs ~€460), but you need the 8 TB archive and accept six drives of failure domain.
+- **6× Gen4 vs 4× Gen5:** 2 TB more capacity, about **25% less sequential** and **18% less random**, similar total cost; the 4× Gen5 is the speed/4 TB option, the 6× Gen4 the capacity/6 TB option.
+- **6× Gen4 vs 4× Gen4:** 2 TB more and about **50% more sequential/random**, for roughly **+€900–950** including the 8 TB archive; the 4× Gen4 remains the cheapest per TB.
+- The six Gen4 drives use **all six NVMe ports**; there is no free NVMe for the OS. Put the OS on the 4 TB SATA (or a small SATA SSD), and the 8 TB HDD on a SATA port for the array image. The Meshify 2 XL’s six 3.5" + two 2.5" bays fit the six cabled M.2 drives, the 4 TB SATA and the 8 TB HDD with M.2-to-2.5" adapters.
+- This is the **ASRock-only capacity play**; the TRX50 AI TOP has four M.2 + four SATA (no six NVMe), and the WRX90 AI TOP tops out at five NVMe ports (2 M.2 + 1 Gen4 M.2 + 2 MCIO, with MCIOX8_1 sharing). If a 6 TB working set and six-way striping are the goal, the ASRock is the board.
+
 ## 4. Giant-model weight streaming: what the 4× RAID 0 actually buys
 
 The 4×1 TB RAID 0 is useful, but not for the reason the “sequential read” headline suggests.

@@ -136,6 +136,8 @@ So: ASRock for **WRX90 + IPMI now**, WRX90 AI TOP for **Gigabyte-native WRX90 + 
 
 **Today’s pick: ASRock WRX90 WS EVO** — unless four Gen5 M.2 drives (or the Gigabyte AI TOP brand) are a hard requirement. With the build’s current Gen4 990 PRO drives, the ASRock’s four-drive RAID 0 is 4 Gen4, exactly like the TRX50 AI TOP with the same drives; the TRX50’s four Gen5 sockets only pay off when you buy Gen5 drives. For roughly the same money after two MCIO cables, the ASRock adds IPMI, native WRX90/8-DIMM validation, six NVMe ports and active VRM cooling. Swap the board in Option B and add 2× MCIO-to-M.2 cables; the rest of the BOM is unchanged.
 
+**Six-drive option.** The ASRock’s six NVMe ports (2 M.2 + 2 MCIO + 2 SlimSAS) can run a **6×1 TB Gen4 RAID 0**: 6 TB, ~44 GB/s, ~7.2M 4K IOPS, four adapter cables. It needs an **8 TB SATA HDD** for a full array image (the 4 TB SATA cannot hold 6 TB) and uses all six NVMe ports, so the OS goes on the 4 TB SATA. The TRX50 AI TOP (4× M.2 + 4 SATA) and WRX90 AI TOP (5 NVMe max) cannot do six NVMe. The trade-offs are in [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md) §3.
+
 ### 2.2 Ryzen Threadripper PRO 9955WX
 
 | Property | 9955WX | 7965WX | 9965WX | 9975WX |
