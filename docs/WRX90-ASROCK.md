@@ -58,6 +58,24 @@ If you want four Gen5 drives in RAID 0, the TRX50 AI TOP is the simpler board. I
 
 The ASRock’s 4-drive array at 3 Gen5 + 1 Gen4 is not a disaster: RAID 0 sums sequential bandwidth and random IOPS, so the array is still fast; the Gen4 member simply contributes less. The 4 TB capacity is unchanged.
 
+**If you settle on three Gen5 drives:** the ASRock (and the WRX90 AI TOP) become a clean **all-Gen5** array — 1 Gen5 M.2 + 2 Gen5 MCIO on the ASRock, 2 Gen5 M.2 + MCIOX8_2 on the WRX90 AI TOP. The Gen4 M.2 is then free for the OS/scratch or a fourth Gen4 drive, and there is no Gen4 member dragging the RAID 0 down. What you give up versus four identical Gen5 drives:
+
+| | 3× Gen5 1 TB | 4× Gen5 1 TB | 4× Gen4 1 TB |
+|---|---:|---:|---:|
+| Capacity | 3 TB | 4 TB | 4 TB |
+| Sequential read (approx.) | 42–44 GB/s | 56–59 GB/s | 28–30 GB/s |
+| 4K random IOPS (approx.) | ~6.6M | ~8.8M | ~4.8M |
+| All-Gen5 array | **yes** | yes | no |
+| Full image on the 4 TB SATA (3.6 TB usable) | **yes (3 TB)** | no (4 TB) | no (4 TB) |
+| Relative cost (1 TB drives) | ~€1,050–1,200 + OS drive + 2 MCIO cables | ~€1,400–1,600 | €1,048 |
+
+- Versus **4× Gen5**: you lose **1 TB** and roughly **25%** of sequential and random throughput. You keep an all-Gen5 array and add the 4 TB SATA full-image option.
+- Versus **4× Gen4**: you lose **1 TB**, but you gain roughly **50% sequential** and **35–40% random IOPS**; once the fourth Gen4 OS drive and the MCIO cables are counted, the 3× Gen5 build is roughly **25–40% more expensive**. The Gen4 array is the cheaper 4 TB option.
+- For the stated workload, **3 TB is ample**: Strata IQ3_S 79 GB + Saber Flash-Next ~335 GB + a 191 GB and a 508 GB giant model ≈ 1.1 TB, leaving ~1.9 TB. The 4 TB SATA can hold a full image of the 3 TB array (3.6 TB usable), which a 4 TB array cannot.
+- RAID 0 has no redundancy either way; three drives have a lower failure probability than four, and the 3 TB image fits the SATA. The 3 TB array is the better operational compromise if you want all-Gen5 without a carrier.
+
+So: **3× Gen5 is the clean all-Gen5 compromise** — 1 TB and 25% throughput less than 4× Gen5, but faster than 4× Gen4 and imageable on the 4 TB SATA. If capacity is the priority, 4× Gen4; if maximum array speed, 4× Gen5 on the TRX50 AI TOP; if all-Gen5 plus IPMI/proper WRX90, 3× Gen5 on the ASRock.
+
 ## 4. Giant-model weight streaming: what the 4× RAID 0 actually buys
 
 The 4×1 TB RAID 0 is useful, but not for the reason the “sequential read” headline suggests.
