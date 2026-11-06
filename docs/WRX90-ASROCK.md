@@ -31,6 +31,8 @@ So: if you need **WRX90 + IPMI now**, the ASRock is the board. If you want the *
 
 The ASRock is the **available** WRX90/IPMI value; the WRX90 AI TOP is the **Gigabyte-native** WRX90/IPMI board but is not yet priced or on a shelf; the TRX50 AI TOP is the **four-Gen5-M.2** board without IPMI.
 
+**Platform nuance:** the TRX50 AI TOP is **not a standard TRX50 board**. Standard TRX50 is 4-channel UDIMM with a non-Pro Threadripper and 80 PCIe 5.0 lanes. The AI TOP is a hybrid: its manual supports **PRO 9000-WX/7000-WX + DDR5 RDIMM (RDIMM/RDIMM-3DS), 8 DIMM slots, 8-channel, 2 TB**, and exposes the PRO’s 128 lanes to the four x16 slots and four M.2 sockets. With a non-Pro TR 9000/7000 it drops to 4 channels, four active DIMM slots, PCIEX16_4 at Gen4 and M2D disabled. That hybrid behavior is why the 9955WX + 2×64 GB RDIMM works on it; the WRX90 boards are the standard PRO/RDIMM platform.
+
 ## 2. The slot reality with four 2-slot R9700s
 
 Both WRX90 boards have seven x16 slots on a **1-slot pitch**. Four 2-slot cards go in PCIE1, 3, 5 and 7; slots 2, 4 and 6 are covered by the cards. The fourth card’s second bracket lands in the case’s 8th slot. So:

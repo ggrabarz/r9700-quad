@@ -124,6 +124,8 @@ From the board manual (rev. 1.07) and product specifications:
 
 The block diagram is unambiguous: four x16 slots and four x4 M.2 sockets all hang directly off the sTR5 CPU. There is no chipset bottleneck and no lane-sharing switch to decode.
 
+**Platform nuance — “TRX50” here is the chipset, not the standard TRX50 platform.** A standard TRX50 board is **4-channel UDIMM with a non-Pro Threadripper** (80 PCIe 5.0 lanes). The **TRX50 AI TOP is a hybrid**: Gigabyte wires **8 RDIMM slots** and exposes the PRO CPU’s **8-channel/128-lane** memory and PCIe, and the manual explicitly supports **PRO 9000-WX/7000-WX + DDR5 RDIMM (RDIMM/RDIMM-3DS), 8-channel, 2 TB**. That is why the 9955WX and 2×64 GB RDIMM work on it. With a non-Pro TR 9000/7000 it falls back to 4 channels, four active DIMM slots, PCIEX16_4 at Gen4 and M2D disabled. If you want the **standard/proper WRX90 platform** (PRO only, 8-channel RDIMM, 128 lanes, IPMI), the ASRock WRX90 WS EVO is available now and the Gigabyte WRX90 AI TOP is announced; the trade is 3 Gen5 + 1 Gen4 for the four-drive array instead of 4 Gen5.
+
 **Board alternatives.** There are now three relevant boards, and no single one wins every column:
 
 - **ASRock WRX90 WS EVO — €808.05, available.** WRX90 + IPMI, 7× x16, 1 Gen5 M.2 + 1 Gen4 M.2 + 2 Gen5 MCIO + 2 Gen4 SlimSAS; the 4-drive RAID 0 is **3 Gen5 + 1 Gen4** and needs MCIO cables.
