@@ -111,6 +111,7 @@ From the board manual (rev. 1.07) and product specifications:
 | Feature | Detail | Why it matters here |
 |---|---|---|
 | CPU socket | sTR5, TR PRO 9000-WX / 7000-WX and TR 9000 / 7000 | Drop-in path from a 16-core PRO to a 96-core PRO later. |
+| Chipset / management | **AMD TRX50; no BMC/IPMI** — Q-Flash Plus is BIOS recovery, not remote management | The PRO CPU still unlocks 8-channel and 128 lanes, but the chipset is TRX50. The ASRock WRX90 WS EVO is the WRX90 + AST2600 IPMI alternative (see [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md)). |
 | Memory | 8× DDR5 RDIMM/RDIMM-3DS, up to 2 TB; 8-channel with PRO, 4-channel with non-PRO | Exactly the “2 DIMMs now, 8 DIMMs later” topology. |
 | PCIe slots | 4× PCIe 5.0 x16 (PCIEX16_1…4), all CPU-attached | Four GPUs at full x16. With a non-PRO TR 7000, PCIEX16_4 is Gen4; with the PRO 9955WX all four are Gen5. |
 | M.2 | 4× PCIe 5.0 x4 CPU-attached (M2C/B/A + M2D) | Four 1 TB drives at full Gen5 x4. M2D requires a PRO 9000WX/7000WX; the 9955WX is PRO, so all four work. |
