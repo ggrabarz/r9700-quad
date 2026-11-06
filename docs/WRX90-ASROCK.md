@@ -188,7 +188,7 @@ The 9955WX is a **350 W** part; the TRX50 AI TOP’s 16+8+4 VRM is adequate for 
 
 The board OC numbers are **2–4 DIMM OC R-DIMM** figures (usually 16/24/32 GB modules), not 8×64 GB 2Rx4. The 9955WX’s official 6400 is the realistic JEDEC ceiling; 7600/7800 requires EXPO OC R-DIMM kits, a lucky IMC and the board’s QVL. With the build’s current 5600 modules, all three boards run **5600** — the module is the limit, not the board. If you want 6400, buy 6400 64 GB 2Rx4 modules and check the QVL; the 8×64 endgame is 6400 at best, not 7600/7800.
 
-The BOM stays at 5600 because the 64 GB 2Rx4 5600 part is the volume/JEDEC/QVL-friendly module at €39.05/GB; 6400 64 GB 2Rx4 is rarer and dearer, and the 7600/7800 numbers are 2–4 DIMM OC kits, not eight 64 GB modules. The 9955WX’s 6400 is only +14% host bandwidth, and the decode loop is GPU-bound with the experts in VRAM. Spend the premium on capacity (8×64 = 512 GB) before the last 800 MT/s.
+The BOM stays at 5600 because the 64 GB 2Rx4 5600 part is the volume/JEDEC/QVL-friendly module at €39.05/GB; 6400 64 GB 2Rx4 is rarer and dearer, and the 7600/7800 numbers are 2–4 DIMM OC kits, not eight 64 GB modules. For **IQ3_S fully resident**, the 9955WX’s 6400 is only +14% host bandwidth and the decode loop is GPU-bound. **For DeepSeek V4.1 that spills out of VRAM, RAM bandwidth is on the decode path**: 2×64 89.6, 4×64 179.2, 8×64 358.4, 8×64 6400 409.6 GB/s. The 2×64 staging config is not a DeepSeek config; 8×64 5600 (512 GB) is the capacity/bandwidth baseline, 6400 is +14% if the QVL/price works, and the 24C 9965WX gives 23 pool workers vs 15. Spend the premium on capacity/channels before the last 800 MT/s.
 
 ### BMC: integrated, not an add-on
 

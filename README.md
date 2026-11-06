@@ -151,6 +151,21 @@ The ASRock’s 8-channel population is the native WRX90 layout. The 2-DIMM start
 
 **Why 5600 in the BOM?** Because it is the fastest **64 GB 2Rx4 ECC RDIMM** that is a volume, JEDEC, QVL-friendly part at a sane price. The 64 GB 2Rx4 5600 module is €39.05/GB; 6400 64 GB 2Rx4 modules are rarer and carry a premium, and the 7600/7800 figures are 2–4 DIMM OC R-DIMM kits (16/24/32 GB), not eight 64 GB modules. The 9955WX’s official 6400 is only **+14% host bandwidth** (89.6 → 102.4 GB/s at 2 DIMMs; 358.4 → 409.6 at 8), and the decode loop is GPU-bound with the experts in VRAM; the host bandwidth mostly affects model load, PLE, checkpoints and CPU fallback. The 8×64 capacity is the real endgame lever, not the last 800 MT/s. If you can source 6400-rated 64 GB 2Rx4 modules on the QVL at a fair price, take them; otherwise 5600 is the correct cost/benefit choice, and the 8×64 endgame at 5600 is the stable target.
 
+**DeepSeek exception — when the model spills out of VRAM, RAM bandwidth is on the decode path.** Everything above about “GPU-bound” is for IQ3_S fully resident. DeepSeek V4.1 2.00/2.25 bpw is a 191 GB model, larger than 128 GB of VRAM; the CPU/expert lane reads from host RAM/SSD every token. The 2×64 5600 staging configuration is **not** a DeepSeek configuration.
+
+| RAM / CPU step | Added cost | Channels / bandwidth | Covers |
+|---|---:|---|---|
+| 2×64 5600 (BOM) | — | 2ch / 89.6 GB/s | IQ3_S fully resident (staging) |
+| 4×64 5600 | +€4,998 | 4ch / 179.2 GB/s | DeepSeek 2.00/2.25 bpw (3.7/20.7 GB CPU lane), 256 GB |
+| **8×64 5600** | **+€14,994** | **8ch / 358.4 GB/s** | 512 GB; UD-Q8 508 GB set (171.5 GB CPU lane) |
+| 8×64 6400 | + module premium | 8ch / 409.6 GB/s | +14% bandwidth; QVL-dependent |
+| 9965WX 24C | +€1,378 | 23 pool workers vs 15 | CPU expert lane, if CPU-bound |
+
+Option A with 4×64 = **€15,566.85**; with 8×64 = **€25,862.73**; with 8×64 + 24C = **€27,282.38** (platform, 3% contingency, before any 6400 premium). The 8×64 kit alone is €19,992 at the snapshot — the DRAM tax dominates the giant-model build.
+
+**If DeepSeek V4.1 is a primary workload**, budget the **8×64 (512 GB, 8 channels) and the 24C 9965WX** before the last 800 MT/s: the 2×64 → 8×64 step is 4× the channels and 4× the capacity; 5600 → 6400 is +14%. If DeepSeek is occasional, the 2×64/16C IQ3_S build is the cost/benefit choice, and the 8×64 upgrade is the later step. If you want 6400, it is only worth the premium when the 64 GB 2Rx4 part is on the QVL and the CPU lane is the measured bottleneck; the 7600/7800 OC kits are still not 8×64.
+
+
 ### 3.2 Why 128 GB now
 
 - The model is 79 GB on disk; the PLE table is 28.8 GB. With 128 GB of VRAM the experts live on the GPUs, but the host needs the PLE table (28.8 GB with `--ple-io ram`), the OS/page cache and checkpoint headroom. 64 GB is the documented minimum (IQ3_S “with little else open”); 128 GB is the comfortable floor.
