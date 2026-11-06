@@ -111,7 +111,7 @@ From the board manual (rev. 1.07) and product specifications:
 | Feature | Detail | Why it matters here |
 |---|---|---|
 | CPU socket | sTR5, TR PRO 9000-WX / 7000-WX and TR 9000 / 7000 | Drop-in path from a 16-core PRO to a 96-core PRO later. |
-| Chipset / management | **AMD TRX50; no BMC/IPMI** — Q-Flash Plus is BIOS recovery, not remote management | The PRO CPU still unlocks 8-channel and 128 lanes, but the chipset is TRX50. The ASRock WRX90 WS EVO is the WRX90 + AST2600 IPMI alternative (see [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md)). |
+| Chipset / management | **AMD TRX50; no BMC/IPMI** — Q-Flash Plus is BIOS recovery, not remote management | The PRO CPU still unlocks 8-channel and 128 lanes, but the chipset is TRX50. For WRX90 + IPMI, the ASRock WRX90 WS EVO is available now; the Gigabyte WRX90 AI TOP is announced (2026-10-30, no price yet). See [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md). |
 | Memory | 8× DDR5 RDIMM/RDIMM-3DS, up to 2 TB; 8-channel with PRO, 4-channel with non-PRO | Exactly the “2 DIMMs now, 8 DIMMs later” topology. |
 | PCIe slots | 4× PCIe 5.0 x16 (PCIEX16_1…4), all CPU-attached | Four GPUs at full x16. With a non-PRO TR 7000, PCIEX16_4 is Gen4; with the PRO 9955WX all four are Gen5. |
 | M.2 | 4× PCIe 5.0 x4 CPU-attached (M2C/B/A + M2D) | Four 1 TB drives at full Gen5 x4. M2D requires a PRO 9000WX/7000WX; the 9955WX is PRO, so all four work. |
@@ -124,7 +124,13 @@ From the board manual (rev. 1.07) and product specifications:
 
 The block diagram is unambiguous: four x16 slots and four x4 M.2 sockets all hang directly off the sTR5 CPU. There is no chipset bottleneck and no lane-sharing switch to decode.
 
-**Board alternative — ASRock WRX90 WS EVO.** At the same snapshot it is **more capable on paper and cheaper** (€808.05 vs €896.75): 7× PCIe 5.0 x16, 1× Gen5 M.2 + 1× Gen4 M.2 + 2× Gen5 MCIO + 2× Gen4 SlimSAS, IPMI, dual 10GbE, 18+3+3 VRM. The catches: with four 2-slot R9700s the extra x16 slots are covered (the slots are 1-slot pitch; cards go in 1/3/5/7), so there is no free carrier slot, and the 4-drive RAID 0 is **3 Gen5 + 1 Gen4** (1 Gen5 M.2 + 2 Gen5 MCIO + 1 Gen4 M.2) unless you use MCIO adapters/drives. For the simplest all-Gen5 4×M.2 array, the Gigabyte is better; for IPMI, six NVMe ports and a giant-model library, the ASRock is better. The full comparison and the SSD-streaming analysis are in [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md).
+**Board alternatives.** There are now three relevant boards, and no single one wins every column:
+
+- **ASRock WRX90 WS EVO — €808.05, available.** WRX90 + IPMI, 7× x16, 1 Gen5 M.2 + 1 Gen4 M.2 + 2 Gen5 MCIO + 2 Gen4 SlimSAS; the 4-drive RAID 0 is **3 Gen5 + 1 Gen4** and needs MCIO cables.
+- **Gigabyte WRX90 AI TOP — announced 2026-10-30, no price or retail offers at the snapshot.** WRX90 + IPMI, 7× x16, **2 Gen5 M.2** + 1 Gen4 M.2 + 2 MCIO; the 4-drive RAID 0 is also **3 Gen5 + 1 Gen4**, because MCIOX8_1 shares bandwidth with the two Gen5 M.2 slots. It is the Gigabyte-native WRX90/IPMI board, but it does not restore four Gen5 M.2.
+- **Gigabyte TRX50 AI TOP — €896.75, available.** TRX50, no IPMI, 4× x16, but **4 Gen5 M.2**; the only one of the three that runs four Gen5 drives in RAID 0 without a carrier.
+
+So: ASRock for **WRX90 + IPMI now**, WRX90 AI TOP for **Gigabyte-native WRX90 + IPMI when it ships**, TRX50 AI TOP for **four Gen5 M.2 now**. The full comparison, the slot reality and the SSD-streaming analysis are in [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md).
 
 ### 2.2 Ryzen Threadripper PRO 9955WX
 
