@@ -91,6 +91,21 @@ This is why the 4 TB RAID 0 is a **cold-start and load** tool for dense models, 
 
 MoE is the opposite trade: only the active experts are read, so the per-token bytes are much smaller and the access pattern is random; that is why a 191 GB DeepSeek 2.00 bpw can run at 74–77 tok/s on four R9700s while a 200 GB dense model cannot stream at interactive speed. The 4× RAID 0 is still the right array for both, but for dense it mainly buys faster loads and checkpoint writes; for MoE it also serves the steady-state expert misses.
 
+## 4.5 What the WRX90 AI TOP buys over the TRX50 AI TOP
+
+The WRX90 chipset does **not** make the GPUs faster: the 9955WX’s CPU-attached PCIe lanes, 8-channel memory and 128-lane budget are the same on both boards. The advantages are operational and structural:
+
+| WRX90 AI TOP advantage | Why it matters | What it costs |
+|---|---|---|
+| **IPMI / AST2600 BMC** | Remote power, KVM, monitoring and troubleshooting without a GPU/display; the TRX50 AI TOP has no BMC. | No IPMI on the TRX50; OS-level management only. |
+| **Proper PRO/RDIMM platform** | Native 8-channel RDIMM, PRO-only; no hybrid fallback or “non-Pro loses slots/Gen5” caveats. | The TRX50 AI TOP is a hybrid that works with the 9955WX, but it is not the standard platform. |
+| **32+3+3+3 VRM, 14-layer PCB, active DDR cooling** | More margin for a 350 W PRO (and a future 96-core), and the DDR Wind Blade fans target the 8-DIMM heat in a 4-GPU case. | TRX50 AI TOP is 16+8+4 without active memory fans. |
+| **7× x16 + 2× MCIO + 4× SATA** | More expansion and storage ports; the MCIO drives can sit in the case’s 2.5" bays away from the GPUs. | With four 2-slot R9700s the extra x16 slots are covered; no free carrier slot. |
+| **Ubuntu 24.04 LTS + AI TOP Utility** | Matches the Strata server OS; the TRX50 AI TOP’s manual lists Windows 11 only. | Linux works on both, but the WRX90 AI TOP is the one Gigabyte lists for Ubuntu. |
+| **4× Gen5 M.2** | **No advantage** — the WRX90 AI TOP has 2 Gen5 M.2 + 1 Gen4 M.2 + 2 MCIO, with MCIOX8_1 sharing the M.2 slots. | The four-drive array is 3 Gen5 + 1 Gen4, versus 4 Gen5 on the TRX50 AI TOP. |
+
+**Bottom line:** WRX90 buys **management, platform correctness, VRM/memory margin and storage expansion**. TRX50 buys **four Gen5 M.2 in the four-drive array**, a lower price and immediate availability, at the cost of no IPMI and a hybrid platform. For the IQ3_S workload the GPU performance is identical; the choice is operational.
+
 ## 5. Does the build change?
 
 **Board only; CPU, RAM, PSU, case and GPUs stay the same.**
