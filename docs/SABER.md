@@ -56,6 +56,10 @@ The hardware conclusion does not change: the **4×1 TB RAID 0** is the right pla
 
 **If you want to test Saber without changing the build:** run it on two of the four cards (TP=2) and keep Strata on all four for production. The 4 TB array has room for both packs. The test is cheap; the risk is that Saber is young and its Flash-Next numbers are unpublished.
 
+## Can the 2× config just be expanded to 4×?
+
+No — not as a config change. The code-level answer is in [`SABER-4X.md`](SABER-4X.md): Flash-Next has 2 KV heads, so dense TP=4 would need 0.5 KV heads per rank; the current pack is EP=2 + dense TP=2, the all-reduce is two-rank, and the command protocol is two-rank. The three possible 4-GPU paths are two independent TP=2 servers (two models), EP=4 with dense TP=2 pairs (KV replicated, stream capacity risk), or a pipeline/layer split (the design that meets 8×262K; Strata already does it). A docs/RFC patch for upstream Saber is in [`../patches/`](../patches/).
+
 ## Recommendation
 
 1. **Keep Strata as the production engine** for the 4-GPU, IQ3_S, 8×262K-stream objective. It is the only one of the two that can use all four cards for one model, and it is the engine with measured configs on this class of hardware.

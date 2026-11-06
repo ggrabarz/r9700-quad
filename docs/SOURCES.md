@@ -59,6 +59,8 @@ Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not
 | [Saber repository](https://github.com/GGZ14/saber-engine) | Rust/HIP engine for gfx1201; Qwen3.8-27B and Qwen3.8 Flash-Next; **TP=1/2 only**, refuses 3/4; MXFP4 `SBRPACK1` packs; 95.4 GiB bf16 PLE table with `O_DIRECT`; 229 tok/s 27B on 2× R9700. |
 | [Launch post by @bkuyper, 2026-11-05](https://x.com/bkuyper/status/2118433092230606937) | Announcement and the project link; the screenshot is a terminal capture, not a Flash-Next benchmark table. |
 | [`docs/SABER.md`](SABER.md) | The fit analysis against this 4-GPU build; why it does not change the BOM. |
+| [`docs/SABER-4X.md`](SABER-4X.md) | Code-level 4-GPU feasibility: Flash-Next 2-KV-head limit, EP=4/TP=2 vs pipeline, code touchpoints, BOM impact. |
+| [`patches/`](../patches/) | Upstream Saber docs/RFC patch, apply/submit instructions, PR body. |
 
 The Saber numbers are the project’s claims, not measurements on this host. The 229 tok/s figure is the 27B dense model, not Flash-Next; do not transfer it to the MoE workload.
 

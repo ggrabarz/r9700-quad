@@ -1,0 +1,191 @@
+From 9285c1130bd8ed8f970f6705bc1d3bac4b331072 Mon Sep 17 00:00:00 2001
+From: Fylch Sharptail <FylchSharptail@users.noreply.github.com>
+Date: Fri, 6 Nov 2026 15:48:08 +0000
+Subject: [PATCH] docs: add 4x R9700 host guide and 4-rank RFC
+
+Document the four-card R9700 hardware envelope and the current TP=2
+limit, including the Flash-Next 2-KV-head constraint. Add an RFC for a
+four-rank mode (EP=4 + dense TP=2 vs pipeline/layer split) with the code
+touchpoints and acceptance gates.
+
+No engine code changes.
+---
+ docs/4X-R9700.md   | 62 ++++++++++++++++++++++++++++++
+ docs/RFC-4-RANK.md | 96 ++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 158 insertions(+)
+ create mode 100644 docs/4X-R9700.md
+ create mode 100644 docs/RFC-4-RANK.md
+
+diff --git a/docs/4X-R9700.md b/docs/4X-R9700.md
+new file mode 100644
+index 0000000..7dd749e
+--- /dev/null
++++ b/docs/4X-R9700.md
+@@ -0,0 +1,62 @@
++# Running Saber on a 4× Radeon AI PRO R9700 host
++
++Status: hardware guide, 2026-11-06. This documents what a four-card R9700 host can do with Saber **today**, and what it cannot. It does not claim TP=4 support.
++
++## The host
++
++| Part | Choice | Why |
++|---|---|---|
++| GPUs | 4× Radeon AI PRO R9700 32 GB (gfx1201), 2-slot blower, 300 W, 1× 12V-2x6 | Saber uses two per TP=2 server; a future 4-rank mode would use all four. |
++| Board | Gigabyte TRX50 AI TOP | 4× PCIe 5.0 x16, 4× PCIe 5.0 x4 M.2, 8 DDR5 RDIMM slots. |
++| CPU | Ryzen Threadripper PRO 9955WX (16C/32T, 128 PCIe 5.0 lanes, 8-channel) | The cheapest 9000WX part that unlocks all four x16 slots, all four M.2 slots and 8-channel memory. |
++| RAM | 2× 64 GB DDR5-5600 2Rx4 ECC RDIMM (128 GB now; 8× = 512 GB later) | The PLE table is `O_DIRECT` from NVMe, so RAM is the OS/checkpoint floor, not a PLE cache. |
++| Storage | 4× 1 TB NVMe RAID 0 (4 TB) + 1× 4 TB SATA SSD | Flash-Next needs ~70 GB of packs + a 170 GB checkpoint + a 95.4 GiB PLE table read in place; 4 TB holds both Saber and a Strata IQ3_S install. |
++| PSU | 2,200 W ATX 3.1 (Seasonic PRIME PX-2200) | Saber caps at 210 W/card, so 4×210 W is easy. The 2,200 W unit is sized for Strata’s 4×300 W mode; it is not required for Saber alone. |
++| Cooling / case | 360 mm sTR5 AIO, Fractal Meshify 2 XL | Four 2-slot blowers, 9+3 slots, 250 mm PSU, 480 mm top radiator. |
++
++Measured reference point: **Qwen3.8-27B, TP=2 on two R9700s, 229 tok/s single-stream decode, ~47 ms TTFT, 5,000+ tok/s prefill at a 210 W/card cap, 262K context** (the repo README’s number). Flash-Next is served by the same binary; no Flash-Next decode number is published.
++
++## What works today
++
++### One TP=2 server on a pair
++
++Use the existing launchers. For Flash-Next, `tools/serve_flashnext.sh` already reads `HIP_DEVICES` (default `0,1`); set it to the pair you want:
++
++```sh
++HIP_DEVICES=0,1 PORT=8080 CNAME=saber-fn-a tools/serve_flashnext.sh
++```
++
++The other pair is idle for that model. The server is OpenAI-compatible on `:8080`.
++
++For the 27B, `tools/serve_27b.sh` selects `--engine-device 0 --engine-peer-device 1`; to pin it to a pair, the container must see that pair as devices 0 and 1. The launcher does not yet forward an explicit pair variable to the container, so a one-line `-e HIP_VISIBLE_DEVICES=...` change is needed for pair selection. The default pair is 0,1.
++
++### Two independent TP=2 servers (two models)
++
++The engine is built for one TP=2 server at a time. The Flash-Next launcher refuses to start while another `saber-fn`/`saber-flashnext-serve` container is running, so two servers on disjoint pairs are **not supported by the launcher today**. The intended multi-model path is one server at a time; if you need two models on four cards, that needs a launcher change and a 4-card test. It still serves two models, not one model across four cards.
++
++### Not supported: TP=3 / TP=4
++
++`--tp 3/4` is refused by the CLI (`crates/saber-cli/src/main.rs`), the setup wizard only enables TP=2 (`tools/saber-setup`), and the executor/all-reduce are two-rank (`crates/saber-engine/src/device.rs`, `crates/saber-plan/src/reference.rs`). See `docs/RFC-4-RANK.md` for the design work.
++
++## Why Flash-Next cannot be dense-TP=4
++
++Flash-Next has **24 query heads and 2 KV heads** (`num_key_value_heads: 2`, GQA 12). Dense TP=4 would need 0.5 KV heads per rank; the graph’s TP divisor refuses a dimension that does not divide by `tp`. The current pack is **EP=2 (256 of 512 experts per rank) + dense TP=2**; a four-GPU version must choose EP=4 with TP=2 pairs, EP=4 with TP=1, or a pipeline split — not `tp = 4`.
++
++The 27B is different: 24 q heads and 4 KV heads divide by 4 (6 q, 1 KV; GDN 16/48 divide by 4). A 27B TP=4 is graph-legal, but the executor, all-reduce and pack are still two-rank, so it is not available today either.
++
++## Storage and the PLE table
++
++Saber’s Flash-Next pack points into AMD’s 170 GB checkpoint for the embeddings, norms, router and the per-layer-embedding table. The table is **320,001,536 rows × 160 bf16 = 95.4 GiB**, read 16 rows (5,120 bytes) per token with `O_DIRECT`. Keep the checkpoint and packs on the 4 TB NVMe array; the 4 TB SATA is the cold archive. A 2 TB array would be tight once both Saber and Strata packs are installed; 4 TB is the comfortable size.
++
++## What to measure on a 4-card host
++
++1. One TP=2 server on 0,1; record decode, TTFT, prefill, wall power, per-card VRAM.
++2. The same on 2,3; confirm the pair is symmetric.
++3. A 2×2 attempt (two servers, disjoint pairs, distinct `CNAME`/`PORT`/`SABER_SHARED`/`HIP_DEVICES`) **only** after the launcher check is relaxed; record whether both boot and whether the engine’s IPC/ports interfere.
++4. For a future 4-rank mode: token equality, 262K stream stability, per-card VRAM, 4-rank all-reduce correctness, wall power.
++
++## What this guide does not claim
++
++- It does not claim 4-rank support, TP=4, or a 4× decode number.
++- It does not claim two servers on four cards work with today’s launcher.
++- The 229 tok/s figure is the 27B dense model, not Flash-Next.
+diff --git a/docs/RFC-4-RANK.md b/docs/RFC-4-RANK.md
+new file mode 100644
+index 0000000..6c2db6f
+--- /dev/null
++++ b/docs/RFC-4-RANK.md
+@@ -0,0 +1,96 @@
++# RFC: four-rank Saber for a 4× R9700 host
++
++Status: proposal, 2026-11-06. This is a design note, not an implementation. It exists because a four-card R9700 host is a real configuration (`docs/4X-R9700.md`) and the current engine is TP=1/2 only.
++
++## Summary
++
++Saber’s Flash-Next path is **EP=2 over two ranks, dense TP=2**. The dense attention has **2 KV heads**, so a dense TP=4 split would need 0.5 KV heads per rank; that is not a head count. A four-card mode therefore needs a different decomposition. Two candidates:
++
++1. **EP=4 + dense TP=2 (two pairs).** 512/4 = 128 experts per rank; the dense layers stay TP=2 within each pair; the 2 KV heads are split 1 per rank inside a pair and replicated across pairs. Closest to today’s code; needs a 4-rank MoE combine.
++2. **Pipeline / layer split.** Each rank owns 16 of the 64 layers, with its own dense weights, experts and KV. This is the design that preserves 8×262K streams; it is what Strata already does.
++
++For the stated objective (one Flash-Next model, four cards, 8×262K streams), **the pipeline split is the design that meets the memory target**. EP=4+TP=2 is an intermediate that may fit 8 streams but duplicates KV across pairs and gives limited speed-up. The 27B (4 KV heads) is a separate, smaller TP=4 case.
++
++## Current constraints (code at `cebec82`)
++
++| Constraint | Where |
++|---|---|
++| Flash-Next pack = EP=2 + dense TP=2 | `crates/saber-model/src/qwen4_exp/pack_plan.rs` (`EP`, `TP` constants) |
++| Flash-Next dense TP has only One/Two | `crates/saber-model/src/qwen4_exp/layer_graph.rs` (`enum Tp`) |
++| Flash-Next has 2 KV heads | `crates/saber-model/src/qwen4_exp/config.rs` |
++| All-reduce is 2-rank | `crates/saber-plan/src/reference.rs` (`world_size == 2`) |
++| Executor refuses world != 1/2 | `crates/saber-engine/src/device.rs` |
++| CLI refuses tp != 1/2 | `crates/saber-cli/src/main.rs` |
++| Launchers hardcode TP=2 | `tools/serve_flashnext.sh`, `tools/serve_27b.sh` |
++
++The graph builder already takes a `tp` parameter and divides dimensions generically, but the executor, collectives and pack are the two-rank parts.
++
++## Option 1 — EP=4 + dense TP=2
++
++**Layout.** Four ranks in two pairs. Each rank holds:
++
++- half the dense weights (TP=2), 1.75 GB;
++- 128 routed experts (EP=4), 12.5 GB;
++- one of the two KV heads (TP=2 inside the pair), replicated across pairs: 10.55 GB for 8×262K;
++- buffers ~2 GB, head/draft ~0.8 GB.
++
++Total ≈27.6 GB/rank, ~29.1 GB on the head/vision rank. **8×262K is tight but arithmetically possible** (about 3 GB free on the main rank). It requires:
++
++- a 4-rank MoE combine (each rank computes 128 experts; the routed output is the sum across four ranks);
++- pair-local TP=2 for dense/attention, with the pair’s result replicated to the other pair;
++- a 4-rank pack: `rank0..3`, each with half-dense + 128 experts; the pack builder (`tools/pack/build_flashnext_pack.py`) must be generalized from `EP=2/TP=2`;
++- a 4-rank command/rendezvous protocol (today `saber-engine/src/tp2.rs` is a two-rank link);
++- a 4-rank all-reduce or a hierarchical 2×2 reduce (reduce within each pair, then across pairs).
++
++**Pros:** closest to the current model graph; no layer handoff; each pair can run the existing TP=2 dense path.
++**Cons:** KV is duplicated across pairs (half the per-card KV capacity is wasted); attention/dense compute is duplicated; the 8-stream fit is tight; the speed-up over one TP=2 server is limited to the expert split; a new 4-rank MoE combine is still needed.
++
++## Option 2 — pipeline / layer split
++
++**Layout.** Each rank owns 16 of the 64 layers (or another contiguous split). Each rank holds:
++
++- its layers’ dense weights: ~0.9 GB;
++- its layers’ experts: 12.5 GB;
++- its layers’ KV: 5.3 GB for 8×262K;
++- buffers ~2 GB; head/draft on the last rank ~0.8 GB.
++
++Total ≈21.5 GB/rank; **8×262K fits with ~10 GB free**. There is no KV replication and no duplicated dense compute.
++
++**Needs:**
++
++- a layer handoff per token/verify window (pipeline), with the hidden state moving rank to rank;
++- per-rank KV and per-rank expert caches (the pack is layer-sharded, not expert-parallel across all layers);
++- a scheduler that keeps the pipeline full (prefill chunks, decode windows);
++- a new pack layout and builder;
++- a 4-rank control plane.
++
++**Pros:** the only option that comfortably meets 8×262K and scales with four cards; no KV duplication.
++**Cons:** a new executor, not a TP knob; the current `tp2` command protocol and `Graph` are built around a two-rank pair. This is the largest change, but it is the design the objective needs.
++
++## Option 3 — 27B TP=4 (separate)
++
++The 27B has 24 q heads and **4 KV heads**, so TP=4 is head-legal (6 q, 1 KV; GDN 16/48 divide by 4). A 27B TP=4 could reuse a 4-rank all-reduce and a 4-rank pack without the Flash-Next MoE complications. It does not solve the Flash-Next 2-KV-head problem, but it is a smaller first step for validating a 4-rank executor. If the maintainer wants a staged path: 27B TP=4 first, then EP=4/pipeline for Flash-Next.
++
++## Suggested sequence
++
++1. **Docs (this PR):** `docs/4X-R9700.md`, the hardware envelope and the 2-card limits.
++2. **RFC (this document):** agree on Option 1 vs Option 2. The recommendation for 8×262K is Option 2.
++3. **Prototype:** a 4-rank all-reduce and a 4-rank command frame, tested on synthetic buffers before any model.
++4. **27B TP=4:** validate the 4-rank path on the dense model (4 KV heads, simpler graph).
++5. **Flash-Next:** implement the chosen decomposition (EP=4 or pipeline), generate 4-rank packs, add gates.
++6. **Launchers / setup:** a four-device selector, a 4-rank pack, and a `serve_flashnext_4x.sh`.
++
++## Acceptance gates
++
++- token equality vs the TP=2 reference on a fixed prompt set;
++- 262K context with 8 concurrent streams, no drops, no VRAM growth over 24 h;
++- per-card VRAM ≤30 GB, wall power ≤1,600 W (4×210 W cap);
++- 4-rank all-reduce correctness (sum and bit-exact where required);
++- pack rank/TP header checks, cold-start time, and a 4-card thermal soak;
++- a documented fallback to the TP=2 server if a rank fails.
++
++## Non-goals
++
++- This RFC does not promise a date or a speed-up.
++- It does not change the hardware requirement: 4× R9700 32 GB, 128 GB host RAM, a 4 TB NVMe array and a 2,200 W PSU are already the right envelope (`docs/4X-R9700.md`).
++- It does not claim the 229 tok/s 27B number transfers to Flash-Next.
+-- 
+2.53.0
+

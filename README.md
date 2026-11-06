@@ -98,7 +98,7 @@ Strata (upstream Niko1221/Strata; if your “coldniko” build is a fork, check 
 
 The published AMD support matrix lists the R9700 as maintainer-tested, and the multi-GPU documentation includes measured 2/3/4-card R9700 results. HIP multi-GPU is nevertheless younger than the CUDA path; treat the acceptance run as mandatory, not a formality.
 
-**Alternative engine — Saber.** A new Rust engine, [Saber](https://github.com/GGZ14/saber-engine), targets the R9700 and serves Qwen3.8 Flash-Next, with a headline **229 tok/s for the 27B dense model on two cards**. It is **TP=1/2 only** and explicitly refuses TP=3/4, and it uses MXFP4 packs rather than IQ3_S/GGUF. It therefore cannot use all four cards for one model and does not change this build. The full evaluation — including its 95.4 GiB PLE table and what it would mean for a 2-GPU box — is in [`docs/SABER.md`](docs/SABER.md).
+**Alternative engine — Saber.** A new Rust engine, [Saber](https://github.com/GGZ14/saber-engine), targets the R9700 and serves Qwen3.8 Flash-Next, with a headline **229 tok/s for the 27B dense model on two cards**. It is **TP=1/2 only** and explicitly refuses TP=3/4, and it uses MXFP4 packs rather than IQ3_S/GGUF. It therefore cannot use all four cards for one model and does not change this build. The full evaluation — including its 95.4 GiB PLE table and what it would mean for a 2-GPU box — is in [`docs/SABER.md`](docs/SABER.md). The code-level answer to “can we just expand the 2× config to 4×?” — and the upstream docs/RFC patch — is in [`docs/SABER-4X.md`](docs/SABER-4X.md) and [`patches/`](patches/).
 
 ---
 
@@ -590,5 +590,7 @@ All prices are from 2026-11-06 and include VAT. The exact line items, sources an
 | [`configs/strata-4x-r9700-16x131k.json`](configs/strata-4x-r9700-16x131k.json) | Throughput preset, 131K, 16 slots. |
 | [`configs/README.md`](configs/README.md) | Flag-by-flag notes and tuning levers. |
 | [`docs/SABER.md`](docs/SABER.md) | Evaluation of the Saber engine: TP=2 limit, MXFP4 packs, 95.4 GiB PLE, fit against this build. |
+| [`docs/SABER-4X.md`](docs/SABER-4X.md) | Code-level answer to “expand the 2× config to 4×”: why Flash-Next cannot be dense-TP=4, the three 4-GPU paths, and the BOM impact. |
+| [`patches/`](patches/) | Upstream Saber docs/RFC patch (against `cebec82`), apply/submit instructions and PR body. |
 | [`docs/VALIDATION.md`](docs/VALIDATION.md) | Acceptance and benchmark protocol. |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | Source links and what each one verifies. |
