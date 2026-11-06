@@ -56,6 +56,29 @@ The 4×1 TB RAID 0 is useful, but not for the reason the “sequential read” h
 
 Measured anchors for the giant-model case (Strata docs): 4× R9700, DeepSeek V4.1 2.00 bpw, **74–77 tok/s** decode and 400–450 tok/s prefill at 8K (README table); the app’s four-card DeepSeek number is ~31 tok/s (MULTI_GPU). The 4 TB array is not the bottleneck at those rates; the expert cache hit rate, the host RAM and the CPU/PCIe path are.
 
+### Dense models are different: sequential, but bandwidth-brutal
+
+A dense model has no expert routing: every token needs every layer’s weights. When a dense model is larger than VRAM and the engine offloads layers, the per-token read is **sequential** (layer 0, layer 1, …), so the 4× RAID 0’s sequential bandwidth is more relevant than it is for MoE. But the requirement scales with the **entire offloaded weight set per token**, not a few experts:
+
+| Dense model, 4-bit (approx.) | Weights | Fits 128 GB VRAM? | Streaming? | What limits it |
+|---|---:|---|---|---|
+| 27B | 14–26 GB | Yes (2 cards) | No | Compute; Saber measures 229 tok/s on 2× R9700. |
+| 70B | 35–40 GB | Yes | No | Compute. |
+| 120B | 60–70 GB | Yes | No | Compute / KV. |
+| 200B | 100–110 GB | Yes, tight with KV | No or a small spill | VRAM capacity. |
+| 400B | 200–220 GB | No | Yes, ~100 GB spill | **Bandwidth wall** (below). |
+
+The arithmetic is unforgiving. Required read bandwidth = offloaded bytes × tokens/s:
+
+- 10 GB spill at 10 tok/s = **100 GB/s**; at 20 tok/s = **200 GB/s**.
+- 4× Gen4 990 PRO RAID 0 ≈ **28 GB/s**; 4× Gen5 RAID 0 ≈ **56 GB/s**; 8-channel DDR5-5600 ≈ **358 GB/s**.
+- So a 10 GB spill on the SSD tops out around **2.8 tok/s** (Gen4) or **5.6 tok/s** (Gen5) before compute; the same spill served from 8-channel RAM is not the bottleneck.
+- A 400B dense model at 4-bit (~200 GB) with 100 GB offloaded would need ~1 TB/s at 10 tok/s; no 4-drive array and no 8-channel RAM reaches that. Dense offload only works for a **small spill** or at **low single-digit tok/s**.
+
+This is why the 4 TB RAID 0 is a **cold-start and load** tool for dense models, not a way to run a giant dense model interactively. The dense models that fit 128 GB VRAM — up to roughly 200B at 4-bit, or 70B at 8-bit — do not stream at all. If you need a dense model larger than that, the first lever is **more VRAM or a smaller quant**, the second is **8×64 GB RAM** (358 GB/s) for a partial spill; the SSD is third.
+
+MoE is the opposite trade: only the active experts are read, so the per-token bytes are much smaller and the access pattern is random; that is why a 191 GB DeepSeek 2.00 bpw can run at 74–77 tok/s on four R9700s while a 200 GB dense model cannot stream at interactive speed. The 4× RAID 0 is still the right array for both, but for dense it mainly buys faster loads and checkpoint writes; for MoE it also serves the steady-state expert misses.
+
 ## 5. Does the build change?
 
 **Board only, if you choose the ASRock:**
