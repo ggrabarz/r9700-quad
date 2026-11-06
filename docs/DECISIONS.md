@@ -139,7 +139,7 @@ Verified in this checkout:
 ```
 src/program/generate.cpp:669   int64_t kv_resident = 0;   ///< KV streaming: resident cells per QSA layer (0: all in VRAM)
 src/core/layer.cpp:743         if (g_kv_resident <= 0 || ring_cells < 0) return p;   // ring_cells < 0: always fully resident
-src/core/layer.cpp:917         if (p.mode != 0) { ... pinned host copy of the layer's KV ... }
+src/core/layer.cpp:919         if (p.mode != 0) { ... pinned host copy of the layer's KV ... }
 ```
 
 - `0` is the sentinel that disables streaming; it does **not** mean "zero cells
