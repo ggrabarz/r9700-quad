@@ -124,7 +124,7 @@ From the board manual (rev. 1.07) and product specifications:
 
 The block diagram is unambiguous: four x16 slots and four x4 M.2 sockets all hang directly off the sTR5 CPU. There is no chipset bottleneck and no lane-sharing switch to decode.
 
-**Platform nuance — “TRX50” here is the chipset, not the standard TRX50 platform.** A standard TRX50 board is **4-channel UDIMM with a non-Pro Threadripper** (80 PCIe 5.0 lanes). The **TRX50 AI TOP is a hybrid**: Gigabyte wires **8 RDIMM slots** and exposes the PRO CPU’s **8-channel/128-lane** memory and PCIe, and the manual explicitly supports **PRO 9000-WX/7000-WX + DDR5 RDIMM (RDIMM/RDIMM-3DS), 8-channel, 2 TB**. That is why the 9955WX and 2×64 GB RDIMM work on it. With a non-Pro TR 9000/7000 it falls back to 4 channels, four active DIMM slots, PCIEX16_4 at Gen4 and M2D disabled. If you want the **standard/proper WRX90 platform** (PRO only, 8-channel RDIMM, 128 lanes, IPMI), the ASRock WRX90 WS EVO is available now and the Gigabyte WRX90 AI TOP is announced; the trade is 3 Gen5 + 1 Gen4 for the four-drive array instead of 4 Gen5.
+**Platform nuance — “TRX50” here is the chipset, not the standard TRX50 platform.** A standard TRX50 board is **4-channel UDIMM with a non-Pro Threadripper** (80 PCIe 5.0 lanes). The **TRX50 AI TOP is a hybrid**: Gigabyte wires **8 RDIMM slots** and exposes the PRO CPU’s **8-channel/128-lane** memory and PCIe, and the manual explicitly supports **PRO 9000-WX/7000-WX + DDR5 RDIMM (RDIMM/RDIMM-3DS), 8-channel, 2 TB**. That is why the 9955WX and 2×64 GB RDIMM work on it. With a non-Pro TR 9000/7000 it falls back to 4 channels, four active DIMM slots, PCIEX16_4 at Gen4 and M2D disabled. If you want the **standard/proper WRX90 platform** (PRO only, 8-channel RDIMM, 128 lanes, IPMI), the ASRock WRX90 WS EVO is available now and the Gigabyte WRX90 AI TOP is announced; the trade is 3 Gen5 + 1 Gen4 for the four-drive array instead of 4 Gen5. The BMC is integrated on those WRX90 boards; it cannot be added to the TRX50 AI TOP (its TPM header is not a BMC).
 
 **Board alternatives.** There are now three relevant boards, and no single one wins every column:
 
@@ -185,6 +185,8 @@ DDR5_A1  DDR5_B1  DDR5_C1  DDR5_D1
 | 8 DIMMs (later) | all | 8 | 358.4 GB/s | 512 GB |
 
 The 4-channel list (A1/C1/E1/G1) is exactly the board manual’s quad-channel population; the 2-DIMM start uses the two ends of that set, A1 and E1, so both memory controllers are used. Confirm the final 2-DIMM slot pair against the board’s memory support list before ordering; population rules on sTR5 are stricter than on AM5.
+
+**Platform note for the 8× endgame.** The 2×64 GB start is low-risk on either platform. The 8×64 GB = 512 GB configuration is **16 ranks across eight channels** and is the stress case for memory training and heat. The WRX90 boards (ASRock WRX90 WS EVO, Gigabyte WRX90 AI TOP) are the native PRO/RDIMM 8-DIMM platforms, with the QVL/BIOS and — on the WRX90 AI TOP — active DDR cooling. The TRX50 AI TOP is a supported hybrid (PRO CPU + RDIMM, 8 slots), but its 8-DIMM validation matrix is narrower. Check the QVL for the exact Samsung part at 8 DIMMs; the 2-DIMM start is not evidence for the 8-DIMM speed.
 
 ### 3.2 Why 128 GB is the right amount now
 
@@ -499,6 +501,7 @@ At 50% average load, the machine draws ~862 W at the wall (~7,550 kWh/year, €1
 | PSU is 200–240 V only | Certain | No 115 V operation | EU site; 16 A circuit; C19/C20 cord; label the inlet. |
 | 9955WX stock is thin | Medium | Delay | Geizhals listed EU offers at the snapshot, but Alternate could not take orders; 9965WX is in stock at +€1,378 if you cannot wait (but it is not faster here). |
 | Board needs a BIOS update for 9000WX | Medium | No boot | Q-Flash Plus with a USB stick before installing the CPU; update to the latest BIOS. |
+| BMC/IPMI is a hard requirement, but the TRX50 AI TOP has none | Certain | No out-of-band management | The BMC is integrated on the WRX90 boards and cannot be added to the TRX50 AI TOP; the TPM header is not a BMC. Choose the ASRock WRX90 now or the WRX90 AI TOP later, or use a PiKVM/smart PDU. |
 | RDIMM QVL mismatch | Low | No boot/instability | Buy the exact Samsung part; check the board QVL; MemTest86+ 8 passes; ECC error count zero. |
 | 12V-2x6 connector heating | Low | Shutdown/damage | Fully seat; use native cables/adapters; IR-check connector temperature under load; no daisy-chaining beyond the included adapters. |
 | Noise/heat in a living space | High | Comfort | Utility room/rack; 5,562 BTU/h; 45–50 dBA at load. |

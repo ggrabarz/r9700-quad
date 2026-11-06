@@ -106,6 +106,46 @@ The WRX90 chipset does **not** make the GPUs faster: the 9955WX’s CPU-attached
 
 **Bottom line:** WRX90 buys **management, platform correctness, VRM/memory margin and storage expansion**. TRX50 buys **four Gen5 M.2 in the four-drive array**, a lower price and immediate availability, at the cost of no IPMI and a hybrid platform. For the IQ3_S workload the GPU performance is identical; the choice is operational.
 
+### Proper PRO/RDIMM vs the TRX50 hybrid
+
+| | Standard TRX50 | TRX50 AI TOP (hybrid) | WRX90 (ASRock / WRX90 AI TOP) |
+|---|---|---|---|
+| CPU | non-Pro Threadripper | PRO or non-Pro | PRO only |
+| Memory | 4-channel **UDIMM** | 8-channel **RDIMM** with PRO; 4-channel with non-Pro | 8-channel **RDIMM** |
+| DIMM slots | 4 typical | 8 | 8 |
+| Max capacity | 4× UDIMM | 2 TB RDIMM with PRO | 2 TB RDIMM |
+| PCIe 5.0 | 80 lanes | PRO: 4× x16 + 4× M.2 exposed | 128 lanes; 6–7× x16 + storage |
+| IPMI | typically no | no | **yes** |
+| 4× Gen5 M.2 | no | **yes** | 3 Gen5 + 1 Gen4 |
+
+“Proper” here means the platform AMD and the board vendor designed and validated for the **PRO CPU + 8× RDIMM** combination. The WRX90 boards are that platform: 8 DIMMs, eight channels, RDIMM/RDIMM-3DS, 2 TB, PRO-only, with the memory VRM/training/BIOS tuned for the full 8-DIMM load. The TRX50 AI TOP is a **Gigabyte-specific hybrid**: it wires the PRO’s 8-channel/128-lane memory and PCIe into a TRX50 board, and Gigabyte explicitly supports the 9955WX + RDIMM on it. It works, but it is not the standard TRX50 UDIMM/non-Pro board, and its 8-DIMM RDIMM validation matrix is narrower than a native WRX90 board’s.
+
+The practical difference is largest at the **8×64 GB = 512 GB endgame**:
+
+- 2×64 GB is easy on both: two channels, two DIMMs, low load. The 9955WX + 2×64 GB RDIMM is a supported configuration on either platform.
+- 8×64 GB is 16 ranks across eight channels. RDIMM’s register buffers the address/command load, but the board still has to train and cool eight 2Rx4 modules. The WRX90 AI TOP adds **active DDR cooling (DDR Wind Blade XTREME Duo, up to 43 °C lower memory temperatures)** and a 14-layer server PCB; the ASRock WRX90 is a native 8-DIMM WRX90 board. The TRX50 AI TOP has the slots and the manual support, but not the same memory-cooling/validation margin.
+- Always check the board’s **memory QVL** for the exact Samsung M321R8GA0PB0-CWM at 8 DIMMs. The 2-DIMM start is low-risk; the 8-DIMM speed (5600 vs 5200/4800) is where the platform and BIOS matter.
+
+### VRM and memory margin
+
+| | TRX50 AI TOP | WRX90 AI TOP |
+|---|---|---|
+| VCore phases | 16+8+4 | **32+3+3+3** |
+| PCB | E-ATX (layer count not stated in the manual) | **14-layer server-grade, 2 oz copper** |
+| VRM cooling | Heatsinks | **Active VRM cooling + full-metal backplate** |
+| Memory cooling | None | **DDR Wind Blade XTREME Duo fans** |
+| CPU support | 350 W PRO (9955WX) | 350 W PRO, more headroom for 96-core |
+
+The 9955WX is a **350 W** part; the TRX50 AI TOP’s 16+8+4 VRM is adequate for it, and Gigabyte supports the combination. The WRX90 AI TOP’s 32+3+3+3 stage is **not required for a 16-core 9955WX**; it is margin — lower phase current/temperature, better transient response, and headroom for a future 64/96-core PRO or a sustained all-core workload. In a 4-GPU case, the active VRM and memory fans also help the 8-DIMM configuration. For the 9955WX + 2×64 GB build, this is comfort, not a performance requirement; for the 8×64 GB/512 GB endgame and 24/7 operation, it is the safer envelope.
+
+### BMC: integrated, not an add-on
+
+- The **WRX90 AI TOP** and **ASRock WRX90 WS EVO** have an **integrated ASPEED AST2600 BMC** with a dedicated IPMI LAN port. It is soldered on the board; there is no “BMC module” to buy or install.
+- The **TRX50 AI TOP has no BMC** and no BMC header/firmware support. You **cannot add** the WRX90 board’s BMC to it; the Gigabyte BMC is board-specific, not an add-in card. A generic PCIe IPMI card is not a standard product, and the proprietary server-vendor modules (ASMB9-iKVM, iDRAC, iLO) do not apply to this board.
+- The TRX50 AI TOP does have a **TPM header** for the GC-TPM2.0 SPI V2 module. That is **TPM, not BMC** — it gives secure boot/attestation, not remote power/KVM.
+- If you want the TRX50 AI TOP’s four Gen5 M.2 but need out-of-band management, the practical substitute is a **PiKVM/JetKVM** (HDMI capture + USB HID + ATX power/reset wiring) or a **smart PDU** for remote power, plus Wake-on-LAN. It is not IPMI, but it covers the remote console/power use case.
+- If true **IPMI/BMC** is a requirement, choose a board that has it: the ASRock WRX90 now, or the Gigabyte WRX90 AI TOP when it ships. Q-Flash Plus on the TRX50 AI TOP is BIOS recovery from a USB stick, not remote management.
+
 ## 5. Does the build change?
 
 **Board only; CPU, RAM, PSU, case and GPUs stay the same.**
