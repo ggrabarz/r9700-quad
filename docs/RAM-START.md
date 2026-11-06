@@ -26,6 +26,17 @@ For IQ3_S the docs put the experts at **≈50 GB**. So:
 
 The 128 GB of VRAM is what makes 64 GB viable: the four cards can hold the whole expert set, so the host does not need to keep the 50 GB expert arena hot in the same way a 32 GB card does. Use the low-RAM path and keep the PLE on the SSD. The host still needs the mapped model, the OS and whatever page cache the engine uses.
 
+### If “one stick” means a 32 GB module
+
+The settled record in [`DECISIONS.md`](DECISIONS.md) covers the 32 GB case:
+
+| Start | Capacity / channels | What it blocks |
+|---|---|---|
+| 1×32 GB | 32 GB, 1 channel | Strata IQ3_S still runs with every expert resident, but the measured first start is **114 s** on the two-of-four R9700 box, there is no page-cache cushion, `--ple-io ram` and the 16 GB cache do not fit, and Saber’s ~34–35 GiB 2-card boot will not fit in 32 GB. A test configuration, not production. |
+| 2×32 GB | 64 GB, 2 channels | The practical minimum: Strata IQ3_S fits “with little else open”, one Saber 2-card server fits, but the PLE must stay on the SSD, the full 16 GB cache does not fit, and two Saber servers do not. It also consumes two slots and is not the 8×64 GB endgame. |
+
+The 8×64 GB 2Rx4 endgame wants 64 GB modules; a 32 GB start is a detour that has to be replaced later. If the choice is one 64 GB stick versus two 32 GB sticks at the same 64 GB, the two 32 GB sticks have dual-channel bandwidth (89.6 vs 44.8 GB/s) but use two slots and still block the PLE/cache features; the one 64 GB stick is the first step of the clean 8×64 path.
+
 ## 2. What one stick costs in bandwidth
 
 The board has eight channels; one DIMM uses one channel:
@@ -50,7 +61,7 @@ For the Strata workload with all experts in VRAM, **decode is GPU-bound**; the h
 
 ## 4. Does the board boot with one DIMM?
 
-The manual’s memory sections document 8-channel (PRO) and 4-channel (non-PRO) populations; it does not publish a one-DIMM table. A single RDIMM in **A1** is likely to POST, but **2 DIMMs in A1 + E1 is the documented dual-channel minimum** and the configuration this build specifies. Check the board’s memory support list/QVL before relying on a one-stick boot; if the board refuses a single DIMM, that is the only hard block in this note.
+The manual’s memory sections document 8-channel (PRO) and 4-channel (non-PRO) populations; it does not publish a one-DIMM table. A single DIMM has been run on a TRX50 board in the related thread (32 GB), so the AI TOP should POST with one in **A1**; **2 DIMMs in A1 + E1 is the documented dual-channel minimum** and the configuration this build specifies. Check the board’s memory support list/QVL before relying on a one-stick boot; if the board refuses a single DIMM, that is the only hard block in this note.
 
 The upgrade path is mechanical:
 
@@ -63,7 +74,11 @@ The upgrade path is mechanical:
 
 Buy the same part (Samsung M321R8GA0PB0-CWM, 64 GB DDR5-5600 CL46 2Rx4 ECC RDIMM) for the later sticks; mixing rank/brand/timing in one channel set is the thing to avoid.
 
-## 5. Test plan if you start with one stick
+## 5. Budget effect
+
+One 64 GB stick saves **€2,499 of parts and €74.97 of contingency**, so Option B with one stick is **€8,117.58** instead of €10,691.55. The second stick restores the target. The saving is temporary: the 8×64 GB endgame needs seven more modules anyway, and buying the second now locks the pair at today’s price. A 2×32 GB start buys the same 64 GB with dual-channel bandwidth but uses two slots and is not the 8×64 path; compare its price against the 64 GB module before choosing it.
+
+## 6. Test plan if you start with one stick
 
 1. Boot with 1×64 GB in A1; confirm POST, ECC enabled, 64 GB visible, 1 channel.
 2. Start Strata with the PLE on the SSD (no `--ple-io ram`), a small conversation cache (4–8 GB) and low-RAM mode; watch `free -g` and the engine log for OOM/arena allocation.
@@ -71,7 +86,7 @@ Buy the same part (Samsung M321R8GA0PB0-CWM, 64 GB DDR5-5600 CL46 2Rx4 ECC RDIMM
 4. Add the second 64 GB in E1; repeat. Compare decode (should be within noise), prefill, park/restore, model load and the conversation-cache hit rate.
 5. Only after the 2-stick run is clean should the machine be called production.
 
-## 6. Recommendation
+## 7. Recommendation
 
 - **If you can buy two now, buy two.** The second stick is €2,499 at the snapshot, and it converts the machine from “IQ3_S with little else open, PLE on SSD, no full conversation cache” to the specified dual-channel 128 GB build with PLE-in-RAM and the 16 GB cache. It also covers two Saber servers and a future 4-rank engine.
 - **If budget forces one, start with one.** It will run the GPU-resident IQ3_S workload, and the 128 GB of VRAM is doing the heavy lifting. Keep the PLE on the SSD, shrink the conversation cache, and add the second stick before production. The first stick is not wasted; it is the first channel of the 8× path.

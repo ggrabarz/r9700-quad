@@ -336,9 +336,9 @@ With `k8v4` and the per-card budget above:
 | 12 | 31.7 GB | 7.9 GB | 3.8 GB | Test target; watch fragmentation |
 | 16 | 42.2 GB | 10.6 GB | 1.2 GB | Too tight for the conservative budget |
 
-The engine also supports KV streaming from host RAM (`--kv-streaming`, with `--kv-resident` setting the VRAM window), but with 128 GB of VRAM there is no reason to stream: keep the full 262K per stream in VRAM and use the 128 GB of RAM for the PLE table, the expert arena and conversation checkpoints.
+The engine also supports KV streaming from host RAM (`--kv-streaming`, with `--kv-resident` setting the VRAM window), but with 128 GB of VRAM there is no reason to stream: `--kv-resident 0` keeps all KV in VRAM (it is the sentinel for “fully resident”, not “zero cells”). Use the 128 GB of RAM for the PLE table, the expert arena and conversation checkpoints.
 
-**Recommended starting configuration:** `--batch 8`, `--max-context 262144`, `--kv k8v4`, `--kv-resident 262144`. Test `--batch 12` at 262K and `--batch 16–24` at 131K/65K; keep the setting that survives a 24-hour soak without VRAM growth or dropped streams.
+**Recommended starting configuration:** `--batch 8`, `--max-context 262144`, `--kv k8v4`, `--kv-resident 0` (all KV in VRAM). Test `--batch 12` at 262K and `--batch 16–24` at 131K/65K; keep the setting that survives a 24-hour soak without VRAM growth or dropped streams.
 
 ### 6.4 Measured anchors and the projection
 
