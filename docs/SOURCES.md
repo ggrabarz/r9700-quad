@@ -34,12 +34,15 @@ Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not
 
 | Item | Price | Source |
 |---|---:|---|
-| Gigabyte TRX50 AI TOP | €896.75 | [Geizhals EU](https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html) |
+| ASRock WRX90 WS EVO | €808.05 | [Geizhals EU](https://geizhals.eu/asrock-wrx90-ws-evo-90-mxbmh0-a0uayz-a3167681.html) |
+| Gigabyte TRX50 AI TOP (alternative) | €896.75 | [Geizhals EU](https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html) |
 | Threadripper PRO 9955WX | €1,637.70 | [Geizhals DE](https://geizhals.de/amd-ryzen-threadripper-pro-9955wx-100-100000725wof-a3531872.html) |
 | Samsung 64 GB DDR5-5600 2Rx4 ECC RDIMM | €2,499.00 | [Geizhals EU](https://geizhals.eu/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3528359.html) |
 | PowerColor R9700 32 GB | €1,930.21 | [Geizhals EU](https://geizhals.eu/powercolor-radeon-ai-pro-r9700-a3504726.html) |
-| Samsung 990 PRO 1 TB | €262.00 | [Alternate DE](https://www.alternate.de/Samsung/990-PRO-1-TB-SSD/html/product/1864239) |
+| Samsung 9100 PRO 1 TB Gen5 | €264.00 | [Alternate DE](https://www.alternate.de/Samsung/9100-PRO-1-TB-SSD/html/product/100118126) |
+| Samsung 990 PRO 1 TB Gen4 | €262.00 | [Alternate DE](https://www.alternate.de/Samsung/990-PRO-1-TB-SSD/html/product/1864239) |
 | Samsung 870 EVO 4 TB | €665.00 | [Alternate DE](https://www.alternate.de/Samsung/870-EVO-4-TB-SSD/html/product/1706407) |
+| Toshiba N300 8 TB HDD | €389.00 | [Alternate DE](https://www.alternate.de/Toshiba/N300-8-TB-Festplatte/html/product/100111191) |
 | Seasonic PRIME PX-2200 | €489.90 | [Alternate DE](https://www.alternate.de/Seasonic/PRIME-PX-2200-2200W-ATX-3-1-PC-Netzteil/html/product/100076188) |
 | SilverStone XE360-TR5 | €389.90 | [Alternate DE](https://www.alternate.de/SilverStone/SST-XE360-TR5-Wasserk%C3%BChlung/html/product/100114775) |
 | Noctua NH-U14S TR5-SP6 | €129.90 | [Alternate DE](https://www.alternate.de/Noctua/NH-U14S-TR5-SP6-CPU-K%C3%BChler/html/product/100020811) |

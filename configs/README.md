@@ -23,7 +23,7 @@ Two presets are included:
 | `--max-context 262144` | The model's full window. Use 131072 in the throughput preset. |
 | `--kv k8v4` | 23% less KV than int8; 10.55 KB/token. More streams in the same VRAM. |
 | `--kv-resident 0` | Keep the whole context's KV in VRAM. `0` is the sentinel for “fully resident”, not “zero cells”; it is preferred over `262144`, which is equivalent today but couples to the context value. |
-| `--batch 8` | Eight full-context slots. The per-card budget in the README leaves ~8.5 GB free on the main card after 8×262K. |
+| `--batch 8` | Eight full-context slots. The per-card budget in the README leaves ~6.5 GB free on the main card after 8×262K. |
 | `--mmap-experts` + `--resident-cpu-experts` | AMD/HIP path: map the experts and keep the complement of the GPU cache in pageable RAM. Requires enough RAM; this build has 128 GB. |
 | `--expert-cache auto` | Let the engine size the cache from free VRAM. |
 | `--mtp` + `--spec 4` + `--suffix-draft 12` | MTP speculative decoding; the measured best-config family. |

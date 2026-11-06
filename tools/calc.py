@@ -29,8 +29,15 @@ def option_total(data: dict, option: dict) -> tuple[float, float, dict[str, floa
     groups = {
         "compute": ("mainboard", "cpu"),
         "memory": ("ram_64gb",),
-        "storage": ("nvme_1tb", "sata_4tb"),
-        "power_cooling": ("psu", "cooler_air", "cooler_aio"),
+        "storage": (
+            "nvme_gen5_1tb",
+            "nvme_gen4_1tb",
+            "sata_4tb",
+            "sata_8tb",
+            "mcio_cable",
+            "slimsas_cable",
+        ),
+        "power_cooling": ("psu", "cooler_aio"),
         "chassis": ("case_meshify", "case_9000d", "case_enthoo", "fan_140"),
     }
     subtotal = 0.0
@@ -40,7 +47,9 @@ def option_total(data: dict, option: dict) -> tuple[float, float, dict[str, floa
         subtotal += line
     for group, keys in groups.items():
         by_group[group] = sum(
-            items[key]["price"] * option["items"].get(key, 0) for key in keys
+            items[key]["price"] * option["items"].get(key, 0)
+            for key in keys
+            if key in items
         )
     contingency = subtotal * data["assumptions"]["contingency_pct"] / 100.0
     return subtotal, subtotal + contingency, by_group
@@ -52,14 +61,14 @@ def main() -> None:
     gpu = data["items"]["gpu_r9700"]
     gpu_total = gpu["price"] * a["gpu_count"]
 
-    print("# 4x R9700 TRX50 AI TOP — computed model")
+    print("# 4x R9700 — ASRock WRX90 WS EVO computed model")
     print()
     print(f"Price snapshot: {data['as_of']} ({data['region']}, {data['currency']} {data['tax']})")
     print()
 
     print("## Build totals (GPUs owned, excluded)")
     print()
-    print("| Option | Name | Platform subtotal | +3% contingency | With 4 GPUs at replacement | CPU | RAM | SSD | Power/cooling | Case |")
+    print("| Option | Name | Platform subtotal | +3% contingency | With 4 GPUs at replacement | CPU | RAM | Storage | Power/cooling | Case |")
     print("|---|---|---:|---:|---:|---:|---:|---:|---:|---:|")
     for code, option in data["options"].items():
         subtotal, total, groups = option_total(data, option)
@@ -94,12 +103,12 @@ def main() -> None:
 
     print("## Lanes and ports")
     print()
-    lanes = 4 * 16 + 4 * 4
-    print(f"- 4 x PCIe 5.0 x16 (GPUs) = {4*16} lanes")
-    print(f"- 4 x M.2 PCIe 5.0 x4 = {4*4} lanes")
-    print(f"- Total = {lanes} lanes; 9955WX provides 128 usable PCIe 5.0 lanes -> {128 - lanes} spare")
-    print("- M2D (4th M.2) needs a PRO 9000WX/7000WX CPU; the 9955WX is PRO, so all four M.2 work.")
-    print("- With a non-PRO 7960X the 4th M.2 is disabled and PCIEX16_4 drops to Gen4; another reason for the 9955WX.")
+    print("- 4 x PCIe 5.0 x16 (GPUs) = 64 lanes")
+    print("- ASRock WRX90 WS EVO: 6 NVMe ports (2 M.2 + 2 MCIO + 2 SlimSAS), 3 Gen5 + 3 Gen4")
+    print("- Option A (3 Gen5): 64 + 12 = 76 lanes -> 52 spare")
+    print("- Option B (6 Gen4): 64 + 24 = 88 lanes -> 40 spare")
+    print("- Option C (4 Gen4): 64 + 16 = 80 lanes -> 48 spare")
+    print("- 9955WX: 128 PCIe 5.0 lanes; 7 x16 slots (6 x16 + 1 x8)")
     print()
 
     print("## Memory topology")

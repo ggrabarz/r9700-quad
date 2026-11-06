@@ -14,10 +14,13 @@ GROUP = {
     "mainboard": "compute",
     "cpu": "compute",
     "ram_64gb": "memory",
-    "nvme_1tb": "storage",
+    "nvme_gen5_1tb": "storage",
+    "nvme_gen4_1tb": "storage",
     "sata_4tb": "storage",
+    "sata_8tb": "storage",
+    "mcio_cable": "storage",
+    "slimsas_cable": "storage",
     "psu": "power",
-    "cooler_air": "cooling",
     "cooler_aio": "cooling",
     "case_meshify": "chassis",
     "case_9000d": "chassis",
@@ -32,7 +35,7 @@ def main() -> None:
     for code, option in data["options"].items():
         path = ROOT / "bom" / f"option-{code.lower()}.csv"
         with path.open("w", newline="", encoding="utf-8") as handle:
-            writer = csv.writer(handle)
+            writer = csv.writer(handle, lineterminator="\n")
             writer.writerow(["group", "item", "model", "qty", "unit_eur", "line_eur", "source", "note"])
             subtotal = 0.0
             for key, qty in option["items"].items():

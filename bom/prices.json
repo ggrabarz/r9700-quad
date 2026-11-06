@@ -5,19 +5,19 @@
   "region": "EU (DE/AT price comparison; Alternate DE retail)",
   "notes": [
     "Prices are the lowest listed EU offer on the date shown, not a quote. Stock and price move daily.",
-    "The 2026 DRAM/NAND shortage dominates this BOM: 2x64 GB RDIMM is 49% of the platform cost.",
+    "The 2026 DRAM/NAND shortage dominates the RAM line; the Gen5 9100 PRO is €264, the same price as the Gen4 990 PRO, so Gen5 is the default where the board has the port.",
     "GPUs are owned by the user and excluded from platform totals; their replacement value is shown separately.",
-    "Fan prices are estimates; everything else is a listed price from the source shown."
+    "MCIO/SlimSAS cable prices are estimates; the drives/board are listed prices."
   ],
   "items": {
     "mainboard": {
-      "name": "GIGABYTE TRX50 AI TOP (sTR5, E-ATX, 4x PCIe 5.0 x16, 4x M.2, 8x DDR5 RDIMM)",
-      "price": 896.75,
+      "name": "ASRock WRX90 WS EVO (sTR5, WRX90, EEB, 7x PCIe 5.0 x16, 6 NVMe ports, IPMI)",
+      "price": 808.05,
       "qty": 1,
-      "source": "https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html",
-      "vendor": "Geizhals EU (48 offers)",
+      "source": "https://geizhals.eu/asrock-wrx90-ws-evo-90-mxbmh0-a0uayz-a3167681.html",
+      "vendor": "Geizhals EU (59 offers)",
       "verified": true,
-      "note": "Alternate lists 877.00 but cannot currently sell it."
+      "note": "WRX90 + AST2600 IPMI; 1 Gen5 M.2 + 1 Gen4 M.2 + 2 Gen5 MCIO + 2 Gen4 SlimSAS."
     },
     "cpu": {
       "name": "AMD Ryzen Threadripper PRO 9955WX (16C/32T, 4.5-5.4 GHz, 350 W, 128 PCIe 5.0 lanes, 8-channel DDR5 ECC)",
@@ -26,7 +26,7 @@
       "source": "https://geizhals.de/amd-ryzen-threadripper-pro-9955wx-100-100000725wof-a3531872.html",
       "vendor": "Geizhals DE (from)",
       "verified": true,
-      "note": "MSRP $1,649. Alternate lists 1,715.00 but cannot currently sell it."
+      "note": "MSRP $1,649. Official memory: DDR5-6400, 8 channels, RDIMM."
     },
     "ram_64gb": {
       "name": "Samsung M321R8GA0PB0-CWM 64 GB DDR5-5600 CL46 2Rx4 ECC RDIMM",
@@ -35,16 +35,25 @@
       "source": "https://geizhals.eu/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3528359.html",
       "vendor": "Geizhals EU (28 offers)",
       "verified": true,
-      "note": "2 DIMMs = 2 of 8 channels now; 8 DIMMs = 512 GB octa-channel later."
+      "note": "2 DIMMs = 2 of 8 channels now; 8 DIMMs = 512 GB octa-channel later. Modules are 5600; 6400 needs 6400-rated modules and QVL."
     },
-    "nvme_1tb": {
+    "nvme_gen5_1tb": {
+      "name": "Samsung 9100 PRO 1 TB (PCIe 5.0 x4, 14,800/13,400 MB/s, 1.85M/2.6M IOPS)",
+      "price": 264.00,
+      "qty": 3,
+      "source": "https://www.alternate.de/Samsung/9100-PRO-1-TB-SSD/html/product/100118126",
+      "vendor": "Alternate DE",
+      "verified": true,
+      "note": "Gen5 price parity with the Gen4 990 PRO (€264 vs €262); the default array drive."
+    },
+    "nvme_gen4_1tb": {
       "name": "Samsung 990 PRO 1 TB (PCIe 4.0 x4, 7,450/6,900 MB/s, 1.2M/1.55M IOPS)",
       "price": 262.00,
       "qty": 4,
       "source": "https://www.alternate.de/Samsung/990-PRO-1-TB-SSD/html/product/1864239",
       "vendor": "Alternate DE",
       "verified": true,
-      "note": "Gen4 chosen over Gen5: cooler under the GPUs, cheaper, and the PLE table reads are random, not sequential."
+      "note": "Used for the 4× Gen4 and 6× Gen4 arrays; Gen4 thermals are easier under the GPUs."
     },
     "sata_4tb": {
       "name": "Samsung 870 EVO 4 TB SATA SSD",
@@ -53,25 +62,43 @@
       "source": "https://www.alternate.de/Samsung/870-EVO-4-TB-SSD/html/product/1706407",
       "vendor": "Alternate DE",
       "verified": true,
-      "note": "Listed price, currently not orderable at Alternate. Cold archive + OS partition; 500 GB SATA is 203.90, so the 4 TB is the better EUR/GB."
+      "note": "OS partition + cold model archive; a 3 TB array image fits (3.6 TB usable), a 4 TB/6 TB array does not."
+    },
+    "sata_8tb": {
+      "name": "Toshiba N300 8 TB SATA HDD (archive/image)",
+      "price": 389.00,
+      "qty": 1,
+      "source": "https://www.alternate.de/Toshiba/N300-8-TB-Festplatte/html/product/100111191",
+      "vendor": "Alternate DE",
+      "verified": true,
+      "note": "Only for the 6 TB array: a full 6 TB image on ~7.2 TB usable; slow, cold archive."
+    },
+    "mcio_cable": {
+      "name": "MCIO 8i/x4 to M.2 NVMe adapter cable",
+      "price": 40.00,
+      "qty": 2,
+      "source": "estimate",
+      "vendor": "estimate",
+      "verified": false,
+      "note": "2 cables for the 3× Gen5 and 4× Gen4 arrays; 2 for the 6× Gen4 plus 2 SlimSAS."
+    },
+    "slimsas_cable": {
+      "name": "SlimSAS SFF-8654 to NVMe adapter cable",
+      "price": 40.00,
+      "qty": 2,
+      "source": "estimate",
+      "vendor": "estimate",
+      "verified": false,
+      "note": "Only for the 6× Gen4 array (2 SlimSAS ports)."
     },
     "psu": {
-      "name": "Seasonic PRIME PX-2200 (2200 W, ATX 3.1, 80+ Platinum, 2x native 12V-2x6 + 2x 2x8-pin adapters, 4x PCIe 8-pin, 3x EPS)",
+      "name": "Seasonic PRIME PX-2200 (2200 W, ATX 3.1, 80+ Platinum, 2x native 12V-2x6 + 2x adapters, 4x PCIe 8-pin)",
       "price": 489.90,
       "qty": 1,
       "source": "https://www.alternate.de/Seasonic/PRIME-PX-2200-2200W-ATX-3-1-PC-Netzteil/html/product/100076188",
       "vendor": "Alternate DE (sale, was 579.90)",
       "verified": true,
-      "note": "200-240 V only. 210 mm long. 2200 W gives 26% headroom over the 1630 W continuous budget."
-    },
-    "cooler_air": {
-      "name": "Noctua NH-U14S TR5-SP6 (165 mm air cooler for sTR5)",
-      "price": 129.90,
-      "qty": 1,
-      "source": "https://www.alternate.de/Noctua/NH-U14S-TR5-SP6-CPU-K%C3%BChler/html/product/100020811",
-      "vendor": "Alternate DE",
-      "verified": true,
-      "note": "Fine for bursty inference; the AIO is better for sustained all-core + 4 GPU heat."
+      "note": "200-240 V only; 210 mm; 26% headroom over 1,630 W."
     },
     "cooler_aio": {
       "name": "SilverStone SST-XE360-TR5 (360 mm AIO, sTR5/SP6, 350 W class)",
@@ -80,34 +107,16 @@
       "source": "https://www.alternate.de/SilverStone/SST-XE360-TR5-Wasserk%C3%BChlung/html/product/100114775",
       "vendor": "Alternate DE (sale, was 462.91)",
       "verified": true,
-      "note": "Top-mounted exhaust in the Meshify 2 XL; keeps CPU heat out of the GPU intake."
+      "note": "Top-mounted exhaust; keeps CPU heat out of the GPU intake."
     },
     "case_meshify": {
-      "name": "Fractal Design Meshify 2 XL (E-ATX/SSI-EEB, 9 slots, 6x 3.5\", 3x 140 mm included, 480 mm top rad, 250 mm PSU)",
+      "name": "Fractal Design Meshify 2 XL (EEB 305x330, 9+3 slots, 6x 3.5\", 2x 2.5\", 250 mm PSU, 480 mm top rad)",
       "price": 209.90,
       "qty": 1,
       "source": "https://www.alternate.de/Fractal-Design/Meshify-2-XL-Black-TG-Light-Tint-Big-Tower-Geh%C3%A4use/html/product/1669747",
       "vendor": "Alternate DE",
       "verified": true,
-      "note": "9 slots = four 2-slot GPUs with a spare; SSI-EEB is the 305x330 mm board. Listed price, stock varies."
-    },
-    "case_9000d": {
-      "name": "Corsair iCUE LINK 9000D Airflow (E-ATX, 8 slots, 5x 3.5\", 6x 2.5\")",
-      "price": 469.90,
-      "qty": 1,
-      "source": "https://www.alternate.de/Corsair/iCUE-LINK-9000D-Airflow-Big-Tower-Geh%C3%A4use/html/product/100064495",
-      "vendor": "Alternate DE",
-      "verified": true,
-      "note": "More room for cable/PSU service; listed price, stock varies."
-    },
-    "case_enthoo": {
-      "name": "Phanteks Enthoo Pro 2 (E-ATX, 8 slots, 4x 3.5\", 11x 2.5\")",
-      "price": 154.90,
-      "qty": 1,
-      "source": "https://www.alternate.de/Phanteks/Enthoo-Pro-2-Big-Tower-Geh%C3%A4use/html/product/100042214",
-      "vendor": "Alternate DE",
-      "verified": true,
-      "note": "Budget alternate; verify 305x330 mm board and 210 mm PSU clearance before ordering."
+      "note": "Fits the EEB ASRock, four 2-slot GPUs, the 360 AIO and the 210 mm PSU."
     },
     "fan_140": {
       "name": "140 mm PWM case fan (Fractal/Arctic class)",
@@ -116,7 +125,7 @@
       "source": "estimate",
       "vendor": "estimate",
       "verified": false,
-      "note": "Case includes 3x 140 mm; add bottom/rear fans for the M.2 and GPU zone."
+      "note": "Case includes 3x 140 mm; add bottom/rear fans for the M.2/GPU zone."
     },
     "gpu_r9700": {
       "name": "PowerColor Radeon AI PRO R9700 32 GB (2-slot blower, 267x111x40 mm, 300 W, 1x 12V-2x6)",
@@ -125,34 +134,54 @@
       "source": "https://geizhals.eu/powercolor-radeon-ai-pro-r9700-a3504726.html",
       "vendor": "Geizhals EU (55 offers)",
       "verified": true,
-      "note": "OWNED by the user. Shown only as replacement value; not in platform totals."
+      "note": "OWNED by the user. Replacement value only; not in platform totals."
+    }
+  },
+  "alternates": {
+    "mainboard_trx50": {
+      "name": "GIGABYTE TRX50 AI TOP (TRX50 hybrid, 4x Gen5 M.2, no IPMI)",
+      "price": 896.75,
+      "source": "https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html",
+      "verified": true,
+      "note": "For 4x Gen5 M.2 and no MCIO cabling; no BMC/IPMI."
+    },
+    "mainboard_wrx90_aitop": {
+      "name": "GIGABYTE WRX90 AI TOP (WRX90, IPMI, 2 Gen5 M.2 + 1 Gen4 M.2 + 2 MCIO)",
+      "price": null,
+      "source": "https://geizhals.eu/gigabyte-wrx90-ai-top-amd-str5-a3995002.html",
+      "verified": false,
+      "note": "Announced 2026-10-30; no retail offers or price at the snapshot."
     }
   },
   "options": {
     "A": {
-      "name": "Lean",
-      "tagline": "Lowest cost per token; air cooling; one 4 TB SATA",
+      "name": "Balanced — 3x Gen5",
+      "tagline": "All-Gen5 3 TB array, IPMI, 4 TB SATA image",
       "items": {
         "mainboard": 1,
         "cpu": 1,
         "ram_64gb": 2,
-        "nvme_1tb": 4,
+        "nvme_gen5_1tb": 3,
         "sata_4tb": 1,
+        "mcio_cable": 2,
         "psu": 1,
-        "cooler_air": 1,
+        "cooler_aio": 1,
         "case_meshify": 1,
-        "fan_140": 1
+        "fan_140": 3
       }
     },
     "B": {
-      "name": "Recommended",
-      "tagline": "24/7 thermal headroom; 360 AIO; same compute",
+      "name": "Capacity — 6x Gen4",
+      "tagline": "6 TB, all six NVMe ports, 8 TB archive",
       "items": {
         "mainboard": 1,
         "cpu": 1,
         "ram_64gb": 2,
-        "nvme_1tb": 4,
+        "nvme_gen4_1tb": 6,
         "sata_4tb": 1,
+        "sata_8tb": 1,
+        "mcio_cable": 2,
+        "slimsas_cable": 2,
         "psu": 1,
         "cooler_aio": 1,
         "case_meshify": 1,
@@ -160,18 +189,19 @@
       }
     },
     "C": {
-      "name": "Expand",
-      "tagline": "4x64 GB now (quad-channel, 8x path), bigger case, RAID1 cold archive",
+      "name": "Value — 4x Gen4",
+      "tagline": "4 TB, IPMI, two MCIO adapters",
       "items": {
         "mainboard": 1,
         "cpu": 1,
-        "ram_64gb": 4,
-        "nvme_1tb": 4,
-        "sata_4tb": 2,
+        "ram_64gb": 2,
+        "nvme_gen4_1tb": 4,
+        "sata_4tb": 1,
+        "mcio_cable": 2,
         "psu": 1,
         "cooler_aio": 1,
-        "case_9000d": 1,
-        "fan_140": 5
+        "case_meshify": 1,
+        "fan_140": 3
       }
     }
   },

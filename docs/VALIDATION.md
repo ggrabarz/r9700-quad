@@ -1,4 +1,4 @@
-# Acceptance and benchmark protocol — 4× R9700 / TRX50 AI TOP
+# Acceptance and benchmark protocol — 4× R9700 / ASRock WRX90 WS EVO
 
 This is the test plan that turns the projections in the README into measured facts. Run it on the assembled machine before putting it into service. Record every number with the date, ambient temperature, BIOS version and engine build hash.
 
@@ -40,7 +40,7 @@ The host rules for this lab apply: one engine owns the GPUs at a time, A/B arms 
 
 ## 2. Storage
 
-Identify the four NVMe devices and the SATA device:
+Identify the NVMe devices for your option (3 for A, 4 for C, 6 for B) and the SATA devices:
 
 ```bash
 lsblk -o NAME,SIZE,MODEL,SERIAL,TRAN
@@ -48,11 +48,11 @@ sudo nvme list
 sudo smartctl -a /dev/nvme0 | head -40
 ```
 
-Create the RAID 0 (device names are examples; use the real ones):
+Create the RAID 0 (the example is Option A’s 3-drive array; for C use 4 devices, for B use 6):
 
 ```bash
-sudo mdadm --create /dev/md0 --level=0 --raid-devices=4 --chunk=128K \
-  /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
+sudo mdadm --create /dev/md0 --level=0 --raid-devices=3 --chunk=128K \
+  /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1
 sudo mkfs.xfs -f /dev/md0
 sudo mkdir -p /srv/models
 sudo mount /dev/md0 /srv/models
@@ -67,7 +67,7 @@ sudo fio --name=randread --rw=randread --bs=4k --iodepth=256 --numjobs=4 \
   --size=8G --filename=/dev/md0 --direct=1 --runtime=60 --time_based
 ```
 
-Targets: **≥25 GB/s** sequential read, **≥3M IOPS** 4K random read. Record the exact numbers.
+Targets: **A (3× Gen5) ≥35 GB/s and ≥4M IOPS; B (6× Gen4) ≥40 GB/s and ≥6M IOPS; C (4× Gen4) ≥25 GB/s and ≥3M IOPS**. Record the exact numbers.
 
 Thermals under load:
 
@@ -201,7 +201,7 @@ Pass criteria:
 | Item | Pass | Evidence |
 |---|---|---|
 | MemTest86+ 8 passes, ECC clean | ☐ | |
-| RAID 0 ≥25 GB/s seq, ≥3M IOPS 4K | ☐ | |
+| RAID 0 meets the target for the chosen option (A ≥35 GB/s/≥4M; B ≥40/≥6M; C ≥25/≥3M) | ☐ | |
 | 4× PCIe 5.0 x16, no AER | ☐ | |
 | Full load ≤2,000 W, connectors <60 °C | ☐ | |
 | GPU/CPU/M.2/VRM thermals in limits | ☐ | |

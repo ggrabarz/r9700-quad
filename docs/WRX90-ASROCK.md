@@ -2,11 +2,11 @@
 
 **Short answer:** there are now three relevant boards, and no single one wins every column.
 
-- **ASRock WRX90 WS EVO** — WRX90, IPMI, 7 slots, 6 NVMe ports, **available at €808.05**. The 4-drive RAID 0 is 3 Gen5 + 1 Gen4 (1 Gen5 M.2 + 2 Gen5 MCIO + 1 Gen4 M.2).
+- **ASRock WRX90 WS EVO** — WRX90, IPMI, 7 slots, 6 NVMe ports, **available at €808.05**. The three Gen5 ports (1 Gen5 M.2 + 2 Gen5 MCIO) make a clean **3× Gen5** array; a 4-drive array is 3 Gen5 + 1 Gen4; the same six ports can run **6× Gen4**.
 - **Gigabyte WRX90 AI TOP** — WRX90, IPMI, 7 slots, 2 Gen5 M.2 + 1 Gen4 M.2 + 2 MCIO. **Announced 2026-10-30, no price or retail offers at the snapshot.** The 4-drive RAID 0 is also 3 Gen5 + 1 Gen4, because MCIOX8_1 shares bandwidth with the two Gen5 M.2 slots.
 - **Gigabyte TRX50 AI TOP** — TRX50, **no IPMI**, 4 slots, but **4 Gen5 M.2**; €896.75. The only one of the three that runs four Gen5 drives in RAID 0 without a carrier.
 
-So: if you need **WRX90 + IPMI now**, the ASRock is the board. If you want the **Gigabyte AI TOP ecosystem with WRX90 + IPMI** and can wait, the WRX90 AI TOP is the natural choice — but it does not restore the four Gen5 M.2 sockets. If **four Gen5 M.2 drives** are the priority, the TRX50 AI TOP remains the one.
+So: if you need **WRX90 + IPMI now**, the ASRock is the board — 3× Gen5 for the balanced build, 6× Gen4 for capacity. If you want the **Gigabyte AI TOP ecosystem with WRX90 + IPMI** and can wait, the WRX90 AI TOP is the natural choice — but it does not restore the four Gen5 M.2 sockets. If **four Gen5 M.2 drives** are the priority, the TRX50 AI TOP remains the one.
 
 ## 1. Board comparison
 
@@ -64,13 +64,13 @@ The ASRock’s 4-drive array at 3 Gen5 + 1 Gen4 is not a disaster: RAID 0 sums s
 |---|---:|---:|---:|
 | Capacity | 3 TB | 4 TB | 4 TB |
 | Sequential read (approx.) | 42–44 GB/s | 56–59 GB/s | 28–30 GB/s |
-| 4K random IOPS (approx.) | ~6.6M | ~8.8M | ~4.8M |
+| 4K random IOPS (approx.) | ~5.6M | ~7.4M | ~4.8M |
 | All-Gen5 array | **yes** | yes | no |
 | Full image on the 4 TB SATA (3.6 TB usable) | **yes (3 TB)** | no (4 TB) | no (4 TB) |
 | Relative cost (1 TB drives) | ~€1,050–1,200 + OS drive + 2 MCIO cables | ~€1,400–1,600 | €1,048 |
 
 - Versus **4× Gen5**: you lose **1 TB** and roughly **25%** of sequential and random throughput. You keep an all-Gen5 array and add the 4 TB SATA full-image option.
-- Versus **4× Gen4**: you lose **1 TB**, but you gain roughly **50% sequential** and **35–40% random IOPS**; once the fourth Gen4 OS drive and the MCIO cables are counted, the 3× Gen5 build is roughly **25–40% more expensive**. The Gen4 array is the cheaper 4 TB option.
+- Versus **4× Gen4**: you lose **1 TB**, but you gain roughly **50% sequential** and **~16% random IOPS**; with the 9100 PRO at €264, the 3× Gen5 array (€792 + two MCIO cables) is actually **cheaper** than 4× 990 PRO (€1,048 + two cables). The Gen4 array is the 4 TB capacity option, not the value option.
 - For the stated workload, **3 TB is ample**: Strata IQ3_S 79 GB + Saber Flash-Next ~335 GB + a 191 GB and a 508 GB giant model ≈ 1.1 TB, leaving ~1.9 TB. The 4 TB SATA can hold a full image of the 3 TB array (3.6 TB usable), which a 4 TB array cannot.
 - RAID 0 has no redundancy either way; three drives have a lower failure probability than four, and the 3 TB image fits the SATA. The 3 TB array is the better operational compromise if you want all-Gen5 without a carrier.
 
@@ -82,14 +82,14 @@ So: **3× Gen5 is the clean all-Gen5 compromise** — 1 TB and 25% throughput le
 |---|---:|---:|---:|---:|
 | Capacity | 3 TB | **6 TB** | 4 TB | 4 TB |
 | Sequential read (approx.) | 42–44 GB/s | **44–45 GB/s** | 56–59 GB/s | 28–30 GB/s |
-| 4K random IOPS (approx.) | ~6.6M | **~7.2M** | ~8.8M | ~4.8M |
+| 4K random IOPS (approx.) | ~5.6M | **~7.2M** | ~7.4M | ~4.8M |
 | Full image on the 4 TB SATA | **yes** | no (needs 8 TB HDD) | no | no |
-| Relative cost | ~€1.4–1.55k | **~€2.0–2.1k** | ~€1.4–1.6k | ~€1.05–1.15k |
+| Relative cost | ~€0.87k | **~€2.12k** | ~€1.06k | ~€1.13k |
 | Board support | ASRock / WRX90 AI TOP | **ASRock only** | TRX50 (4 M.2) | any |
 
-- **6× Gen4 vs 3× Gen5:** double the capacity, similar sequential and slightly higher random IOPS, for roughly **+€520–630** including the eight adapters/HDD; the cost per TB is better (~€335 vs ~€460), but you need the 8 TB archive and accept six drives of failure domain.
-- **6× Gen4 vs 4× Gen5:** 2 TB more capacity, about **25% less sequential** and **18% less random**, similar total cost; the 4× Gen5 is the speed/4 TB option, the 6× Gen4 the capacity/6 TB option.
-- **6× Gen4 vs 4× Gen4:** 2 TB more and about **50% more sequential/random**, for roughly **+€900–950** including the 8 TB archive; the 4× Gen4 remains the cheapest per TB.
+- **6× Gen4 vs 3× Gen5:** double the capacity, similar sequential and about **30% higher random IOPS**, for roughly **+€1,250** including the adapters and 8 TB HDD; the cost per TB is better, but you need the 8 TB archive and accept six drives of failure domain.
+- **6× Gen4 vs 4× Gen5:** 2 TB more capacity, about **25% less sequential**, similar random IOPS, and roughly **+€1,060**; the 4× Gen5 is the speed/4 TB option, the 6× Gen4 the capacity/6 TB option.
+- **6× Gen4 vs 4× Gen4:** 2 TB more and about **50% more sequential/random**, for roughly **+€990** including the 8 TB archive; the 4× Gen4 remains the cheapest per TB.
 - The six Gen4 drives use **all six NVMe ports**; there is no free NVMe for the OS. Put the OS on the 4 TB SATA (or a small SATA SSD), and the 8 TB HDD on a SATA port for the array image. The Meshify 2 XL’s six 3.5" + two 2.5" bays fit the six cabled M.2 drives, the 4 TB SATA and the 8 TB HDD with M.2-to-2.5" adapters.
 - This is the **ASRock-only capacity play**; the TRX50 AI TOP has four M.2 + four SATA (no six NVMe), and the WRX90 AI TOP tops out at five NVMe ports (2 M.2 + 1 Gen4 M.2 + 2 MCIO, with MCIOX8_1 sharing). If a 6 TB working set and six-way striping are the goal, the ASRock is the board.
 
@@ -141,7 +141,7 @@ The WRX90 chipset does **not** make the GPUs faster: the 9955WX’s CPU-attached
 | **Ubuntu 24.04 LTS + AI TOP Utility** | Matches the Strata server OS; the TRX50 AI TOP’s manual lists Windows 11 only. | Linux works on both, but the WRX90 AI TOP is the one Gigabyte lists for Ubuntu. |
 | **4× Gen5 M.2** | **No advantage** — the WRX90 AI TOP has 2 Gen5 M.2 + 1 Gen4 M.2 + 2 MCIO, with MCIOX8_1 sharing the M.2 slots. | The four-drive array is 3 Gen5 + 1 Gen4, versus 4 Gen5 on the TRX50 AI TOP. |
 
-**Bottom line:** WRX90 buys **management, platform correctness, VRM/memory margin and storage expansion**. TRX50 buys **four Gen5 M.2 in the four-drive array**, a lower price and immediate availability, at the cost of no IPMI and a hybrid platform. For the IQ3_S workload the GPU performance is identical; the choice is operational.
+**Bottom line:** WRX90 buys **management, platform correctness, VRM/memory margin and storage expansion**. TRX50 buys **four Gen5 M.2 in the four-drive array** and immediate availability, at the cost of no IPMI, a hybrid platform and a higher board price (€896.75 vs €808.05). For the IQ3_S workload the GPU performance is identical; the choice is operational.
 
 ### Proper PRO/RDIMM vs the TRX50 hybrid
 
@@ -215,7 +215,7 @@ If you want the simplest four-Gen5-M.2 RAID 0 and no MCIO cabling, keep the TRX5
 
 ## 6. Recommendation
 
-- **For the IQ3_S-in-VRAM build as specified:** the TRX50 AI TOP is the lower-integration-risk choice because of its four Gen5 M.2 sockets and 2-slot-spaced x16 slots. If you need IPMI/WRX90, the ASRock is available now; the WRX90 AI TOP is the Gigabyte-native alternative once it ships.
-- **For giant-model streaming / a storage-heavy server:** the WRX90 boards are the better fit: IPMI, MCIO/SlimSAS drives outside the GPU heat, and (on the ASRock) six NVMe ports. The 4×1 TB RAID 0 is still the working set; sequential read helps load, while random IOPS and the 8×64 GB RAM are the steady-state levers.
+- **For the IQ3_S-in-VRAM build as specified:** the **ASRock 3× Gen5** build is the balanced choice: all-Gen5 3 TB at Gen4 price, IPMI/proper WRX90, and a 3 TB image on the 4 TB SATA. The TRX50 AI TOP only wins if **four Gen5 M.2 drives** (4 TB) or the Gigabyte AI TOP brand is a hard requirement; it has no IPMI. The WRX90 AI TOP is the Gigabyte-native WRX90/IPMI alternative once it ships.
+- **For giant-model streaming / a storage-heavy server:** the WRX90 boards are the better fit: IPMI, MCIO/SlimSAS drives outside the GPU heat, and (on the ASRock) six NVMe ports. The Gen5/Gen4 array is still the working set; sequential read helps load, while random IOPS and the 8×64 GB RAM are the steady-state levers.
 - **Do not buy a WRX90 board for four Gen5 drives.** None of them can run four Gen5 NVMe drives with four 2-slot GPUs: the ASRock has 3 Gen5 ports, the WRX90 AI TOP has 3 usable Gen5 ports because MCIOX8_1 shares with the M.2 slots, and the TRX50 AI TOP is the only one with 4 Gen5 M.2.
 - **Do not buy the WRX90 AI TOP for the seven x16 slots alone.** With four 2-slot R9700s, slots 2/4/6 are covered; the MCIO and IPMI are the real gains.
