@@ -71,6 +71,7 @@ The following are **derived**, not quoted:
 - KV `k8v4` = 13.7 KB/token × 0.77 = 10.55 KB/token (the docs state k8v4 is 23% less than int8).
 - 262,144 tokens × 10.55 KB = 2.64 GB per stream.
 - 50 GB experts / 4 cards = 12.5 GB per card (first-order even split; the real layer split is not even).
+- 1/2/4/8 populated channels at DDR5-5600 = 44.8 / 89.6 / 179.2 / 358.4 GB/s (8 bytes × 5,600 MT/s × channels).
 - 4×300 + 350 + 80 = 1,630 W; 2,200 − 1,630 = 570 W headroom.
 - 1,630 W / 0.94 / 230 V = 7.54 A.
 - 1,630 W × 8,760 h × €0.25/kWh = €3,569.70/year at 100% load.

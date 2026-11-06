@@ -154,6 +154,11 @@ src/core/layer.cpp:917         if (p.mode != 0) { ... pinned host copy of the la
 - The minimum window is **4096 cells** on non-Metal builds and **20480** on
   Metal, overridable with `STRATA_KV_RESIDENT_MIN`. The "min 20480" figure in
   the earlier thread is stale for Linux/ROCm.
+- `0` is not "no fallback": if no placement can start the prompt path at the
+  requested window, the layer split's spill walk lowers it to 4096/8192/20480
+  cells on its own and says so on stderr (`generate.cpp:6514-6535`). Asking for
+  `0` is the honest default, and the engine still degrades gracefully when a
+  card is short.
 
 ### 2.4 `--low-ram` is a launcher switch, not an engine flag
 

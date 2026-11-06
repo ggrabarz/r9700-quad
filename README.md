@@ -177,9 +177,11 @@ The 4-channel list (A1/C1/E1/G1) is exactly the board manual’s quad-channel po
 
 ### 3.2 Why 128 GB is the right amount now
 
-- The model download is 79 GB; the PLE table alone is 28.8 GB. With 128 GB of VRAM the experts live on the GPUs, but the host still needs the PLE table (28.8 GB with `--ple-io ram`), the OS/page cache, the engine’s RAM arena and headroom for checkpoints. 64 GB would be tight and would force the PLE table back to the SSD; 128 GB is the comfortable floor.
+- The model download is 79 GB; the PLE table alone is 28.8 GB. With 128 GB of VRAM the experts live on the GPUs, but the host still needs the PLE table (28.8 GB with `--ple-io ram`), the OS/page cache, the engine’s RAM arena and headroom for checkpoints. 64 GB is the documented minimum — Strata says IQ3_S fits “with little else open” — but it forces the PLE table back to the SSD and limits the conversation cache; 128 GB is the comfortable floor.
 - 2×64 GB keeps four slots free for the 8× path. Four 32 GB DIMMs would give the same 128 GB but consume half the slots and make the eventual 512 GB upgrade a full replacement.
 - 2Rx4 is the right rank/organization for these capacities; do not mix 2Rx4 and 2Rx8, and do not mix brands/timings in one channel set.
+
+**One stick or two?** One 64 GB RDIMM will run the GPU-resident IQ3_S workload in low-RAM mode with the PLE on the RAID 0, but it blocks `--ple-io ram` (28.8 GB), the full 16 GB conversation cache and two Saber TP=2 servers, and it leaves ~4 GB of headroom. Two sticks are the practical floor and the specified dual-channel configuration; the second stick is €2,499 and is the first step of the 8×64 GB path. The full capacity/bandwidth math and a one-stick test plan are in [`docs/RAM-START.md`](docs/RAM-START.md).
 
 ### 3.3 The DRAM tax
 
@@ -591,6 +593,7 @@ All prices are from 2026-11-06 and include VAT. The exact line items, sources an
 | [`configs/README.md`](configs/README.md) | Flag-by-flag notes and tuning levers. |
 | [`docs/SABER.md`](docs/SABER.md) | Evaluation of the Saber engine: TP=2 limit, MXFP4 packs, 95.4 GiB PLE, fit against this build. |
 | [`docs/SABER-4X.md`](docs/SABER-4X.md) | Code-level answer to “expand the 2× config to 4×”: why Flash-Next cannot be dense-TP=4, the three 4-GPU paths, and the BOM impact. |
+| [`docs/RAM-START.md`](docs/RAM-START.md) | 1×64 GB vs 2×64 GB at the start: capacity, bandwidth, PLE/cache impact, upgrade path and a one-stick test plan. |
 | [`patches/`](patches/) | Upstream Saber docs/RFC patch (against `cebec82`), apply/submit instructions and PR body. |
 | [`docs/VALIDATION.md`](docs/VALIDATION.md) | Acceptance and benchmark protocol. |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | Source links and what each one verifies. |
