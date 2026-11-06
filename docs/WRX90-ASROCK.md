@@ -188,6 +188,8 @@ The 9955WX is a **350 W** part; the TRX50 AI TOP’s 16+8+4 VRM is adequate for 
 
 The board OC numbers are **2–4 DIMM OC R-DIMM** figures (usually 16/24/32 GB modules), not 8×64 GB 2Rx4. The 9955WX’s official 6400 is the realistic JEDEC ceiling; 7600/7800 requires EXPO OC R-DIMM kits, a lucky IMC and the board’s QVL. With the build’s current 5600 modules, all three boards run **5600** — the module is the limit, not the board. If you want 6400, buy 6400 64 GB 2Rx4 modules and check the QVL; the 8×64 endgame is 6400 at best, not 7600/7800.
 
+The BOM stays at 5600 because the 64 GB 2Rx4 5600 part is the volume/JEDEC/QVL-friendly module at €39.05/GB; 6400 64 GB 2Rx4 is rarer and dearer, and the 7600/7800 numbers are 2–4 DIMM OC kits, not eight 64 GB modules. The 9955WX’s 6400 is only +14% host bandwidth, and the decode loop is GPU-bound with the experts in VRAM. Spend the premium on capacity (8×64 = 512 GB) before the last 800 MT/s.
+
 ### BMC: integrated, not an add-on
 
 - The **WRX90 AI TOP** and **ASRock WRX90 WS EVO** have an **integrated ASPEED AST2600 BMC** with a dedicated IPMI LAN port. It is soldered on the board; there is no “BMC module” to buy or install.

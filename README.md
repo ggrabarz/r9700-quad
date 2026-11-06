@@ -149,6 +149,8 @@ The ASRock’s 8-channel population is the native WRX90 layout. The 2-DIMM start
 
 **Speed ceilings:** the 9955WX is officially **DDR5-6400**. The ASRock advertises **7600+ OC**, the WRX90 AI TOP **7800 OC** (reported), the TRX50 AI TOP has no published max (TRX50 OC R-DIMM kits ~7200). Those are **2–4 DIMM OC R-DIMM** numbers, not 8×64 GB 2Rx4. With the specified **5600** modules, all boards run **5600**; with 6400-rated 64 GB 2Rx4 modules on the QVL, the 8×64 realistic ceiling is **6400** (409.6 GB/s). The current 5600 modules are the limit, not the board.
 
+**Why 5600 in the BOM?** Because it is the fastest **64 GB 2Rx4 ECC RDIMM** that is a volume, JEDEC, QVL-friendly part at a sane price. The 64 GB 2Rx4 5600 module is €39.05/GB; 6400 64 GB 2Rx4 modules are rarer and carry a premium, and the 7600/7800 figures are 2–4 DIMM OC R-DIMM kits (16/24/32 GB), not eight 64 GB modules. The 9955WX’s official 6400 is only **+14% host bandwidth** (89.6 → 102.4 GB/s at 2 DIMMs; 358.4 → 409.6 at 8), and the decode loop is GPU-bound with the experts in VRAM; the host bandwidth mostly affects model load, PLE, checkpoints and CPU fallback. The 8×64 capacity is the real endgame lever, not the last 800 MT/s. If you can source 6400-rated 64 GB 2Rx4 modules on the QVL at a fair price, take them; otherwise 5600 is the correct cost/benefit choice, and the 8×64 endgame at 5600 is the stable target.
+
 ### 3.2 Why 128 GB now
 
 - The model is 79 GB on disk; the PLE table is 28.8 GB. With 128 GB of VRAM the experts live on the GPUs, but the host needs the PLE table (28.8 GB with `--ple-io ram`), the OS/page cache and checkpoint headroom. 64 GB is the documented minimum (IQ3_S “with little else open”); 128 GB is the comfortable floor.
@@ -157,7 +159,7 @@ The ASRock’s 8-channel population is the native WRX90 layout. The 2-DIMM start
 
 ### 3.3 The DRAM tax
 
-At the snapshot the Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** — **€39.05/GB**, **49% of the platform**. This is the 2026 DRAM shortage, not a design choice. 64 GB modules are the cheapest per-GB RDIMM in this snapshot (a 4×16 GB kit is €3,346 for 64 GB). A 2×32 GB start saves ~€2,500 but leaves 64 GB — the wrong trade for a 79 GB model with a 28.8 GB PLE. If you can wait/buy used-server pulls, 64 GB DDR5-4800/5600 2Rx4 can cut this line; verify part/rank/ECC and run MemTest86+.
+At the snapshot the Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** — **€39.05/GB**, **~48% of the platform total**. This is the 2026 DRAM shortage, not a design choice. 64 GB modules are the cheapest per-GB RDIMM in this snapshot (a 4×16 GB kit is €3,346 for 64 GB). A 2×32 GB start saves ~€2,500 but leaves 64 GB — the wrong trade for a 79 GB model with a 28.8 GB PLE. If you can wait/buy used-server pulls, 64 GB DDR5-4800/5600 2Rx4 can cut this line; verify part/rank/ECC and run MemTest86+.
 
 ### 3.4 One stick or two?
 
