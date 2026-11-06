@@ -98,6 +98,8 @@ Strata (upstream Niko1221/Strata; if your “coldniko” build is a fork, check 
 
 The published AMD support matrix lists the R9700 as maintainer-tested, and the multi-GPU documentation includes measured 2/3/4-card R9700 results. HIP multi-GPU is nevertheless younger than the CUDA path; treat the acceptance run as mandatory, not a formality.
 
+**Alternative engine — Saber.** A new Rust engine, [Saber](https://github.com/GGZ14/saber-engine), targets the R9700 and serves Qwen3.8 Flash-Next, with a headline **229 tok/s for the 27B dense model on two cards**. It is **TP=1/2 only** and explicitly refuses TP=3/4, and it uses MXFP4 packs rather than IQ3_S/GGUF. It therefore cannot use all four cards for one model and does not change this build. The full evaluation — including its 95.4 GiB PLE table and what it would mean for a 2-GPU box — is in [`docs/SABER.md`](docs/SABER.md).
+
 ---
 
 ## 2. Why this board and this CPU
@@ -477,6 +479,7 @@ At 50% average load, the machine draws ~862 W at the wall (~7,550 kWh/year, €1
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
 | HIP multi-GPU layer split is less mature than CUDA | Medium | Performance/stability | Acceptance run with 8×262K streams and a 24 h soak; keep the CUDA path as a fallback only if you add NVIDIA cards (not planned). |
+| Engine-choice drift: Saber is faster on 2 cards but TP=2 only | Medium | Wrong build for 4 GPUs | Keep Strata for the 4-GPU objective; if you test Saber, test it on a pair, not as a 4-GPU replacement. See [`docs/SABER.md`](docs/SABER.md). |
 | M.2 drives throttle under the GPUs | Medium | Model/PLE read slowdown | Gen4 drives, board heatsinks, bottom intake, SMART monitoring, 70 °C target. |
 | RAID 0 loses a drive | Low–Medium | Working set lost | Full model/config archive on the 4 TB SATA; checksum manifest; UPS; rebuild procedure documented. |
 | 2-channel RAM now limits CPU-side work | Medium | Slower CPU expert fallback/PLE | All experts fit VRAM; 8× path documented; move to 4 or 8 DIMMs if you later run bigger models. |
@@ -586,5 +589,6 @@ All prices are from 2026-11-06 and include VAT. The exact line items, sources an
 | [`configs/strata-4x-r9700-8x262k.json`](configs/strata-4x-r9700-8x262k.json) | Starting Strata launch config for 4 GPUs, 262K, 8 slots. |
 | [`configs/strata-4x-r9700-16x131k.json`](configs/strata-4x-r9700-16x131k.json) | Throughput preset, 131K, 16 slots. |
 | [`configs/README.md`](configs/README.md) | Flag-by-flag notes and tuning levers. |
+| [`docs/SABER.md`](docs/SABER.md) | Evaluation of the Saber engine: TP=2 limit, MXFP4 packs, 95.4 GiB PLE, fit against this build. |
 | [`docs/VALIDATION.md`](docs/VALIDATION.md) | Acceptance and benchmark protocol. |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | Source links and what each one verifies. |

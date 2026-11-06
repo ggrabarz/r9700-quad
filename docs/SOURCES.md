@@ -52,6 +52,16 @@ Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not
 | `/root/git/strata/docs/BATCHING.md` | Batch-slot behavior, 2× RTX 5090 `--batch 6` at 262K, concurrent read measurements. |
 | [Strata repository](https://github.com/Niko1221/Strata) | Upstream project and release packages. |
 
+## Alternative engine (Saber)
+
+| Source | What it verifies |
+|---|---|
+| [Saber repository](https://github.com/GGZ14/saber-engine) | Rust/HIP engine for gfx1201; Qwen3.8-27B and Qwen3.8 Flash-Next; **TP=1/2 only**, refuses 3/4; MXFP4 `SBRPACK1` packs; 95.4 GiB bf16 PLE table with `O_DIRECT`; 229 tok/s 27B on 2× R9700. |
+| [Launch post by @bkuyper, 2026-11-05](https://x.com/bkuyper/status/2118433092230606937) | Announcement and the project link; the screenshot is a terminal capture, not a Flash-Next benchmark table. |
+| [`docs/SABER.md`](SABER.md) | The fit analysis against this 4-GPU build; why it does not change the BOM. |
+
+The Saber numbers are the project’s claims, not measurements on this host. The 229 tok/s figure is the 27B dense model, not Flash-Next; do not transfer it to the MoE workload.
+
 ## Arithmetic and derived figures
 
 The following are **derived**, not quoted:
