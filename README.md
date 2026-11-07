@@ -2,7 +2,7 @@
 
 **Scope:** a four-GPU AMD Radeon AI PRO R9700 (32 GB) inference platform for the Strata engine, serving Qwen3.8-Flash-Next Swift 1.5 IQ3_S (or IQ3_XXS) at up to 262,144 tokens of context with as many full-context streams as 128 GB of VRAM will hold. The four GPUs are already owned; this book prices and specifies everything else.
 
-**Price snapshot:** 2026-11-06/07 (platform 06, RAM retail 07), EUR including VAT, EU (Germany/Austria comparison, Alternate DE retail). Prices are listed offers, not quotes; stock moves. The machine-readable snapshot is [`bom/prices.json`](bom/prices.json), the arithmetic is [`tools/calc.py`](tools/calc.py), the build sheets are [`bom/`](bom/), and the one-page visual is [`report.html`](report.html).
+**Price snapshot:** 2026-11-06/07 (platform 06, RAM retail 07), EUR including VAT, EU (Germany/Austria comparison; Geizhals EU/DE, Alternate DE, Proshop DE, Galaxus DE). Prices are listed offers, not quotes; stock moves. The machine-readable snapshot is [`bom/prices.json`](bom/prices.json), the arithmetic is [`tools/calc.py`](tools/calc.py), the build sheets are [`bom/`](bom/), and the one-page visual is [`report.html`](report.html).
 
 ---
 
