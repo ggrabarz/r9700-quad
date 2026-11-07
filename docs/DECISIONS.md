@@ -127,6 +127,29 @@ At the 2026-11-06/07 snapshot the EU-retail 64 GB DDR5-6400 R-DIMMs found are:
   machine-readable at the snapshot. The Kingston part number is not confirmed on
   Kingston’s site; prefer the Micron for a spec-confirmed build.
 
+### 1.8 Board: ASRock value, ASUS premium
+
+- Both **ASRock WRX90 WS EVO** (€808.05) and **ASUS Pro WS WRX90E-SAGE SE**
+  (€1,288.00) are proper WRX90 + AST2600 IPMI boards, 8× RDIMM/2 TB, EEB
+  305×330, seven x16 slots. Both run four 2-slot GPUs in slots 1/3/5/7 at
+  **x16**; slot 6 is the x8 slot and is unused.
+- **ASUS** adds **4× Gen5 M.2**, **2× SlimSAS Gen4**, **32+3+3+3** VRM and
+  documented **dual-PSU** wiring. Its M.2 sockets sit under the GPUs.
+- **ASRock** has 1× Gen5 M.2 + 2× Gen5 MCIO + 1× Gen4 M.2 + 2× Gen4 SlimSAS;
+  the MCIO drives mount in the 2.5" bays, away from GPU heat. It is the value
+  pick and the better thermal layout for a 24/7 Gen5 array.
+- **Option A swap:** ASUS with 3× Gen5 M.2 and no MCIO = €10,830.86 platform /
+  €18,551.70 with GPUs, **+€411.95** over the ASRock A. A 4× Gen5 M.2 build
+  with an 8 TB image drive = €11,503.45 / €19,224.29.
+- **Power connector caveat:** four R9700s consume the PX-2200’s 2 native
+  12V-2x6 and both 2×8-pin adapters (all 4 PCIe 8-pin), leaving no PCIe cable
+  for the board aux. ASUS needs 2× PCIE_8P, ASRock 4× 6-pin. Budget a second
+  PSU (ASUS has dual-PSU wiring; ASRock does not) or a PSU with ≥6 PCIe 8-pin
+  for ASUS / ≥8 for ASRock.
+- **Validation:** the r/LocalLLM ASUS build (9955WX, 128 GB DDR5-6400,
+  4× R9700, Radiance TP4) confirms the board/CPU/RAM/4-GPU combination; it is
+  128 GB, not 8×64, and Radiance TP4 is not Strata.
+
 ## 2. Engine behaviour and flags
 
 ### 2.1 Strata on four GPUs is a pipeline layer split, not tensor parallel
@@ -238,3 +261,8 @@ oversized for four cards.
   `100203342` (8×64, €23,094)
 - Kingston `KSM64R52BD4` single-module listing: Galaxus DE, €3,202.74
 - Micron `MTC40F2046S1RC64BD2` US reference: ServerSupply, US$4,270
+- ASUS WRX90E-SAGE SE spec/manual (slot 6 x8; 4-way 1/3/5/7 x16; 4× Gen5 M.2;
+  single-PSU 2× CPU + 2× PCIE_8P; dual-PSU PCIE_CPU_12V) and Alternate price
+  €1,288.00
+- r/LocalLLM 4× R9700 Radiance TP4 report: ASUS WRX90 Sage, 9955WX, 128 GB
+  DDR5-6400, 236 tok/s single / 1,190 tok/s at 16 streams; user report

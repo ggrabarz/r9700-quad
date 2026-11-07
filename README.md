@@ -25,7 +25,7 @@
 
 With the four GPUs at today’s replacement price: **€18,139.75**.
 
-The alternatives: **Option B — 6× Gen4, 6 TB** at **€11,705.38**; **Option C — 4× Gen4, 4 TB** at **€10,682.59**. The rest of this book explains why A is the middle.
+The alternatives: **Option B — 6× Gen4, 6 TB** at **€11,705.38**; **Option C — 4× Gen4, 4 TB** at **€10,682.59**; **Option G — ASUS premium, 3× Gen5 M.2** at **€10,830.86**. The rest of this book explains why A is the value middle and G is the premium board swap.
 
 **RAM choice:** the value baseline is **2×64 GB DDR5-5600** (€4,998). The **2×64 GB DDR5-6400** start is **2× Micron MTC40F2046S1RC64BH1** (€6,559.94; 8× later €26,239.76, JEDEC 2Rx4). The cheaper-per-GB 6400 options are the **G.Skill T5 Neo** **4×64 GB (256 GB, CL36) €12,135.01** and **8×64 GB (512 GB, CL38) €23,094**. **Option A + 2×6400 = €12,027.71; + 4×64 = €17,770.03; + 8×64 = €29,057.79 at the notify-only price (orderable Proshop €33,766.02).** See §3.
 
@@ -56,7 +56,7 @@ The alternatives: **Option B — 6× Gen4, 6 TB** at **€11,705.38**; **Option 
 | | 3% contingency | €303.46 |
 | | **Platform total (GPUs excluded)** | **€10,418.91** |
 
-**Today’s pick: ASRock WRX90 WS EVO.** It is the proper WRX90 platform for the 9955WX + RDIMM, it includes IPMI (the TRX50 AI TOP cannot add it), it is cheaper than the TRX50 AI TOP before cabling, and its six NVMe ports make the 3× Gen5 array a clean all-Gen5 build. The one trade is the TRX50 AI TOP’s four Gen5 M.2 sockets; with the current **Gen5 9100 PRO at €264** — the same price as the Gen4 990 PRO — the three Gen5 drives on the ASRock are the better array today anyway.
+**Value pick: ASRock WRX90 WS EVO.** It is the proper WRX90 platform for the 9955WX + RDIMM, it includes IPMI (the TRX50 AI TOP cannot add it), it is cheaper than the TRX50 AI TOP before cabling, and its six NVMe ports make the 3× Gen5 array a clean all-Gen5 build. **Premium pick: ASUS Pro WS WRX90E-SAGE SE at €1,288.00** — four Gen5 M.2 slots, two SlimSAS Gen4, 32+3+3+3 VRM, dual-PSU support, and a public 4× R9700 build. See §2.4.
 
 ---
 
@@ -100,7 +100,7 @@ The published AMD support matrix lists the R9700 as maintainer-tested, and the m
 
 ---
 
-## 2. The board: ASRock WRX90 WS EVO
+## 2. The board: ASRock WRX90 WS EVO (value) / ASUS WRX90E-SAGE SE (premium)
 
 ### 2.1 Specs and why
 
@@ -135,6 +135,36 @@ The Meshify 2 XL has 9+3 slots, so the four cards fit with the 9th slot spare. T
 | CPU lanes | 128 total | A 76, B 88, C 80 used; 40–52 spare. |
 
 No PLX switch and no lane-sharing gamble. The ASRock’s MCIO/SlimSAS ports are independent of the x16 slots.
+
+### 2.4 ASUS Pro WS WRX90E-SAGE SE — the premium pick
+
+| Feature | ASUS WRX90E-SAGE SE |
+|---|---|
+| Chipset / CPU | WRX90, sTR5, PRO 9000/7000 WX |
+| Memory | 8× DDR5 RDIMM, 8-channel, 2 TB, 1DPC |
+| PCIe | 7× PCIe 5.0 x16: 6× x16 + **slot 6 x8**; 4-way uses 1/3/5/7, **all x16** |
+| NVMe | **4× Gen5 M.2 x4 + 2× SlimSAS Gen4 x4** |
+| SATA | 4× SATA3 |
+| BMC / LAN | AST2600 IPMI, dual Intel X710 10G, 1G BMC |
+| VRM | **32+3+3+3**, active VRM cooling |
+| Form | EEB 305×330 mm |
+| Price | **€1,288.00** (Alternate, in stock) |
+
+**Why it is the premium pick:** four Gen5 M.2 sockets let a **3× Gen5 RAID 0** run with **no MCIO cables**; a fourth Gen5 drive makes a 4 TB array, but then a full image needs an 8 TB HDD. The 32+3+3+3 VRM is more margin for the 350 W 9955WX, and the board has documented dual-PSU wiring. Its M.2 sockets are on-board under the four 2-slot GPUs; ASUS fits active M.2 cooling, but the ASRock’s MCIO drives in the 2.5" bays are thermally happier for a 24/7 Gen5 array.
+
+**The swap, Option A (3× Gen5 M.2, no MCIO):**
+
+| Item | ASRock A | ASUS A |
+|---|---:|---:|
+| Board | €808.05 | €1,288.00 |
+| MCIO cables | €80.00 | €0.00 |
+| Parts subtotal | €10,115.45 | €10,515.40 |
+| +3% contingency | €10,418.91 | €10,830.86 |
+| With 4 GPUs | €18,139.75 | €18,551.70 |
+
+That is **+€411.95** for the ASUS (+€399.95 in parts). A **4× Gen5 M.2** build (4× 9100 PRO + 8 TB HDD for the image) is **€11,503.45 platform / €19,224.29 with GPUs**.
+
+**Reference build:** a public [r/LocalLLM build](https://www.reddit.com/r/LocalLLM/comments/1xe1u1i/qwen38flashnext_on_4x_r9700_with_radiance_at_tp4/) uses **ASUS WRX90 Sage + 9955WX + 128 GB DDR5-6400 ECC + 4× R9700**, Radiance 1.11 TP4, 113.6 GiB IQ4_R: **236 tok/s single stream, 1,190 tok/s at 16 streams, 11.27 ms step, 6.5× 262K KV sessions**, ~73 GB host RAM. That is a user report, not an independent benchmark; Radiance is tensor-parallel, Strata is a pipeline layer split, so the 236 tok/s does **not** transfer to Strata. It does validate the board/CPU/RAM/4-GPU combination and four x16 links. It is **128 GB**, not 8×64 GB; the 8×64 6400 QVL question is unchanged. Full comparison: [`docs/ASUS-WRX90E-SAGE.md`](docs/ASUS-WRX90E-SAGE.md).
 
 ---
 
@@ -286,7 +316,12 @@ RAID 0 has no redundancy. The array is a working set, not a backup. Keep the mod
 
 Input at 94% efficiency ≈1,734 W, **7.54 A at 230 V**. Use a **16 A circuit** and a C19/C20 cord; the PX-2200 is **200–240 V only**.
 
-The ASRock has **2× 8-pin ATX12V**, **2× 6-pin PCIe 12V**, and **2× 6-pin GFX 12V**. It requires 6-pin PCIe 12V to GFX_12V1/2 or it may not boot. The Seasonic’s 4× PCIe 6+2 cables cover the GFX inputs; the 2× native 12V-2x6 + 2 adapters feed the four GPUs. Connect the board GFX first.
+**Connector budget — the binding constraint, not the watts.** The PX-2200 has 3× EPS 8-pin, **4× PCIe 8-pin**, **2× native 12V-2x6**, and 2× adapters that are each **2× PCIe 8-pin to 12V-2x6**. Four R9700s consume the 2 native + 2 adapters, and those two adapters consume **all four PCIe 8-pin**. The board aux then has no PCIe cable:
+
+- **ASUS single-PSU:** 2× CPU 8-pin (EPS) + **2× PCIE_8P**; the two PCIE_8P have no PCIe cable left.
+- **ASRock:** 2× ATX12V (EPS) + **2× PCIE12V 6-pin + 2× GFX 6-pin**; four PCIe cables, none left.
+
+The PX-2200 is adequate on watts (1,630 W, 26% headroom) but **short on PCIe 8-pin connectors for four GPUs plus board aux**. For a 4-GPU build, budget either a **second PSU** (the ASUS has documented dual-PSU wiring; the ASRock does not) or a **PSU with at least 6 PCIe 8-pin outputs** for the ASUS, or 8 for the ASRock. Do not use splitters on 300 W cards. This corrects the earlier claim that the four PCIe cables cover the board GFX inputs; they cannot also feed the two 12V-2x6 adapters.
 
 **Do not** substitute a 1600 W unit: 1,630 W continuous is 102% of its rating. It only works with all four GPUs capped to ~250 W.
 
@@ -295,8 +330,8 @@ The ASRock has **2× 8-pin ATX12V**, **2× 6-pin PCIe 12V**, and **2× 6-pin GFX
 - Four blowers exhaust out the back; 3×140 front intake (2 included, add one), 1×140 rear, 2×140 bottom for the M.2/GPU zone.
 - 9955WX 350 W: the XE360-TR5 360 mm AIO top-mounted is the right choice; Noctua NH-U14S TR5-SP6 is the air alternative if you accept less sustained margin.
 - Heat: 1,630 W = **5,562 BTU/h**; utility room/AC. Noise ~45–50 dBA at load.
-- Meshify 2 XL: EEB 305×330, 9+3 slots, 250 mm PSU, 480 mm top radiator, 6×3.5 + 2×2.5; fits the ASRock, four 2-slot GPUs, the 360 AIO and the 210 mm PSU.
-- The ASRock’s 7 slots: four 2-slot GPUs in 1/3/5/7; no free carrier. The 6 NVMe ports are the storage path.
+- Meshify 2 XL: EEB 305×330, 9+3 slots, 250 mm PSU, 480 mm top radiator, 6×3.5 + 2×2.5; fits both the ASRock and the ASUS, four 2-slot GPUs, the 360 AIO and the 210 mm PSU.
+- Both boards’ 7 slots: four 2-slot GPUs in 1/3/5/7; slot 6 is the x8 slot and is unused. No free carrier; the NVMe ports are the storage path.
 
 ### 5.3 UPS
 
@@ -362,11 +397,13 @@ At 262,144 tokens:
 
 At 8 concurrent 262K streams, per-stream decode is lower; plan 300–500 tok/s aggregate as the target band and measure.
 
+**Reference point, different engine:** the r/LocalLLM ASUS WRX90 Sage build (4× R9700, 9955WX, 128 GB DDR5-6400, Radiance 1.11 TP4, 113.6 GiB IQ4_R) reports **236 tok/s single stream, 1,190 tok/s at 16 streams, 11.27 ms step, 6.5× 262K KV sessions**. It is a user report, not an independent benchmark; Radiance is tensor-parallel, Strata is a pipeline layer split, so the number does **not** transfer. It does show the hardware can sustain much more than the Strata pipeline projection when the engine uses TP4; if Radiance is acceptable, benchmark it against Strata on the same box.
+
 ---
 
 ## 7. The builds
 
-Options **A/B/C** are the storage tiers and use the **2×64 GB DDR5-5600 value RAM**. Options **D/E/F** keep Option A’s 3× Gen5 storage and swap the RAM for **2×64 GB Micron 6400**, **4×64 GB G.Skill 6400**, or **8×64 GB G.Skill 6400**. All six use the ASRock WRX90 WS EVO, 9955WX, 2,200 W PSU, XE360-TR5 and Meshify 2 XL.
+Options **A/B/C** are the storage tiers and use the **2×64 GB DDR5-5600 value RAM**. Options **D/E/F** keep Option A’s 3× Gen5 storage and swap the RAM for **2×64 GB Micron 6400**, **4×64 GB G.Skill 6400**, or **8×64 GB G.Skill 6400**. The A–F BOMs use the ASRock WRX90 WS EVO; **G** uses the ASUS WRX90E-SAGE SE. **None of the totals includes the second PSU / higher-connector PSU needed for the four-GPU board aux; see §5.1 before ordering.** All use the 9955WX, 2,200 W PSU, XE360-TR5 and Meshify 2 XL.
 
 ### Option A — Balanced, 3× Gen5 (value recommendation)
 
@@ -508,6 +545,29 @@ Option A with one **G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 octa kit** (€23,094
 
 **Buy this if:** 512 GB at 409.6 GB/s is the target. It is G.Skill’s 8-DIMM 6400 kit and the endgame for DeepSeek UD-Q8 / large-model streaming. The 8×64 kit is **79.5% of the platform total** at the notify-only price — the DRAM shortage is the build. It is **+€18,638.88 over A** for 4× the channels and 4× the capacity. At the orderable Proshop price (€27,666.06) the platform is **€33,766.02** (€41,486.86 with GPUs); eight Micron singles are €1,426.30 cheaper.
 
+### Option G — ASUS premium, 3× Gen5 M.2
+
+Option A with the **ASUS Pro WS WRX90E-SAGE SE** (€1,288.00) and **no MCIO cables**: the three 9100 PRO drives go in three of the four onboard Gen5 M.2 sockets.
+
+| Item | Qty | Unit | Line |
+|---|---:|---:|---:|
+| ASUS Pro WS WRX90E-SAGE SE | 1 | €1,288.00 | €1,288.00 |
+| Threadripper PRO 9955WX | 1 | €1,637.70 | €1,637.70 |
+| Samsung 64 GB DDR5-5600 2Rx4 ECC RDIMM | 2 | €2,499.00 | €4,998.00 |
+| Samsung 9100 PRO 1 TB Gen5 | 3 | €264.00 | €792.00 |
+| Samsung 870 EVO 4 TB SATA | 1 | €665.00 | €665.00 |
+| Seasonic PRIME PX-2200 | 1 | €489.90 | €489.90 |
+| SilverStone XE360-TR5 | 1 | €389.90 | €389.90 |
+| Fractal Meshify 2 XL | 1 | €209.90 | €209.90 |
+| 140 mm fans (est.) | 3 | €15.00 | €45.00 |
+| **Platform subtotal** | | | **€10,515.40** |
+| Contingency 3% | | | €315.46 |
+| **Platform total** | | | **€10,830.86** |
+| GPUs (owned, replacement) | 4 | €1,930.21 | €7,720.84 |
+| **Total if buying GPUs** | | | **€18,551.70** |
+
+**Buy this if:** you want the premium board, four Gen5 M.2 sockets and no MCIO cabling. It is **+€411.95 over A** (+€399.95 in parts). The fourth M.2 is free for a 4× Gen5 array later, but a 4 TB array then needs the 8 TB HDD for a full image. The M.2 drives sit under the GPUs; the ASRock MCIO layout is cooler. **The PSU connector caveat in §5.1 applies: the ASUS needs 2× PCIE_8P and the PX-2200 has no PCIe 8-pin left after the two GPU adapters.**
+
 ### What not to buy
 
 - **A 24-core 9965WX (+€1,378).** The 16C/32T 9955WX gives the 15 expert workers Strata’s AMD reference config uses; more cores do not help a GPU-resident model.
@@ -552,6 +612,8 @@ A is the middle: it is €263.68 cheaper than C and faster, with 1 TB less; it i
 
 D is the literal 2× start: **+€1,608.80 over A** for +14.3% bandwidth at the same 128 GB. It is the only path that reaches 8×6400 with JEDEC 2Rx4 modules: eight Micron singles are €26,239.76 RAM, **€32,297.93 platform**, **€40,018.77 with GPUs**. E is **+€7,351.12 over A** for 2× the channels and 2× the capacity. F is **+€18,638.88 over A** for 4× the channels and 4× the capacity at the notify-only price; the orderable Proshop price is €27,666.06, **€33,766.02 platform / €41,486.86 with GPUs**. The 6400 premium is **+31.2% per GB in D**, **+21.4% in E**, **+15.5% in F** versus the 5600 module.
 
+**Board swap:** ASUS G is **€10,830.86** (€18,551.70 with GPUs), **+€411.95 over A**; per VRAM GB **€84.62**, per 262K stream **€1,353.86**. The ASUS 4× Gen5 M.2 build (4× 9100 PRO + 8 TB HDD) is **€11,503.45 / €19,224.29**.
+
 At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at €0.25/kWh). Add the platform amortized over three years (€3,473/year for A, €4,009/year for D, €5,923/year for E, €9,686/year for F) and the all-in compute cost is ~€5,362 / €5,898 / €7,812 / €11,575 per year before GPUs.
 
 ---
@@ -580,15 +642,15 @@ At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at �
 
 ### 10.1 Before assembly
 
-1. Flash the latest ASRock BIOS; confirm 9955WX support.
-2. Check the ASRock memory QVL for the exact Samsung M321R8GA0PB0-CWM (5600), Micron MTC40F2046S1RC64BH1 (6400 single), or G.Skill F5-6400R3644E64GQ4-T5N / F5-6400R3848F64GE8-T5N (6400 kits); 8 DIMMs is the stress case.
+1. Flash the latest ASRock or ASUS BIOS; confirm 9955WX support.
+2. Check the ASRock or ASUS memory QVL for the exact Samsung M321R8GA0PB0-CWM (5600), Micron MTC40F2046S1RC64BH1 (6400 single), or G.Skill F5-6400R3644E64GQ4-T5N / F5-6400R3848F64GE8-T5N (6400 kits); 8 DIMMs is the stress case.
 3. Verify all four GPUs are 2-slot blowers (40 mm).
 4. Dry-fit the 360 AIO top and the 210 mm PSU; confirm the 2.5" bays for the MCIO drives.
 
 ### 10.2 Assembly
 
 1. CPU into sTR5; RAM per build: **A/B/C** 2×64 GB in A1 + E1; **D** 2×64 GB in A1 + E1; **E** 4×64 GB in A1/C1/E1/G1; **F** 8×64 GB in all slots.
-2. 1× 9100 PRO in M2_1 (Gen5); 2× 9100 PRO on the MCIO Gen5 ports via the adapter cables, mounted in the 2.5" bays. The Gen4 M.2 stays free.
+2. **ASRock A–F:** 1× 9100 PRO in M2_1 (Gen5); 2× 9100 PRO on the MCIO Gen5 ports via the adapter cables, mounted in the 2.5" bays. The Gen4 M.2 stays free. **ASUS G:** 3× 9100 PRO in M.2_1/_2/_3; no MCIO.
 3. Board into the case; EEB standoffs.
 4. 360 AIO top; pump/fans to CPU headers.
 5. PSU, 24-pin, 2× EPS, 6-pin PCIe 12V to PCIE12V1/2 and GFX_12V1/2.
@@ -636,6 +698,7 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | Item | Price | Source |
 |---|---:|---|
 | ASRock WRX90 WS EVO | €808.05 | [Geizhals EU](https://geizhals.eu/asrock-wrx90-ws-evo-90-mxbmh0-a0uayz-a3167681.html) |
+| ASUS Pro WS WRX90E-SAGE SE | €1,288.00 | [Alternate DE](https://www.alternate.de/ASUS/PRO-WS-WRX90E-SAGE-SE-Mainboard/html/product/100042953) |
 | Threadripper PRO 9955WX | €1,637.70 | [Geizhals DE](https://geizhals.de/amd-ryzen-threadripper-pro-9955wx-100-100000725wof-a3531872.html) |
 | Samsung 64 GB DDR5-5600 2Rx4 ECC RDIMM | €2,499.00 | [Geizhals EU](https://geizhals.eu/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3528359.html) |
 | Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 CL52 2Rx4 RDIMM (single) | €3,279.97 | [Galaxus DE](https://www.galaxus.de/de/s1/product/micron-crucial-64-gb-reg-ecc-ddr5-6400-mtc40f2046s1rc64bh1-6400-mhz-ddr5-ram-dimm-ram-68867097) |
@@ -654,7 +717,7 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | Gigabyte TRX50 AI TOP (alternative) | €896.75 | [Geizhals EU](https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html) |
 | Gigabyte WRX90 AI TOP (announced) | TBD | [Geizhals listing](https://geizhals.eu/gigabyte-wrx90-ai-top-amd-str5-a3995002.html) |
 
-**Technical sources:** [ASRock WRX90 WS EVO spec](https://www.asrock.com/mb/AMD/WRX90%20WS%20EVO/index.asp), [ASRock manual](https://download.asrock.com/Manual/WRX90%20WS%20EVO.pdf), [AMD 9955WX](https://www.amd.com/en/products/processors/workstations/ryzen-threadripper/9000-wx-series/amd-ryzen-threadripper-pro-9955wx.html), [Micron MTC40F2046S1RC64BH1](https://www.micron.com/products/memory/dram-modules/rdimm/part-catalog/part-detail/mtc40f2046s1rc64bh1), [Seasonic PX-2200 datasheet](https://seasonic.com/wp-content/uploads/2024/06/ATX-3.1-PRIME-PX-2200.pdf), [Fractal Meshify 2 XL sheet](https://assets.fractal-design.com/files/uxzbxy2o/production/1bc60fe11df0e6b0269090a88eec38f36586ff3c.pdf), and the Strata docs in `/root/git/strata/docs/`.
+**Technical sources:** [ASRock WRX90 WS EVO spec](https://www.asrock.com/mb/AMD/WRX90%20WS%20EVO/index.asp), [ASRock manual](https://download.asrock.com/Manual/WRX90%20WS%20EVO.pdf), [ASUS WRX90E-SAGE SE spec](https://www.asus.com/motherboards-components/motherboards/workstation/pro-ws-wrx90e-sage-se/techspec/), [ASUS manual](https://dlcdnets.asus.com/pub/ASUS/mb/SocketsTR5/Pro_WS_WRX90E-SAGE_SE/E27563_Pro_WS_WRX90E-SAGE_SE_EM_V4_WEB.pdf), [AMD 9955WX](https://www.amd.com/en/products/processors/workstations/ryzen-threadripper/9000-wx-series/amd-ryzen-threadripper-pro-9955wx.html), [Micron MTC40F2046S1RC64BH1](https://www.micron.com/products/memory/dram-modules/rdimm/part-catalog/part-detail/mtc40f2046s1rc64bh1), [Seasonic PX-2200 datasheet](https://seasonic.com/wp-content/uploads/2024/06/ATX-3.1-PRIME-PX-2200.pdf), [Fractal Meshify 2 XL sheet](https://assets.fractal-design.com/files/uxzbxy2o/production/1bc60fe11df0e6b0269090a88eec38f36586ff3c.pdf), and the Strata docs in `/root/git/strata/docs/`.
 
 **Price caveat:** listed “from” prices are not reservations. Re-check every offer before ordering; the 3% contingency covers shipping/volatility.
 
@@ -672,12 +735,14 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | [`bom/option-d.csv`](bom/option-d.csv) | Staged 6400, 2×64 GB DDR5-6400 Micron build sheet. |
 | [`bom/option-e.csv`](bom/option-e.csv) | Fast RAM 4×64 GB DDR5-6400 G.Skill build sheet. |
 | [`bom/option-f.csv`](bom/option-f.csv) | Full speed 8×64 GB DDR5-6400 G.Skill build sheet. |
+| [`bom/option-g.csv`](bom/option-g.csv) | ASUS WRX90E-SAGE SE premium, 3× Gen5 M.2 build sheet. |
 | [`tools/calc.py`](tools/calc.py) | Totals, power, lanes, memory, VRAM/KV/streams. |
 | [`tools/export_bom.py`](tools/export_bom.py) | Regenerates CSVs. |
 | [`configs/strata-4x-r9700-8x262k.json`](configs/strata-4x-r9700-8x262k.json) | 8×262K Strata preset. |
 | [`configs/strata-4x-r9700-16x131k.json`](configs/strata-4x-r9700-16x131k.json) | 16×131K preset. |
 | [`docs/RAM-START.md`](docs/RAM-START.md) | 1×64 vs 2×64, one-stick test plan. |
 | [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md) | Board comparison, storage tiers, dense/MoE streaming. |
+| [`docs/ASUS-WRX90E-SAGE.md`](docs/ASUS-WRX90E-SAGE.md) | ASUS vs ASRock board comparison, power connectors, reference 4× R9700 build. |
 | [`docs/SABER.md`](docs/SABER.md) / [`docs/SABER-4X.md`](docs/SABER-4X.md) | Saber engine evaluation and 4-rank limits. |
 | [`docs/VALIDATION.md`](docs/VALIDATION.md) | Acceptance protocol. |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | Source links and verification notes. |

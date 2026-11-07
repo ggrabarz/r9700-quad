@@ -1,43 +1,48 @@
 # WRX90 board options vs the Gigabyte TRX50 AI TOP — and what it means for SSD weight streaming
 
-**Short answer:** there are now three relevant boards, and no single one wins every column.
+**Short answer:** there are now four relevant boards, and no single one wins every column.
 
-- **ASRock WRX90 WS EVO** — WRX90, IPMI, 7 slots, 6 NVMe ports, **available at €808.05**. The three Gen5 ports (1 Gen5 M.2 + 2 Gen5 MCIO) make a clean **3× Gen5** array; a 4-drive array is 3 Gen5 + 1 Gen4; the same six ports can run **6× Gen4**.
+- **ASUS Pro WS WRX90E-SAGE SE** — WRX90, IPMI, 7 slots (4-way 1/3/5/7 all x16), **4× Gen5 M.2 + 2× SlimSAS Gen4**, 32+3+3+3 VRM, dual-PSU support, **€1,288.00 in stock**. The premium pick; four Gen5 M.2 remove the MCIO cables, and a public 4× R9700 build exists on this board. The M.2 sockets sit under the GPUs.
+- **ASRock WRX90 WS EVO** — WRX90, IPMI, 7 slots, 6 NVMe ports, **available at €808.05**. The three Gen5 ports (1 Gen5 M.2 + 2 Gen5 MCIO) make a clean **3× Gen5** array; a 4-drive array is 3 Gen5 + 1 Gen4; the same six ports can run **6× Gen4**. MCIO drives mount in the 2.5" bays, away from the GPU heat.
 - **Gigabyte WRX90 AI TOP** — WRX90, IPMI, 7 slots, 2 Gen5 M.2 + 1 Gen4 M.2 + 2 MCIO. **Announced 2026-10-30, no price or retail offers at the snapshot.** The 4-drive RAID 0 is also 3 Gen5 + 1 Gen4, because MCIOX8_1 shares bandwidth with the two Gen5 M.2 slots.
-- **Gigabyte TRX50 AI TOP** — TRX50, **no IPMI**, 4 slots, but **4 Gen5 M.2**; €896.75. The only one of the three that runs four Gen5 drives in RAID 0 without a carrier.
+- **Gigabyte TRX50 AI TOP** — TRX50, **no IPMI**, 4 slots, but **4 Gen5 M.2**; €896.75. The cheapest way to four Gen5 M.2, at the cost of no BMC and a hybrid platform.
 
-So: if you need **WRX90 + IPMI now**, the ASRock is the board — 3× Gen5 for the balanced build, 6× Gen4 for capacity. If you want the **Gigabyte AI TOP ecosystem with WRX90 + IPMI** and can wait, the WRX90 AI TOP is the natural choice — but it does not restore the four Gen5 M.2 sockets. If **four Gen5 M.2 drives** are the priority, the TRX50 AI TOP remains the one.
+So: **ASUS** is the premium WRX90/IPMI pick with four Gen5 M.2 and the stronger VRM; **ASRock** is the value pick and the better thermal layout for MCIO drives; **Gigabyte WRX90 AI TOP** is the Gigabyte-native WRX90/IPMI alternative once it ships; **TRX50 AI TOP** is only for four Gen5 M.2 without IPMI. ASUS and ASRock both run four 2-slot GPUs at x16 in slots 1/3/5/7; slot 6 is x8 on both.
+
+Full ASUS comparison, power connectors and the 4× R9700 reference build: [`ASUS-WRX90E-SAGE.md`](ASUS-WRX90E-SAGE.md).
 
 ## 1. Board comparison
 
-| Capability | ASRock WRX90 WS EVO | Gigabyte WRX90 AI TOP | Gigabyte TRX50 AI TOP |
-|---|---|---|---|
-| Chipset | AMD WRX90 | **AMD WRX90** | AMD TRX50 |
-| CPU | TR PRO 9000/7000 WX | TR PRO 9000/7000 WX | TR PRO 9000/7000 WX (and TR 9000/7000) |
-| Memory | 8× RDIMM, 8ch, 2 TB, 7600+ OC | 8× RDIMM, 8ch, 2 TB | 8× RDIMM, 8ch with PRO, 2 TB |
-| PCIe x16 | 7 (6× x16 + 1× x8) | **7 (6× x16 + 1× x8)** | 4× x16 |
-| Gen5 M.2 | 1 | **2** | **4** |
-| Gen4 M.2 | 1 | 1 | — |
-| Other NVMe | 2× MCIO Gen5 x4 + 2× SlimSAS Gen4 x4 | 2× MCIO 8i (MCIOX8_1 shares with M2A/M2B) | — |
-| SATA | 4 | 4 | 4 |
-| LAN | 2× 10GbE + IPMI | 2× Intel X710 10GbE + **BMC/IPMI LAN** | 2× 10GbE, no BMC |
-| BMC | AST2600 | **AST2600** | none |
-| VRM | 18+3+3, 110 A | **32+3+3+3**, 14-layer PCB, memory fans | 16+8+4 |
-| Power | 2× 8-pin ATX12V, 2× 6-pin PCIe, 2× 6-pin GFX | 2× 8-pin ATX12V, 4× PCIe | 2× 8-pin ATX12V, 4× 8-pin PCIe |
-| Form | EEB 305×330 | E-ATX 305×330 | E-ATX 305×330 |
-| Price | **€808.05** (59 offers) | **TBD — no offers** | €896.75 (48 offers) |
-| 4-drive RAID 0 | 3 Gen5 + 1 Gen4 | 3 Gen5 + 1 Gen4 | **4 Gen5** |
-| Availability | now | announced 2026-10-30 | now |
+| Capability | ASUS WRX90E-SAGE SE | ASRock WRX90 WS EVO | Gigabyte WRX90 AI TOP | Gigabyte TRX50 AI TOP |
+|---|---|---|---|---|
+| Chipset | AMD WRX90 | AMD WRX90 | **AMD WRX90** | AMD TRX50 |
+| CPU | TR PRO 9000/7000 WX | TR PRO 9000/7000 WX | TR PRO 9000/7000 WX | TR PRO 9000/7000 WX (and TR 9000/7000) |
+| Memory | 8× RDIMM, 8ch, 2 TB, 1DPC | 8× RDIMM, 8ch, 2 TB, 7600+ OC | 8× RDIMM, 8ch, 2 TB | 8× RDIMM, 8ch with PRO, 2 TB |
+| PCIe x16 | **7 (6× x16 + slot 6 x8)** | **7 (6× x16 + slot 6 x8)** | **7 (6× x16 + 1× x8)** | 4× x16 |
+| Gen5 M.2 | **4** | 1 | **2** | **4** |
+| Gen4 M.2 | — | 1 | 1 | — |
+| Other NVMe | **2× SlimSAS Gen4 x4** | 2× MCIO Gen5 x4 + 2× SlimSAS Gen4 x4 | 2× MCIO 8i (MCIOX8_1 shares with M2A/M2B) | — |
+| SATA | 4 | 4 | 4 | 4 |
+| LAN | 2× Intel X710 10GbE + **BMC/IPMI LAN** | 2× 10GbE + IPMI | 2× Intel X710 10GbE + **BMC/IPMI LAN** | 2× 10GbE, no BMC |
+| BMC | AST2600 | AST2600 | **AST2600** | none |
+| VRM | **32+3+3+3**, active VRM cooling | 18+3+3, 110 A | **32+3+3+3**, 14-layer PCB, memory fans | 16+8+4 |
+| Power | 2× 8-pin CPU, 2× PCIE_8P; dual-PSU | 2× 8-pin ATX12V, 2× 6-pin PCIe, 2× 6-pin GFX | 2× 8-pin ATX12V, 4× PCIe | 2× 8-pin ATX12V, 4× 8-pin PCIe |
+| Form | EEB 305×330 | EEB 305×330 | E-ATX 305×330 | E-ATX 305×330 |
+| Price | **€1,288.00** (in stock) | **€808.05** (59 offers) | **TBD — no offers** | €896.75 (48 offers) |
+| 4-drive RAID 0 | **4 Gen5** | 3 Gen5 + 1 Gen4 | 3 Gen5 + 1 Gen4 | **4 Gen5** |
+| Availability | now | now | announced 2026-10-30 | now |
 
-The ASRock is the **available** WRX90/IPMI value; the WRX90 AI TOP is the **Gigabyte-native** WRX90/IPMI board but is not yet priced or on a shelf; the TRX50 AI TOP is the **four-Gen5-M.2** board without IPMI.
+The ASRock is the **available** WRX90/IPMI value; the ASUS is the **four-Gen5-M.2 + 32+3+3+3 + dual-PSU** premium; the WRX90 AI TOP is the **Gigabyte-native** WRX90/IPMI board but is not yet priced or on a shelf; the TRX50 AI TOP is the **four-Gen5-M.2** board without IPMI.
 
-**Today’s pick: ASRock WRX90 WS EVO.** With the build’s current **Gen4** 990 PRO drives, its 4-drive RAID 0 is **4 Gen4** — exactly what the TRX50 AI TOP gives with the same drives. The TRX50’s four Gen5 M.2 sockets are latent until you buy Gen5 drives. For roughly the same money after two MCIO cables, the ASRock adds **IPMI, native WRX90/8-DIMM validation, six NVMe ports and active VRM cooling**. Choose the TRX50 AI TOP only if four Gen5 M.2 drives are a hard requirement (or the Gigabyte AI TOP brand is); choose the WRX90 AI TOP if Gigabyte + WRX90 + IPMI is the hard requirement and you can wait for stock/pricing.
+**Power connectors:** the ASUS single-PSU wiring wants **2× CPU 8-pin + 2× PCIE_8P**; the ASRock wants **2× ATX12V + 4× 6-pin aux**. Four R9700s consume both native 12V-2x6 and both PX-2200 2×8-pin adapters (all four PCIe 8-pin), so the board aux has no cable left on either board. The ASUS needs 2 more PCIe 8-pin, the ASRock 4; the ASUS also has documented dual-PSU wiring. See [`ASUS-WRX90E-SAGE.md`](ASUS-WRX90E-SAGE.md) §3.
+
+**Value pick: ASRock WRX90 WS EVO; premium pick: ASUS WRX90E-SAGE SE.** The ASUS adds **four Gen5 M.2**, a **32+3+3+3** VRM and documented dual-PSU wiring for **€479.95** more; for the 3× Gen5 array it removes the two MCIO cables, so the net is **+€399.95 in parts / +€411.95 with 3% contingency** (Option A: €10,830.86 vs €10,418.91). The ASRock’s MCIO drives in the 2.5" bays are the better thermal layout for a 24/7 Gen5 array; the ASUS M.2 sockets sit under the GPUs. The TRX50 AI TOP is only for four Gen5 M.2 **without IPMI**; the Gigabyte WRX90 AI TOP is the Gigabyte-native WRX90/IPMI board once it ships.
 
 **Platform nuance:** the TRX50 AI TOP is **not a standard TRX50 board**. Standard TRX50 is 4-channel UDIMM with a non-Pro Threadripper and 80 PCIe 5.0 lanes. The AI TOP is a hybrid: its manual supports **PRO 9000-WX/7000-WX + DDR5 RDIMM (RDIMM/RDIMM-3DS), 8 DIMM slots, 8-channel, 2 TB**, and exposes the PRO’s 128 lanes to the four x16 slots and four M.2 sockets. With a non-Pro TR 9000/7000 it drops to 4 channels, four active DIMM slots, PCIEX16_4 at Gen4 and M2D disabled. That hybrid behavior is why the 9955WX + 2×64 GB RDIMM works on it; the WRX90 boards are the standard PRO/RDIMM platform.
 
 ## 2. The slot reality with four 2-slot R9700s
 
-Both WRX90 boards have seven x16 slots on a **1-slot pitch**. Four 2-slot cards go in PCIE1, 3, 5 and 7; slots 2, 4 and 6 are covered by the cards. The fourth card’s second bracket lands in the case’s 8th slot. So:
+The three WRX90 boards have seven x16 slots on a **1-slot pitch**. Four 2-slot cards go in PCIE1, 3, 5 and 7; slots 2, 4 and 6 are covered by the cards. The fourth card’s second bracket lands in the case’s 8th slot. So:
 
 - Four R9700s fit, but there is **no free slot** for a 4× M.2 carrier or a NIC/HBA on either WRX90 board.
 - The extra x16 slots are useful for seven single-slot cards, or three dual-slot GPUs plus a single-slot card — not for four dual-slot GPUs plus an add-in.

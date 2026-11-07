@@ -93,7 +93,7 @@
     </div>
   </div>
 
-  <p class="note" style="margin-top: 12px;">RAM ladder on Option A storage: <strong style="color: var(--text)">2×64 GB DDR5-5600 €10,418.91</strong> · <strong style="color: var(--text)">2×64 GB DDR5-6400 €12,027.71</strong> · <strong style="color: var(--text)">4×64 GB DDR5-6400 €17,770.03</strong> · <strong style="color: var(--text)">8×64 GB DDR5-6400 €29,057.79</strong>.</p>
+  <p class="note" style="margin-top: 12px;">RAM ladder on Option A storage: <strong style="color: var(--text)">2×64 GB DDR5-5600 €10,418.91</strong> · <strong style="color: var(--text)">2×64 GB DDR5-6400 €12,027.71</strong> · <strong style="color: var(--text)">4×64 GB DDR5-6400 €17,770.03</strong> · <strong style="color: var(--text)">8×64 GB DDR5-6400 €29,057.79</strong>. ASUS premium G (3× Gen5 M.2, no MCIO): <strong style="color: var(--text)">€10,830.86</strong>.</p>
 
   <div class="two">
     <div class="panel">
@@ -140,7 +140,7 @@
           <span class="v">95.4 / 128 GB</span>
         </div>
       </div>
-      <p class="note">26% PSU headroom; 52 spare PCIe 5.0 lanes in Option A; the model plus 8 full-context streams uses about 95 GB of 128 GB.</p>
+      <p class="note">26% PSU headroom, but the PX-2200 is connector-short: four GPUs use both native 12V-2x6 and both 2×8-pin adapters (all four PCIe 8-pin), leaving no cable for the board aux. The ASUS needs 2× PCIE_8P, the ASRock 4× 6-pin; budget a second PSU or a PSU with more PCIe 8-pin. 52 spare PCIe 5.0 lanes; the model plus 8 full-context streams uses about 95 GB of 128 GB.</p>
     </div>
   </div>
 
@@ -183,12 +183,13 @@
     <div class="panel">
       <h3>Why A is the middle</h3>
       <ul style="margin: 0; padding-left: 18px; color: var(--muted);">
-        <li><strong style="color: var(--text)">Board:</strong> ASRock WRX90 WS EVO — proper WRX90 for the 9955WX, IPMI/AST2600, 6 NVMe ports, €808.05. The TRX50 AI TOP is a hybrid without IPMI; the WRX90 AI TOP is announced but unpriced.</li>
+        <li><strong style="color: var(--text)">Board:</strong> ASRock WRX90 WS EVO — proper WRX90 for the 9955WX, IPMI/AST2600, 6 NVMe ports, €808.05. <strong style="color: var(--text)">Premium:</strong> ASUS WRX90E-SAGE SE, €1,288 — 4× Gen5 M.2, 2× SlimSAS Gen4, 32+3+3+3 VRM, dual-PSU; +€411.95 over A with 3× Gen5 M.2 and no MCIO. The TRX50 AI TOP is a hybrid without IPMI; the WRX90 AI TOP is announced but unpriced.</li>
         <li><strong style="color: var(--text)">CPU:</strong> 9955WX — 16C, 128 lanes, 8 channels, 350 W; the 15 expert workers Strata’s AMD reference config uses.</li>
         <li><strong style="color: var(--text)">Storage:</strong> 3× Gen5 at Gen4 price, all-Gen5, 3 TB, 5.6M IOPS; 3 TB fits a full image on the 4 TB SATA. C is €263.68 more for +1 TB but slower; B is +€1,286.47 for +3 TB and an 8 TB archive.</li>
         <li><strong style="color: var(--text)">Power:</strong> 2,200 W with 26% headroom; a 1,600 W unit is at 102% of the continuous load.</li>
         <li><strong style="color: var(--text)">RAM:</strong> 2×64 GB DDR5-5600 is the value baseline (€4,998); the 2× start at 6400 is 2× Micron MTC40F2046S1RC64BH1 (€6,559.94, JEDEC 2Rx4), and the cheaper-per-GB G.Skill kits are 4×64 (€12,135.01) or 8×64 (€23,094 notify-only; Proshop €27,666.06).</li>
         <li><strong style="color: var(--text)">Model:</strong> 128 GB VRAM holds the 79 GB IQ3_S and 8× 262K streams (21.1 GB KV), with ~6.5 GB left on the main card.</li>
+        <li><strong style="color: var(--text)">Reference:</strong> 4× R9700 on ASUS WRX90 Sage, 9955WX, 128 GB DDR5-6400, Radiance TP4 — 236 tok/s single, 1,190 tok/s at 16 streams; user report, not a Strata number.</li>
       </ul>
     </div>
 

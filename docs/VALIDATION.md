@@ -88,7 +88,7 @@ done
 lspci -d 1002: -vv | grep -E 'LnkCap:|LnkSta:'
 ```
 
-Expected for each of the four GPUs: `Speed 32GT/s (ok)`, `Width x16 (ok)`. Any `x8`, `x4`, or `downgraded` is a seating/BIOS problem.
+Expected for each of the four GPUs: `Speed 32GT/s (ok)`, `Width x16 (ok)`. Any `x8`, `x4`, or `downgraded` is a seating/BIOS problem. Both the ASRock and ASUS 4-way layouts use slots **1/3/5/7**; slot 6 is the x8 slot and must be empty.
 
 ```bash
 dmesg | grep -i -E 'aer|pcie bus error|corrected error'
@@ -99,6 +99,8 @@ dmesg | grep -i -E 'aer|pcie bus error|corrected error'
 ---
 
 ## 4. Power and connectors
+
+**Connector count, before assembly:** with four GPUs, the PX-2200’s 2 native 12V-2x6 + 2 adapters consume both native outputs and all four PCIe 8-pin outputs. The board aux (ASUS: 2× PCIE_8P; ASRock: 4× 6-pin) then has no PCIe cable left. Use a second PSU (ASUS has documented dual-PSU wiring) or a PSU with ≥6 PCIe 8-pin for the ASUS / ≥8 for the ASRock. Do not use splitters on 300 W cards.
 
 Use a wall meter (e.g., Brennenstuhl PM 231 E) at the PSU inlet.
 

@@ -12,6 +12,7 @@ PRICES = ROOT / "bom" / "prices.json"
 
 GROUP = {
     "mainboard": "compute",
+    "mainboard_asus_sage": "compute",
     "cpu": "compute",
     "ram_64gb": "memory",
     "ram_64gb_6400_2x": "memory",

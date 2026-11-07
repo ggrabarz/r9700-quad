@@ -27,7 +27,7 @@ def load() -> dict:
 def option_total(data: dict, option: dict) -> tuple[float, float, dict[str, float]]:
     items = data["items"]
     groups = {
-        "compute": ("mainboard", "cpu"),
+        "compute": ("mainboard", "mainboard_asus_sage", "cpu"),
         "memory": (
             "ram_64gb",
             "ram_64gb_6400_2x",

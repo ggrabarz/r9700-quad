@@ -7,6 +7,7 @@
     "Prices are the lowest listed EU offer on the date shown, not a quote. Stock and price move daily.",
     "The 2026 DRAM/NAND shortage dominates the RAM line; the Gen5 9100 PRO is €264, the same price as the Gen4 990 PRO, so Gen5 is the default where the board has the port.",
     "At EU retail the DDR5-6400 64 GB R-DIMMs found at the snapshot are G.Skill 4×64 (CL36) and 8×64 (CL38) AMD EXPO kits, plus single JEDEC modules: Micron MTC40F2046S1RC64BH1 (2Rx4, CL52, 1.1 V) at €3,279.97 and Kingston KSM64R52BD4 at €3,202.74 (Galaxus). A 1×/2× 6400 start is therefore possible with single modules, at a premium per GB.",
+    "Board alternative: ASUS WRX90E-SAGE SE at EUR 1,288.00 (4x Gen5 M.2, 2x SlimSAS Gen4, 32+3+3+3, dual-PSU); +EUR 479.95 vs ASRock, and it removes the two MCIO cables for a 3x Gen5 array.",
     "GPUs are owned by the user and excluded from platform totals; their replacement value is shown separately.",
     "MCIO/SlimSAS cable prices are estimates; the drives/board are listed prices."
   ],
@@ -19,6 +20,15 @@
       "vendor": "Geizhals EU (59 offers)",
       "verified": true,
       "note": "WRX90 + AST2600 IPMI; 1 Gen5 M.2 + 1 Gen4 M.2 + 2 Gen5 MCIO + 2 Gen4 SlimSAS."
+    },
+    "mainboard_asus_sage": {
+      "name": "ASUS Pro WS WRX90E-SAGE SE (WRX90, EEB, 7x PCIe 5.0 x16, 4x Gen5 M.2, 2x SlimSAS Gen4, IPMI)",
+      "price": 1288.00,
+      "qty": 1,
+      "source": "https://www.alternate.de/ASUS/PRO-WS-WRX90E-SAGE-SE-Mainboard/html/product/100042953",
+      "vendor": "Alternate DE (in stock)",
+      "verified": true,
+      "note": "7 slots: 6 x16 + slot 6 x8; 4-way VGA uses slots 1/3/5/7, all x16. 4x Gen5 M.2 + 2x SlimSAS Gen4 + 4 SATA; AST2600 IPMI; 32+3+3+3 VRM; dual-PSU support. EUR 1,288.00 at Alternate; +EUR 479.95 vs ASRock. Four Gen5 M.2 remove the two MCIO cables for a 3x Gen5 array."
     },
     "cpu": {
       "name": "AMD Ryzen Threadripper PRO 9955WX (16C/32T, 4.5-5.4 GHz, 350 W, 128 PCIe 5.0 lanes, 8-channel DDR5 ECC)",
@@ -289,6 +299,21 @@
         "nvme_gen5_1tb": 3,
         "sata_4tb": 1,
         "mcio_cable": 2,
+        "psu": 1,
+        "cooler_aio": 1,
+        "case_meshify": 1,
+        "fan_140": 3
+      }
+    },
+    "G": {
+      "name": "ASUS premium — 3x Gen5 M.2",
+      "tagline": "ASUS WRX90E-SAGE SE, 3x Gen5 M.2, no MCIO",
+      "items": {
+        "mainboard_asus_sage": 1,
+        "cpu": 1,
+        "ram_64gb": 2,
+        "nvme_gen5_1tb": 3,
+        "sata_4tb": 1,
         "psu": 1,
         "cooler_aio": 1,
         "case_meshify": 1,
