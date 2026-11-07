@@ -166,6 +166,8 @@ That is **+€411.95** for the ASUS (+€399.95 in parts). A **4× Gen5 M.2** bu
 
 **Reference build:** a public [r/LocalLLM build](https://www.reddit.com/r/LocalLLM/comments/1xe1u1i/qwen38flashnext_on_4x_r9700_with_radiance_at_tp4/) uses **ASUS WRX90 Sage + 9955WX + 128 GB DDR5-6400 ECC + 4× R9700**, Radiance 1.11 TP4, 113.6 GiB IQ4_R: **236 tok/s single stream, 1,190 tok/s at 16 streams, 11.27 ms step, 6.5× 262K KV sessions**, ~73 GB host RAM. That is a user report, not an independent benchmark; Radiance is tensor-parallel, Strata is a pipeline layer split, so the 236 tok/s does **not** transfer to Strata. It does validate the board/CPU/RAM/4-GPU combination and four x16 links. It is **128 GB**, not 8×64 GB; the 8×64 6400 QVL question is unchanged. Full comparison: [`docs/ASUS-WRX90E-SAGE.md`](docs/ASUS-WRX90E-SAGE.md).
 
+**Cheaper older alternative:** used **ASUS W790E-SAGE SE + Xeon W5-3435X** bundles have sold for **CHF 1,100–1,200** on eBay. That is a 16C/32T, 8-channel, 112-lane platform and runs the four R9700s at x16, but it is **DDR5-4800** (307 GB/s), has only **two Gen5 M.2** sockets, needs an **LGA4677 cooler**, and is used. It is a credible value route for IQ3_S fully resident; for DeepSeek spill or 512 GB, the 9955WX’s 6400 memory is the better buy. Full comparison: [`docs/W790-BUNDLE.md`](docs/W790-BUNDLE.md).
+
 ---
 
 ## 3. Memory: 128 GB value, 256–512 GB at DDR5-6400 for speed
@@ -743,6 +745,7 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | [`docs/RAM-START.md`](docs/RAM-START.md) | 1×64 vs 2×64, one-stick test plan. |
 | [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md) | Board comparison, storage tiers, dense/MoE streaming. |
 | [`docs/ASUS-WRX90E-SAGE.md`](docs/ASUS-WRX90E-SAGE.md) | ASUS vs ASRock board comparison, power connectors, reference 4× R9700 build. |
+| [`docs/W790-BUNDLE.md`](docs/W790-BUNDLE.md) | Used W790E-SAGE SE + W5-3435X bundle vs WRX90 + 9955WX. |
 | [`docs/SABER.md`](docs/SABER.md) / [`docs/SABER-4X.md`](docs/SABER-4X.md) | Saber engine evaluation and 4-rank limits. |
 | [`docs/VALIDATION.md`](docs/VALIDATION.md) | Acceptance protocol. |
 | [`docs/SOURCES.md`](docs/SOURCES.md) | Source links and verification notes. |
