@@ -2,7 +2,9 @@
 
 **Short answer:** one 64 GB RDIMM should boot and run Strata IQ3_S on this four-GPU box, because the 128 GB of VRAM holds the experts in low-RAM mode and the PLE table can stay on the SSD. It is the **minimum viable** host, not the specified build. It blocks the PLE-in-RAM mode, the full 16 GB conversation cache and two Saber Flash-Next servers, and it leaves almost no headroom for checkpoints/page cache. Verify the board POSTs with one DIMM before relying on it. **Two sticks are the practical floor** for the build as designed; the second stick is not wasted and can be added later.
 
-The rest of this note is the evidence and the exact numbers.
+**Fast path:** if you want DDR5-6400, the literal **2×64 start is two Micron MTC40F2046S1RC64BH1 modules** (€3,279.97 each, 2Rx4, CL52, 1.1 V): **€6,559.94** for 2 channels / 102.4 GB/s, and **€26,239.76** for 8×64 / 512 GB / 409.6 GB/s. The G.Skill T5 Neo **4×64 GB (€12,135.01, 4 channels, 204.8 GB/s)** and **8×64 GB (€23,094 notify-only; Proshop €27,666.06, 8 channels, 409.6 GB/s)** kits are cheaper per GB but are not 2-DIMM kits. The 5600 modules in this note cannot reach 6400. See the main book’s §3.2–3.4 for the full comparison.
+
+The rest of this note is the evidence and the exact numbers for the **5600 value path**.
 
 ## 1. What Strata itself says
 
@@ -41,12 +43,14 @@ The 8×64 GB 2Rx4 endgame wants 64 GB modules; a 32 GB start is a detour that ha
 
 The board has eight channels; one DIMM uses one channel:
 
-| DIMMs | Channels | Bandwidth at DDR5-5600 | Share of the 8-channel maximum |
-|---:|---:|---:|---:|
-| 1×64 GB | 1 | 44.8 GB/s | 12.5% |
-| 2×64 GB | 2 | 89.6 GB/s | 25% |
-| 4×64 GB | 4 | 179.2 GB/s | 50% |
-| 8×64 GB | 8 | 358.4 GB/s | 100% |
+| DIMMs | Channels | DDR5-5600 | DDR5-6400 | Share of the 8-channel 5600 maximum |
+|---:|---:|---:|---:|---:|
+| 1×64 GB | 1 | 44.8 GB/s | 51.2 GB/s | 12.5% |
+| 2×64 GB | 2 | 89.6 GB/s | 102.4 GB/s | 25% |
+| 4×64 GB | 4 | 179.2 GB/s | 204.8 GB/s | 50% |
+| 8×64 GB | 8 | 358.4 GB/s | 409.6 GB/s | 100% |
+
+At 6400 the 8×64 configuration is **409.6 GB/s**, +14.3% over 5600. The 5600 modules cannot be overclocked to 6400; the 6400 numbers require the G.Skill 4×64 or 8×64 kit.
 
 For the Strata workload with all experts in VRAM, **decode is GPU-bound**; the host bandwidth mostly affects model load, PLE reads, checkpoint/park copies and any CPU expert fallback. One channel is slower, but it is not the decode bottleneck. It becomes a real bottleneck if you later run a model that does not fit in VRAM and falls back to CPU experts.
 
@@ -74,9 +78,11 @@ The upgrade path is mechanical:
 
 Buy the same part (Samsung M321R8GA0PB0-CWM, 64 GB DDR5-5600 CL46 2Rx4 ECC RDIMM) for the later sticks; mixing rank/brand/timing in one channel set is the thing to avoid.
 
+For 6400 the path is different: **2×64 Micron singles (2 channels, 128 GB)** then **8×64 Micron singles (8 channels, 512 GB)**, or **4×64 G.Skill (4 channels, 256 GB)** then **8×64 G.Skill octa (8 channels, 512 GB)**. Two 4×64 kits cost €24,270.02 versus €23,094.00 for the octa kit, and the 4×64 kit is CL36 while the octa kit is CL38; the octa kit is the validated 8-DIMM 6400 bin.
+
 ## 5. Budget effect
 
-One 64 GB stick saves **€2,499 of parts and €74.97 of contingency**, so Option B with one stick is **€8,117.58** instead of €10,691.55. The second stick restores the target. The saving is temporary: the 8×64 GB endgame needs seven more modules anyway, and buying the second now locks the pair at today’s price. A 2×32 GB start buys the same 64 GB with dual-channel bandwidth but uses two slots and is not the 8×64 path; compare its price against the 64 GB module before choosing it.
+One 64 GB stick saves **€2,499 of parts and €74.97 of contingency**, so Option A with one stick is **€7,844.94** instead of €10,418.91. The second stick restores the target. The saving is temporary: the 8×64 GB endgame needs seven more modules anyway, and buying the second now locks the pair at today’s price. A 2×32 GB start buys the same 64 GB with dual-channel bandwidth but uses two slots and is not the 8×64 path; compare its price against the 64 GB module before choosing it. The 6400 fast path is a different purchase: **2×64 Micron €6,559.94** (8× later €26,239.76), **4×64 G.Skill €12,135.01**, or **8×64 G.Skill €23,094**; none uses the 5600 modules.
 
 ## 6. Test plan if you start with one stick
 
@@ -88,6 +94,7 @@ One 64 GB stick saves **€2,499 of parts and €74.97 of contingency**, so Opti
 
 ## 7. Recommendation
 
+- **If you want DDR5-6400 and a 2× start, buy 2× Micron MTC40F2046S1RC64BH1.** €6,559.94 for 2 channels / 102.4 GB/s, 8× later €26,239.76 for 8 channels / 409.6 GB/s. It is the only JEDEC 2Rx4 path that starts at 2 DIMMs and stays 6400. The G.Skill 4×64 (€12,135.01) and 8×64 (€23,094) kits are cheaper per GB but do not offer a 2-DIMM start; the 5600 modules cannot reach 6400.
 - **If you can buy two now, buy two.** The second stick is €2,499 at the snapshot, and it converts the machine from “IQ3_S with little else open, PLE on SSD, no full conversation cache” to the specified dual-channel 128 GB build with PLE-in-RAM and the 16 GB cache. It also covers two Saber servers and a future 4-rank engine.
 - **If budget forces one, start with one.** It will run the GPU-resident IQ3_S workload, and the 128 GB of VRAM is doing the heavy lifting. Keep the PLE on the SSD, shrink the conversation cache, and add the second stick before production. The first stick is not wasted; it is the first channel of the 8× path.
 - **Do not buy two 32 GB sticks instead.** They give the same 64 GB, consume two slots and two channels (better bandwidth than one 64 GB, but half the capacity of 2×64), and they break the clean 8×64 = 512 GB path. The 64 GB module is also the cheapest per-GB RDIMM in this snapshot.

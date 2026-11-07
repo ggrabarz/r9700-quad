@@ -20,6 +20,14 @@ Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not
 | [ASUS Turbo R9700 launch coverage](https://videocardz.com/newz/asus-ai-pro-r9700-turbo-first-radeon-from-asus-with-12v-2x6-connector-oc-support-confirmed) | Confirms blower/2-slot/267 mm and 12V-2x6 across board partners. |
 | [Gigabyte R9700 AI TOP dimensions](https://www.expreview.com/100805.html) | 267 × 111 × 40 mm, dual-slot. |
 
+## Memory
+
+| Source | What it verifies |
+|---|---|
+| [Micron MTC40F2046S1RC64BH1 part page](https://www.micron.com/products/memory/dram-modules/rdimm/part-catalog/part-detail/mtc40f2046s1rc64bh1) | 64 GB, x80 ECC, **dual rank**, **4Gb x4** (2Rx4), 6400 MT/s, CL52, 1.1 V, RDIMM. The single-module 2×64 6400 path. |
+| [G.Skill T5 Neo 4×64 kit at Proshop](https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-256GB-CL36-Quad-Channel-4-pcs-AMD-EXPO-Schwarz/3402039) | 256 GB (4×64), DDR5-6400, CL36-44-44-102, 1.3 V, registered + ECC, AMD EXPO; 1–2 months, max 2 per customer. |
+| [G.Skill T5 Neo 8×64 kit at Alternate](https://www.alternate.de/G-Skill/RIMM-512-GB-DDR5-6400-8x-64-GB-Octa-Kit-ECC-Arbeitsspeicher/html/product/100203342) | 512 GB (8×64), DDR5-6400, CL38-48-48-102, 1.35 V, registered + ECC, AMD EXPO; notify-only at the snapshot. |
+
 ## Power and chassis
 
 | Source | What it verifies |
@@ -38,6 +46,11 @@ Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not
 | Gigabyte TRX50 AI TOP (alternative) | €896.75 | [Geizhals EU](https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html) |
 | Threadripper PRO 9955WX | €1,637.70 | [Geizhals DE](https://geizhals.de/amd-ryzen-threadripper-pro-9955wx-100-100000725wof-a3531872.html) |
 | Samsung 64 GB DDR5-5600 2Rx4 ECC RDIMM | €2,499.00 | [Geizhals EU](https://geizhals.eu/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3528359.html) |
+| Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 CL52 2Rx4 RDIMM (single) | €3,279.97 | [Galaxus DE](https://www.galaxus.de/de/s1/product/micron-crucial-64-gb-reg-ecc-ddr5-6400-mtc40f2046s1rc64bh1-6400-mhz-ddr5-ram-dimm-ram-68867097) |
+| Kingston KSM64R52BD4 64 GB DDR5-6400 CL52 RDIMM (single) | €3,202.74 | [Galaxus DE](https://www.galaxus.de/de/s1/product/kingston-ksm64r52bd4-1-x-64gb-6400-mhz-ddr5-ram-dimm-ram-52967925) |
+| G.Skill T5 Neo 4×64 GB DDR5-6400 CL36 R-DIMM kit | €12,135.01 | [Proshop DE](https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-256GB-CL36-Quad-Channel-4-pcs-AMD-EXPO-Schwarz/3402039) |
+| G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 R-DIMM kit | €23,094.00 notify-only; €27,666.06 orderable at Proshop | [Alternate DE](https://www.alternate.de/G-Skill/RIMM-512-GB-DDR5-6400-8x-64-GB-Octa-Kit-ECC-Arbeitsspeicher/html/product/100203342) / [Proshop DE](https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-512GB-CL38-Octa-Channel-8-pcs-AMD-EXPO-Schwarz/3402040) |
+| Micron MTC40F2046S1RC64BD2 64 GB DDR5-6400 (US reference) | US$4,270.00 | [ServerSupply](https://www.serversupply.com/MEMORY/PC5-51200/64GB/MICRON/MTC40F2046S1RC64BD2_387264.htm) |
 | PowerColor R9700 32 GB | €1,930.21 | [Geizhals EU](https://geizhals.eu/powercolor-radeon-ai-pro-r9700-a3504726.html) |
 | Samsung 9100 PRO 1 TB Gen5 | €264.00 | [Alternate DE](https://www.alternate.de/Samsung/9100-PRO-1-TB-SSD/html/product/100118126) |
 | Samsung 990 PRO 1 TB Gen4 | €262.00 | [Alternate DE](https://www.alternate.de/Samsung/990-PRO-1-TB-SSD/html/product/1864239) |
@@ -81,6 +94,7 @@ The following are **derived**, not quoted:
 - 262,144 tokens × 10.55 KB = 2.64 GB per stream.
 - 50 GB experts / 4 cards = 12.5 GB per card (first-order even split; the real layer split is not even).
 - 1/2/4/8 populated channels at DDR5-5600 = 44.8 / 89.6 / 179.2 / 358.4 GB/s (8 bytes × 5,600 MT/s × channels).
+- The same at DDR5-6400 = 51.2 / 102.4 / 204.8 / 409.6 GB/s (8 bytes × 6,400 MT/s × channels).
 - 4×300 + 350 + 80 = 1,630 W; 2,200 − 1,630 = 570 W headroom.
 - 1,630 W / 0.94 / 230 V = 7.54 A.
 - 1,630 W × 8,760 h × €0.25/kWh = €3,569.70/year at 100% load.
@@ -92,3 +106,5 @@ The following are **derived**, not quoted:
 - The 8×262K stream count. It fits the arithmetic; the engine's per-slot buffers, fragmentation and HIP behavior can lower it.
 - The 45–50 dBA noise estimate and the 5,562 BTU/h heat figure (the latter is arithmetic from 1,630 W; the former is an estimate).
 - The 2026 DRAM/NAND prices are a snapshot; they are the largest source of variance in the BOM.
+- The G.Skill T5 Neo kit rank (2Rx4 vs 2Rx8) and the ASRock WRX90 WS EVO QVL entry for the exact Micron or G.Skill part. The G.Skill retail listings do not print the rank; Micron confirms 2Rx4 for MTC40F2046S1RC64BH1, but ASRock’s QVL was not machine-readable at the snapshot.
+- 8×64 GB DDR5-6400 training on the ASRock/9955WX. The G.Skill octa kit is sold as an 8-DIMM 6400 kit, but the board/BIOS combination is not measured here; validate with the acceptance run.

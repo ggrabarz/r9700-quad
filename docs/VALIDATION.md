@@ -32,9 +32,10 @@ The host rules for this lab apply: one engine owns the GPUs at a time, A/B arms 
    dmesg | grep -i -E 'edac|ecc|machine check'
    ```
    Expected: all DIMMs visible, correct size/rank, **zero** corrected/uncorrected errors.
-3. Confirm the population is A1 + E1 and the BIOS reports 2 channels (not 4/8). Record the negotiated speed (5600 vs 5200/4800).
+3. Confirm the population for the build: **A/B/C** 2 DIMMs in A1 + E1 (2 channels, 128 GB); **D** 2 DIMMs in A1 + E1 (2 channels, 128 GB); **E** 4 DIMMs in A1/C1/E1/G1 (4 channels, 256 GB); **F** 8 DIMMs in all slots (8 channels, 512 GB). Record the negotiated speed and timings.
+4. For **6400 builds**, confirm BIOS/OS report **6400 MT/s** and the expected timings: **D** Micron JEDEC CL52 at 1.1 V (no EXPO); **E/F** G.Skill EXPO CL36/CL38 at 1.30/1.35 V. Run a short stress test watching for ECC/WHEA errors before the long soak.
 
-**Gate:** 8 passes clean, zero ECC errors, 128 GB visible.
+**Gate:** 8 passes clean, zero ECC errors, the chosen capacity visible, and for 6400 builds a stable 6400 training with no ECC/WHEA errors.
 
 ---
 
@@ -200,7 +201,7 @@ Pass criteria:
 
 | Item | Pass | Evidence |
 |---|---|---|
-| MemTest86+ 8 passes, ECC clean | ☐ | |
+| MemTest86+ 8 passes, ECC clean; 6400 builds train at 6400 | ☐ | |
 | RAID 0 meets the target for the chosen option (A ≥35 GB/s/≥4M; B ≥40/≥6M; C ≥25/≥3M) | ☐ | |
 | 4× PCIe 5.0 x16, no AER | ☐ | |
 | Full load ≤2,000 W, connectors <60 °C | ☐ | |

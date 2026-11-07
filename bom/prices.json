@@ -6,6 +6,7 @@
   "notes": [
     "Prices are the lowest listed EU offer on the date shown, not a quote. Stock and price move daily.",
     "The 2026 DRAM/NAND shortage dominates the RAM line; the Gen5 9100 PRO is €264, the same price as the Gen4 990 PRO, so Gen5 is the default where the board has the port.",
+    "At EU retail the DDR5-6400 64 GB R-DIMMs found at the snapshot are G.Skill 4×64 (CL36) and 8×64 (CL38) AMD EXPO kits, plus single JEDEC modules: Micron MTC40F2046S1RC64BH1 (2Rx4, CL52, 1.1 V) at €3,279.97 and Kingston KSM64R52BD4 at €3,202.74 (Galaxus). A 1×/2× 6400 start is therefore possible with single modules, at a premium per GB.",
     "GPUs are owned by the user and excluded from platform totals; their replacement value is shown separately.",
     "MCIO/SlimSAS cable prices are estimates; the drives/board are listed prices."
   ],
@@ -35,7 +36,34 @@
       "source": "https://geizhals.eu/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3528359.html",
       "vendor": "Geizhals EU (28 offers)",
       "verified": true,
-      "note": "2 DIMMs = 2 of 8 channels now; 8 DIMMs = 512 GB octa-channel later. Modules are 5600; 6400 needs 6400-rated modules and QVL."
+      "note": "Value baseline: 2 DIMMs = 2 of 8 channels, 128 GB. The 6400 fast path is ram_64gb_6400_2x / _4x / _8x; these 5600 modules cannot be overclocked to 6400."
+    },
+    "ram_64gb_6400_2x": {
+      "name": "Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 CL52 2Rx4 ECC RDIMM (single module, qty 2)",
+      "price": 3279.97,
+      "qty": 2,
+      "source": "https://www.galaxus.de/de/s1/product/micron-crucial-64-gb-reg-ecc-ddr5-6400-mtc40f2046s1rc64bh1-6400-mhz-ddr5-ram-dimm-ram-68867097",
+      "vendor": "Galaxus DE (single modules, price per module)",
+      "verified": true,
+      "note": "2 modules = 2 channels / 102.4 GB/s, 128 GB; 8 modules = 8 channels / 409.6 GB/s, 512 GB. JEDEC CL52 at 1.1 V, 2Rx4 (40× 4Gb x4), not EXPO. The literal 2×64 6400 start; €51.25/GB."
+    },
+    "ram_64gb_6400_4x": {
+      "name": "G.Skill T5 Neo F5-6400R3644E64GQ4-T5N 256 GB (4×64 GB) DDR5-6400 CL36 ECC R-DIMM kit",
+      "price": 12135.01,
+      "qty": 1,
+      "source": "https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-256GB-CL36-Quad-Channel-4-pcs-AMD-EXPO-Schwarz/3402039",
+      "vendor": "Proshop DE (1-2 months; max 2 per customer)",
+      "verified": true,
+      "note": "4 channels / 204.8 GB/s; CL36-44-44-102 at 1.30 V, AMD EXPO, 4×64 GB R-DIMM. Alternate DE lists €12,269 with 17-25 days. Rank is not printed in the retail listing; verify 2Rx4 on the module/QVL."
+    },
+    "ram_64gb_6400_8x": {
+      "name": "G.Skill T5 Neo F5-6400R3848F64GE8-T5N 512 GB (8×64 GB) DDR5-6400 CL38 ECC R-DIMM kit",
+      "price": 23094.00,
+      "qty": 1,
+      "source": "https://www.alternate.de/G-Skill/RIMM-512-GB-DDR5-6400-8x-64-GB-Octa-Kit-ECC-Arbeitsspeicher/html/product/100203342",
+      "vendor": "Alternate DE (notify only at snapshot)",
+      "verified": true,
+      "note": "8 channels / 409.6 GB/s; CL38-48-48-102 at 1.35 V, AMD EXPO, 8×64 GB, 1 DIMM per channel. The validated 8-DIMM 6400 octa kit; the 4×64 kit is CL36 and not the same bin. Two 4×64 kits cost €24,270.02 and are not guaranteed 6400 at 8 DIMMs. Alternate is notify-only; Proshop lists €27,666.06 with 1-2 months."
     },
     "nvme_gen5_1tb": {
       "name": "Samsung 9100 PRO 1 TB (PCIe 5.0 x4, 14,800/13,400 MB/s, 1.85M/2.6M IOPS)",
@@ -151,6 +179,21 @@
       "source": "https://geizhals.eu/gigabyte-wrx90-ai-top-amd-str5-a3995002.html",
       "verified": false,
       "note": "Announced 2026-10-30; no retail offers or price at the snapshot."
+    },
+    "ram_64gb_6400_oem": {
+      "name": "Micron MTC40F2046S1RC64BD2 64 GB DDR5-6400 CL52 2Rx4 ECC RDIMM (single module, US price)",
+      "price": 4270.00,
+      "currency": "USD",
+      "source": "https://www.serversupply.com/MEMORY/PC5-51200/64GB/MICRON/MTC40F2046S1RC64BD2_387264.htm",
+      "verified": true,
+      "note": "US$4,270 each at ServerSupply, before shipping/import/VAT; JEDEC CL52 at 1.1 V, 2Rx4. The US reference price for the same class; the EU retail Micron MTC40F2046S1RC64BH1 is €3,279.97 at Galaxus. Not used in the BOM."
+    },
+    "ram_64gb_6400_kingston": {
+      "name": "Kingston KSM64R52BD4 64 GB DDR5-6400 CL52 ECC RDIMM (single module)",
+      "price": 3202.74,
+      "source": "https://www.galaxus.de/de/s1/product/kingston-ksm64r52bd4-1-x-64gb-6400-mhz-ddr5-ram-dimm-ram-52967925",
+      "verified": true,
+      "note": "Galaxus DE single-module listing, €50.04/GB; part number not verified on Kingston’s site. Cheaper than the Micron module by €77.23; use the Micron if you want the manufacturer spec (2Rx4, CL52, 1.1 V) confirmed."
     }
   },
   "options": {
@@ -196,6 +239,54 @@
         "cpu": 1,
         "ram_64gb": 2,
         "nvme_gen4_1tb": 4,
+        "sata_4tb": 1,
+        "mcio_cable": 2,
+        "psu": 1,
+        "cooler_aio": 1,
+        "case_meshify": 1,
+        "fan_140": 3
+      }
+    },
+    "D": {
+      "name": "Staged 6400 — 2x64 GB",
+      "tagline": "3 TB Gen5 + 128 GB at DDR5-6400, 2 channels",
+      "items": {
+        "mainboard": 1,
+        "cpu": 1,
+        "ram_64gb_6400_2x": 2,
+        "nvme_gen5_1tb": 3,
+        "sata_4tb": 1,
+        "mcio_cable": 2,
+        "psu": 1,
+        "cooler_aio": 1,
+        "case_meshify": 1,
+        "fan_140": 3
+      }
+    },
+    "E": {
+      "name": "Fast RAM — 4x64 GB 6400",
+      "tagline": "3 TB Gen5 + 256 GB at DDR5-6400, 4 channels",
+      "items": {
+        "mainboard": 1,
+        "cpu": 1,
+        "ram_64gb_6400_4x": 1,
+        "nvme_gen5_1tb": 3,
+        "sata_4tb": 1,
+        "mcio_cable": 2,
+        "psu": 1,
+        "cooler_aio": 1,
+        "case_meshify": 1,
+        "fan_140": 3
+      }
+    },
+    "F": {
+      "name": "Full speed — 8x64 GB 6400",
+      "tagline": "3 TB Gen5 + 512 GB at DDR5-6400, 8 channels",
+      "items": {
+        "mainboard": 1,
+        "cpu": 1,
+        "ram_64gb_6400_8x": 1,
+        "nvme_gen5_1tb": 3,
         "sata_4tb": 1,
         "mcio_cable": 2,
         "psu": 1,

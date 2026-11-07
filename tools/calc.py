@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cost, power, lane and VRAM/KV model for the 4x R9700 TRX50 AI TOP platform.
+"""Cost, power, lane and VRAM/KV model for the 4x R9700 ASRock WRX90 WS EVO platform.
 
 Reads bom/prices.json and prints Markdown tables. No third-party packages.
 Run from the repository root: python3 tools/calc.py
@@ -28,7 +28,12 @@ def option_total(data: dict, option: dict) -> tuple[float, float, dict[str, floa
     items = data["items"]
     groups = {
         "compute": ("mainboard", "cpu"),
-        "memory": ("ram_64gb",),
+        "memory": (
+            "ram_64gb",
+            "ram_64gb_6400_2x",
+            "ram_64gb_6400_4x",
+            "ram_64gb_6400_8x",
+        ),
         "storage": (
             "nvme_gen5_1tb",
             "nvme_gen4_1tb",
@@ -57,8 +62,9 @@ def option_total(data: dict, option: dict) -> tuple[float, float, dict[str, floa
 
 def main() -> None:
     data = load()
+    items = data["items"]
     a = data["assumptions"]
-    gpu = data["items"]["gpu_r9700"]
+    gpu = items["gpu_r9700"]
     gpu_total = gpu["price"] * a["gpu_count"]
 
     print("# 4x R9700 — ASRock WRX90 WS EVO computed model")
@@ -79,6 +85,33 @@ def main() -> None:
         )
     print()
     print(f"GPU replacement value (excluded): {eur(gpu_total)} = 4 x {eur(gpu['price'])}")
+    print()
+
+    print("## RAM ladder (Option A storage)")
+    print()
+    print("| RAM | Modules | Capacity | Channels | Bandwidth | RAM price | €/GB | Option A platform (+3%) | With 4 GPUs |")
+    print("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
+    ladder = [
+        ("DDR5-5600 (value)", "A", "ram_64gb", 2, 128, 2, 5600),
+        ("DDR5-6400 (staged 2×)", "D", "ram_64gb_6400_2x", 2, 128, 2, 6400),
+        ("DDR5-6400 (fast 4×)", "E", "ram_64gb_6400_4x", 1, 256, 4, 6400),
+        ("DDR5-6400 (full 8×)", "F", "ram_64gb_6400_8x", 1, 512, 8, 6400),
+    ]
+    for label, code, key, qty, capacity, channels, speed in ladder:
+        kit = items[key]["price"] * qty
+        _, total, _ = option_total(data, data["options"][code])
+        bandwidth = channels * 8 * speed / 1000.0
+        print(
+            f"| {label} | {capacity // 64}x64 GB | {capacity} GB | {channels} | "
+            f"{bandwidth:.1f} GB/s | {eur(kit)} | {eur(kit / capacity)} | "
+            f"{eur(total)} | {eur(total + gpu_total)} |"
+        )
+    print()
+    print("- Single 64 GB DDR5-6400 2Rx4 JEDEC R-DIMMs exist: Micron MTC40F2046S1RC64BH1 at €3,279.97 and Kingston KSM64R52BD4 at €3,202.74 (Galaxus). 2x = €6,559.94; 8x = €26,239.76, before any volume pricing.")
+    print("- G.Skill 6400 kits: 4x64 at €47.40/GB; 8x64 at €45.11/GB at the notify-only €23,094 (Proshop orderable €27,666.06 = €54.04/GB). Micron singles are €51.25/GB.")
+    print("- 8 DIMMs on WRX90 is 1 DIMM per channel, so 8x64 at 6400 (409.6 GB/s) is the native 1DPC topology.")
+    print("- The 8x64 octa kit is €23,094 notify-only; two 4x64 kits are €24,270.02, and the octa kit is the validated 8-DIMM 6400 bin (CL38 vs CL36).")
+    print("- 6400 costs +15.5% per GB in the 8x64 G.Skill kit, +21.4% in the 4x64 G.Skill kit, and +31.3% in the 2x Micron pair versus the 5600 module.")
     print()
 
     print("## Power")
@@ -113,11 +146,13 @@ def main() -> None:
 
     print("## Memory topology")
     print()
-    for dimms, channels in ((2, 2), (4, 4), (8, 8)):
-        bw = channels * 8 * 5600 / 1000
-        print(f"- {dimms} x 64 GB -> {channels} channels, {bw:.1f} GB/s at DDR5-5600, {dimms*64} GB total")
-    print("- 2 DIMMs now: A1 + E1 (channels A and E). 4 DIMMs: A1, C1, E1, G1. 8 DIMMs: all.")
+    for speed in (5600, 6400):
+        for dimms, channels in ((2, 2), (4, 4), (8, 8)):
+            bw = channels * 8 * speed / 1000
+            print(f"- {dimms} x 64 GB at DDR5-{speed} -> {channels} channels, {bw:.1f} GB/s, {dimms*64} GB total")
+    print("- 2 DIMMs: A1 + E1 (channels A and E). 4 DIMMs: A1, C1, E1, G1. 8 DIMMs: all.")
     print("- 8 x 64 GB = 512 GB, the board maximum with 64 GB RDIMMs (the board's 2 TB ceiling needs 256 GB modules).")
+    print("- 8 DIMMs is 1 DIMM per channel on WRX90, so DDR5-6400 at 8x64 is the CPU's official 1DPC topology, not a 2-DIMM-per-channel overclock.")
     print()
 
     print("## Model fit (Qwen3.8-Flash-Next Swift 1.5 IQ3_S)")

@@ -94,6 +94,39 @@ At 512 GB every load above has multiple times the headroom. Capacity and
 channel count dominate; rank organisation is a low-single-digit term on a lane
 that is already idle for two of the three targets.
 
+### 1.7 DDR5-6400: the fast path, including a 2× start
+
+At the 2026-11-06 snapshot the EU-retail 64 GB DDR5-6400 R-DIMMs found are:
+
+| Part | Type | Capacity | Timings / voltage | Channels | Price |
+|---|---|---|---:|---:|---:|
+| Micron `MTC40F2046S1RC64BH1` | single | 64 GB, 2Rx4 | CL52 / 1.10 V | 1 per module | €3,279.97 |
+| Kingston `KSM64R52BD4` | single | 64 GB, rank n/c | CL52 / 1.10 V | 1 per module | €3,202.74 |
+| G.Skill `F5-6400R3644E64GQ4-T5N` | 4×64 kit | 256 GB | CL36-44-44-102 / 1.30 V | 4 (204.8 GB/s) | €12,135.01 |
+| G.Skill `F5-6400R3848F64GE8-T5N` | 8×64 kit | 512 GB | CL38-48-48-102 / 1.35 V | 8 (409.6 GB/s) | €23,094.00 |
+
+- **The 2×64 6400 start is real.** Two Micron singles = €6,559.94, 2 channels /
+  102.4 GB/s, 128 GB; eight = €26,239.76, 8 channels / 409.6 GB/s, 512 GB. The
+  Micron part is manufacturer-confirmed **2Rx4, CL52, 1.1 V**, 40× 4Gb x4.
+- **One module is not a speed upgrade.** One channel is 51.2 GB/s, slower than
+  the 2×64 5600 pair (89.6 GB/s); 1× is a boot/test config.
+- **G.Skill is cheaper per GB but does not offer a 2-DIMM kit.** 4×64 is
+  €47.40/GB and 8×64 is €45.11/GB; the Micron singles are €51.25/GB. The 8×64
+  G.Skill octa kit is €3,145.76 cheaper than eight Micron singles **at the
+  notify-only €23,094**; the orderable Proshop price (€27,666.06) is €1,426.30
+  more than eight Micron singles.
+- **8×64 is the validated full-speed configuration.** WRX90 has eight slots for
+  eight channels, so 8 DIMMs is 1 DIMM per channel and DDR5-6400 is the 9955WX’s
+  official 1DPC ceiling. The G.Skill octa kit is binned CL38 at 1.35 V for that
+  load; the Micron singles are JEDEC 1.1 V.
+- **Two 4×64 kits are not the same as the octa kit.** They cost €24,270.02
+  (€1,176.02 more), and the 4×64 kit is a CL36 bin; 6400 with eight DIMMs is not
+  guaranteed. The octa kit is the validated configuration.
+- **Open caveat:** G.Skill does not print the rank; confirm 2Rx4 on the module
+  label and the ASRock QVL for the exact part. The ASRock QVL was not
+  machine-readable at the snapshot. The Kingston part number is not confirmed on
+  Kingston’s site; prefer the Micron for a spec-confirmed build.
+
 ## 2. Engine behaviour and flags
 
 ### 2.1 Strata on four GPUs is a pipeline layer split, not tensor parallel
@@ -196,5 +229,12 @@ oversized for four cards.
 - `/root/git/strata/docs/AMD_HIP.md` 312 (`STRATA_PLE_AUTO_RAM`), 417-423 (PLE
   direct vs RAM on gfx1201)
 - `/root/git/strata/docs/MODELS.md` 141-142 (`--low-ram` is a setup flag)
-- `README.md` §3 (2×64 GB now -> 8×64 GB later), `bom/option-c.csv`,
-  `configs/strata-4x-r9700-8x262k.json`
+- `README.md` §3 (2×64 GB 5600 value; 2× / 4× / 8× GB 6400 fast path),
+  `bom/option-c.csv`, `bom/option-d.csv`, `bom/option-e.csv`,
+  `bom/option-f.csv`, `configs/strata-4x-r9700-8x262k.json`
+- Micron `MTC40F2046S1RC64BH1` single-module listing: Galaxus DE, €3,279.97;
+  Micron part page confirms 64 GB, x80 ECC, dual rank, 4Gb x4, CL52, 1.1 V
+- G.Skill T5 Neo kit listings: Proshop DE (4×64, €12,135.01) and Alternate DE
+  `100203342` (8×64, €23,094)
+- Kingston `KSM64R52BD4` single-module listing: Galaxus DE, €3,202.74
+- Micron `MTC40F2046S1RC64BD2` US reference: ServerSupply, US$4,270

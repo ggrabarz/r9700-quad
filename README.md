@@ -27,9 +27,12 @@ With the four GPUs at today’s replacement price: **€18,139.75**.
 
 The alternatives: **Option B — 6× Gen4, 6 TB** at **€11,705.38**; **Option C — 4× Gen4, 4 TB** at **€10,682.59**. The rest of this book explains why A is the middle.
 
+**RAM choice:** the value baseline is **2×64 GB DDR5-5600** (€4,998). The **2×64 GB DDR5-6400** start is **2× Micron MTC40F2046S1RC64BH1** (€6,559.94; 8× later €26,239.76, JEDEC 2Rx4). The cheaper-per-GB 6400 options are the **G.Skill T5 Neo** **4×64 GB (256 GB, CL36) €12,135.01** and **8×64 GB (512 GB, CL38) €23,094**. **Option A + 2×6400 = €12,027.71; + 4×64 = €17,770.03; + 8×64 = €29,057.79 at the notify-only price (orderable Proshop €33,766.02).** See §3.
+
 **Headline numbers**
 
 - 4× 32 GB = **128 GB VRAM**; IQ3_S is a **79 GB** download (≈50 GB experts, 1.5 GB dense on disk / ≈3.5 GiB per card in VRAM, 28.8 GB PLE table).
+- RAM: **2×64 GB DDR5-5600 = 128 GB / 2 channels / 89.6 GB/s** (value); **2×64 GB DDR5-6400 = 128 GB / 2 channels / 102.4 GB/s** (staged); **4×64 GB DDR5-6400 = 256 GB / 4 channels / 204.8 GB/s** (fast); **8×64 GB DDR5-6400 = 512 GB / 8 channels / 409.6 GB/s** (full speed). 8 DIMMs is 1 DIMM per channel on WRX90.
 - KV at 262,144 tokens is **10.55 KB/token with `k8v4`** → **2.64 GB per full-context stream**; **8 streams = 21.1 GB** of KV, about 5.3 GB per card. Eight streams fit with ≈6.5 GB left on the main card; twelve are a test target; sixteen do not fit the conservative budget.
 - **1,630 W continuous** (4×300 W GPU + 350 W CPU + 80 W platform), **2,200 W PSU** → 570 W / 25.9% headroom, 7.54 A at 230 V.
 - **76 PCIe 5.0 lanes used in Option A** (64 for the GPUs + 12 for the three Gen5 ports) of the 9955WX’s 128 → 52 spare; Option B uses 88 (40 spare), Option C 80 (48 spare).
@@ -104,7 +107,7 @@ The published AMD support matrix lists the R9700 as maintainer-tested, and the m
 | Feature | Detail | Why it matters |
 |---|---|---|
 | Chipset / CPU | AMD WRX90, sTR5, PRO 9000/7000 WX | Native PRO + RDIMM platform; no TRX50 hybrid caveats. |
-| Memory | 8× DDR5 RDIMM/RDIMM-3DS, 8-channel, 2 TB | 2×64 now; 8×64 = 512 GB later. |
+| Memory | 8× DDR5 RDIMM/RDIMM-3DS, 8-channel, 2 TB | 2×64 5600 value; 2× / 4× / 8× 6400 fast path. |
 | PCIe | 7× PCIe 5.0 x16 (6× x16 + 1× x8) | Four GPUs fit; the extra slots are covered by 2-slot cards. |
 | NVMe | 1× Gen5 M.2 + 1× Gen4 M.2 + 2× Gen5 MCIO + 2× Gen4 SlimSAS | Six NVMe ports: 3× Gen5 or 6× Gen4 arrays. |
 | SATA | 4× SATA3 | OS/cold SSD and an 8 TB image drive. |
@@ -135,50 +138,99 @@ No PLX switch and no lane-sharing gamble. The ASRock’s MCIO/SlimSAS ports are 
 
 ---
 
-## 3. Memory: 2×64 now, 8×64 later
+## 3. Memory: 128 GB value, 256–512 GB at DDR5-6400 for speed
 
-### 3.1 Population and speed
+### 3.1 Population and bandwidth
 
-| Now / later | Slots | Channels | Bandwidth at DDR5-5600 | Capacity |
-|---|---|---:|---:|---:|
-| 2 DIMMs (now) | A1 + E1 | 2 | 89.6 GB/s | 128 GB |
-| 4 DIMMs | A1 + C1 + E1 + G1 | 4 | 179.2 GB/s | 256 GB |
-| 8 DIMMs (later) | all | 8 | 358.4 GB/s | 512 GB |
+| DIMMs | Slots | Channels | DDR5-5600 | DDR5-6400 | Capacity |
+|---|---|---:|---:|---:|---:|
+| 2 | A1 + E1 | 2 | 89.6 GB/s | 102.4 GB/s | 128 GB |
+| 4 | A1 + C1 + E1 + G1 | 4 | 179.2 GB/s | 204.8 GB/s | 256 GB |
+| 8 | all | 8 | 358.4 GB/s | 409.6 GB/s | 512 GB |
 
-The ASRock’s 8-channel population is the native WRX90 layout. The 2-DIMM start uses A1 + E1; confirm the final pair against the board’s memory support list.
+WRX90 has **8 slots for 8 channels**, so 8 DIMMs is **1 DIMM per channel**. The 9955WX’s official **DDR5-6400** is therefore the 8-DIMM, 1DPC ceiling — not a 2-DIMM-per-channel overclock. The board’s higher 7600+/7800 OC numbers are 2–4 DIMM OC R-DIMM kit figures (usually 16/24/32 GB modules), not 8×64 GB.
 
-**Speed ceilings:** the 9955WX is officially **DDR5-6400**. The ASRock advertises **7600+ OC**, the WRX90 AI TOP **7800 OC** (reported), the TRX50 AI TOP has no published max (TRX50 OC R-DIMM kits ~7200). Those are **2–4 DIMM OC R-DIMM** numbers, not 8×64 GB 2Rx4. With the specified **5600** modules, all boards run **5600**; with 6400-rated 64 GB 2Rx4 modules on the QVL, the 8×64 realistic ceiling is **6400** (409.6 GB/s). The current 5600 modules are the limit, not the board.
+### 3.2 What is actually available at DDR5-6400
 
-**Why 5600 in the BOM?** Because it is the fastest **64 GB 2Rx4 ECC RDIMM** that is a volume, JEDEC, QVL-friendly part at a sane price. The 64 GB 2Rx4 5600 module is €39.05/GB; 6400 64 GB 2Rx4 modules are rarer and carry a premium, and the 7600/7800 figures are 2–4 DIMM OC R-DIMM kits (16/24/32 GB), not eight 64 GB modules. The 9955WX’s official 6400 is only **+14% host bandwidth** (89.6 → 102.4 GB/s at 2 DIMMs; 358.4 → 409.6 at 8), and the decode loop is GPU-bound with the experts in VRAM; the host bandwidth mostly affects model load, PLE, checkpoints and CPU fallback. The 8×64 capacity is the real endgame lever, not the last 800 MT/s. If you can source 6400-rated 64 GB 2Rx4 modules on the QVL at a fair price, take them; otherwise 5600 is the correct cost/benefit choice, and the 8×64 endgame at 5600 is the stable target.
+Two families, both **64 GB ECC Registered R-DIMMs**:
 
-**DeepSeek exception — when the model spills out of VRAM, RAM bandwidth is on the decode path.** Everything above about “GPU-bound” is for IQ3_S fully resident. DeepSeek V4.1 2.00/2.25 bpw is a 191 GB model, larger than 128 GB of VRAM; the CPU/expert lane reads from host RAM/SSD every token. The 2×64 5600 staging configuration is **not** a DeepSeek configuration.
+| Part | Type | Capacity | Speed / timings | Voltage | Rank | Price | €/GB |
+|---|---|---|---:|---:|---|---:|---:|
+| **Micron MTC40F2046S1RC64BH1** | single module | 64 GB | DDR5-6400 CL52 | 1.10 V | **2Rx4** | **€3,279.97** | **€51.25** |
+| Kingston KSM64R52BD4 | single module | 64 GB | DDR5-6400 CL52 | 1.10 V | not confirmed | €3,202.74 | €50.04 |
+| G.Skill T5 Neo F5-6400R3644E64GQ4-T5N | 4×64 kit | 256 GB | DDR5-6400 CL36-44-44-102 | 1.30 V | not printed | €12,135.01 | €47.40 |
+| **G.Skill T5 Neo F5-6400R3848F64GE8-T5N** | 8×64 kit | 512 GB | DDR5-6400 CL38-48-48-102 | 1.35 V | not printed | **€23,094.00** | **€45.11** |
 
-| RAM / CPU step | Added cost | Channels / bandwidth | Covers |
+- **The Micron single is the only part with a manufacturer-confirmed 2Rx4, CL52, 1.1 V spec** (40× 4Gb x4, x80 ECC). Two modules = 2 channels / 102.4 GB/s / 128 GB; eight modules = 8 channels / 409.6 GB/s / 512 GB, **€26,239.76**.
+- The Kingston listing is €77.23 cheaper per module, but its part number is not confirmed on Kingston’s site; use the Micron if you want the manufacturer spec confirmed.
+- The G.Skill 4×64 kit is €12,135.01 at Proshop (1–2 months, max 2 per customer); Alternate DE lists €12,269 with 17–25 days. The 8×64 octa kit is **notify-only** at Alternate (€23,094); Proshop can order it at **€27,666.06** with 1–2 months. Eight Micron singles are €26,239.76, so the G.Skill octa is cheaper only if the notify-only price is honored.
+- **The 8×64 kit is a different bin, not two 4×64 kits.** The 4×64 kit is CL36 at 1.30 V; the 8×64 kit is CL38 at 1.35 V. Two 4×64 kits cost **€24,270.02** and are not guaranteed to train at 6400 with 8 DIMMs; the octa kit is **€1,176.02 cheaper** and is the validated 8-DIMM 6400 configuration.
+- G.Skill does not print the rank in the retail listings; confirm **2Rx4** on the module label and the ASRock QVL for the exact part. The ASRock QVL was not machine-readable at the snapshot.
+
+### 3.3 What to buy: 1×, 2×, 4× or 8×?
+
+| Config | Capacity | Channels | Bandwidth | Cost | Verdict |
+|---|---|---:|---:|---:|---|
+| 1×64 6400 Micron | 64 GB | 1 | 51.2 GB/s | €3,279.97 | Boot/test only; slower than the 2×64 5600 pair. |
+| **2×64 6400 Micron** | **128 GB** | **2** | **102.4 GB/s** | **€6,559.94** | **The literal 2× start; 8× later = €26,239.76, all JEDEC 6400 2Rx4.** |
+| 2×64 5600 (BOM) | 128 GB | 2 | 89.6 GB/s | €4,998 | Cheapest start; the modules cannot reach 6400, so the fast upgrade replaces them. |
+| **4×64 6400 G.Skill** | **256 GB** | **4** | **204.8 GB/s** | **€12,135.01** | **Best 256 GB; 1–2 months lead time.** |
+| **8×64 6400 G.Skill** | **512 GB** | **8** | **409.6 GB/s** | **€23,094.00** | **Cheapest 512 GB at the notify-only price; validated octa kit. Orderable Proshop price €27,666.06.** |
+
+**Recommendation:**
+
+- **If the 2× start is the requirement:** buy **2× Micron MTC40F2046S1RC64BH1** (€6,559.94), then add six more as budget allows; 8× = **€26,239.76**. This is the only path that starts at 2 DIMMs and reaches 8× at **full 6400** with JEDEC 2Rx4 modules. It costs **+31.3% per GB** versus the 5600 pair and **+13.6%** versus the G.Skill 8×64 kit.
+- **If per-GB and 512 GB matter more than the 2-DIMM start:** the **G.Skill 8×64 octa kit** (€23,094) is the cheapest 512 GB at 6400 **at the notify-only price**, and it is the validated 8-DIMM configuration.
+- **If you want 512 GB orderable today:** eight **Micron singles** are **€26,239.76**, cheaper than the orderable G.Skill octa (€27,666.06 at Proshop) and they preserve the 2× start.
+- **If 256 GB is enough:** the **G.Skill 4×64 kit** (€12,135.01) is the cheapest 6400 per GB after the octa kit.
+- **If budget is the hard constraint:** **2×64 5600** (€4,998); accept that the 6400 upgrade replaces the pair.
+
+**Do not** buy two G.Skill 4×64 kits expecting a validated 8×64 6400 system; the octa kit is the validated bin and is cheaper. **Do not** buy one 64 GB 6400 module and expect a speed gain: one channel is 51.2 GB/s, worse than the 2×64 5600 pair.
+
+### 3.4 The RAM ladder (Option A storage)
+
+| Config | Capacity | Channels | Bandwidth | RAM price | €/GB | Platform total (+3%) | With 4 GPUs |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 2×64 DDR5-5600 (A) | 128 GB | 2 | 89.6 GB/s | €4,998.00 | €39.05 | €10,418.91 | €18,139.75 |
+| 2×64 DDR5-6400 Micron (D) | 128 GB | 2 | 102.4 GB/s | €6,559.94 | €51.25 | €12,027.71 | €19,748.55 |
+| 4×64 DDR5-6400 G.Skill (E) | 256 GB | 4 | 204.8 GB/s | €12,135.01 | €47.40 | €17,770.03 | €25,490.87 |
+| **8×64 DDR5-6400 G.Skill (F)** | **512 GB** | **8** | **409.6 GB/s** | **€23,094.00** | **€45.11** | **€29,057.79** | **€36,778.63** |
+
+6400 costs **+31.3% per GB** in the 2× Micron pair, **+21.4%** in the 4× G.Skill kit, and **+15.5%** in the 8× G.Skill kit versus the 5600 module. The 8×64 kit is **79.5% of the platform total** at the notify-only price; the 2026 DRAM shortage dominates the fast build even more than the value build. The 8× Micron path (€26,239.76 RAM; platform €32,297.93) is **cheaper than the orderable G.Skill octa (€27,666.06)** and is the one that starts at 2 DIMMs and stays JEDEC 2Rx4 at every step.
+
+### 3.5 Why 5600 is still the value baseline
+
+The Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** — **€39.05/GB**, **~48% of the value platform**. It is the volume, JEDEC, QVL-friendly part, and the 2×64 pair is the cheapest configuration that runs IQ3_S fully resident with the PLE in RAM. The 9955WX’s 6400 is only **+14% host bandwidth** at the same DIMM count (89.6 → 102.4 GB/s at 2 DIMMs; 358.4 → 409.6 at 8), and with the experts in VRAM the decode loop is GPU-bound; host bandwidth mostly affects model load, PLE, checkpoints and CPU fallback. That is why 5600 remains the **value** baseline, not because 6400 is unavailable.
+
+### 3.6 DeepSeek exception — when the model spills out of VRAM
+
+Everything in §3.5 about “GPU-bound” is for IQ3_S fully resident. **DeepSeek V4.1 2.00/2.25 bpw is a 191 GB model**, larger than 128 GB of VRAM; the CPU/expert lane reads from host RAM/SSD every token, so RAM **bandwidth and channels** are on the decode path. The 2×64 5600 staging configuration is **not** a DeepSeek configuration.
+
+| RAM / CPU step | Added cost vs 2×64 5600 | Channels / bandwidth | Covers |
 |---|---:|---|---|
 | 2×64 5600 (BOM) | — | 2ch / 89.6 GB/s | IQ3_S fully resident (staging) |
+| 2×64 6400 Micron | +€1,561.94 | 2ch / 102.4 GB/s | Same 128 GB, +14.3% bandwidth; 8× path stays 6400 |
 | 4×64 5600 | +€4,998 | 4ch / 179.2 GB/s | DeepSeek 2.00/2.25 bpw (3.7/20.7 GB CPU lane), 256 GB |
+| 4×64 6400 G.Skill | +€7,137.01 | 4ch / 204.8 GB/s | 256 GB; +14% over 4×64 5600 |
 | **8×64 5600** | **+€14,994** | **8ch / 358.4 GB/s** | 512 GB; UD-Q8 508 GB set (171.5 GB CPU lane) |
-| 8×64 6400 | + module premium | 8ch / 409.6 GB/s | +14% bandwidth; QVL-dependent |
+| **8×64 6400 G.Skill** | **+€18,096.00** | **8ch / 409.6 GB/s** | 512 GB; +14% over 8×64 5600; cheapest at the notify-only price |
+| 8×64 6400 Micron | +€21,241.76 | 8ch / 409.6 GB/s | 512 GB; JEDEC 2Rx4 at every step; dearest 512 GB |
 | 9965WX 24C | +€1,378 | 23 pool workers vs 15 | CPU expert lane, if CPU-bound |
 
-Option A with 4×64 = **€15,566.85**; with 8×64 = **€25,862.73**; with 8×64 + 24C = **€27,282.38** (platform, 3% contingency, before any 6400 premium). The 8×64 kit alone is €19,992 at the snapshot — the DRAM tax dominates the giant-model build.
+Option A with 2×64 6400 Micron = **€12,027.71**; with 4×64 5600 = **€15,566.85**; with 4×64 6400 G.Skill = **€17,770.03**; with 8×64 5600 = **€25,862.73**; with 8×64 5600 + 24C = **€27,240.73**; with 8×64 6400 G.Skill = **€29,057.79**; with 8×64 6400 G.Skill + 24C = **€30,435.79**; with 8×64 6400 Micron = **€32,297.93** (platform, 3% contingency). The 8×64 5600 kit alone is €19,992; the 8×64 6400 G.Skill kit is €23,094; eight Micron singles are €26,239.76 — the DRAM tax dominates the giant-model build.
 
-**If DeepSeek V4.1 is a primary workload**, budget the **8×64 (512 GB, 8 channels) and the 24C 9965WX** before the last 800 MT/s: the 2×64 → 8×64 step is 4× the channels and 4× the capacity; 5600 → 6400 is +14%. If DeepSeek is occasional, the 2×64/16C IQ3_S build is the cost/benefit choice, and the 8×64 upgrade is the later step. If you want 6400, it is only worth the premium when the 64 GB 2Rx4 part is on the QVL and the CPU lane is the measured bottleneck; the 7600/7800 OC kits are still not 8×64.
+**If DeepSeek V4.1 is a primary workload**, budget the **8×64 (512 GB, 8 channels)** first and the **24C 9965WX** second, before the last 800 MT/s: the 2×64 → 8×64 step is 4× the channels and 4× the capacity; 5600 → 6400 is +14%. If DeepSeek is occasional, the 2×64/16C IQ3_S build is the cost/benefit choice, and the 8×64 upgrade is the later step. The 7600/7800 OC kits are still not 8×64.
 
-
-### 3.2 Why 128 GB now
+### 3.7 Why 128 GB now, and why one stick is not enough
 
 - The model is 79 GB on disk; the PLE table is 28.8 GB. With 128 GB of VRAM the experts live on the GPUs, but the host needs the PLE table (28.8 GB with `--ple-io ram`), the OS/page cache and checkpoint headroom. 64 GB is the documented minimum (IQ3_S “with little else open”); 128 GB is the comfortable floor.
 - 2×64 keeps four slots free for the 8× path; four 32 GB DIMMs would consume half the slots and make 512 GB a full replacement.
-- 2Rx4 is the right organisation at 64 GB; do not mix 2Rx4/2Rx8 or brands/timings in a channel set.
+- One 64 GB RDIMM runs the GPU-resident IQ3_S workload in low-RAM mode with the PLE on the SSD, but it blocks `--ple-io ram` (28.8 GB), the full 16 GB conversation cache, two Saber Flash-Next servers, and leaves ~4 GB headroom. Two sticks are the practical floor; the detailed math and test plan are in [`docs/RAM-START.md`](docs/RAM-START.md).
+- 2Rx4 is the right organisation at 64 GB; do not mix 2Rx4/2Rx8 or brands/timings in a channel set. Confirm the G.Skill kit’s rank before ordering.
 
-### 3.3 The DRAM tax
+### 3.8 The DRAM tax
 
-At the snapshot the Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** — **€39.05/GB**, **~48% of the platform total**. This is the 2026 DRAM shortage, not a design choice. 64 GB modules are the cheapest per-GB RDIMM in this snapshot (a 4×16 GB kit is €3,346 for 64 GB). A 2×32 GB start saves ~€2,500 but leaves 64 GB — the wrong trade for a 79 GB model with a 28.8 GB PLE. If you can wait/buy used-server pulls, 64 GB DDR5-4800/5600 2Rx4 can cut this line; verify part/rank/ECC and run MemTest86+.
-
-### 3.4 One stick or two?
-
-One 64 GB RDIMM runs the GPU-resident IQ3_S workload in low-RAM mode with the PLE on the SSD, but it blocks `--ple-io ram` (28.8 GB), the full 16 GB conversation cache, two Saber Flash-Next servers, and leaves ~4 GB headroom. Two sticks are the practical floor and the specified dual-channel configuration; the second is €2,499 and is the first step of the 8×64 path. The detailed math and test plan are in [`docs/RAM-START.md`](docs/RAM-START.md).
+At the snapshot the Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** (€39.05/GB); the G.Skill 64 GB 6400 module works out to **€3,067** in the 4×64 kit and **€2,887** in the 8×64 kit. This is the 2026 DRAM shortage, not a design choice. 64 GB modules are the cheapest per-GB RDIMM in this snapshot (a 4×16 GB kit is €3,346 for 64 GB). A 2×32 GB start saves ~€2,500 but leaves 64 GB — the wrong trade for a 79 GB model with a 28.8 GB PLE. If you can wait/buy used-server pulls, 64 GB DDR5-4800/5600 2Rx4 can cut this line; verify part/rank/ECC and run MemTest86+.
 
 ---
 
@@ -312,11 +364,11 @@ At 8 concurrent 262K streams, per-stream decode is lower; plan 300–500 tok/s a
 
 ---
 
-## 7. The three builds
+## 7. The builds
 
-All three use the ASRock WRX90 WS EVO, 9955WX, 2×64 GB, 2,200 W, XE360-TR5 and Meshify 2 XL. They differ only in storage.
+Options **A/B/C** are the storage tiers and use the **2×64 GB DDR5-5600 value RAM**. Options **D/E/F** keep Option A’s 3× Gen5 storage and swap the RAM for **2×64 GB Micron 6400**, **4×64 GB G.Skill 6400**, or **8×64 GB G.Skill 6400**. All six use the ASRock WRX90 WS EVO, 9955WX, 2,200 W PSU, XE360-TR5 and Meshify 2 XL.
 
-### Option A — Balanced, 3× Gen5 (recommended)
+### Option A — Balanced, 3× Gen5 (value recommendation)
 
 | Item | Qty | Unit | Line |
 |---|---:|---:|---:|
@@ -384,9 +436,83 @@ All three use the ASRock WRX90 WS EVO, 9955WX, 2×64 GB, 2,200 W, XE360-TR5 and 
 
 **Buy this if:** 4 TB capacity matters more than Gen5 speed and you accept a Gen4 array. It is **€263.68 more than A** for +1 TB but slower (28–30 vs 42–44 GB/s) and cannot be fully imaged on the 4 TB SATA without the 8 TB HDD.
 
+### Option D — Staged 6400, 2×64 GB DDR5-6400
+
+Option A with **2× Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 2Rx4 JEDEC R-DIMMs** (€3,279.97 each = €6,559.94) instead of 2× Samsung 5600 (€4,998.00).
+
+| Item | Qty | Unit | Line |
+|---|---:|---:|---:|
+| ASRock WRX90 WS EVO | 1 | €808.05 | €808.05 |
+| Threadripper PRO 9955WX | 1 | €1,637.70 | €1,637.70 |
+| Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 2Rx4 R-DIMM | 2 | €3,279.97 | €6,559.94 |
+| Samsung 9100 PRO 1 TB Gen5 | 3 | €264.00 | €792.00 |
+| Samsung 870 EVO 4 TB SATA | 1 | €665.00 | €665.00 |
+| MCIO-to-M.2 cable (est.) | 2 | €40.00 | €80.00 |
+| Seasonic PRIME PX-2200 | 1 | €489.90 | €489.90 |
+| SilverStone XE360-TR5 | 1 | €389.90 | €389.90 |
+| Fractal Meshify 2 XL | 1 | €209.90 | €209.90 |
+| 140 mm fans (est.) | 3 | €15.00 | €45.00 |
+| **Platform subtotal** | | | **€11,677.39** |
+| Contingency 3% | | | €350.32 |
+| **Platform total** | | | **€12,027.71** |
+| GPUs (owned, replacement) | 4 | €1,930.21 | €7,720.84 |
+| **Total if buying GPUs** | | | **€19,748.55** |
+
+**Buy this if:** you want the literal **2× start** and must stay at 6400 when you go to 8×. It is **+€1,608.80 over A** for +14.3% bandwidth (89.6 → 102.4 GB/s), same 128 GB; six more modules later take it to 8×64 / 512 GB / 409.6 GB/s for **€26,239.76** total RAM. It is the most conservative part (JEDEC CL52, 1.1 V, 2Rx4) and the most expensive 6400 per GB (€51.25).
+
+### Option E — Fast RAM, 4×64 GB DDR5-6400
+
+Option A with one **G.Skill T5 Neo 4×64 GB DDR5-6400 CL36 kit** (€12,135.01 at Proshop; Alternate €12,269) instead of 2× Samsung 5600 (€4,998.00).
+
+| Item | Qty | Unit | Line |
+|---|---:|---:|---:|
+| ASRock WRX90 WS EVO | 1 | €808.05 | €808.05 |
+| Threadripper PRO 9955WX | 1 | €1,637.70 | €1,637.70 |
+| G.Skill T5 Neo 4×64 GB DDR5-6400 CL36 kit | 1 | €12,135.01 | €12,135.01 |
+| Samsung 9100 PRO 1 TB Gen5 | 3 | €264.00 | €792.00 |
+| Samsung 870 EVO 4 TB SATA | 1 | €665.00 | €665.00 |
+| MCIO-to-M.2 cable (est.) | 2 | €40.00 | €80.00 |
+| Seasonic PRIME PX-2200 | 1 | €489.90 | €489.90 |
+| SilverStone XE360-TR5 | 1 | €389.90 | €389.90 |
+| Fractal Meshify 2 XL | 1 | €209.90 | €209.90 |
+| 140 mm fans (est.) | 3 | €15.00 | €45.00 |
+| **Platform subtotal** | | | **€17,252.46** |
+| Contingency 3% | | | €517.57 |
+| **Platform total** | | | **€17,770.03** |
+| GPUs (owned, replacement) | 4 | €1,930.21 | €7,720.84 |
+| **Total if buying GPUs** | | | **€25,490.87** |
+
+**Buy this if:** you want 256 GB and 4 channels now. It is **+€7,351.12 over A** for 2× the channels (89.6 → 204.8 GB/s) and 2× the capacity, and it covers DeepSeek 2.00/2.25 bpw with headroom. The 8×64 upgrade is the octa kit, not a second 4×64 kit.
+
+### Option F — Full speed, 8×64 GB DDR5-6400
+
+Option A with one **G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 octa kit** (€23,094.00) instead of 2× Samsung 5600 (€4,998.00).
+
+| Item | Qty | Unit | Line |
+|---|---:|---:|---:|
+| ASRock WRX90 WS EVO | 1 | €808.05 | €808.05 |
+| Threadripper PRO 9955WX | 1 | €1,637.70 | €1,637.70 |
+| G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 octa kit | 1 | €23,094.00 | €23,094.00 |
+| Samsung 9100 PRO 1 TB Gen5 | 3 | €264.00 | €792.00 |
+| Samsung 870 EVO 4 TB SATA | 1 | €665.00 | €665.00 |
+| MCIO-to-M.2 cable (est.) | 2 | €40.00 | €80.00 |
+| Seasonic PRIME PX-2200 | 1 | €489.90 | €489.90 |
+| SilverStone XE360-TR5 | 1 | €389.90 | €389.90 |
+| Fractal Meshify 2 XL | 1 | €209.90 | €209.90 |
+| 140 mm fans (est.) | 3 | €15.00 | €45.00 |
+| **Platform subtotal** | | | **€28,211.45** |
+| Contingency 3% | | | €846.34 |
+| **Platform total** | | | **€29,057.79** |
+| GPUs (owned, replacement) | 4 | €1,930.21 | €7,720.84 |
+| **Total if buying GPUs** | | | **€36,778.63** |
+
+**Buy this if:** 512 GB at 409.6 GB/s is the target. It is the validated 8-DIMM 6400 kit and the endgame for DeepSeek UD-Q8 / large-model streaming. The 8×64 kit is **79.5% of the platform total** — the DRAM shortage is the build. It is **+€18,638.88 over A** for 4× the channels and 4× the capacity.
+
 ### What not to buy
 
 - **A 24-core 9965WX (+€1,378).** The 16C/32T 9955WX gives the 15 expert workers Strata’s AMD reference config uses; more cores do not help a GPU-resident model.
+- **One 64 GB DDR5-6400 module.** One channel is 51.2 GB/s, slower than the 2×64 5600 pair; it is a boot/test config, not a speed upgrade.
+- **Two 4×64 GB 6400 kits instead of the 8×64 octa kit.** €24,270.02 vs €23,094.00, and the 4×64 kit is a CL36 bin, not the CL38 8-DIMM bin; two kits are not guaranteed 6400 at 8 DIMMs.
 - **128/256 GB RDIMMs.** Worse €/GB than 8×64; the 2 TB ceiling is not a target.
 - **A 1600 W PSU.** 1,630 W continuous is over its rating.
 - **A 7th/8th GPU.** The case/power/PCIe and 2-slot stacking do not support it; the 9-GPU marketing is single-slot/riser territory.
@@ -411,7 +537,22 @@ All three use the ASRock WRX90 WS EVO, 9955WX, 2×64 GB, 2,200 W, XE360-TR5 and 
 
 A is the middle: it is €263.68 cheaper than C and faster, with 1 TB less; it is €1,286.47 cheaper than B with 3 TB less. B is the capacity outlier; C is the 4 TB value outlier.
 
-At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at €0.25/kWh). Add the platform amortized over three years (€3,473/year for A) and the all-in compute cost is ~€5,362/year before GPUs, comparable to a cloud GPU rental at 8×262K streams.
+**RAM ladder, same Option A storage:**
+
+| Metric | A · 2×64 5600 | D · 2×64 6400 | E · 4×64 6400 | F · 8×64 6400 |
+|---|---:|---:|---:|---:|
+| Platform total | €10,418.91 | €12,027.71 | €17,770.03 | €29,057.79 |
+| With GPUs at replacement | €18,139.75 | €19,748.55 | €25,490.87 | €36,778.63 |
+| RAM capacity / channels | 128 GB / 2 | 128 GB / 2 | 256 GB / 4 | 512 GB / 8 |
+| RAM bandwidth | 89.6 GB/s | 102.4 GB/s | 204.8 GB/s | 409.6 GB/s |
+| RAM cost / € per GB | €4,998 / €39.05 | €6,559.94 / €51.25 | €12,135.01 / €47.40 | €23,094 / €45.11 |
+| RAM share of platform | 48.0% | 54.5% | 68.3% | 79.5% |
+| Per VRAM GB (platform) | €81.40 | €93.97 | €138.83 | €227.01 |
+| Per 262K stream at 8 (platform) | €1,302.36 | €1,503.46 | €2,221.25 | €3,632.22 |
+
+D is the literal 2× start: **+€1,608.80 over A** for +14.3% bandwidth at the same 128 GB. It is the only path that reaches 8×6400 with JEDEC 2Rx4 modules: eight Micron singles are €26,239.76 RAM, **€32,297.93 platform**, **€40,018.77 with GPUs**. E is **+€7,351.12 over A** for 2× the channels and 2× the capacity. F is **+€18,638.88 over A** for 4× the channels and 4× the capacity at the notify-only price; the orderable Proshop price is €27,666.06, **€33,766.02 platform / €41,486.86 with GPUs**. The 6400 premium is **+31.3% per GB in D**, **+21.4% in E**, **+15.5% in F** versus the 5600 module.
+
+At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at €0.25/kWh). Add the platform amortized over three years (€3,473/year for A, €4,009/year for D, €5,923/year for E, €9,686/year for F) and the all-in compute cost is ~€5,362 / €5,898 / €7,812 / €11,575 per year before GPUs.
 
 ---
 
@@ -422,11 +563,14 @@ At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at �
 | Gen5/MCIO drives run hot | Medium | Throttling/array slowdown | Mount MCIO drives in the 2.5" bays, bottom intake, SMART <70 °C. |
 | RAID 0 loses a drive | Low–Medium | Array lost | 4 TB SATA image for the 3 TB array; 8 TB HDD for 4/6 TB; UPS; archive. |
 | 6× Gen4 higher failure domain | Medium | Array lost | 8 TB HDD image; cold archive; replace the drive and restore. |
-| 8×64 GB RDIMM training/QVL | Medium | Lower speed/no boot | Buy the exact Samsung part; check the QVL; 2× start is low-risk; 8× is the stress case. |
+| 8×64 GB RDIMM training/QVL | Medium | Lower speed/no boot | Buy the exact Samsung 5600, Micron 6400 single, or G.Skill octa 6400 part; check the ASRock QVL; 2×/4× start is lower-risk; 8×6400 is the stress case. |
+| G.Skill 6400 kit stock | High | Delay | 4×64 is 1–2 months at Proshop / 17–25 days at Alternate; 8×64 is notify-only at the snapshot. Re-check before ordering. |
+| G.Skill rank/QVL unconfirmed | Medium | Wrong bin/no 6400 | Confirm 2Rx4 on the module label and the ASRock QVL for the exact part number. |
+| Single-module 6400 price/stock | Medium | Budget/delay | Micron MTC40F2046S1RC64BH1 is €3,279.97 at Galaxus; the Kingston listing is €77.23 cheaper but its part number is not confirmed. Re-check both. |
 | ASRock 6-pin GFX 12V not connected | Certain | No boot | Connect 6-pin PCIe 12V to GFX_12V1/2; the Seasonic 6+2 cables cover it. |
 | TRX50 AI TOP has no IPMI | Certain | No out-of-band | Choose ASRock/WRX90 AI TOP if IPMI is required; BMC cannot be added to the TRX50. |
 | 9955WX/ASRock stock | Medium | Delay | Geizhals offers; re-check before ordering; ASRock is available at the snapshot. |
-| DRAM price | High | Budget | 2×64 now; 8× later; used-server pulls with warranty. |
+| DRAM price | High | Budget | 2×64 5600 value now; 4×64/8×64 6400 fast path; used-server pulls with warranty. |
 | BIOS needs 9000WX support | Medium | No boot | Flash the latest BIOS; ASRock supports PRO 9000WX. |
 | Noise/heat in a living space | High | Comfort | Utility room/rack; 5,562 BTU/h; 45–50 dBA. |
 
@@ -437,13 +581,13 @@ At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at �
 ### 10.1 Before assembly
 
 1. Flash the latest ASRock BIOS; confirm 9955WX support.
-2. Check the ASRock memory QVL for the exact Samsung M32... part, especially at 8 DIMMs.
+2. Check the ASRock memory QVL for the exact Samsung M321R8GA0PB0-CWM (5600), Micron MTC40F2046S1RC64BH1 (6400 single), or G.Skill F5-6400R3644E64GQ4-T5N / F5-6400R3848F64GE8-T5N (6400 kits); 8 DIMMs is the stress case.
 3. Verify all four GPUs are 2-slot blowers (40 mm).
 4. Dry-fit the 360 AIO top and the 210 mm PSU; confirm the 2.5" bays for the MCIO drives.
 
 ### 10.2 Assembly
 
-1. CPU into sTR5; 2×64 GB RDIMMs in A1 + E1.
+1. CPU into sTR5; RAM per build: **A/B/C** 2×64 GB in A1 + E1; **D** 2×64 GB in A1 + E1; **E** 4×64 GB in A1/C1/E1/G1; **F** 8×64 GB in all slots.
 2. 1× 9100 PRO in M2_1 (Gen5); 2× 9100 PRO on the MCIO Gen5 ports via the adapter cables, mounted in the 2.5" bays. The Gen4 M.2 stays free.
 3. Board into the case; EEB standoffs.
 4. 360 AIO top; pump/fans to CPU headers.
@@ -456,7 +600,7 @@ At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at �
 
 - Above 4G Decoding: Enabled; Re-Size BAR: Enabled; CSM: Disabled.
 - IOMMU: Enabled (diagnostics); PCIe slots Auto/Gen5; verify x16 on all four GPUs.
-- Memory: EXPO/XMP off for ECC stability; JEDEC 5600; ECC auto. Confirm ECC in the OS.
+- Memory: **5600 build** — EXPO/XMP off, JEDEC 5600, ECC auto. **D (Micron 6400)** — JEDEC 6400, no EXPO. **E/F (G.Skill 6400)** — EXPO profile 1 (DDR5-6400). ECC auto; verify the trained speed in BIOS and the OS, and watch for ECC/WHEA errors in the soak. Confirm ECC in the OS.
 - Fan curves: front/bottom intake on GPU temp; AIO pump full; rear moderate.
 - Power: balanced/typical; no extreme OC on a 24/7 server.
 - BMC: set the IPMI LAN IP; enable remote power/KVM.
@@ -494,6 +638,11 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | ASRock WRX90 WS EVO | €808.05 | [Geizhals EU](https://geizhals.eu/asrock-wrx90-ws-evo-90-mxbmh0-a0uayz-a3167681.html) |
 | Threadripper PRO 9955WX | €1,637.70 | [Geizhals DE](https://geizhals.de/amd-ryzen-threadripper-pro-9955wx-100-100000725wof-a3531872.html) |
 | Samsung 64 GB DDR5-5600 2Rx4 ECC RDIMM | €2,499.00 | [Geizhals EU](https://geizhals.eu/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3528359.html) |
+| Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 CL52 2Rx4 RDIMM (single) | €3,279.97 | [Galaxus DE](https://www.galaxus.de/de/s1/product/micron-crucial-64-gb-reg-ecc-ddr5-6400-mtc40f2046s1rc64bh1-6400-mhz-ddr5-ram-dimm-ram-68867097) |
+| Kingston KSM64R52BD4 64 GB DDR5-6400 CL52 RDIMM (single) | €3,202.74 | [Galaxus DE](https://www.galaxus.de/de/s1/product/kingston-ksm64r52bd4-1-x-64gb-6400-mhz-ddr5-ram-dimm-ram-52967925) |
+| G.Skill T5 Neo 4×64 GB DDR5-6400 CL36 R-DIMM kit | €12,135.01 | [Proshop DE](https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-256GB-CL36-Quad-Channel-4-pcs-AMD-EXPO-Schwarz/3402039) |
+| G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 R-DIMM kit | €23,094.00 | [Alternate DE](https://www.alternate.de/G-Skill/RIMM-512-GB-DDR5-6400-8x-64-GB-Octa-Kit-ECC-Arbeitsspeicher/html/product/100203342) |
+| Micron MTC40F2046S1RC64BD2 64 GB DDR5-6400 (US reference) | US$4,270.00 | [ServerSupply](https://www.serversupply.com/MEMORY/PC5-51200/64GB/MICRON/MTC40F2046S1RC64BD2_387264.htm) |
 | Samsung 9100 PRO 1 TB | €264.00 | [Alternate DE](https://www.alternate.de/Samsung/9100-PRO-1-TB-SSD/html/product/100118126) |
 | Samsung 990 PRO 1 TB | €262.00 | [Alternate DE](https://www.alternate.de/Samsung/990-PRO-1-TB-SSD/html/product/1864239) |
 | Samsung 870 EVO 4 TB | €665.00 | [Alternate DE](https://www.alternate.de/Samsung/870-EVO-4-TB-SSD/html/product/1706407) |
@@ -505,7 +654,7 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | Gigabyte TRX50 AI TOP (alternative) | €896.75 | [Geizhals EU](https://geizhals.eu/gigabyte-trx50-ai-top-a3246131.html) |
 | Gigabyte WRX90 AI TOP (announced) | TBD | [Geizhals listing](https://geizhals.eu/gigabyte-wrx90-ai-top-amd-str5-a3995002.html) |
 
-**Technical sources:** [ASRock WRX90 WS EVO spec](https://www.asrock.com/mb/AMD/WRX90%20WS%20EVO/index.asp), [ASRock manual](https://download.asrock.com/Manual/WRX90%20WS%20EVO.pdf), [AMD 9955WX](https://www.amd.com/en/products/processors/workstations/ryzen-threadripper/9000-wx-series/amd-ryzen-threadripper-pro-9955wx.html), [Seasonic PX-2200 datasheet](https://seasonic.com/wp-content/uploads/2024/06/ATX-3.1-PRIME-PX-2200.pdf), [Fractal Meshify 2 XL sheet](https://assets.fractal-design.com/files/uxzbxy2o/production/1bc60fe11df0e6b0269090a88eec38f36586ff3c.pdf), and the Strata docs in `/root/git/strata/docs/`.
+**Technical sources:** [ASRock WRX90 WS EVO spec](https://www.asrock.com/mb/AMD/WRX90%20WS%20EVO/index.asp), [ASRock manual](https://download.asrock.com/Manual/WRX90%20WS%20EVO.pdf), [AMD 9955WX](https://www.amd.com/en/products/processors/workstations/ryzen-threadripper/9000-wx-series/amd-ryzen-threadripper-pro-9955wx.html), [Micron MTC40F2046S1RC64BH1](https://www.micron.com/products/memory/dram-modules/rdimm/part-catalog/part-detail/mtc40f2046s1rc64bh1), [Seasonic PX-2200 datasheet](https://seasonic.com/wp-content/uploads/2024/06/ATX-3.1-PRIME-PX-2200.pdf), [Fractal Meshify 2 XL sheet](https://assets.fractal-design.com/files/uxzbxy2o/production/1bc60fe11df0e6b0269090a88eec38f36586ff3c.pdf), and the Strata docs in `/root/git/strata/docs/`.
 
 **Price caveat:** listed “from” prices are not reservations. Re-check every offer before ordering; the 3% contingency covers shipping/volatility.
 
@@ -520,6 +669,9 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | [`bom/option-a.csv`](bom/option-a.csv) | Balanced 3× Gen5 build sheet. |
 | [`bom/option-b.csv`](bom/option-b.csv) | Capacity 6× Gen4 build sheet. |
 | [`bom/option-c.csv`](bom/option-c.csv) | Value 4× Gen4 build sheet. |
+| [`bom/option-d.csv`](bom/option-d.csv) | Staged 6400, 2×64 GB DDR5-6400 Micron build sheet. |
+| [`bom/option-e.csv`](bom/option-e.csv) | Fast RAM 4×64 GB DDR5-6400 G.Skill build sheet. |
+| [`bom/option-f.csv`](bom/option-f.csv) | Full speed 8×64 GB DDR5-6400 G.Skill build sheet. |
 | [`tools/calc.py`](tools/calc.py) | Totals, power, lanes, memory, VRAM/KV/streams. |
 | [`tools/export_bom.py`](tools/export_bom.py) | Regenerates CSVs. |
 | [`configs/strata-4x-r9700-8x262k.json`](configs/strata-4x-r9700-8x262k.json) | 8×262K Strata preset. |

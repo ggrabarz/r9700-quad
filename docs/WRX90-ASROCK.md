@@ -161,7 +161,7 @@ The practical difference is largest at the **8×64 GB = 512 GB endgame**:
 
 - 2×64 GB is easy on both: two channels, two DIMMs, low load. The 9955WX + 2×64 GB RDIMM is a supported configuration on either platform.
 - 8×64 GB is 16 ranks across eight channels. RDIMM’s register buffers the address/command load, but the board still has to train and cool eight 2Rx4 modules. The WRX90 AI TOP adds **active DDR cooling (DDR Wind Blade XTREME Duo, up to 43 °C lower memory temperatures)** and a 14-layer server PCB; the ASRock WRX90 is a native 8-DIMM WRX90 board. The TRX50 AI TOP has the slots and the manual support, but not the same memory-cooling/validation margin.
-- Always check the board’s **memory QVL** for the exact Samsung M321R8GA0PB0-CWM at 8 DIMMs. The 2-DIMM start is low-risk; the 8-DIMM speed (5600 vs 5200/4800) is where the platform and BIOS matter.
+- Always check the board’s **memory QVL** for the exact part at 8 DIMMs: Samsung M321R8GA0PB0-CWM (5600), Micron MTC40F2046S1RC64BH1 (6400 single), or G.Skill F5-6400R3644E64GQ4-T5N (4×64) / F5-6400R3848F64GE8-T5N (8×64). The 2-DIMM start is low-risk; the 8-DIMM speed (5600 vs 5200/4800, or 6400 with JEDEC/EXPO) is where the platform and BIOS matter.
 
 ### VRM and memory margin
 
@@ -186,9 +186,17 @@ The 9955WX is a **350 W** part; the TRX50 AI TOP’s 16+8+4 VRM is adequate for 
 | With 8×64 GB 2Rx4 **5600** | 5600 (358.4 GB/s) | 5600 (358.4 GB/s) | 5600 (358.4 GB/s) |
 | With 8×64 GB 2Rx4 **6400** | 6400 if QVL (409.6 GB/s) | 6400 if QVL (409.6 GB/s) | 6400 if QVL (409.6 GB/s) |
 
-The board OC numbers are **2–4 DIMM OC R-DIMM** figures (usually 16/24/32 GB modules), not 8×64 GB 2Rx4. The 9955WX’s official 6400 is the realistic JEDEC ceiling; 7600/7800 requires EXPO OC R-DIMM kits, a lucky IMC and the board’s QVL. With the build’s current 5600 modules, all three boards run **5600** — the module is the limit, not the board. If you want 6400, buy 6400 64 GB 2Rx4 modules and check the QVL; the 8×64 endgame is 6400 at best, not 7600/7800.
+The board OC numbers are **2–4 DIMM OC R-DIMM** figures (usually 16/24/32 GB modules), not 8×64 GB 2Rx4. The 9955WX’s official 6400 is the realistic JEDEC ceiling; 7600/7800 requires EXPO OC R-DIMM kits, a lucky IMC and the board’s QVL. With the build’s 5600 modules, all three boards run **5600** — the module is the limit, not the board.
 
-The BOM stays at 5600 because the 64 GB 2Rx4 5600 part is the volume/JEDEC/QVL-friendly module at €39.05/GB; 6400 64 GB 2Rx4 is rarer and dearer, and the 7600/7800 numbers are 2–4 DIMM OC kits, not eight 64 GB modules. For **IQ3_S fully resident**, the 9955WX’s 6400 is only +14% host bandwidth and the decode loop is GPU-bound. **For DeepSeek V4.1 that spills out of VRAM, RAM bandwidth is on the decode path**: 2×64 89.6, 4×64 179.2, 8×64 358.4, 8×64 6400 409.6 GB/s. The 2×64 staging config is not a DeepSeek config; 8×64 5600 (512 GB) is the capacity/bandwidth baseline, 6400 is +14% if the QVL/price works, and the 24C 9965WX gives 23 pool workers vs 15. Spend the premium on capacity/channels before the last 800 MT/s.
+For 6400, the EU-retail 64 GB parts found at the snapshot are:
+
+- **Micron MTC40F2046S1RC64BH1** single module, **2Rx4, CL52, 1.1 V**, €3,279.97. Two = **€6,559.94** (2 channels / 102.4 GB/s); eight = **€26,239.76** (8 channels / 409.6 GB/s). This is the literal 2× start that stays JEDEC 6400 to 8×.
+- **Kingston KSM64R52BD4** single module, €3,202.74; part number not confirmed on Kingston’s site.
+- **G.Skill T5 Neo** 4×64 GB CL36-44-44-102 at 1.30 V, **€12,135.01**, and 8×64 GB CL38-48-48-102 at 1.35 V, **€23,094**. The 8×64 kit is the validated 8-DIMM 6400 octa kit; two 4×64 kits cost €24,270.02 and are not the same bin.
+
+8×64 is 1 DIMM per channel, so 6400 is the native 1DPC topology, not a 2-DIMM-per-channel overclock. Confirm **2Rx4** and the exact QVL entry before ordering; the ASRock QVL was not machine-readable at the snapshot.
+
+The BOM’s **value** RAM stays at 5600 because the 64 GB 2Rx4 5600 part is the volume/JEDEC/QVL-friendly module at €39.05/GB. The **fast** path is €51.25/GB for the 2× Micron pair (+31.3%), €47.40/GB for the 4× G.Skill kit (+21.4%), and €45.11/GB for the 8× G.Skill kit (+15.5%). For **IQ3_S fully resident**, the 9955WX’s 6400 is only +14% host bandwidth and the decode loop is GPU-bound. **For DeepSeek V4.1 that spills out of VRAM, RAM bandwidth is on the decode path**: 2×64 5600 89.6, 2×64 6400 102.4, 4×64 6400 204.8, 8×64 5600 358.4, 8×64 6400 409.6 GB/s. The 2×64 5600 staging config is not a DeepSeek config; 8×64 5600 (512 GB) is the capacity baseline, 8×64 6400 is +14% and the fastest 64 GB configuration, and the 24C 9965WX gives 23 pool workers vs 15. Spend the premium on capacity/channels before the last 800 MT/s.
 
 ### BMC: integrated, not an add-on
 
