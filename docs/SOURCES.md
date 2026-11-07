@@ -1,6 +1,6 @@
 # Sources and verification notes
 
-Snapshot date: **2026-11-06**. Prices include VAT and are “from” offers, not reservations.
+Snapshot date: **2026-11-06/07** (platform 06, RAM retail 07). Prices include VAT and are “from” offers, not reservations.
 
 ## Board and platform
 

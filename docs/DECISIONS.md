@@ -96,7 +96,7 @@ that is already idle for two of the three targets.
 
 ### 1.7 DDR5-6400: the fast path, including a 2× start
 
-At the 2026-11-06 snapshot the EU-retail 64 GB DDR5-6400 R-DIMMs found are:
+At the 2026-11-06/07 snapshot the EU-retail 64 GB DDR5-6400 R-DIMMs found are:
 
 | Part | Type | Capacity | Timings / voltage | Channels | Price |
 |---|---|---|---:|---:|---:|
@@ -115,13 +115,13 @@ At the 2026-11-06 snapshot the EU-retail 64 GB DDR5-6400 R-DIMMs found are:
   G.Skill octa kit is €3,145.76 cheaper than eight Micron singles **at the
   notify-only €23,094**; the orderable Proshop price (€27,666.06) is €1,426.30
   more than eight Micron singles.
-- **8×64 is the validated full-speed configuration.** WRX90 has eight slots for
-  eight channels, so 8 DIMMs is 1 DIMM per channel and DDR5-6400 is the 9955WX’s
-  official 1DPC ceiling. The G.Skill octa kit is binned CL38 at 1.35 V for that
-  load; the Micron singles are JEDEC 1.1 V.
+- **8×64 is the full-speed configuration.** WRX90 has eight slots for eight
+  channels, so 8 DIMMs is 1 DIMM per channel and DDR5-6400 is the 9955WX’s
+  official 1DPC ceiling. G.Skill sells the octa kit binned CL38 at 1.35 V for
+  that load; the Micron singles are JEDEC 1.1 V.
 - **Two 4×64 kits are not the same as the octa kit.** They cost €24,270.02
   (€1,176.02 more), and the 4×64 kit is a CL36 bin; 6400 with eight DIMMs is not
-  guaranteed. The octa kit is the validated configuration.
+  guaranteed. The octa kit is G.Skill’s 8-DIMM 6400 kit.
 - **Open caveat:** G.Skill does not print the rank; confirm 2Rx4 on the module
   label and the ASRock QVL for the exact part. The ASRock QVL was not
   machine-readable at the snapshot. The Kingston part number is not confirmed on

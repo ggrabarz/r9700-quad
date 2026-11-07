@@ -78,7 +78,7 @@ The upgrade path is mechanical:
 
 Buy the same part (Samsung M321R8GA0PB0-CWM, 64 GB DDR5-5600 CL46 2Rx4 ECC RDIMM) for the later sticks; mixing rank/brand/timing in one channel set is the thing to avoid.
 
-For 6400 the path is different: **2×64 Micron singles (2 channels, 128 GB)** then **8×64 Micron singles (8 channels, 512 GB)**, or **4×64 G.Skill (4 channels, 256 GB)** then **8×64 G.Skill octa (8 channels, 512 GB)**. Two 4×64 kits cost €24,270.02 versus €23,094.00 for the octa kit, and the 4×64 kit is CL36 while the octa kit is CL38; the octa kit is the validated 8-DIMM 6400 bin.
+For 6400 the path is different: **2×64 Micron singles (2 channels, 128 GB)** then **8×64 Micron singles (8 channels, 512 GB)**, or **4×64 G.Skill (4 channels, 256 GB)** then **8×64 G.Skill octa (8 channels, 512 GB)**. Two 4×64 kits cost €24,270.02 versus €23,094.00 for the octa kit, and the 4×64 kit is CL36 while the octa kit is CL38; the octa kit is G.Skill’s 8-DIMM 6400 bin.
 
 ## 5. Budget effect
 

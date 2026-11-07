@@ -2,7 +2,7 @@
 
 **Scope:** a four-GPU AMD Radeon AI PRO R9700 (32 GB) inference platform for the Strata engine, serving Qwen3.8-Flash-Next Swift 1.5 IQ3_S (or IQ3_XXS) at up to 262,144 tokens of context with as many full-context streams as 128 GB of VRAM will hold. The four GPUs are already owned; this book prices and specifies everything else.
 
-**Price snapshot:** 2026-11-06, EUR including VAT, EU (Germany/Austria comparison, Alternate DE retail). Prices are listed offers, not quotes; stock moves. The machine-readable snapshot is [`bom/prices.json`](bom/prices.json), the arithmetic is [`tools/calc.py`](tools/calc.py), the build sheets are [`bom/`](bom/), and the one-page visual is [`report.html`](report.html).
+**Price snapshot:** 2026-11-06/07 (platform 06, RAM retail 07), EUR including VAT, EU (Germany/Austria comparison, Alternate DE retail). Prices are listed offers, not quotes; stock moves. The machine-readable snapshot is [`bom/prices.json`](bom/prices.json), the arithmetic is [`tools/calc.py`](tools/calc.py), the build sheets are [`bom/`](bom/), and the one-page visual is [`report.html`](report.html).
 
 ---
 
@@ -164,7 +164,7 @@ Two families, both **64 GB ECC Registered R-DIMMs**:
 - **The Micron single is the only part with a manufacturer-confirmed 2Rx4, CL52, 1.1 V spec** (40× 4Gb x4, x80 ECC). Two modules = 2 channels / 102.4 GB/s / 128 GB; eight modules = 8 channels / 409.6 GB/s / 512 GB, **€26,239.76**.
 - The Kingston listing is €77.23 cheaper per module, but its part number is not confirmed on Kingston’s site; use the Micron if you want the manufacturer spec confirmed.
 - The G.Skill 4×64 kit is €12,135.01 at Proshop (1–2 months, max 2 per customer); Alternate DE lists €12,269 with 17–25 days. The 8×64 octa kit is **notify-only** at Alternate (€23,094); Proshop can order it at **€27,666.06** with 1–2 months. Eight Micron singles are €26,239.76, so the G.Skill octa is cheaper only if the notify-only price is honored.
-- **The 8×64 kit is a different bin, not two 4×64 kits.** The 4×64 kit is CL36 at 1.30 V; the 8×64 kit is CL38 at 1.35 V. Two 4×64 kits cost **€24,270.02** and are not guaranteed to train at 6400 with 8 DIMMs; the octa kit is **€1,176.02 cheaper** and is the validated 8-DIMM 6400 configuration.
+- **The 8×64 kit is a different bin, not two 4×64 kits.** The 4×64 kit is CL36 at 1.30 V; the 8×64 kit is CL38 at 1.35 V. Two 4×64 kits cost **€24,270.02** and are not guaranteed to train at 6400 with 8 DIMMs; the octa kit is **€1,176.02 cheaper** and is G.Skill’s 8-DIMM 6400 kit.
 - G.Skill does not print the rank in the retail listings; confirm **2Rx4** on the module label and the ASRock QVL for the exact part. The ASRock QVL was not machine-readable at the snapshot.
 
 ### 3.3 What to buy: 1×, 2×, 4× or 8×?
@@ -175,17 +175,17 @@ Two families, both **64 GB ECC Registered R-DIMMs**:
 | **2×64 6400 Micron** | **128 GB** | **2** | **102.4 GB/s** | **€6,559.94** | **The literal 2× start; 8× later = €26,239.76, all JEDEC 6400 2Rx4.** |
 | 2×64 5600 (BOM) | 128 GB | 2 | 89.6 GB/s | €4,998 | Cheapest start; the modules cannot reach 6400, so the fast upgrade replaces them. |
 | **4×64 6400 G.Skill** | **256 GB** | **4** | **204.8 GB/s** | **€12,135.01** | **Best 256 GB; 1–2 months lead time.** |
-| **8×64 6400 G.Skill** | **512 GB** | **8** | **409.6 GB/s** | **€23,094.00** | **Cheapest 512 GB at the notify-only price; validated octa kit. Orderable Proshop price €27,666.06.** |
+| **8×64 6400 G.Skill** | **512 GB** | **8** | **409.6 GB/s** | **€23,094.00** | **Cheapest 512 GB at the notify-only price; 8-DIMM 6400 octa kit. Orderable Proshop price €27,666.06.** |
 
 **Recommendation:**
 
-- **If the 2× start is the requirement:** buy **2× Micron MTC40F2046S1RC64BH1** (€6,559.94), then add six more as budget allows; 8× = **€26,239.76**. This is the only path that starts at 2 DIMMs and reaches 8× at **full 6400** with JEDEC 2Rx4 modules. It costs **+31.3% per GB** versus the 5600 pair and **+13.6%** versus the G.Skill 8×64 kit.
-- **If per-GB and 512 GB matter more than the 2-DIMM start:** the **G.Skill 8×64 octa kit** (€23,094) is the cheapest 512 GB at 6400 **at the notify-only price**, and it is the validated 8-DIMM configuration.
+- **If the 2× start is the requirement:** buy **2× Micron MTC40F2046S1RC64BH1** (€6,559.94), then add six more as budget allows; 8× = **€26,239.76**. This is the only path that starts at 2 DIMMs and reaches 8× at **full 6400** with JEDEC 2Rx4 modules. It costs **+31.2% per GB** versus the 5600 pair and **+13.6%** versus the G.Skill 8×64 kit.
+- **If per-GB and 512 GB matter more than the 2-DIMM start:** the **G.Skill 8×64 octa kit** (€23,094) is the cheapest 512 GB at 6400 **at the notify-only price**, and it is G.Skill’s 8-DIMM 6400 configuration.
 - **If you want 512 GB orderable today:** eight **Micron singles** are **€26,239.76**, cheaper than the orderable G.Skill octa (€27,666.06 at Proshop) and they preserve the 2× start.
 - **If 256 GB is enough:** the **G.Skill 4×64 kit** (€12,135.01) is the cheapest 6400 per GB after the octa kit.
 - **If budget is the hard constraint:** **2×64 5600** (€4,998); accept that the 6400 upgrade replaces the pair.
 
-**Do not** buy two G.Skill 4×64 kits expecting a validated 8×64 6400 system; the octa kit is the validated bin and is cheaper. **Do not** buy one 64 GB 6400 module and expect a speed gain: one channel is 51.2 GB/s, worse than the 2×64 5600 pair.
+**Do not** buy two G.Skill 4×64 kits expecting an 8×64 6400 system; the octa kit is G.Skill’s 8-DIMM 6400 kit and is cheaper. **Do not** buy one 64 GB 6400 module and expect a speed gain: one channel is 51.2 GB/s, worse than the 2×64 5600 pair.
 
 ### 3.4 The RAM ladder (Option A storage)
 
@@ -196,7 +196,7 @@ Two families, both **64 GB ECC Registered R-DIMMs**:
 | 4×64 DDR5-6400 G.Skill (E) | 256 GB | 4 | 204.8 GB/s | €12,135.01 | €47.40 | €17,770.03 | €25,490.87 |
 | **8×64 DDR5-6400 G.Skill (F)** | **512 GB** | **8** | **409.6 GB/s** | **€23,094.00** | **€45.11** | **€29,057.79** | **€36,778.63** |
 
-6400 costs **+31.3% per GB** in the 2× Micron pair, **+21.4%** in the 4× G.Skill kit, and **+15.5%** in the 8× G.Skill kit versus the 5600 module. The 8×64 kit is **79.5% of the platform total** at the notify-only price; the 2026 DRAM shortage dominates the fast build even more than the value build. The 8× Micron path (€26,239.76 RAM; platform €32,297.93) is **cheaper than the orderable G.Skill octa (€27,666.06)** and is the one that starts at 2 DIMMs and stays JEDEC 2Rx4 at every step.
+6400 costs **+31.2% per GB** in the 2× Micron pair, **+21.4%** in the 4× G.Skill kit, and **+15.5%** in the 8× G.Skill kit versus the 5600 module. The 8×64 kit is **79.5% of the platform total** at the notify-only price; the 2026 DRAM shortage dominates the fast build even more than the value build. The 8× Micron path (€26,239.76 RAM; platform €32,297.93) is **cheaper than the orderable G.Skill octa (€27,666.06)** and is the one that starts at 2 DIMMs and stays JEDEC 2Rx4 at every step.
 
 ### 3.5 Why 5600 is still the value baseline
 
@@ -230,7 +230,7 @@ Option A with 2×64 6400 Micron = **€12,027.71**; with 4×64 5600 = **€15,56
 
 ### 3.8 The DRAM tax
 
-At the snapshot the Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** (€39.05/GB); the G.Skill 64 GB 6400 module works out to **€3,067** in the 4×64 kit and **€2,887** in the 8×64 kit. This is the 2026 DRAM shortage, not a design choice. 64 GB modules are the cheapest per-GB RDIMM in this snapshot (a 4×16 GB kit is €3,346 for 64 GB). A 2×32 GB start saves ~€2,500 but leaves 64 GB — the wrong trade for a 79 GB model with a 28.8 GB PLE. If you can wait/buy used-server pulls, 64 GB DDR5-4800/5600 2Rx4 can cut this line; verify part/rank/ECC and run MemTest86+.
+At the snapshot the Samsung 64 GB 2Rx4 5600 RDIMM is **€2,499** (€39.05/GB); the G.Skill 64 GB 6400 module works out to **€3,034** in the 4×64 kit and **€2,887** in the 8×64 kit; the Micron single is **€3,279.97**. This is the 2026 DRAM shortage, not a design choice. 64 GB modules are the cheapest per-GB RDIMM in this snapshot (a 4×16 GB kit is €3,346 for 64 GB). A 2×32 GB start saves ~€2,500 but leaves 64 GB — the wrong trade for a 79 GB model with a 28.8 GB PLE. If you can wait/buy used-server pulls, 64 GB DDR5-4800/5600 2Rx4 can cut this line; verify part/rank/ECC and run MemTest86+.
 
 ---
 
@@ -486,7 +486,7 @@ Option A with one **G.Skill T5 Neo 4×64 GB DDR5-6400 CL36 kit** (€12,135.01 a
 
 ### Option F — Full speed, 8×64 GB DDR5-6400
 
-Option A with one **G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 octa kit** (€23,094.00) instead of 2× Samsung 5600 (€4,998.00).
+Option A with one **G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 octa kit** (€23,094.00 notify-only at Alternate; Proshop €27,666.06) instead of 2× Samsung 5600 (€4,998.00).
 
 | Item | Qty | Unit | Line |
 |---|---:|---:|---:|
@@ -506,7 +506,7 @@ Option A with one **G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 octa kit** (€23,094
 | GPUs (owned, replacement) | 4 | €1,930.21 | €7,720.84 |
 | **Total if buying GPUs** | | | **€36,778.63** |
 
-**Buy this if:** 512 GB at 409.6 GB/s is the target. It is the validated 8-DIMM 6400 kit and the endgame for DeepSeek UD-Q8 / large-model streaming. The 8×64 kit is **79.5% of the platform total** — the DRAM shortage is the build. It is **+€18,638.88 over A** for 4× the channels and 4× the capacity.
+**Buy this if:** 512 GB at 409.6 GB/s is the target. It is G.Skill’s 8-DIMM 6400 kit and the endgame for DeepSeek UD-Q8 / large-model streaming. The 8×64 kit is **79.5% of the platform total** at the notify-only price — the DRAM shortage is the build. It is **+€18,638.88 over A** for 4× the channels and 4× the capacity. At the orderable Proshop price (€27,666.06) the platform is **€33,766.02** (€41,486.86 with GPUs); eight Micron singles are €1,426.30 cheaper.
 
 ### What not to buy
 
@@ -550,7 +550,7 @@ A is the middle: it is €263.68 cheaper than C and faster, with 1 TB less; it i
 | Per VRAM GB (platform) | €81.40 | €93.97 | €138.83 | €227.01 |
 | Per 262K stream at 8 (platform) | €1,302.36 | €1,503.46 | €2,221.25 | €3,632.22 |
 
-D is the literal 2× start: **+€1,608.80 over A** for +14.3% bandwidth at the same 128 GB. It is the only path that reaches 8×6400 with JEDEC 2Rx4 modules: eight Micron singles are €26,239.76 RAM, **€32,297.93 platform**, **€40,018.77 with GPUs**. E is **+€7,351.12 over A** for 2× the channels and 2× the capacity. F is **+€18,638.88 over A** for 4× the channels and 4× the capacity at the notify-only price; the orderable Proshop price is €27,666.06, **€33,766.02 platform / €41,486.86 with GPUs**. The 6400 premium is **+31.3% per GB in D**, **+21.4% in E**, **+15.5% in F** versus the 5600 module.
+D is the literal 2× start: **+€1,608.80 over A** for +14.3% bandwidth at the same 128 GB. It is the only path that reaches 8×6400 with JEDEC 2Rx4 modules: eight Micron singles are €26,239.76 RAM, **€32,297.93 platform**, **€40,018.77 with GPUs**. E is **+€7,351.12 over A** for 2× the channels and 2× the capacity. F is **+€18,638.88 over A** for 4× the channels and 4× the capacity at the notify-only price; the orderable Proshop price is €27,666.06, **€33,766.02 platform / €41,486.86 with GPUs**. The 6400 premium is **+31.2% per GB in D**, **+21.4% in E**, **+15.5% in F** versus the 5600 module.
 
 At 50% load the machine draws ~862 W at the wall (~7,550 kWh/year, €1,889 at €0.25/kWh). Add the platform amortized over three years (€3,473/year for A, €4,009/year for D, €5,923/year for E, €9,686/year for F) and the all-in compute cost is ~€5,362 / €5,898 / €7,812 / €11,575 per year before GPUs.
 
@@ -641,7 +641,7 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | Micron MTC40F2046S1RC64BH1 64 GB DDR5-6400 CL52 2Rx4 RDIMM (single) | €3,279.97 | [Galaxus DE](https://www.galaxus.de/de/s1/product/micron-crucial-64-gb-reg-ecc-ddr5-6400-mtc40f2046s1rc64bh1-6400-mhz-ddr5-ram-dimm-ram-68867097) |
 | Kingston KSM64R52BD4 64 GB DDR5-6400 CL52 RDIMM (single) | €3,202.74 | [Galaxus DE](https://www.galaxus.de/de/s1/product/kingston-ksm64r52bd4-1-x-64gb-6400-mhz-ddr5-ram-dimm-ram-52967925) |
 | G.Skill T5 Neo 4×64 GB DDR5-6400 CL36 R-DIMM kit | €12,135.01 | [Proshop DE](https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-256GB-CL36-Quad-Channel-4-pcs-AMD-EXPO-Schwarz/3402039) |
-| G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 R-DIMM kit | €23,094.00 | [Alternate DE](https://www.alternate.de/G-Skill/RIMM-512-GB-DDR5-6400-8x-64-GB-Octa-Kit-ECC-Arbeitsspeicher/html/product/100203342) |
+| G.Skill T5 Neo 8×64 GB DDR5-6400 CL38 R-DIMM kit | €23,094.00 notify-only; €27,666.06 orderable at Proshop | [Alternate DE](https://www.alternate.de/G-Skill/RIMM-512-GB-DDR5-6400-8x-64-GB-Octa-Kit-ECC-Arbeitsspeicher/html/product/100203342) / [Proshop DE](https://www.proshop.de/RAM/GSkill-T5-Neo-DDR5-6400-512GB-CL38-Octa-Channel-8-pcs-AMD-EXPO-Schwarz/3402040) |
 | Micron MTC40F2046S1RC64BD2 64 GB DDR5-6400 (US reference) | US$4,270.00 | [ServerSupply](https://www.serversupply.com/MEMORY/PC5-51200/64GB/MICRON/MTC40F2046S1RC64BD2_387264.htm) |
 | Samsung 9100 PRO 1 TB | €264.00 | [Alternate DE](https://www.alternate.de/Samsung/9100-PRO-1-TB-SSD/html/product/100118126) |
 | Samsung 990 PRO 1 TB | €262.00 | [Alternate DE](https://www.alternate.de/Samsung/990-PRO-1-TB-SSD/html/product/1864239) |

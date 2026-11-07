@@ -111,7 +111,7 @@ def main() -> None:
     print("- G.Skill 6400 kits: 4x64 at €47.40/GB; 8x64 at €45.11/GB at the notify-only €23,094 (Proshop orderable €27,666.06 = €54.04/GB). Micron singles are €51.25/GB.")
     print("- 8 DIMMs on WRX90 is 1 DIMM per channel, so 8x64 at 6400 (409.6 GB/s) is the native 1DPC topology.")
     print("- The 8x64 octa kit is €23,094 notify-only; two 4x64 kits are €24,270.02, and the octa kit is the validated 8-DIMM 6400 bin (CL38 vs CL36).")
-    print("- 6400 costs +15.5% per GB in the 8x64 G.Skill kit, +21.4% in the 4x64 G.Skill kit, and +31.3% in the 2x Micron pair versus the 5600 module.")
+    print("- 6400 costs +15.5% per GB in the 8x64 G.Skill kit, +21.4% in the 4x64 G.Skill kit, and +31.2% in the 2x Micron pair versus the 5600 module.")
     print()
 
     print("## Power")
