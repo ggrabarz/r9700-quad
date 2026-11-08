@@ -1,0 +1,118 @@
+site_name: R9700 ×4 Build Book
+site_description: Four Radeon AI PRO R9700 32 GB on a WRX90 workstation — priced builds, part dossiers and the decisions behind them.
+site_author: Aperture Build Book
+site_url: https://ggrabarz.github.io/r9700-quad/
+repo_url: https://github.com/ggrabarz/r9700-quad
+repo_name: ggrabarz/r9700-quad
+docs_dir: site-src/docs
+site_dir: site
+use_directory_urls: true
+
+exclude_docs: |
+  _bom/
+
+theme:
+  name: material
+  language: en
+  font: false
+  palette:
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to soft light
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    logo: material/server
+    repo: material/book-open-variant
+
+extra_css:
+  - assets/stylesheets/space.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path:
+        - site-src/docs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Builds:
+      - Overview: builds/index.md
+      - A — Balanced 3× Gen5: builds/a-balanced.md
+      - B — Capacity 6× Gen4: builds/b-capacity.md
+      - C — Value 4× Gen4: builds/c-value.md
+      - D — Staged 6400 2×64: builds/d-staged-6400.md
+      - E — Fast RAM 4×64: builds/e-fast-ram.md
+      - F — Full Speed 8×64: builds/f-full-speed.md
+      - G — ASUS Premium 3× Gen5: builds/g-asus-premium.md
+      - H — ASUS 4× Gen5: builds/h-asus-4x-gen5.md
+      - Used W790 bundle: builds/w790-used.md
+  - Parts:
+      - Overview: parts/index.md
+      - Boards:
+          - ASRock WRX90 WS EVO: parts/asrock-wrx90-ws-evo.md
+          - ASUS WRX90E-SAGE SE: parts/asus-wrx90e-sage-se.md
+          - ASUS W790E-SAGE SE: parts/asus-w790e-sage-se.md
+          - Gigabyte TRX50 AI TOP: parts/gigabyte-trx50-ai-top.md
+          - Gigabyte WRX90 AI TOP: parts/gigabyte-wrx90-ai-top.md
+      - CPU:
+          - AMD Threadripper PRO 9955WX: parts/amd-9955wx.md
+          - Intel Xeon W5-3435X: parts/intel-w5-3435x.md
+      - Memory:
+          - Samsung 64 GB DDR5-5600: parts/samsung-64gb-5600.md
+          - Micron 64 GB DDR5-6400: parts/micron-64gb-6400.md
+          - Kingston 64 GB DDR5-6400: parts/kingston-64gb-6400.md
+          - G.Skill 4×64 GB DDR5-6400: parts/gskill-4x64-6400.md
+          - G.Skill 8×64 GB DDR5-6400: parts/gskill-8x64-6400.md
+      - Storage:
+          - Samsung 9100 PRO 1 TB: parts/samsung-9100-pro.md
+          - Samsung 990 PRO 1 TB: parts/samsung-990-pro.md
+          - Samsung 870 EVO 4 TB: parts/samsung-870-evo.md
+          - Toshiba N300 8 TB: parts/toshiba-n300.md
+          - MCIO to M.2 cable: parts/mcio-cable.md
+          - SlimSAS to NVMe cable: parts/slimsas-cable.md
+      - Power, cooling, case:
+          - Seasonic PRIME PX-2200: parts/seasonic-px-2200.md
+          - SilverStone XE360-TR5: parts/silverstone-xe360-tr5.md
+          - Fractal Meshify 2 XL: parts/fractal-meshify-2-xl.md
+          - 140 mm PWM fan: parts/fan-140.md
+      - GPU:
+          - Radeon AI PRO R9700: parts/radeon-r9700.md
+  - Reference:
+      - Memory ladder: reference/memory-ladder.md
+      - Power connectors: reference/power-connectors.md
+      - Storage & lanes: reference/storage-lanes.md
+      - Acceptance protocol: reference/validation.md
+      - W790 bundle: reference/w790-bundle.md
+      - Sources: reference/sources.md
+  - Visual summary: report.html

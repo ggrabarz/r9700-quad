@@ -725,6 +725,16 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 
 ---
 
+## Static docs site
+
+The site in `site/` is built from `site-src/docs/` with MkDocs Material (dark “space” theme, no external fonts or trackers). Local build:
+
+```bash
+.venv-docs/bin/mkdocs build --strict
+```
+
+GitHub Pages deploys it on every push to `main` through `.github/workflows/pages.yml`; the Pages source must be **GitHub Actions**, not a branch.
+
 ## Appendix — files
 
 | File | Purpose |
@@ -738,6 +748,9 @@ Full protocol in [`docs/VALIDATION.md`](docs/VALIDATION.md). Short version:
 | [`bom/option-e.csv`](bom/option-e.csv) | Fast RAM 4×64 GB DDR5-6400 G.Skill build sheet. |
 | [`bom/option-f.csv`](bom/option-f.csv) | Full speed 8×64 GB DDR5-6400 G.Skill build sheet. |
 | [`bom/option-g.csv`](bom/option-g.csv) | ASUS WRX90E-SAGE SE premium, 3× Gen5 M.2 build sheet. |
+| [`site-src/docs/`](site-src/docs/) | MkDocs source for the static build book. |
+| [`mkdocs.yml`](mkdocs.yml) | MkDocs Material config and navigation. |
+| [`tools/export_site_bom.py`](tools/export_site_bom.py) | Generates the site BOM snippets from the CSVs. |
 | [`tools/calc.py`](tools/calc.py) | Totals, power, lanes, memory, VRAM/KV/streams. |
 | [`tools/export_bom.py`](tools/export_bom.py) | Regenerates CSVs. |
 | [`configs/strata-4x-r9700-8x262k.json`](configs/strata-4x-r9700-8x262k.json) | 8×262K Strata preset. |
