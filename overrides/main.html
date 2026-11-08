@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block tabs %}
+{% set root = base_url if base_url.endswith('/') else base_url + '/' %}
+<nav class="section-nav" aria-label="Primary navigation">
+  <div class="section-nav__inner">
+    <a href="{{ root }}">Home</a>
+    <a href="{{ root }}builds/">Builds</a>
+    <a href="{{ root }}parts/">Parts wiki</a>
+    <a href="{{ root }}reference/memory-ladder/">Reference</a>
+    <a href="{{ root }}report.html">Visual summary</a>
+  </div>
+</nav>
+{% endblock %}

@@ -625,3 +625,45 @@ body::before {
 .md-typeset table a:hover {
   color: var(--space-accent);
 }
+
+/* Always-visible top-level menu. The sidebar auto-scrolls to the active
+   part; this bar keeps Home / Builds / Parts wiki / Reference in reach. */
+.section-nav {
+  position: sticky;
+  top: 2.4rem;
+  z-index: 3;
+  border-bottom: 1px solid var(--space-line);
+  background: rgba(9, 14, 22, 0.88);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+}
+
+[data-md-color-scheme="default"] .section-nav {
+  background: rgba(244, 239, 229, 0.9);
+}
+
+.section-nav__inner {
+  display: flex;
+  gap: 0.35rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.38rem 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.section-nav a {
+  flex: 0 0 auto;
+  padding: 0.28rem 0.62rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--space-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+}
+
+.section-nav a:hover {
+  color: var(--space-text);
+  border-color: var(--space-line-strong);
+  background: var(--space-panel);
+}
