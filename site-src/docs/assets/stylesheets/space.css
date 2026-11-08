@@ -150,12 +150,16 @@ body::before {
   color: var(--space-text);
 }
 
+.md-grid {
+  max-width: 80rem;
+}
+
 .md-main__inner {
   margin-top: 1.1rem;
 }
 
 .md-content {
-  max-width: 980px;
+  max-width: none;
 }
 
 .md-typeset {
@@ -216,6 +220,12 @@ body::before {
   background: var(--space-panel);
   border-radius: 0 8px 8px 0;
   padding: 0.3em 1em;
+}
+
+.md-typeset__scrollwrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
 }
 
 .md-typeset table:not([class]) {

@@ -1,20 +1,75 @@
 # Builds
 
-<p class="muted">Every priced configuration in the book, in one place. The four GPUs are owned and excluded from the platform totals; the “with GPUs” column uses today’s replacement price.</p>
+<p class="muted">Every priced configuration in the book. The four GPUs are owned and excluded; the “with GPUs” figure is today’s replacement value. Prices include 3% contingency.</p>
 
-| Build | Board | Memory | Storage | Platform | With GPUs | Best for |
-|---|---|---|---:|---:|---:|---|
-| [A — Balanced 3× Gen5](a-balanced.md) | ASRock WRX90 | 2×64 GB 5600 | 3× Gen5 / 3 TB | **€10,418.91** | €18,139.75 | The value middle |
-| [B — Capacity 6× Gen4](b-capacity.md) | ASRock WRX90 | 2×64 GB 5600 | 6× Gen4 / 6 TB | €11,705.38 | €19,426.22 | A model library |
-| [C — Value 4× Gen4](c-value.md) | ASRock WRX90 | 2×64 GB 5600 | 4× Gen4 / 4 TB | €10,682.59 | €18,403.43 | Cheapest per TB |
-| [D — Staged 6400 2×64](d-staged-6400.md) | ASRock WRX90 | 2×64 GB 6400 | 3× Gen5 / 3 TB | €12,027.71 | €19,748.55 | The literal 2× 6400 start |
-| [E — Fast RAM 4×64](e-fast-ram.md) | ASRock WRX90 | 4×64 GB 6400 | 3× Gen5 / 3 TB | €17,770.03 | €25,490.87 | 256 GB at 6400 |
-| [F — Full Speed 8×64](f-full-speed.md) | ASRock WRX90 | 8×64 GB 6400 | 3× Gen5 / 3 TB | €29,057.79* | €36,778.63 | 512 GB endgame |
-| [G — ASUS Premium 3× Gen5](g-asus-premium.md) | ASUS WRX90E-SAGE | 2×64 GB 5600 | 3× Gen5 M.2 / 3 TB | €10,830.86 | €18,551.70 | Premium board, no MCIO |
-| [H — ASUS 4× Gen5](h-asus-4x-gen5.md) | ASUS WRX90E-SAGE | 2×64 GB 5600 | 4× Gen5 / 4 TB | €11,503.45 | €19,224.29 | 4 TB all-Gen5 |
-| [Used W790 bundle](w790-used.md) | ASUS W790E-SAGE | 8ch DDR5-4800 | your choice | CHF 1,100–1,200** | — | Cheap 4-GPU platform |
+<div class="grid cards" markdown>
 
-<p class="small muted">* F uses Alternate’s notify-only €23,094 octa-kit price. Orderable at Proshop: €33,766.02 / €41,486.86 with GPUs.<br>** Board + CPU only; Ricardo price not readable, comparable eBay sold bundles. Add LGA4677 cooler, RAM, storage, PSU.</p>
+-   **A — Balanced 3× Gen5**
+    ---
+    **€10,418.91** · with GPUs €18,139.75  
+    ASRock WRX90 · 2×64 GB 5600 · 3× Gen5 / 3 TB  
+    The value middle; full SATA image.
+    [:octicons-arrow-right-24: Build A](a-balanced.md)
+
+-   **B — Capacity 6× Gen4**
+    ---
+    **€11,705.38** · with GPUs €19,426.22  
+    ASRock WRX90 · 2×64 GB 5600 · 6× Gen4 / 6 TB  
+    The model library; 8 TB HDD image.
+    [:octicons-arrow-right-24: Build B](b-capacity.md)
+
+-   **C — Value 4× Gen4**
+    ---
+    **€10,682.59** · with GPUs €18,403.43  
+    ASRock WRX90 · 2×64 GB 5600 · 4× Gen4 / 4 TB  
+    Cheapest per TB; no full image.
+    [:octicons-arrow-right-24: Build C](c-value.md)
+
+-   **D — Staged 6400 2×64**
+    ---
+    **€12,027.71** · with GPUs €19,748.55  
+    ASRock WRX90 · 2×64 GB 6400 · 3× Gen5 / 3 TB  
+    The literal 2× 6400 start.
+    [:octicons-arrow-right-24: Build D](d-staged-6400.md)
+
+-   **E — Fast RAM 4×64**
+    ---
+    **€17,770.03** · with GPUs €25,490.87  
+    ASRock WRX90 · 4×64 GB 6400 · 3× Gen5 / 3 TB  
+    256 GB at 204.8 GB/s.
+    [:octicons-arrow-right-24: Build E](e-fast-ram.md)
+
+-   **F — Full Speed 8×64**
+    ---
+    **€29,057.79*** · with GPUs €36,778.63*  
+    ASRock WRX90 · 8×64 GB 6400 · 3× Gen5 / 3 TB  
+    512 GB at 409.6 GB/s.
+    [:octicons-arrow-right-24: Build F](f-full-speed.md)
+
+-   **G — ASUS Premium 3× Gen5**
+    ---
+    **€10,830.86** · with GPUs €18,551.70  
+    ASUS WRX90E-SAGE · 2×64 GB 5600 · 3× Gen5 M.2 / 3 TB  
+    Four Gen5 M.2, no MCIO.
+    [:octicons-arrow-right-24: Build G](g-asus-premium.md)
+
+-   **H — ASUS 4× Gen5**
+    ---
+    **€11,503.45** · with GPUs €19,224.29  
+    ASUS WRX90E-SAGE · 2×64 GB 5600 · 4× Gen5 / 4 TB  
+    4 TB all-Gen5; 8 TB HDD image.
+    [:octicons-arrow-right-24: Build H](h-asus-4x-gen5.md)
+
+-   **Used W790 bundle**
+    ---
+    **CHF 1,100–1,200**** · board + CPU  
+    ASUS W790E-SAGE · 8ch DDR5-4800 · storage your choice  
+    Cheap older 16-core platform.
+    [:octicons-arrow-right-24: W790 alternative](w790-used.md)
+
+</div>
+
+<p class="small muted">* F uses Alternate’s notify-only €23,094 octa-kit price. Orderable at Proshop: €33,766.02 / €41,486.86 with GPUs.<br>** Board + CPU only, used; add LGA4677 cooler, RAM, storage, PSU. Ricardo price not readable; comparable eBay sold bundles.</p>
 
 ## How to choose
 

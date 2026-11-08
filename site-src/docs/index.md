@@ -56,19 +56,65 @@ Four Radeon AI PRO R9700 32 GB cards, 128 GB of VRAM, and a workstation around t
 
 ## All builds
 
-| Build | Board | Memory | Storage | Platform | With GPUs |
-|---|---|---|---:|---:|---:|
-| [A — Balanced 3× Gen5](builds/a-balanced.md) | ASRock WRX90 | 2×64 GB 5600 | 3× Gen5 / 3 TB | **€10,418.91** | €18,139.75 |
-| [B — Capacity 6× Gen4](builds/b-capacity.md) | ASRock WRX90 | 2×64 GB 5600 | 6× Gen4 / 6 TB | €11,705.38 | €19,426.22 |
-| [C — Value 4× Gen4](builds/c-value.md) | ASRock WRX90 | 2×64 GB 5600 | 4× Gen4 / 4 TB | €10,682.59 | €18,403.43 |
-| [D — Staged 6400 2×64](builds/d-staged-6400.md) | ASRock WRX90 | 2×64 GB 6400 | 3× Gen5 / 3 TB | €12,027.71 | €19,748.55 |
-| [E — Fast RAM 4×64](builds/e-fast-ram.md) | ASRock WRX90 | 4×64 GB 6400 | 3× Gen5 / 3 TB | €17,770.03 | €25,490.87 |
-| [F — Full Speed 8×64](builds/f-full-speed.md) | ASRock WRX90 | 8×64 GB 6400 | 3× Gen5 / 3 TB | €29,057.79* | €36,778.63 |
-| [G — ASUS Premium 3× Gen5](builds/g-asus-premium.md) | ASUS WRX90E-SAGE | 2×64 GB 5600 | 3× Gen5 M.2 / 3 TB | €10,830.86 | €18,551.70 |
-| [H — ASUS 4× Gen5](builds/h-asus-4x-gen5.md) | ASUS WRX90E-SAGE | 2×64 GB 5600 | 4× Gen5 / 4 TB | €11,503.45 | €19,224.29 |
-| [Used W790 bundle](builds/w790-used.md) | ASUS W790E-SAGE | 8ch DDR5-4800 | your choice | CHF 1,100–1,200** | — |
+<div class="grid cards" markdown>
 
-<p class="small muted">* Notify-only. ** Board + CPU only, used; add LGA4677 cooler, RAM, storage and PSU. See the <a href="builds/w790-used/">W790 page</a>.</p>
+-   **A — Balanced 3× Gen5**
+    ---
+    **€10,418.91** · ASRock WRX90 · 2×64 GB 5600 · 3× Gen5 / 3 TB
+    The all-Gen5 value middle, with a full image on the 4 TB SATA.
+    [:octicons-arrow-right-24: Build A](builds/a-balanced.md)
+
+-   **B — Capacity 6× Gen4**
+    ---
+    **€11,705.38** · ASRock WRX90 · 2×64 GB 5600 · 6× Gen4 / 6 TB
+    The model-library build; 8 TB HDD for the image.
+    [:octicons-arrow-right-24: Build B](builds/b-capacity.md)
+
+-   **C — Value 4× Gen4**
+    ---
+    **€10,682.59** · ASRock WRX90 · 2×64 GB 5600 · 4× Gen4 / 4 TB
+    Cheapest per TB; no full image on the 4 TB SATA.
+    [:octicons-arrow-right-24: Build C](builds/c-value.md)
+
+-   **D — Staged 6400 2×64**
+    ---
+    **€12,027.71** · ASRock WRX90 · 2×64 GB 6400 · 3× Gen5 / 3 TB
+    The literal 2×64 GB 6400 start; six more modules later.
+    [:octicons-arrow-right-24: Build D](builds/d-staged-6400.md)
+
+-   **E — Fast RAM 4×64**
+    ---
+    **€17,770.03** · ASRock WRX90 · 4×64 GB 6400 · 3× Gen5 / 3 TB
+    256 GB, four channels, 204.8 GB/s.
+    [:octicons-arrow-right-24: Build E](builds/e-fast-ram.md)
+
+-   **F — Full Speed 8×64**
+    ---
+    **€29,057.79*** · ASRock WRX90 · 8×64 GB 6400 · 3× Gen5 / 3 TB
+    512 GB, eight channels, 409.6 GB/s. The endgame.
+    [:octicons-arrow-right-24: Build F](builds/f-full-speed.md)
+
+-   **G — ASUS Premium 3× Gen5**
+    ---
+    **€10,830.86** · ASUS WRX90E-SAGE · 2×64 GB 5600 · 3× Gen5 M.2 / 3 TB
+    Four Gen5 M.2, no MCIO, 32+3+3+3 VRM, dual-PSU.
+    [:octicons-arrow-right-24: Build G](builds/g-asus-premium.md)
+
+-   **H — ASUS 4× Gen5**
+    ---
+    **€11,503.45** · ASUS WRX90E-SAGE · 2×64 GB 5600 · 4× Gen5 / 4 TB
+    Four Gen5 M.2 drives plus an 8 TB image HDD.
+    [:octicons-arrow-right-24: Build H](builds/h-asus-4x-gen5.md)
+
+-   **Used W790 bundle**
+    ---
+    **CHF 1,100–1,200**** · ASUS W790E-SAGE · 8ch DDR5-4800 · your choice
+    The cheap older 16-core platform; LGA4677 cooler required.
+    [:octicons-arrow-right-24: W790 alternative](builds/w790-used.md)
+
+</div>
+
+<p class="small muted">* F uses Alternate’s notify-only €23,094 price; orderable at Proshop for €33,766.02. ** Board + CPU only, used; add LGA4677 cooler, RAM, storage and PSU. Every platform total excludes the four owned GPUs and includes 3% contingency.</p>
 
 ## The three constraints
 
