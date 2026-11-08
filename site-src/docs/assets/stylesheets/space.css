@@ -561,3 +561,46 @@ body::before {
     font-size: 0.66rem;
   }
 }
+
+/* Sidebar navigation: the primary menu is always visible on desktop. */
+.md-path {
+  margin: 0 0 0.7rem;
+  color: var(--space-faint);
+  font-size: 0.64rem;
+  letter-spacing: 0.03em;
+}
+
+.md-path__link {
+  color: var(--space-muted);
+}
+
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
+  color: var(--space-text);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.md-nav--primary .md-nav__item--nested > .md-nav__link {
+  color: var(--space-muted);
+}
+
+.md-nav--primary .md-nav__item--nested > .md-nav__link:hover,
+.md-nav--primary .md-nav__item--nested > .md-nav__link--active {
+  color: var(--space-accent);
+}
+
+.md-nav__item .md-nav__list {
+  border-left: 1px solid var(--space-line);
+  margin-left: 0.45rem;
+  padding-left: 0.55rem;
+}
+
+.md-nav__link {
+  padding: 0.22rem 0;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary {
+    border-right: 1px solid var(--space-line);
+  }
+}

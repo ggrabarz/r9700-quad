@@ -44,6 +44,12 @@ Four Radeon AI PRO R9700 32 GB cards, 128 GB of VRAM, and a workstation around t
     Four Gen5 M.2, 32+3+3+3 VRM, dual-PSU, and a public 4× R9700 reference build.
     [:octicons-arrow-right-24: Build G](builds/g-asus-premium.md)
 
+-   **Parts wiki**
+    ---
+    **23 dossiers** · boards, CPU, memory, storage, power, cooling, case, GPU
+    Every part has its own spec table, pros, cons and the builds it appears in.
+    [:octicons-arrow-right-24: Open the Parts wiki](parts/index.md)
+
 </div>
 
 <p class="small muted">* F uses Alternate’s notify-only €23,094 price; orderable at Proshop for €33,766.02. Every platform total excludes the four owned GPUs and includes 3% contingency.</p>
@@ -108,8 +114,8 @@ Four Radeon AI PRO R9700 32 GB cards, 128 GB of VRAM, and a workstation around t
 - [Sources](reference/sources.md) — every price and spec link.
 - [Visual summary](report.html) — the one-page report.html.
 
-## Part dossiers
+## Parts wiki
 
-Every part in every BOM has a page with its own description, specification table, pros, cons and the builds it appears in.
+Every part in every BOM has its own dossier: description, specification table, pros, cons and the builds it appears in.
 
-[Open the part index →](parts/index.md){ .md-button .md-button--primary }
+[Open the Parts wiki →](parts/index.md){ .md-button .md-button--primary }

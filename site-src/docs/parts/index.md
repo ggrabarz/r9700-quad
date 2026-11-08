@@ -2,6 +2,40 @@
 
 <p class="muted">Every part in the builds has a page: what it is, the specification that matters, the pros and cons, and the builds it appears in. Prices are the 2026-11-06/07 EU snapshot, incl. VAT.</p>
 
+<div class="grid cards" markdown>
+
+-   **Boards**
+    ---
+    ASRock WRX90 WS EVO, ASUS WRX90E-SAGE SE, the used W790E, and the two Gigabyte alternatives.
+    [Open board dossiers](asrock-wrx90-ws-evo.md)
+
+-   **CPU**
+    ---
+    The 9955WX (128 lanes, DDR5-6400) and the used W5-3435X (112 lanes, DDR5-4800).
+    [Open CPU dossiers](amd-9955wx.md)
+
+-   **Memory**
+    ---
+    5600 value, the 2×64 GB 6400 Micron start, the G.Skill 4×64 / 8×64 kits, and the Kingston alternative.
+    [Open memory dossiers](samsung-64gb-5600.md)
+
+-   **Storage**
+    ---
+    9100 PRO, 990 PRO, 870 EVO, N300, and the MCIO/SlimSAS cables.
+    [Open storage dossiers](samsung-9100-pro.md)
+
+-   **Power, cooling, case**
+    ---
+    PX-2200, XE360-TR5, Meshify 2 XL, and the case fans — including the connector warning.
+    [Open power/cooling dossiers](seasonic-px-2200.md)
+
+-   **GPU**
+    ---
+    The four owned Radeon AI PRO R9700 32 GB cards and their 2-slot blower layout.
+    [Open the R9700 dossier](radeon-r9700.md)
+
+</div>
+
 ## Boards
 
 | Part | Price | Role | Builds |
