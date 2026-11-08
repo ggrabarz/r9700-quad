@@ -22,11 +22,11 @@ The blower is what makes a four-card tower possible: each card exhausts out the 
 | Outputs | 4× DisplayPort 2.1a (partner-dependent) |
 | Price | **€1,930.21** replacement (owned) |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **32 GB per card**, 128 GB total; the IQ3_S expert set fits in VRAM.
 - **2-slot blower**, the only sane four-card stacking layout.
@@ -35,7 +35,7 @@ The blower is what makes a four-card tower possible: each card exhausts out the 
 - **ROCm/HIP support**; Strata’s `rx9070` package carries its own runtime.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **300 W per card** and four blowers: 5,562 BTU/h, 45–50 dBA.
 - **No NVLink**; multi-GPU is PCIe/layer split, not a unified pool.

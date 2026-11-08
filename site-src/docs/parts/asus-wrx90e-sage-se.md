@@ -26,11 +26,11 @@ It is the board of the public 4× R9700 reference build: ASUS WRX90 Sage, 9955WX
 | Form factor | EEB 305×330 mm |
 | Price | **€1,288.00** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Four Gen5 M.2 sockets**: a 3× Gen5 array needs no MCIO cables; a fourth drive makes 4 TB.
 - **32+3+3+3 VRM**, more margin for the 350 W 9955WX.
@@ -40,7 +40,7 @@ It is the board of the public 4× R9700 reference build: ASUS WRX90 Sage, 9955WX
 - **No MCIO cable estimates**; the onboard M.2 path is all listed hardware.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€1,288.00** vs €808.05 for the ASRock; +€479.95.
 - **M.2 sockets sit under the four GPUs**; four Gen5 drives are the hottest storage layout.

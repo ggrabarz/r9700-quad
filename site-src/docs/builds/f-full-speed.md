@@ -32,11 +32,11 @@ This is the configuration for DeepSeek UD-Q8 (508 GB set), a large model library
 
 [Download the CSV](../downloads/option-f.csv){ .md-button } [G.Skill 8×64 dossier](../parts/gskill-8x64-6400.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **512 GB at 409.6 GB/s**, eight channels, 1 DIMM per channel.
 - **G.Skill’s 8-DIMM 6400 octa kit**, not two 4×64 kits; the bin is intended for this load.
@@ -45,7 +45,7 @@ This is the configuration for DeepSeek UD-Q8 (508 GB set), a large model library
 - **Uses A’s 3 TB Gen5 array and 4 TB SATA image.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€23,094 notify-only / €27,666.06 orderable** — the RAM is 79.5% of the platform.
 - **Eight DIMMs at 6400 is the training stress case**; the ASRock/ASUS QVL is still unverified.

@@ -30,11 +30,11 @@ The pitch is capacity and cost per TB, not latency. The six-drive array has a hi
 
 [Download the CSV](../downloads/option-b.csv){ .md-button } [Memory ladder](../reference/memory-ladder.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **6 TB of working set**: room for several model packs, checkpoints and a cold archive.
 - **All six NVMe ports used**; no carrier and no free-slot problem.
@@ -43,7 +43,7 @@ The pitch is capacity and cost per TB, not latency. The six-drive array has a hi
 - **Same board, CPU, RAM and PSU as A**, so the platform risk is unchanged.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Six-drive RAID 0** has a higher failure probability; the 8 TB HDD is mandatory, not optional.
 - **Gen4, not Gen5**: ~44–45 GB/s vs 42–44 GB/s for A — sequential is similar, but the random/Gen5 ceiling is lower per drive.

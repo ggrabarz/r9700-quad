@@ -24,11 +24,11 @@ The W790E is not a WRX90. It uses a different CPU socket (LGA4677), a different 
 | Form factor | EEB 305×330 mm |
 | Price | **CHF 1,100–1,200 used** (board + W5-3435X; Ricardo price not readable) |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Cheap used bundle**: roughly half the new WRX90 + 9955WX board+CPU cost.
 - **Four x16 GPU links** in 1/3/5/7; slot 6 is x8.
@@ -38,7 +38,7 @@ The W790E is not a WRX90. It uses a different CPU socket (LGA4677), a different 
 - **270 W base CPU** — lower heat than the 350 W 9955WX.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **DDR5-4800 only** (307 GB/s with the W5-3435X); the 6400 modules downclock.
 - **Only two Gen5 M.2**; no native 3× Gen5 array.

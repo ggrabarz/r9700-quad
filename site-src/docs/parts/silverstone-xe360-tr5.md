@@ -19,11 +19,11 @@ It does **not** fit the Intel W790/LGA4677 alternative; that platform needs a di
 | Mount | top exhaust |
 | Price | **€389.90** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **sTR5/SP6 mounting** out of the box; no bracket hunt.
 - **350 W class**, matched to the 9955WX.
@@ -31,7 +31,7 @@ It does **not** fit the Intel W790/LGA4677 alternative; that platform needs a di
 - **Top exhaust** keeps CPU heat out of the GPU intakes.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€389.90**; a big line for cooling.
 - **AIO pump** is a wear item in a 24/7 box.

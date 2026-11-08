@@ -18,11 +18,11 @@ The price is an **estimate**, not a listed offer.
 | Length | usually 0.5–1 m |
 | Price | **€40.00 estimate** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Adds two NVMe drives** to the 6× Gen4 build without a carrier.
 - **Cheap** relative to a 4× M.2 carrier.
@@ -30,7 +30,7 @@ The price is an **estimate**, not a listed offer.
 - **Gen4 is easier on cable signal integrity** than Gen5.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Price is an estimate**; exact sourcing is not priced.
 - **Gen4 only**; not for a Gen5 array.

@@ -21,11 +21,11 @@ The caveat is verification: the part number is not confirmed on Kingston’s sit
 | Price | **€3,202.74** |
 | €/GB | **€50.04** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **€77.23 cheaper per module** than the Micron.
 - **Single-module 6400**, so a 2×64 start is possible.
@@ -33,7 +33,7 @@ The caveat is verification: the part number is not confirmed on Kingston’s sit
 - **Same JEDEC 1.1 V class** as the Micron.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Part number not confirmed on Kingston’s site**; the listing may be truncated.
 - **Rank not published**; 2Rx4 is expected but not proven.

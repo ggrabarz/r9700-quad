@@ -42,11 +42,11 @@ This is the max-storage ASUS build: 4 TB all-Gen5, ~56–59 GB/s sequential, and
 | GPUs (owned, replacement) | 4 | €1,930.21 | €7,720.84 | Excluded from platform. |
 | **Total if buying GPUs** | | | **€19,224.29** | |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **4 TB all-Gen5** with no MCIO and no SlimSAS in the array.
 - **Four Gen5 M.2 sockets** exactly match the four drives; no carrier.
@@ -55,7 +55,7 @@ This is the max-storage ASUS build: 4 TB all-Gen5, ~56–59 GB/s sequential, and
 - **+€1,084.54 over A** for +1 TB and an all-Gen5 4 TB array.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Four Gen5 M.2 drives under four GPUs**; the hottest storage layout in the book.
 - **The 8 TB HDD is required** for a full image; the 4 TB SATA is not enough.

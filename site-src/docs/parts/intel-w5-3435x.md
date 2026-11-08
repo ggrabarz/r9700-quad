@@ -21,11 +21,11 @@ The W5-3435X is the CPU in the used ASUS W790E-SAGE SE bundle. Its 8-channel mem
 | Socket | LGA4677 |
 | Price | **Used bundle CHF 1,100–1,200** (board + CPU) |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **16C/32T, 8-channel, 112 lanes** — enough for four x16 GPUs.
 - **Much cheaper used** than a new 9955WX + WRX90 board.
@@ -34,7 +34,7 @@ The W5-3435X is the CPU in the used ASUS W790E-SAGE SE bundle. Its 8-channel mem
 - **LGA4677 W790E board has 8 SATA** and IPMI.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **DDR5-4800 only**: 307 GB/s, 25% below 6400.
 - **112 lanes** vs 128; still enough, but less spare.

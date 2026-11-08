@@ -21,11 +21,11 @@ The 16 cores are deliberate: Strata’s AMD reference configuration uses 15 expe
 | Socket | sTR5 |
 | Price | **€1,637.70** (MSRP $1,649) |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **128 PCIe 5.0 lanes**: four x16 GPUs + storage with room to spare.
 - **8-channel DDR5-6400**: 409.6 GB/s at 8 DIMMs, the fastest host path in the book.
@@ -34,7 +34,7 @@ The 16 cores are deliberate: Strata’s AMD reference configuration uses 15 expe
 - **350 W** is manageable with the XE360-TR5.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€1,637.70** — a large line for a GPU-resident build.
 - **350 W** adds heat and PSU load.

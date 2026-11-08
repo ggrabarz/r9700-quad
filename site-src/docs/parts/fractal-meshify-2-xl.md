@@ -21,11 +21,11 @@ The four R9700s are 2-slot blowers; the case’s slot count and depth are what m
 | Included fans | 3× 140 mm |
 | Price | **€209.90** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Fits EEB 305×330**, four 2-slot GPUs, the 360 AIO and the 210 mm PSU.
 - **9+3 slots**; the fourth GPU’s second bracket has a home.
@@ -34,7 +34,7 @@ The four R9700s are 2-slot blowers; the case’s slot count and depth are what m
 - **Cheap for the size** at €209.90.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Big and heavy**; not a desk case.
 - **Noise** with four blowers; plan a utility room/rack.

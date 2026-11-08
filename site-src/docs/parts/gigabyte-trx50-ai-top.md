@@ -23,11 +23,11 @@ It is not a standard TRX50 board. With a non-PRO Threadripper it drops to 4 chan
 | Form factor | E-ATX 305×330 mm |
 | Price | **€896.75** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Four Gen5 M.2** for a 4× Gen5 array without a carrier or MCIO cables.
 - **Full PRO 8-channel / 128-lane** support with the 9955WX.
@@ -35,7 +35,7 @@ It is not a standard TRX50 board. With a non-PRO Threadripper it drops to 4 chan
 - **Four x16 slots** for four GPUs.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **No IPMI/BMC.** The TPM header is not a BMC; a PiKVM/smart PDU is the substitute.
 - **TRX50 hybrid**, not native WRX90; narrower 8-DIMM RDIMM validation matrix.

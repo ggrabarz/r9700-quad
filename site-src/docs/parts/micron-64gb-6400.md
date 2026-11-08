@@ -21,11 +21,11 @@ Two modules give 128 GB, two channels and 102.4 GB/s; eight give 512 GB, eight c
 | Price | **€3,279.97** |
 | €/GB | **€51.25** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **JEDEC 2Rx4, CL52, 1.1 V**, manufacturer-confirmed.
 - **The literal 2×64 GB 6400 start**; no kit, no unused sticks.
@@ -34,7 +34,7 @@ Two modules give 128 GB, two channels and 102.4 GB/s; eight give 512 GB, eight c
 - **Available as a single module**, so you can buy two now and six later.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€51.25/GB**, +31.2% over the 5600 module.
 - **Two channels at 2×**; 102.4 GB/s is only +14.3% over the 5600 pair.

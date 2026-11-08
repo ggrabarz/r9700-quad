@@ -18,11 +18,11 @@ A 7,200 rpm NAS-class 8 TB SATA HDD. It is the image/archive drive for the 6 TB 
 | Price | **€389.00** |
 | €/TB | ~€49 |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Full image of the 4 TB or 6 TB array** on one drive.
 - **Cheap per TB**; cold archive is the right job.
@@ -30,7 +30,7 @@ A 7,200 rpm NAS-class 8 TB SATA HDD. It is the image/archive drive for the 6 TB 
 - **NAS-class workload rating.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **HDD speed**; restore is slow (hours).
 - **Noise and vibration** in a desktop case.

@@ -45,11 +45,11 @@ It runs four 2-slot GPUs in slots 1/3/5/7 at **x16**, the same as the WRX90 boar
 - **Power:** the board lists 2× 24-pin, 4× 8-pin +12V, 1× 8-pin PCIe and 1× 6-pin PCIe; check the single-PSU table. The four GPUs still consume all four PX-2200 PCIe 8-pin, so the board aux has no cable left.
 - **Validation:** no public 4× R9700 reference for this exact bundle; the ASUS WRX90 build has one.
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Much cheaper** than a new WRX90 + 9955WX; roughly half the board+CPU cost at the eBay sold range.
 - **Four x16 GPU links**, same slot layout as the WRX90.
@@ -58,7 +58,7 @@ It runs four 2-slot GPUs in slots 1/3/5/7 at **x16**, the same as the WRX90 boar
 - **270 W base CPU**: lower heat and PSU load than the 350 W 9955WX.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **DDR5-4800 only**: 307 GB/s, 25% below the 6400 WRX90 and 14% below 5600.
 - **Only two Gen5 M.2**; no native 3× Gen5 array.

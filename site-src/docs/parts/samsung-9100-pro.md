@@ -17,11 +17,11 @@ Samsung’s Gen5 consumer/workstation SSD, 1 TB, PCIe 5.0 x4. It is the array dr
 | Form factor | M.2 2280 |
 | Price | **€264.00** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Gen5 at Gen4 price** (€264 vs €262 for the 990 PRO).
 - **~14.8 GB/s read** per drive; a 3-drive array is ~42–44 GB/s.
@@ -29,7 +29,7 @@ Samsung’s Gen5 consumer/workstation SSD, 1 TB, PCIe 5.0 x4. It is the array dr
 - **The fastest array drive in the book.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Gen5 runs hot**; needs airflow/heatsink, especially under GPUs.
 - **1 TB per drive**, so the 3 TB array is only three drives.

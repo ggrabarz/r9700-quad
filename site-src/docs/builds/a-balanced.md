@@ -30,11 +30,11 @@ The memory is the **2×64 GB DDR5-5600** value pair: 128 GB, two channels, 89.6 
 
 [Download the CSV](../downloads/option-a.csv){ .md-button } [Memory ladder](../reference/memory-ladder.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **The cheapest all-Gen5 3 TB array** in the book: €792 in drives, two €40 MCIO cables.
 - **3 TB fits a full image on the 4 TB SATA** (3.6 TB usable). The 4 TB and 6 TB arrays do not.
@@ -44,7 +44,7 @@ The memory is the **2×64 GB DDR5-5600** value pair: 128 GB, two channels, 89.6 
 - **The board is €808.05**, the cheapest proper WRX90/IPMI option.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **5600 memory only**: 89.6 GB/s at 2 DIMMs, 358.4 GB/s at 8; the 6400 path needs different modules.
 - **Two sticks, two channels.** It is a staging configuration for DeepSeek, not a DeepSeek configuration.

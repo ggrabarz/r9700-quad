@@ -24,11 +24,11 @@ It has the watts for 1,630 W continuous (26% headroom), but **not the PCIe 8-pin
 | Input | **200–240 V only** |
 | Price | **€489.90** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **2,200 W**, 26% headroom over the 1,630 W continuous load.
 - **Two native 12V-2x6** cables; no adapter for two GPUs.
@@ -37,7 +37,7 @@ It has the watts for 1,630 W continuous (26% headroom), but **not the PCIe 8-pin
 - **Quiet at low load**; 135 mm fan.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Connector-short for four GPUs + board aux**: the 2 adapters use all 4 PCIe 8-pin, leaving none for the ASUS 2× PCIE_8P or the ASRock 4× 6-pin.
 - **200–240 V only**; not for 120 V.

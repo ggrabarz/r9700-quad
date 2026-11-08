@@ -25,11 +25,11 @@ It is the board that makes the book’s middle work: three Gen5 ports for a 3 TB
 | Form factor | EEB 305×330 mm |
 | Price | **€808.05** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Cheapest proper WRX90 + IPMI board** in the book.
 - **Six NVMe ports**: 3 Gen5 (1 M.2 + 2 MCIO) or 6 Gen4.
@@ -39,7 +39,7 @@ It is the board that makes the book’s middle work: three Gen5 ports for a 3 TB
 - **Four 2-slot GPUs fit in 1/3/5/7 at x16**; slot 6 is the x8 slot.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Only 1 Gen5 M.2**; the other Gen5 drives need MCIO cables.
 - **18+3+3 VRM** is adequate for the 350 W 9955WX, not the margin of the ASUS 32+3+3+3.

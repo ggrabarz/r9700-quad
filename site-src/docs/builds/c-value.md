@@ -30,11 +30,11 @@ The trade is speed and backup. A 4 TB array is larger than the 3.6 TB usable spa
 
 [Download the CSV](../downloads/option-c.csv){ .md-button } [Memory ladder](../reference/memory-ladder.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Cheapest storage per TB** of the three storage tiers: four 1 TB drives, two MCIO cables.
 - **4 TB capacity** without the six-drive failure domain of B.
@@ -43,7 +43,7 @@ The trade is speed and backup. A 4 TB array is larger than the 3.6 TB usable spa
 - **€263.68 more than A for +1 TB**, but the array is slower.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Gen4, not Gen5**: ~28–30 GB/s sequential and ~4.8M 4K IOPS, well below A.
 - **No full image on the 4 TB SATA** (4 TB > 3.6 TB usable); add the 8 TB HDD or accept no image.

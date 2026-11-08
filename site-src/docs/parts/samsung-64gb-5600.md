@@ -21,11 +21,11 @@ It is the value floor, not the fast path. The module is rated 5600 and cannot be
 | Price | **€2,499.00** |
 | €/GB | **€39.05** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Cheapest per-GB 64 GB RDIMM** in the snapshot.
 - **JEDEC, no EXPO**, QVL-friendly and stable at 5600.
@@ -34,7 +34,7 @@ It is the value floor, not the fast path. The module is rated 5600 and cannot be
 - **Available from 28 Geizhals offers.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **5600 only**: 89.6 GB/s at 2 DIMMs, 358.4 GB/s at 8; no 6400 upgrade.
 - **€39.05/GB is still the 2026 DRAM tax**; the pair is 48% of the value platform.

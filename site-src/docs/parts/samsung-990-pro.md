@@ -17,11 +17,11 @@ Samsung’s Gen4 flagship, 1 TB, PCIe 4.0 x4. It is the array drive for the 6× 
 | Form factor | M.2 2280 |
 | Price | **€262.00** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **€262 per TB**, the cheapest array drive.
 - **Gen4 thermals** are easier under the GPUs than Gen5.
@@ -29,7 +29,7 @@ Samsung’s Gen4 flagship, 1 TB, PCIe 4.0 x4. It is the array drive for the 6× 
 - **The 6× Gen4 array is ~44–45 GB/s and ~7.2M 4K IOPS.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Gen4**, not Gen5; ~7.45 GB/s per drive.
 - **€2 cheaper than the 9100 PRO** — there is almost no price reason to choose it.

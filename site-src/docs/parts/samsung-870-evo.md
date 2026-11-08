@@ -17,11 +17,11 @@ A 4 TB SATA SSD for the OS, model/tokenizer/pack archive and — in the 3 TB arr
 | Price | **€665.00** |
 | €/TB | ~€166 |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **4 TB for €665**, cheap cold storage per TB.
 - **Fits a full image of the 3 TB array** (3.6 TB usable).
@@ -29,7 +29,7 @@ A 4 TB SATA SSD for the OS, model/tokenizer/pack archive and — in the 3 TB arr
 - **The OS can live here**, leaving the array purely for models.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **SATA speed**; not a working-set drive.
 - **4 TB cannot image the 4 TB/6 TB arrays**; those need the 8 TB HDD.

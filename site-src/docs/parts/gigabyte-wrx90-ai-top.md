@@ -23,11 +23,11 @@ It is the Gigabyte-native WRX90/IPMI alternative to the ASRock and ASUS. It does
 | Form factor | E-ATX 305×330 mm |
 | Price | **TBD** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Native WRX90 + IPMI** from Gigabyte.
 - **32+3+3+3 VRM** and active memory cooling for the 8-DIMM load.
@@ -36,7 +36,7 @@ It is the Gigabyte-native WRX90/IPMI alternative to the ASRock and ASUS. It does
 - **Dual 10G + BMC** onboard.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **No price or retail availability** at the snapshot.
 - **No four Gen5 M.2**; MCIO shares with the M.2 slots, so a four-drive array is 3 Gen5 + 1 Gen4.

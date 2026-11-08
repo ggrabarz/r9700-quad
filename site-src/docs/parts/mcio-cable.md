@@ -18,11 +18,11 @@ The price is an **estimate**, not a listed offer. It is one of the few non-verif
 | Length | usually 0.5–1 m |
 | Price | **€40.00 estimate** |
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Moves the Gen5 drive out of the GPU heat** into a 2.5" bay.
 - **Cheap** relative to a Gen5 M.2 slot/carrier.
@@ -30,7 +30,7 @@ The price is an **estimate**, not a listed offer. It is one of the few non-verif
 - **Two cables cover the 3× Gen5 array.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **Price is an estimate**; exact cable/connector sourcing is not priced.
 - **Signal integrity/length** matters at Gen5; buy a rated cable.

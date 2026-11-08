@@ -30,11 +30,11 @@ The ASUS costs **€1,288.00**, €479.95 more than the ASRock. Removing the €
 
 [Download the CSV](../downloads/option-g.csv){ .md-button } [ASUS board dossier](../parts/asus-wrx90e-sage-se.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **Four Gen5 M.2 sockets**: the 3× Gen5 array needs no MCIO cables, and the fourth socket is free.
 - **32+3+3+3 VRM** vs the ASRock’s 18+3+3; more margin for the 350 W 9955WX.
@@ -43,7 +43,7 @@ The ASUS costs **€1,288.00**, €479.95 more than the ASRock. Removing the €
 - **Only +€411.95 over A** for the premium board.
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **M.2 sockets sit under the four GPUs**; the ASRock’s MCIO drives in the 2.5" bays are cooler for 24/7 Gen5.
 - **The fourth Gen5 drive is tempting but a 4 TB array no longer fits the 4 TB SATA image**; add the 8 TB HDD.

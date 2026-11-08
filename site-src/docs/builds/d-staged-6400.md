@@ -30,11 +30,11 @@ Two modules give 128 GB, two channels and **102.4 GB/s**. It is only +14.3% band
 
 [Download the CSV](../downloads/option-d.csv){ .md-button } [Micron part dossier](../parts/micron-64gb-6400.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **The literal 2×64 GB 6400 start.** No 4×64 kit, no unused sticks.
 - **JEDEC 2Rx4, CL52, 1.1 V**, with Micron’s manufacturer spec confirmed.
@@ -43,7 +43,7 @@ Two modules give 128 GB, two channels and **102.4 GB/s**. It is only +14.3% band
 - **Keeps A’s 3 TB Gen5 array and 4 TB SATA image.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€6,559.94 for 128 GB** — +€1,561.94 over the 5600 pair, +31.2% per GB.
 - **Two channels only**; 102.4 GB/s is barely above the 5600 pair’s 89.6, and far below 4×/8×.

@@ -30,11 +30,11 @@ The kit is **€12,135.01 at Proshop** (1–2 months, max 2 per customer), or �
 
 [Download the CSV](../downloads/option-e.csv){ .md-button } [G.Skill 4×64 dossier](../parts/gskill-4x64-6400.md){ .md-button }
 
-## Pros
+## Assessment
 
 <div class="pros-cons" markdown>
 <div markdown>
-### <span class="good">Pros</span>
+### <span class="good">Strengths</span>
 
 - **256 GB and four channels** for €12,135.01 — 2× the capacity and 2× the channels of the 2× builds.
 - **€47.40/GB**, cheaper than the 2× Micron pair (€51.25/GB) and only +21.4% over the 5600 module.
@@ -43,7 +43,7 @@ The kit is **€12,135.01 at Proshop** (1–2 months, max 2 per customer), or �
 - **Uses A’s 3 TB Gen5 array and 4 TB SATA image.**
 </div>
 <div markdown>
-### <span class="bad">Cons</span>
+### <span class="bad">Weaknesses</span>
 
 - **€7,351.12 over A**; the RAM line is now 68.3% of the platform.
 - **The 8×64 upgrade is the octa kit, not a second 4×64 kit.** Two quads cost €24,270.02 and are not the validated 8-DIMM bin.

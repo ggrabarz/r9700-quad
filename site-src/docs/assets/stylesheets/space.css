@@ -614,3 +614,14 @@ body::before {
     border-right: 1px solid var(--space-line);
   }
 }
+
+.md-typeset table a {
+  color: var(--space-cyan);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.md-typeset table a:hover {
+  color: var(--space-accent);
+}
