@@ -756,6 +756,7 @@ GitHub Pages deploys it on every push to `main` through `.github/workflows/pages
 | [`configs/strata-4x-r9700-8x262k.json`](configs/strata-4x-r9700-8x262k.json) | 8×262K Strata preset. |
 | [`configs/strata-4x-r9700-16x131k.json`](configs/strata-4x-r9700-16x131k.json) | 16×131K preset. |
 | [`docs/RAM-START.md`](docs/RAM-START.md) | 1×64 vs 2×64, one-stick test plan. |
+| [`docs/DECISIONS.md`](docs/DECISIONS.md) | Settled RAM, platform and engine-flag decisions, and the claims they superseded. |
 | [`docs/WRX90-ASROCK.md`](docs/WRX90-ASROCK.md) | Board comparison, storage tiers, dense/MoE streaming. |
 | [`docs/ASUS-WRX90E-SAGE.md`](docs/ASUS-WRX90E-SAGE.md) | ASUS vs ASRock board comparison, power connectors, reference 4× R9700 build. |
 | [`docs/W790-BUNDLE.md`](docs/W790-BUNDLE.md) | Used W790E-SAGE SE + W5-3435X bundle vs WRX90 + 9955WX. |

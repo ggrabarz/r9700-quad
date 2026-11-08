@@ -204,9 +204,9 @@ src/core/layer.cpp:919         if (p.mode != 0) { ... pinned host copy of the la
   `qsa_kv_resident_min()` cells in VRAM and pins the rest of that layer's KV in
   host RAM, giving the freed VRAM to expert slots.
 - `N == max_context` stays in the fully-resident path (no pinned host copy), so
-  the configs' `--kv-resident 262144` at `--max-context 262144` is equivalent
-  today — but it is coupled to the context value and silently starts streaming
-  if the context is raised. **Prefer `0` in new configs.**
+  the earlier `--kv-resident 262144` at `--max-context 262144` was equivalent to
+  `0` — but it is coupled to the context value and silently starts streaming
+  if the context is raised. The shipped configs now use `0`; keep it that way.
 - The minimum window is **4096 cells** on non-Metal builds and **20480** on
   Metal, overridable with `STRATA_KV_RESIDENT_MIN`. The "min 20480" figure in
   the earlier thread is stale for Linux/ROCm.

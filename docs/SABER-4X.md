@@ -54,7 +54,7 @@ Path A is the only one that works without engine surgery, and it does not meet �
 | Item | Why it still fits |
 |---|---|
 | 4× R9700 32 GB | Saber TP=2 uses two; a future 4-rank mode would use four. The cards are the same. |
-| TRX50 AI TOP, 4× x16, 4× M.2 | A 2×2 deployment needs two x16 links; a 4-rank mode needs four. Already there. |
+| ASRock/ASUS WRX90 (or the W790 bundle), 4× x16, 3–6 NVMe ports | A 2×2 deployment needs two x16 links; a 4-rank mode needs four. Already there. |
 | 2×64 GB DDR5 ECC | Saber’s PLE is `O_DIRECT` from NVMe, not a RAM cache; 128 GB is the OS/checkpoint floor. No change. |
 | 4×1 TB RAID 0 | Saber’s Flash-Next needs ~70 GB packs + 170 GB checkpoint + a **95.4 GiB** PLE table read in place. The 4 TB array is the right home; Strata’s 79 GB fits beside it. |
 | 2,200 W PSU | Saber caps at 210 W/card (4×210 = 840 W; ~1,270 W total), so a 1,600 W unit would suffice **for Saber only**. The 2,200 W unit is already specified for Strata’s 4×300 W and costs the same class of money; keep it. |
