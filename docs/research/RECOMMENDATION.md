@@ -45,7 +45,7 @@ MZ23-SU0 section.
 | 4 slots at x16 for 4 cards | Slot_6 Gen5 x16, Slot_4 Gen5 x16, Slot_2 Gen5 x16, Slot_1 Gen4 x16 — **only 3 at 2-slot pitch** |
 | IPMI | AST2600 BMC + MLAN |
 | Form factor | E-ATX 304.8 x 330.2 mm |
-| Price | **€876.98 (Plexcom, in stock 1–3 days)** — re-verified **08:50Z** on Plexcom's *own* search endpoint (`advanced_search_result.php?keywords=MZ33-CP1`): Art.Nr. **111142**, *"lagernd, 1-3 Werktage (Ausland abweichend)"*, 876,98 EUR incl. 19 % MwSt., "In den Warenkorb" live; **cross-checked 08:56Z on the product page itself** (`/gigabyte-mainboard-mz33-cp1-rev-3-x-e-atx-sockel-sp5-single-mainboard-e-atx.html`) — same Art.Nr., same 876,98 EUR, same "lagernd" — **but its "Lagerbestand" counter is blank, so the unit count is not published**; "lagernd" is the shop's own status word, not a quantity. idealo.de **8 offers €881.97–€1,247, data stamp 10.11.2026 08:49** (jacob.de €881.97 + €2.99 shipping = €884.96, delivery by 12.11.; future-x €881.99; galaxus €929.21, delivery by 27.11.; voelkner €984.60; kaufland €991.96; pccomponentes €1,041.89; senetic €1,110.63; eBay/ersazza €1,247.00); Happyware €931 excl. VAT. EU: AT €894.40 / IT €995.99 / ES €1,041.99 / FR €1,119.96 |
+| Price | **€876.98 (Plexcom, in stock 1–3 days)** — re-verified **08:50Z** on Plexcom's *own* search endpoint (`advanced_search_result.php?keywords=MZ33-CP1`): Art.Nr. **111142**, *"lagernd, 1-3 Werktage (Ausland abweichend)"*, 876,98 EUR incl. 19 % MwSt., "In den Warenkorb" live; **cross-checked 08:54Z on the product page itself** (`/gigabyte-mainboard-mz33-cp1-rev-3-x-e-atx-sockel-sp5-single-mainboard-e-atx.html`) — same Art.Nr., same 876,98 EUR, same "lagernd" — **but its "Lagerbestand" counter is blank, so the unit count is not published**; "lagernd" is the shop's own status word, not a quantity. idealo.de **8 offers €881.97–€1,247, data stamp 10.11.2026 08:49** (jacob.de €881.97 + €2.99 shipping = €884.96, delivery by 12.11.; future-x €881.99; galaxus €929.21, delivery by 27.11.; voelkner €984.60; kaufland €991.96; pccomponentes €1,041.89; senetic €1,110.63; eBay/ersazza €1,247.00); Happyware €931 excl. VAT. EU: AT €894.40 / IT €995.99 / ES €1,041.99 / FR €1,119.96 |
 | Card clearance | **not a constraint: both R9700 SKUs are blowers** (ASRock 39 mm, ASUS 40 mm), exhausting out the bracket |
 | 4th-card adapter | **C-Payne MCIO gen5 device adapter x8/x16, €50 + 2x MCIO 8i gen5 cable €45 = €140, ships from Germany, no customs** (verified 08:20Z, re-verified 08:51Z). Buy the **CP-0232 vertical** variant if the card sits in a 1-slot gap — vendor: *"the vertical model can be placed with single width spacing"*; CP-0231 flat needs 2 slots. |
 
@@ -975,7 +975,7 @@ bracket (verified 2026-11-10T05:35Z).
   (pp.46–47): `U2_P0_G0/1/2 Lanes` offers **x16**, which is what makes one MCIO
   pair a x16 link. Leader unchanged: **MZ33-CP1, €876.98 + €140 adapter set,
   both EU-sourced.**
-- 2026-11-10T08:56Z — **no change; one caveat added so the price row is not
+- 2026-11-10T08:54Z — **no change; one caveat added so the price row is not
   over-read.** Cross-checked the Plexcom **product page** itself (not just its
   search results) and it agrees exactly: Art.Nr. **111142**, **876,98 EUR**
   incl. 19 % MwSt., "lagernd, 1-3 Werktage", "In den Warenkorb" live. **But the
