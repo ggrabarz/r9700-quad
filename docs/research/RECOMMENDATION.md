@@ -1,5 +1,10 @@
 # Board pick — EPYC 9135 + 12ch DDR5-6400 1DPC + 4x R9700
 
+> **PROGRAM CLOSED 2026-11-10T09:48Z** — the research window ended
+> 2026-11-10T09:47Z. No research was done after the cutoff; the state below is
+> final as of the last in-window run (09:19Z) and the scheduled watch has been
+> deleted.
+
 **Leader: GIGABYTE MZ33-CP1 (rev 3.x)** — one of only two SP5 boards found whose
 own spec sheet states DDR5-6400 at 1DPC for EPYC 9005 and that can hold four
 x16 cards. Three x16 slots at 2-slot pitch plus a fourth card on MCIO.
@@ -45,7 +50,7 @@ MZ23-SU0 section.
 | 4 slots at x16 for 4 cards | Slot_6 Gen5 x16, Slot_4 Gen5 x16, Slot_2 Gen5 x16, Slot_1 Gen4 x16 — **only 3 at 2-slot pitch** |
 | IPMI | AST2600 BMC + MLAN |
 | Form factor | E-ATX 304.8 x 330.2 mm |
-| Price | **€876.98 (Plexcom, in stock 1–3 days)** — re-verified **08:50Z** on Plexcom's *own* search endpoint (`advanced_search_result.php?keywords=MZ33-CP1`): Art.Nr. **111142**, *"lagernd, 1-3 Werktage (Ausland abweichend)"*, 876,98 EUR incl. 19 % MwSt., "In den Warenkorb" live; **cross-checked 08:54Z on the product page itself** (`/gigabyte-mainboard-mz33-cp1-rev-3-x-e-atx-sockel-sp5-single-mainboard-e-atx.html`) — same Art.Nr., same 876,98 EUR, same "lagernd" — **but its "Lagerbestand" counter is blank, so the unit count is not published**; "lagernd" is the shop's own status word, not a quantity. idealo.de **8 offers €881.97–€1,247, data stamp 10.11.2026 08:49** (jacob.de €881.97 + €2.99 shipping = €884.96, delivery by 12.11.; future-x €881.99; galaxus €929.21, delivery by 27.11.; voelkner €984.60; kaufland €991.96; pccomponentes €1,041.89; senetic €1,110.63; eBay/ersazza €1,247.00); Happyware €931 excl. VAT. EU: AT €894.40 / IT €995.99 / ES €1,041.99 / FR €1,119.96 |
+| Price | **€876.98 (Plexcom, in stock 1–3 days)**, **GTIN 4719331867232**, Plexcom Art.Nr. **111142** — re-verified **09:19Z** straight off the product page's schema.org `Product`/`Offer` JSON-LD (`"price":"876.98"`, `"availability":"InStock"`, `"itemCondition":"NewCondition"`, `"mpn":"MZ33-CP1"`), so it is a structured-data read, not a scraped price string; use the GTIN when asking any other distributor. First read **08:50Z** on Plexcom's *own* search endpoint (`advanced_search_result.php?keywords=MZ33-CP1`): Art.Nr. **111142**, *"lagernd, 1-3 Werktage (Ausland abweichend)"*, 876,98 EUR incl. 19 % MwSt., "In den Warenkorb" live; **cross-checked 08:54Z on the product page itself** (`/gigabyte-mainboard-mz33-cp1-rev-3-x-e-atx-sockel-sp5-single-mainboard-e-atx.html`) — same Art.Nr., same 876,98 EUR, same "lagernd" — **but its "Lagerbestand" counter is blank, so the unit count is not published**; "lagernd" is the shop's own status word, not a quantity. idealo.de **8 offers €881.97–€1,247, data stamp 10.11.2026 08:49** (jacob.de €881.97 + €2.99 shipping = €884.96, delivery by 12.11.; future-x €881.99; galaxus €929.21, delivery by 27.11.; voelkner €984.60; kaufland €991.96; pccomponentes €1,041.89; senetic €1,110.63; eBay/ersazza €1,247.00); Happyware €931 excl. VAT. EU: AT €894.40 / IT €995.99 / ES €1,041.99 / FR €1,119.96 |
 | Card clearance | **not a constraint: both R9700 SKUs are blowers** (ASRock 39 mm, ASUS 40 mm), exhausting out the bracket |
 | 4th-card adapter | **C-Payne MCIO gen5 device adapter x8/x16, €50 + 2x MCIO 8i gen5 cable €45 = €140, ships from Germany, no customs** (verified 08:20Z, re-verified 08:51Z). Buy the **CP-0232 vertical** variant if the card sits in a 1-slot gap — vendor: *"the vertical model can be placed with single width spacing"*; CP-0231 flat needs 2 slots. |
 
@@ -984,3 +989,39 @@ bracket (verified 2026-11-10T05:35Z).
   for a €877 board someone is about to order: it is not evidence of deep stock,
   and a single-unit allocation would still read "lagernd". No other change this
   step; idealo.de still 8 offers from €881.97.
+- 2026-11-10T09:19Z — **no change to the leader.** Last scheduled run before
+  the 09:47Z deadline; leader chain re-read live and unmoved, one new ordering
+  fact, one negative recorded so it is not re-attempted. (1) **CP1 price/stock
+  re-verified from Plexcom's schema.org JSON-LD**, not a scraped string:
+  `Product` → `"mpn":"MZ33-CP1"`, `"model":"111142"`, `"sku":"111142"`,
+  `"gtin13":"4719331867232"`, and `Offer` → `"price":"876.98"`,
+  `"priceCurrency":"EUR"`, `"valueAddedTaxIncluded":true`,
+  `"availability":"InStock"`, `"itemCondition":"NewCondition"`. **GTIN
+  4719331867232 is the new, useful bit** — the right key for a distributor
+  quote, which is the only route that could still reopen the MZ23-SU0.
+  (2) **QVL: the current (Oct-27) memory sheet is not obtainable, and that is
+  now a documented dead end rather than an untried guess.** Six more filename
+  forms 404 on the download host (`mb_qvl_MZ33-CP1.xlsx`, `-3.0.xlsx`,
+  `_3.x.xlsx`, `00-MZ33-CP1_QVL-20260400464.xls`, `server_mb_qvl_MZ33-CP1.pdf`,
+  plus the two already known); a Wayback CDX sweep of
+  `download.gigabyte.com*` filtered to `MZ33-CP1` returns **no capture newer
+  than 2025-07-11**, and the QVL page's served payload contains **zero `xlsx`
+  references at all** — its "Download All Data" control is a JS handler with no
+  static href. `?tab=memory` and `?ctype=2` both return the CPU sheet (0 memory
+  part hits). So the **37-module 6400/PASS list stays sourced from the archived
+  2025-05-12 sheet** and blocker 3's live half remains the CPU tab only
+  (re-read again: **AMD 9135 … 200W … DDR5-6400 … 200/240**, stamp
+  **Last Update: Oct 28, 2026**). (3) **idealo.de unchanged: 8 offers, €881.97–
+  €1,247** (page title still "ab 881,97 €"). (4) Gigabyte's SP5 lineup still
+  exactly **6 boards** (MZ23-SU0, MZ33-AR1, MZ33-CP1, MZ73-LM0/LM1/LM2) — no new
+  challenger in the program's final hours. (5) Re-probed and still negative:
+  Geizhals Cloudflare-walled (search by GTIN → "Sichere Verbindung wird
+  überprüft"), senetic.de "Das Produkt wurde nicht gefunden.", jacob and
+  future-x search endpoints return no result rows. **No unverified figure
+  affects the pick: board €876.98 + C-Payne adapter set €140, both EU-sourced.**
+- 2026-11-10T09:48Z — **program closed** (deadline 09:47Z). Final leader
+  unchanged: MZ33-CP1 rev 3.x, €876.98 Plexcom in stock, 3 native x16 at 2.0
+  pitch + 1 card via C-Payne MCIO adapter (€140), DDR5-6400 at 1DPC. Blocker 1
+  (pitch) and blocker 2 (price/EU stock) closed in earlier runs; blocker 3's QVL
+  half stays on the archived 2025-05-12 sheet (live sheet unobtainable). No
+  further research after cutoff; scheduled watch deleted.
