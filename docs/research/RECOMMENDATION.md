@@ -131,14 +131,76 @@ their makers, not inferred:
 |---|---|---|
 | ASUS Turbo Radeon AI Pro R9700 32G | 266.7 x 111.1 x **40 mm**, "Slots: 2" | https://press.asus.com/news/press-releases/asus-turbo-radeon-ai-pro-r9700/ |
 | ASRock R9700 Creator 32GB | 271 x 112 x **39 mm**, "2-slot" | https://www.asrock.com/Graphics-Card/AMD/Radeon%20AI%20PRO%20R9700%20Creator%2032GB/index.asp |
+| **PowerColor AI PRO R9700 32G-B** (the actual card) | 266.7 x 111.2 x **40 mm**, "Slots: 2" | https://www.gpus.net/gpus/amd_ai_pro_r9700/powercolor_radeon_ai_pro_r9700 |
+
+**Build update 2026-11-12 — the cards are PowerColor `AI PRO R9700 32G-B`.**
+Added 2026-11-12T01:1xZ: **40 mm, 2-slot, blower** ("minimalistic design with
+blower style, 2-slot form factor", Caseking GCPC-079;
+https://www.caseking.de/en/powercolor-radeon-ai-pro-r9700-graphics-card-32gb-gddr6/GCPC-079.html),
+single-fan reference layout — Micro Center lists it as "Single-Fan AI &
+Workstation Graphics Card". So it behaves exactly like the ASUS 40 mm case
+below: **0.6 mm** side clearance at the 2.0 pitch in Slot_2/4/6. That is a real
+fit, but the tightest of the three SKUs — see the clearance warning below.
 
 So the 40.6 mm centre-to-centre gap leaves **0.6 mm** (ASUS) or **1.6 mm**
 (ASRock) between adjacent 2-slot cards. It fits on paper in both cases but the
 ASUS variant has almost no margin for a bowed backplate or a stiff 12V-2x6
-cable. **Buy the ASRock 39 mm SKU, or the ASUS one only with a test-fit, for
-the three native positions.** (The 4th card is on the MCIO adapter, so it is
-not pitch-constrained.) Second consequence: because both are only ~39-40 mm,
-slot 1+2 *together* is still impossible — 20.3 mm between those two centres.
+cable. **Given the build uses PowerColor (40 mm), plan a test-fit before
+committing all four cards** — 0.6 mm is the whole margin. (The 4th card is on
+the MCIO adapter, so it is not pitch-constrained.) Second consequence: because
+all three SKUs are 39-40 mm, slot 1+2 *together* is still impossible — 20.3 mm
+between those two centres.
+
+### Tensor parallel — the real constraint is P2P, not slot count (2026-11-12)
+
+**Correction first: no GPU is on OCP in this build.** OCP NIC 3.0 is unused — the
+four cards are three native x16 slots (Slot_2/4/6) plus the fourth on the MCIO
+adapter. OCP was only ever counted in the lane budget, never in the GPU plan.
+Nothing about tensor parallel depends on it.
+
+**On "really no boards with native PCIe 5 x16 for GPUs" — the honest answer is:
+barely any, and not for 4 cards at 2-slot pitch.** What actually exists:
+
+| Board | Native Gen5 x16 | Verdict |
+|---|---|---|
+| GIGABYTE MZ33-CP1 | 3 (Slot_2/4/6) + Slot_1 Gen4 | leader: 3 native + 1 MCIO |
+| GIGABYTE MZ33-AR1 | **4** Gen5 x16 | but **two adjacent 1-pitch pairs** (Slot_3→4 = 19.5 mm, Slot_6→7 = 17.5 mm) → only **2** dual-slot cards; needs 2 adapters; **5200 MT/s** cap |
+| ASRock Rack GENOAD8UD-2T/X550 | **4** Gen5 x16, `2 x M.2 PCIe5.0 x4` | **only 8 DIMM = 8 of 12 channels** — fails the 12-channel requirement |
+| Supermicro H14SSL-N | 3 Gen5 x16 (**M.2 = 2x Gen5 x4**) | only 3 x16 → 4th card needs an adapter anyway |
+
+So: **the CP1's "3 native + 1 adapter" is as good as it gets** among boards that
+also meet 12-channel DDR5-6400. The GENOAD8UD is the one board with 4 native
+Gen5 x16 **and** onboard Gen5 M.2 (2 slots, x4 each) — but it is 8-DIMM, so it
+breaks the memory requirement. **If you would trade 12 channels for 4 native
+slots + 2 onboard Gen5 M.2, that is the only board that does it**, and it is the
+honest alternative to consider — not a free upgrade.
+
+**The bigger finding — and it applies to every one of these boards:**
+**Direct PCIe P2P for 4x R9700 tensor parallel is currently unreliable.** An open
+ROCm issue reports **full-system hangs** with 4x R9700 + tensor splitting + RCCL
+P2P (`NCCL_P2P_DISABLE=0`), on llama.cpp *and* vLLM, sometimes triggering a BMC
+reset; the reporter's own repro states the hang **does not occur with
+`NCCL_P2P_DISABLE=1`**:
+https://github.com/ROCm/rocm-systems/issues/11348
+
+That was on a **Supermicro H12SSL-NT** (EPYC 7302, 4x R9700), i.e. **not a board
+problem and not fixed by buying 4 native slots.** Practical guidance from the
+same body of work: run with `NCCL_P2P_DISABLE=1` (host SHM instead of BAR1 P2P),
+and for multi-card R9700 also `HSA_ENABLE_SDMA=0`, `NCCL_P2P_LEVEL=PHB`; add
+`iommu=pt` to the kernel cmdline as the first thing to try. Reported cost of
+falling back to SHM for TP=2 is roughly **8-12 % added latency**, and **0 % if
+you use pipeline parallelism** (`--pipeline-parallel-size 2`, or llama.cpp
+`--split-mode layer`) instead.
+https://tinker-ai.com/guides/multi-gpu-pcie-p2p-iommu-deadlock-and-connectx7-rocev2-tcp-fallback-troubleshooting/
+
+**Consequence for the pick: do not pay for "native x16" on the belief it fixes
+tensor parallel.** Bandwidth-wise x16 vs x8 does not change whether P2P works,
+and the current 4x R9700 failure mode is a driver/ROCm-level hang, not a
+topology-level one. Buy for **slot fit and memory channels**, then plan on
+`NCCL_P2P_DISABLE=1` until that ROCm issue closes. **UNVERIFIED: whether the
+hang reproduces on EPYC 9005 / MZ33-CP1 specifically** — the report is on 9004-era
+hardware with an older ROCm; it may already be fixed in current ROCm 7.x. This
+is a must-test item on the real build, not a settled fact.
 
 ### The cheap fix for the fourth card
 
@@ -1111,3 +1173,34 @@ bracket (verified 2026-11-10T05:35Z).
   GPU: the GPU adapter halves free Gen5 NVMe from 8 drives to **4**. Board
   price/stock unchanged (€876.98 Plexcom). **UNVERIFIED: an actual Gen5 M.2
   RAID0 run on this board, and LRFNA922A pricing.**
+- 2026-11-12T01:12Z — **build specifics from the user: the cards are PowerColor
+  `AI PRO R9700 32G-B`, and the concern is tensor parallel. Leader unchanged;
+  one false assumption corrected and one serious risk added.**
+  (1) **PowerColor pinned: 266.7 x 111.2 x 40 mm, 2-slot, blower** (gpus.net
+  model DB, `AI PRO R9700 32G-B`; Caseking GCPC-079 "blower style, 2-slot";
+  Micro Center "Single-Fan"). So the build sits on the **40 mm / 0.6 mm
+  clearance** case, not the roomier ASRock 39 mm one — a test-fit is now a
+  required step before buying all four. Not pitch-constrained for card 4 (it is
+  on the MCIO adapter).
+  (2) **"GPU on OCP" is not a thing in this build** — OCP NIC 3.0 is unused;
+  GPUs are Slot_2/4/6 + the 4th via MCIO. Corrected the impression, no plan
+  change.
+  (3) **Answered "any board with native PCIe5 x16 for 4 GPUs": effectively no,
+  among 12-channel boards.** Checked the field again: **MZ33-AR1** has 4 native
+  Gen5 x16 but **two adjacent 1-pitch pairs** (19.5 / 17.5 mm) → 2 dual-slot
+  cards, needs 2 adapters, and caps at 5200 MT/s. **ASRock Rack
+  GENOAD8UD-2T/X550** is the one board with **4 native Gen5 x16 + 2x M.2
+  PCIe5.0 x4** — but it is **8 DIMM (8 of 12 channels)**, so it fails the
+  memory requirement; it is the *only* real trade-off candidate, not an
+  upgrade. **Supermicro H14SSL-N** has 3 Gen5 x16 and 2 Gen5 M.2 (interesting
+  on storage) but still needs an adapter for card 4. Conclusion stands: CP1's
+  3-native + 1-MCIO is the best available for this spec.
+  (4) **New, more important than any slot argument: 4x R9700 direct PCIe P2P
+  for tensor parallel is currently reported to hang the host.** Open ROCm issue
+  11348 (4x R9700, llama.cpp + vLLM, `NCCL_P2P_DISABLE=0`) reports full-system
+  hangs/BMC resets; the reporter states it does not occur with
+  `NCCL_P2P_DISABLE=1`. Reported on a **Supermicro H12SSL-NT**, i.e. a
+  driver-level issue that **buying native x16 does not fix**. Mitigations:
+  `NCCL_P2P_DISABLE=1`, `HSA_ENABLE_SDMA=0`, `NCCL_P2P_LEVEL=PHB`, `iommu=pt`;
+  reported cost ~8-12 % at TP=2, ~0 % with pipeline parallel. **UNVERIFIED on
+  EPYC 9005 / CP1 / current ROCm 7.x — must be tested on the real build.**
