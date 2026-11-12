@@ -204,6 +204,21 @@ is a must-test item on the real build, not a settled fact.
 
 ### The cheap fix for the fourth card
 
+**How the four GPUs actually connect (2026-11-12) — nothing is on OCP:**
+
+| Card | Connects to | Notes |
+|---|---|---|
+| 1 | **Slot_2** (Gen5 x16) | native, 2-slot pitch |
+| 2 | **Slot_4** (Gen5 x16) | native, 2-slot pitch |
+| 3 | **Slot_6** (Gen5 x16) | native, 2-slot pitch |
+| 4 | **2x MCIO 8i (U2_P0_G0A + G0B) → x16 adapter** | C-Payne CP-0232, 12 V-fed |
+
+Slot_1 (Gen4 x16) is **not** used for a GPU — it is only 1 pitch from Slot_2, so
+no 40 mm card can go there; leave it empty (or put a single-slot card in it
+later). BIOS: `U2_P0_G0 Lanes` = **`x16`** for the 4th card, and each
+`SLOT #_Link Speed` on **Auto**. The GPU adapter needs its own **12 V PCIe
+6-pin**; the M.2 adapter needs a **4-pin 12 V**.
+
 The board already carries **4 x MCIO 8i (Gen5 x8) + 2 x MCIO 8i (Gen4/SATA)**.
 Two MCIO 8i ports, combined, give a full Gen5 x16 — so the fourth R9700 mounts
 on a **2x MCIO 8i → PCIe 5.0 x16** adapter, e.g. 10Gtek SA22N2116P
@@ -289,6 +304,38 @@ the CP1 already exposes a 6-pin 12V PCIE header but that one is 3-pin
 board-side for the slots, not a PSU feed.
 
 ### Storage — Gen5 M.2 RAID0 (requirement added 2026-11-12)
+
+**Start-up build confirmed 2026-11-12: 2x 1 TB Gen5 M.2 in RAID0, not 4.**
+That halves the storage cost to **one adapter + one cable (~€105)**, and it is
+the right way to start: the second MCIO port stays free for the 2-drive→4-drive
+upgrade later without touching anything else.
+
+**What to buy for 2 drives (exact shopping list):**
+
+| Item | Qty | Price | Notes |
+|---|---|---|---|
+| KALEA "MCIO 8i → 2x M.2 Gen5" adapter | 1 | **€59.90** incl. VAT | 74-pin MCIO host, 2x M.2 M-key x4, 2260/2280/22110, **needs 4-pin 12 V or 5 V** — https://www.kalea-informatique.com/adapter-for-2-ssd-m2-pcie-nvme-m-key-to-sff8654-for-mounting-two-ssd-m2-in-place-of-ssd-u2.htm |
+| C-Payne MCIO SFF-TA-1016 8i gen5 cable, 45 or 75 cm | 1 | **€45.00** | same cable family already bought for the GPU adapter — https://c-payne.com/products/mcio-sff-ta-1016-8i-cable-pcie-gen5 |
+| 2x 1 TB Gen5 M.2 (e.g. any 2280/22110 M-key NVMe) | 2 | not priced here | any Gen5 x4 M.2 works; no QVL needed for drives |
+
+**How to connect, step by step:**
+1. Cable the adapter to **`U2_P0_G2A`** on the board (the G2 Gen5 group — *not*
+   G0, which the 4th GPU owns, and not G3, which is Gen4).
+2. Power the adapter from a **4-pin 12 V** PSU lead.
+3. In BIOS §2-2-8, set `U2_P0_G2 Lanes` = **`x4x4`** (this is the "2 drives"
+   setting; `x4x4x4x4` would be for four drives across G2A+G2B).
+4. Leave `U2_P0_G2 Link Speed` on **Auto** — do *not* force Gen4 here; Auto is
+   what lets it train at Gen5. (The menu lists only Auto/Gen4/Gen3/Gen2/Gen1,
+   which is the same UI quirk as the slots — see the anti-trap note below.)
+5. Install the OS to the array: `mdadm --create /dev/md0 --level=0
+   --raid-devices=2 /dev/nvmeXn1 /dev/nvmeYn1` (or the installer's equivalent).
+   **RAID0 is software** — the board's spec sheet says `RAID: N/A`, and no
+   RAID option ROM/VROC is involved.
+
+**Upgrading 2 → 4 later:** add a **second** adapter on `U2_P0_G2B`, add one more
+cable (~€105 more), change `U2_P0_G2 Lanes` to `x4x4x4x4`, and re-create the
+array (RAID0 cannot be grown across the two new ports without a rebuild — plan
+to restore from backup). Nothing about the GPU side changes.
 
 **The CP1's onboard M.2 is not usable for this: it is `1 x M.2 (2280/22110), PCIe
 Gen3 x4`** — Gigabyte's own datasheet, "Storage Interface → M.2", and the manual
@@ -486,7 +533,48 @@ Slot pitch re-verified two independent ways this run: the earlier datasheet
 measurement, and the full-resolution Newegg board photo
 (`c1.neweggimages.com/productimage/nb1280/13-145-624-04.png`), which shows five
 evenly spaced x16 slots with no adjacent pair. Five gaps, no doubled gap.
-## Fallback ranking (blocker 4)
+## WRX90 / Threadripper PRO — asked directly 2026-11-12, and the answer is **no**
+
+The question was: switch to WRX90 + TR PRO, giving up 4 RAM channels. Verified
+figures:
+
+| | MZ33-CP1 + EPYC 9135 | Pro WS WRX90E-SAGE SE + TR PRO 9955WX |
+|---|---|---|
+| Memory channels | **12** (DDR5-6400, 12 DIMM) | **8** (DDR5-6400, 8 DIMM) |
+| Peak mem BW (theoretical) | 12 ch x 6400 = **614.4 GB/s** | 8 ch x 6400 = **409.6 GB/s** |
+| Native Gen5 x16 slots | 3 (+1 Gen4 x16) | **7** (one is x8) |
+| 2-slot cards without adapters | 3 | ASUS's own guidance for GPU placement names **slots 4, 5, 7** = **3** |
+| Gen5 M.2 onboard | none (Gen3 x4 only) | **4x Gen5 x4** |
+| Board price | **€876.98** (Plexcom, in stock) | UNVERIFIED (Caseking lists it; price not read) |
+| CPU price | **EPYC 9135 from €1,629** (Geizhals DE) | **TR PRO 9955WX from €1,637.70** (Geizhals DE) |
+| CPU TDP | 200 W | 350 W |
+
+Sources: https://www.asus.com/motherboards-components/motherboards/workstation/pro-ws-wrx90e-sage-se/techspec/ ·
+https://www.pugetsystems.com/parts/Motherboard/ASUS-Pro-WS-WRX90E-SAGE-SE-15100/ ·
+https://geizhals.de/amd-epyc-9135-100-000001150-a3333151.html ·
+https://geizhals.de/amd-ryzen-threadripper-pro-9955wx-100-100000725wof-a3531872.html ·
+https://rog-forum.asus.com/t5/gaming-motherboards/asus-pro-ws-wrx90e-sage-se-motherboard-gpu-placement/td-p/1113091
+
+**Verdict: the swap does not buy what it looks like it buys.**
+- **You lose 33 % of memory bandwidth** (614 → 410 GB/s). For LLM inference that
+  is the resource that matters most; it is a real, permanent loss.
+- **You still do not get 4 dual-slot cards native.** ASUS's own recommended GPU
+  slots on this board are **4, 5 and 7 — three cards** — and the forum answer
+  explicitly advises **against risers/adapters**. So the same "3 native + 1
+  adapted" shape as the CP1, except now the 4th card is on an *unsupported*
+  path rather than a documented MCIO one.
+- **CPU cost is a wash** (€1,629 vs €1,637.70) and board cost is likely higher,
+  so you pay **more** for less bandwidth.
+- **What you actually gain:** 4 onboard Gen5 M.2 slots (which removes the whole
+  MCIO-adapter dance) and 128-148 CPU lanes so slots are not a squeeze. That is
+  a genuine convenience — but you are paying 4 channels of bandwidth for it,
+  and the MCIO storage workaround on the CP1 costs ~€105 and is already solved.
+
+**Recommendation: stay on EPYC 9135 + MZ33-CP1.** Reconsider WRX90 only if the
+onboard Gen5 M.2 simplicity and the extra slots outrank memory bandwidth for
+your workload — for tensor-parallel inference they almost certainly do not.
+**UNVERIFIED: WRX90E-SAGE SE current EU price**, so the total-cost comparison is
+incomplete; the bandwidth and slot-count arguments do not depend on it.
 
 The CP1 does not fail — it is 3-native + 1-adapter. Compare the two ways to
 complete the build:
@@ -1204,3 +1292,24 @@ bracket (verified 2026-11-10T05:35Z).
   `NCCL_P2P_DISABLE=1`, `HSA_ENABLE_SDMA=0`, `NCCL_P2P_LEVEL=PHB`, `iommu=pt`;
   reported cost ~8-12 % at TP=2, ~0 % with pipeline parallel. **UNVERIFIED on
   EPYC 9005 / CP1 / current ROCm 7.x — must be tested on the real build.**
+- 2026-11-12T01:35Z — **answered the three build questions; leader unchanged
+  (MZ33-CP1).** (1) **GPU wiring clarified:** 3 cards in Slot_2/4/6 (native
+  Gen5 x16, 2-slot pitch) + card 4 on **U2_P0_G0A+G0B via the C-Payne CP-0232
+  x16 adapter, 12 V-fed**. **Slot_1 is not used** (1 pitch from Slot_2 → no
+  40 mm card fits). Nothing on OCP; corrected that impression twice now.
+  BIOS: `U2_P0_G0 Lanes = x16`, slot speeds Auto.
+  (2) **Start-up storage is 2x 1 TB RAID0, not 4** — so **one** KALEA MCIO
+  8i→2x M.2 Gen5 adapter (**€59.90**) + **one** C-Payne 8i gen5 cable
+  (**€45.00**) = **~€105**, on **U2_P0_G2A**, `U2_P0_G2 Lanes = x4x4`, 4-pin
+  12 V from the PSU, `mdadm -l0`. Upgrade path to 4 documented: 2nd adapter on
+  G2B, `x4x4x4x4`, rebuild+restore (~€105 more). Exact URLs recorded in the
+  Storage section. Board RAID is `N/A` — software RAID0 is the intended route.
+  (3) **WRX90 / TR PRO evaluated and rejected.** Pro WS WRX90E-SAGE SE + 9955WX
+  is genuinely **8-channel** (ASUS spec, Puget), so it gives up **33 % of memory
+  bandwidth** (614.4 → 409.6 GB/s) while **still not fitting 4 dual-slot cards
+  natively** — ASUS's own GPU guidance names **slots 4/5/7 = three cards** and
+  advises against adapters. CPU price is a wash (**EPYC 9135 from €1,629**,
+  **9955WX from €1,637.70**, Geizhals DE), so the swap costs more and buys
+  only onboard 4x Gen5 M.2 + lane headroom. Stay on EPYC. **UNVERIFIED: WRX90E
+  board price in the EU**, so the TCO line is incomplete; the bandwidth and
+  slot arguments do not depend on it.
