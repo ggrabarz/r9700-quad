@@ -853,6 +853,70 @@ committing the budget.** (Flagged, not decided — the spec came from you.)
 listing. The Kingston KSM64R52BD4-64MD is the closest retail equivalent
 (same 64 GB 2Rx4 6400 CL52 class) and is the price quoted above.
 
+## Cheapest 12-channel RDIMM for full bandwidth under 6400 — 2026-11-12
+
+The question: what is the cheapest RDIMM to populate **all 12 channels** and still
+get **full bandwidth at a speed below 6400**.
+
+**First, the important correction to how this was framed.** "Full bandwidth"
+on SP5 means **all 12 channels populated**, and the Supermicro manual's DIMM
+population table says the board runs **6400 MT/s at 12 channels for every RDIMM
+rank type**:
+
+| DIMM type | 1 channel | 12 channels | Max frequency |
+|---|---|---|---|
+| RDIMM 1R | 32 GB | 384 GB | **6400** |
+| RDIMM 2R | 64 GB | **768 GB** | **6400** |
+| 3DS RDIMM 2Rx2 (4R) | 128 GB | 1.5 TB | 6400 |
+| 3DS RDIMM 2Rx4 (8R) | 256 GB | 3 TB | 6400 |
+
+(Manual p.40, "Populating RDIMM/RDIMM 3DS DDR5 Memory Modules with AMD EPYC 9005
+Series Processors.")
+
+So **there is no "cheap 12-channel bin below 6400" that preserves bandwidth by
+populating fewer channels** — 12 channels is what gives the bandwidth, and the
+board does 6400 across all 12 anyway. **Bandwidth is set by channel count × speed,
+so the ways to cut cost are: fewer channels (real bandwidth loss), lower speed
+(real bandwidth loss), or smaller DIMMs (no bandwidth loss at all).**
+
+**That last one is the actual answer: buy 12× 32 GB instead of 12× 64 GB.**
+- **12 × 32 GB 1R = 384 GB at 6400**, per the table — **full 12-channel
+  bandwidth, full 6400, half the capacity and roughly half the money.**
+- 12 × 64 GB 2R = 768 GB, same bandwidth, ~2× the cost.
+- **Per-GB is not cheaper at 32 GB** (smaller DIMMs usually cost more per GB), so
+  this saves money only because it buys half as much memory. If 384 GB is enough,
+  it is the cheapest way to full bandwidth; if you need 768 GB, you must pay for
+  the 64 GB modules.
+
+**If 384 GB is not enough and 6400 is too expensive, the honest trade:**
+- **5600 at 12 channels**: ~12.5 % less bandwidth than 6400, and the same channel
+  count. RDIMM bins below 6400 (5600/6000) are far cheaper per GB. This keeps
+  *channel* bandwidth structure intact and sacrifices only MT/s.
+- **Note the manual's own rule:** *"Mixed DIMM speeds can be installed. However,
+  all DIMMs will run at the speed of the slowest DIMM."* So do not mix 6400 and
+  5600 hoping for partial benefit — the whole array drops to the slowest module.
+
+**What I could not price reliably today.** Retail and comparison sites are now
+heavily bot-walled (Geizhals "Sicher Verbindung wird überprüft", Newegg and
+Mouser "Access denied", idealo serving an error page), and the 2026 DRAM shortage
+has made prices move fast enough that a scraped figure would be stale on arrival.
+The only figures I got cleanly this run:
+
+| Item | Seen | Status |
+|---|---|---|
+| Kingston KSM64R52BD4-64MD 64 GB 6400 2Rx4 | **€2,838.93** | heise, 4 offers |
+| G.Skill F5-6400R3644E64GQ4-T5N 4×64 GB kit | **€12,269** | Alternate DE, in stock |
+| DDR5-5600 32 GB RDIMM (various) | **~$190–295/module** | search snippets only — **UNVERIFIED**, not read off a product page |
+
+**UNVERIFIED / not quoted:** a clean per-module EU price for 12× 32 GB 5600 and
+12× 32 GB 6400. Given the shortage, get a written quote from one distributor for
+the exact SKU instead of trusting any scraped number, including mine.
+
+**Recommendation:** if the goal is *cheapest way to all 12 channels at full
+bandwidth*, **12× 32 GB at 6400 (384 GB)** is the answer per the population table
+— not a sub-6400 bin. Go sub-6400 only if you also need ≥768 GB and cannot pay
+6400 prices, in which case take 12× 64 GB at 5600 and accept ~12.5 % less.
+
 ## WRX90 / Threadripper PRO — asked directly 2026-11-12, and the answer is **no**
 
 The question was: switch to WRX90 + TR PRO, giving up 4 RAM channels. Verified
@@ -1765,3 +1829,22 @@ bracket (verified 2026-11-10T05:35Z).
   **UNVERIFIED: EU price for the exact QVL SKU `MEM-DR564MC-ER64`** (order-only
   Supermicro part, no retail listing found); Kingston KSM64R52BD4-64MD quoted as
   closest retail equivalent. Leader and parts list unchanged.
+- 2026-11-12T02:52Z — **answered "cheapest 12ch RDIMM at full bandwidth under
+  6400"; the premise is the finding.** Read the H14SSL-N manual's DIMM population
+  table (p.40): **the board runs 6400 MT/s at 12 channels for ALL RDIMM rank
+  types** — 12× 1R 32GB = 384GB, 12× 2R 64GB = 768GB, 3DS up to 3TB, all at
+  **6400**. So **there is no sub-6400 bin that is required to get full
+  bandwidth**; full bandwidth = 12 populated channels, and 6400 comes with it.
+  **Cheapest route to full 12-channel bandwidth is 12× 32GB at 6400 (384GB)**,
+  not a slower bin — same bandwidth, half the capacity, roughly half the money.
+  Sub-6400 (5600/6000) only makes sense *if* ≥768GB is needed and 6400 is
+  unaffordable: costs **~12.5% bandwidth** and keeps the channel count. Also
+  recorded the manual's rule that **mixed speeds all run at the slowest DIMM**,
+  so do not mix 6400/5600. **Price verification was poor this run** — Geizhals,
+  Newegg, Mouser, idealo, digikey all bot-walled or erroring, and 2026 DRAM
+  shortage pricing moves fast. Clean figures only: Kingston KSM64R52BD4-64MD
+  **€2,838.93** (heise), G.Skill 4×64GB kit **€12,269** (Alternate, in stock).
+  5600 32GB seen at **~$190–295** in snippets but **UNVERIFIED — not read off a
+  product page**; no clean 12× 32GB totals quoted. Recommended a written
+  distributor quote over any scraped figure, including mine. Leader and parts
+  list unchanged.
