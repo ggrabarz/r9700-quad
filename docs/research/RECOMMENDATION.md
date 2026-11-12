@@ -917,6 +917,60 @@ bandwidth*, **12× 32 GB at 6400 (384 GB)** is the answer per the population tab
 — not a sub-6400 bin. Go sub-6400 only if you also need ≥768 GB and cannot pay
 6400 prices, in which case take 12× 64 GB at 5600 and accept ~12.5 % less.
 
+## "12× 32 GB at 5000" — the bin doesn't exist, and slower is not cheaper
+
+**Two problems with that plan, one technical and one commercial.**
+
+**1 · There is no DDR5-5000.** JEDEC's DDR5 speed grades are 4800, 5200, 5600,
+6000, 6400 (and up); the H14SSL-N's own BIOS `Memory Target Speed` menu offers
+exactly **Auto, DDR3600, DDR4000, DDR4400, DDR4800, DDR5200** (manual p.77) — no
+5000 in the list either. So "5000" would mean buying a 5200 or 5600 module and
+underclocking it, which buys nothing.
+
+**2 · The genuinely important finding: DDR5-4800 RDIMM is not a retail product,
+and slower RDIMMs are not cheaper.** I checked Alternate's whole catalogue this
+run:
+
+| Speed | Registered RDIMM availability | Price evidence |
+|---|---|---|
+| **4800** | **No RDIMM sold at all** — every 4800 listing is desktop **UDIMM/SO-DIMM** (ADATA/Patriot/TeamGroup), which **cannot go in this board** | UDIMM 32 GB €605 — irrelevant, wrong type |
+| **5200** | scarce; listings mostly UDIMM | — |
+| **5600** | yes: Kingston **KSM56R46BD8PMI-32MDI** 32 GB REG ECC | **€1,195.00**, and **"Artikel kann derzeit nicht gekauft werden"** (cannot currently be bought) |
+| **6400** | yes: G.Skill **F5-6400R3239G16GQ4-G5N**, 4× 16 GB kit | **€2,465.00 → €2,210.00** |
+
+**The 5600 32 GB RDIMM at €1,195 is more than the 6400 kit's per-module price.**
+The 6400 kit works out at **~€553 per 16 GB / ~€1,106 per 32 GB-equivalent**, and
+it is in stock. So **dropping to 5600 to save money does not work right now** —
+the 5600 Server Premier single module is the more expensive, less available part.
+That is the shortage distorting the low-end bins, not a normal price ladder.
+
+**So for 12× 32 GB at a slower speed, realistically:**
+- **12× €1,195 = €14,340** for 5600 32 GB — and that SKU is not currently
+  orderable, so it is not an actual option.
+- Versus **3× G.Skill 4× 16 GB 6400 kits = 12 modules = €6,630** (€2,210 each),
+  which gives you 192 GB at 6400, in stock.
+
+**That comparison flips the earlier advice: right now, 6400 in 16 GB modules is
+the cheapest way to populate 12 channels**, because the shortage has hit the
+mid-speed server SKUs harder than the enthusiast-registered 6400 kits.
+Caveat: 16 GB × 12 = **192 GB** total, which is a small amount of memory for this
+class of machine — fine for proving the platform, tight for real LLM work.
+
+**Recommendation, concretely:**
+- **Cheapest real 12-channel 6400 build: 3× G.Skill F5-6400R3239G16GQ4-G5N
+  (4× 16 GB) = 12 DIMMs = 192 GB at 6400, ~€6,630**, in stock at Alternate.
+- **If 192 GB is too small:** the 32 GB 6400 path (12× 32 = 384 GB) is where the
+  cost jumps hard, and 12× 64 GB at €2,839/module (~€34k) is the top.
+- **Do not plan around 4800 or 5200 RDIMM** — they are not on the shelf in this
+  form factor, and the board's own QVL 6400 entry is the only validated speed.
+
+**UNVERIFIED:** whether G.Skill's 4-DIMM kits are validated as 3 kits in the same
+board (they are 4-DIMM kits, so 3 kits = 12 DIMMs is a plausible but untested
+population), and whether the 9135 will run these EXPO-rated kits at 6400 with all
+12 populated rather than falling back. **That is exactly the case to test before
+buying three kits** — buy one kit first, confirm 6400 with 12 channels populated
+is achievable, then buy the rest.
+
 ## WRX90 / Threadripper PRO — asked directly 2026-11-12, and the answer is **no**
 
 The question was: switch to WRX90 + TR PRO, giving up 4 RAM channels. Verified
@@ -1848,3 +1902,24 @@ bracket (verified 2026-11-10T05:35Z).
   product page**; no clean 12× 32GB totals quoted. Recommended a written
   distributor quote over any scraped figure, including mine. Leader and parts
   list unchanged.
+- 2026-11-12T03:05Z — **"12x32GB at 5000" does not exist, and slower RDIMM is
+  MORE expensive right now. This reverses the 02:52Z "drop to 5600" advice.**
+  (1) **No DDR5-5000 grade exists** (JEDEC: 4800/5200/5600/6000/6400; the board's
+  own `Memory Target Speed` menu lists only Auto/3600/4000/4400/4800/5200 —
+  manual p.77).
+  (2) **DDR5-4800 RDIMM is not a retail product** — every 4800 listing at
+  Alternate is desktop **UDIMM/SO-DIMM**, which cannot go in this board.
+  (3) **The price ladder is inverted by the shortage:** Kingston **5600 32GB
+  RDIMM KSM56R46BD8PMI-32MDI = €1,195** and is marked
+  *"cannot currently be bought"*, while **G.Skill 6400 4x16GB kit
+  F5-6400R3239G16GQ4-G5N = €2,210 (was €2,465), in stock**. Per 32GB-equivalent
+  that is **€1,105 at 6400 vs €1,195 at 5600** — **the faster part is cheaper**.
+  So **12x 32GB @5600 = €14,340 and unorderable**, versus **12x 16GB @6400 =
+  3 kits = €6,630, in stock** (192GB total).
+  **Concrete recommendation: 3x G.Skill 4x16GB 6400 kits = 12 DIMMs = 192GB at
+  6400 for ~€6,630** as the cheapest real 12-channel build; 192GB is small for
+  this class, so 384GB (12x32) or 768GB (12x64 @ €2,839 each, ~€34k) are the
+  capacity steps up. **UNVERIFIED: whether 3 separate 4-DIMM EXPO kits populate
+  12 channels at 6400 on the 9135** — they are kits, not a validated 12-DIMM
+  population; **buy ONE kit, prove 6400 at 12 channels, then buy the other two.**
+  Leader and parts list unchanged.
