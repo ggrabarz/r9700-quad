@@ -1201,6 +1201,57 @@ in scope, buy the **retail 9355 (€2,379)** — not a 9555, and never the 1.9 G
 ES. Note this also makes the **DDR5-6400 requirement load-bearing** for the first
 time: on the CPU-expert path the memory speed *is* the throughput.
 
+### ES/QS pricing reality — the cheap samples are not free (2026-11-12)
+
+The samples really are everywhere and really are far cheaper: **9555 ES asking
+$1,034–C$1,527 (~€950–1,050)** against **€4,529** retail, and 9355/9455 samples
+follow the same pattern. So "buy retail" needs an argument, not an assertion.
+Here it is.
+
+**ES and QS are not the same purchase, and the difference is the whole argument.**
+
+- **QS (qualification sample)** — late/final silicon, normally the **retail
+  stepping and retail clocks**, usually boots on retail BIOS. A defensible buy.
+- **ES (engineering sample)** — pre-production. Clock **varies wildly by sample**
+  (the cheap 9555 ES is **1.9 GHz base vs 3.2 retail**), and the CPUID/stepping
+  may not be in Supermicro's microcode at all. A lottery ticket.
+
+**Failure modes, ordered by what they actually cost you:**
+
+| Failure | Cost |
+|---|---|
+| **No POST** | Purchase price + weeks, **and no way to tell CPU from board from DIMMs** without a known-good CPU to swap |
+| **POSTs but won't train 12 DIMMs at 6400** | Silent **~25 % bandwidth loss**; on the MoE path that is the entire reason for the CPU. Presents as a "board/DIMM" problem |
+| **POSTs, trains, errata under load** | Random crashes with 4 GPUs running, months later, with nobody to RMA to |
+| **Lower clocks than retail** | Matters **only** on the CPU-expert path — which is the only reason to buy more than 16 cores |
+
+**The real objection is not the money, it is where the risk sits.** The fragile
+parts of this build are **12 DIMMs at 6400** and **four GPUs on bifurcated Gen5
+links**. Adding an unsupported CPU puts a third unknown into every future
+debugging session, and there is no reference part to swap. On a box carrying
+4× ~€5k GPUs, the CPU is the cheapest component to insure.
+
+**So the honest rule:**
+
+- **GPU-host duty only** (no MoE-to-RAM): a **QS** at retail clocks is a
+  reasonable buy — the clock does not matter and 16 cores would do. Even a
+  working ES is acceptable here, because nothing about the workload depends on
+  the CPU's quality.
+- **CPU expert compute** (MoE spilling to RAM): **buy QS or retail, never the
+  low-clock ES.** This is the one workload that runs at base clock, so a 1.9 GHz
+  sample is disqualified by definition. A **QS 9355 at 3.55 GHz** is the target.
+- **"Or higher" stays wrong at any price.** 96 cores at 2.6 GHz base is *slower
+  per core* than 32 at 3.55, on the **same 614 GB/s ceiling**. ES pricing does
+  not fix that.
+
+**De-risking that actually works:** buy the **QS**, from a seller with a real
+return window, and inside it prove **POST → 12 DIMMs at 6400 → all four GPUs**.
+Downside then is shipping time, not the purchase price. Buying board+CPU as a
+seller-tested combo (they exist as H13SSL-N + 9555 QS bundles) moves the POST risk
+to the seller. **UNVERIFIED:** there is no public POST-rate data for 9005 ES on
+Supermicro H14 — the risk is real but unquantified, and I am not going to invent
+a number for it.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2140,3 +2191,23 @@ time: on the CPU-expert path the memory speed *is* the throughput.
   9555 and everything above is rejected.** Also noted this is the first workload
   that makes the **DDR5-6400 requirement load-bearing** (on the CPU-expert path
   memory speed *is* throughput).
+- 2026-11-12T04:08Z — **ES/QS challenge answered on the merits, not waved away.**
+  Conceded: samples are everywhere and much cheaper (9555 ES asking
+  **$1,034–C$1,527 ≈ €950–1,050** vs **€4,529** retail; 9355/9455 follow the
+  same pattern). Split the category: **QS = late/final silicon, retail stepping
+  and clocks, usually boots retail BIOS — defensible; ES = pre-production,
+  clocks vary wildly (cheap 9555 ES is 1.9GHz base vs 3.2 retail), CPUID may be
+  absent from Supermicro microcode.** Recorded the failure ladder (no POST →
+  can't distinguish CPU/board/DIMM without a known-good CPU; POST-but-won't-train
+  → silent ~25% bandwidth loss that reads as a board/DIMM fault; errata under
+  load → random crashes with no RMA; low clocks → only hurts the CPU-expert
+  path). **Core objection recorded as risk placement, not price:** the fragile
+  parts of this build are 12 DIMMs @6400 and four bifurcated Gen5 GPUs, and an
+  unsupported CPU adds a third unknown with no reference part to swap. **Rule:
+  GPU-host-only → QS at retail clocks is reasonable; MoE-to-RAM → QS/retail only,
+  never the low-clock ES, target QS 9355 @3.55GHz; "or higher" stays rejected at
+  any price (96c @2.6GHz is slower per core on the same 614GB/s ceiling).**
+  De-risking: buy QS from a seller with a real return window and prove POST →
+  12 DIMMs @6400 → 4 GPUs inside it; seller-tested H13SSL-N+9555 QS combos exist.
+  **UNVERIFIED: no public POST-rate data for 9005 ES on Supermicro H14** — risk
+  real but unquantified, no number invented.
