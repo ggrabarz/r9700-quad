@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MZ33-CP1 build — connection schematic</title>
+<style>
+  :root{
+    --ink:#0f172a; --mute:#64748b; --line:#cbd5e1;
+    --blue:#2563eb; --violet:#7c3aed; --orange:#ea580c;
+    --grey:#94a3b8; --board:#f8fafc; --warn:#b91c1c;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:28px 32px 48px;
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:#fff; max-width:1300px;
+  }
+  h1{font-size:23px; margin:0 0 4px; letter-spacing:-.01em}
+  h2{font-size:16px; margin:34px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line)}
+  .sub{color:var(--mute); font-size:13.5px; margin:0 0 8px}
+  svg{display:block; width:100%; height:auto; margin:6px 0 2px}
+  .lg{font-size:12px; fill:var(--mute)}
+  .t{font-size:13.5px; fill:var(--ink)}
+  .tb{font-size:14px; fill:var(--ink); font-weight:600}
+  .ts{font-size:11.5px; fill:var(--mute)}
+  .ttl{font-size:15px; fill:var(--ink); font-weight:700}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; margin:8px 0}
+  th,td{text-align:left; padding:7px 10px; border-bottom:1px solid #e2e8f0; vertical-align:top}
+  th{background:#f1f5f9; font-weight:600; font-size:12.5px; text-transform:uppercase; letter-spacing:.03em; color:#475569}
+  code{font:12.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace; background:#f1f5f9; padding:1px 5px; border-radius:4px}
+  .note{border-left:3px solid var(--orange); background:#fff7ed; padding:10px 14px; margin:14px 0; font-size:13.5px; border-radius:0 5px 5px 0}
+  .bad{border-left-color:var(--warn); background:#fef2f2}
+  ol.chk{padding-left:22px; font-size:13.5px} ol.chk li{margin:5px 0}
+</style>
+</head>
+<body>
+
+<h1>MZ33-CP1 — 4× R9700 + 2× Gen5 M.2</h1>
+<p class="sub">Logical connection schematic. Signal on top, power below. Card order follows reading order, not physical chassis order.</p>
+
+<!-- ============ DATA ============ -->
+<h2>1 · Data paths</h2>
+<svg viewBox="0 0 1240 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data connection schematic">
+  <defs>
+    <marker id="ab" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#2563eb"/>
+    </marker>
+    <marker id="av" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="ag" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- motherboard -->
+  <rect x="280" y="70" width="420" height="580" rx="10" fill="var(--board)" stroke="#0f172a" stroke-width="1.6"/>
+  <text x="298" y="100" class="ttl">GIGABYTE MZ33-CP1</text>
+  <text x="298" y="119" class="ts">SP5 · 12× DDR5-6400 1DPC · E-ATX</text>
+
+  <!-- SLOT_6 -->
+  <rect x="660" y="140" width="40" height="20" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.3"/>
+  <text x="650" y="147" class="tb" text-anchor="end">Slot_6</text>
+  <text x="650" y="162" class="ts" text-anchor="end">PCIe 5.0 ×16 · 2-slot pitch</text>
+
+  <!-- SLOT_4 -->
+  <rect x="660" y="195" width="40" height="20" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.3"/>
+  <text x="650" y="202" class="tb" text-anchor="end">Slot_4</text>
+  <text x="650" y="217" class="ts" text-anchor="end">PCIe 5.0 ×16 · 2-slot pitch</text>
+
+  <!-- SLOT_2 -->
+  <rect x="660" y="250" width="40" height="20" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="1.3"/>
+  <text x="650" y="257" class="tb" text-anchor="end">Slot_2</text>
+  <text x="650" y="272" class="ts" text-anchor="end">PCIe 5.0 ×16 · 2-slot pitch</text>
+
+  <!-- SLOT_1 unused -->
+  <rect x="660" y="305" width="40" height="20" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="650" y="312" class="tb" text-anchor="end" fill="#94a3b8">Slot_1</text>
+  <text x="650" y="327" class="ts" text-anchor="end">Gen4 ×16 — LEAVE EMPTY</text>
+
+  <!-- G0 -->
+  <rect x="660" y="385" width="40" height="20" rx="3" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.3"/>
+  <text x="650" y="392" class="tb" text-anchor="end">U2_P0_G0A + G0B</text>
+  <text x="650" y="407" class="ts" text-anchor="end">2× MCIO 8i → 1× Gen5 ×16</text>
+
+  <!-- G2A -->
+  <rect x="660" y="450" width="40" height="20" rx="3" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.3"/>
+  <text x="650" y="457" class="tb" text-anchor="end">U2_P0_G2A</text>
+  <text x="650" y="472" class="ts" text-anchor="end">MCIO 8i · Gen5 ×8 → 2× ×4</text>
+
+  <!-- G2B spare -->
+  <rect x="660" y="495" width="40" height="20" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="650" y="502" class="tb" text-anchor="end" fill="#94a3b8">U2_P0_G2B</text>
+  <text x="650" y="517" class="ts" text-anchor="end">spare — 2 more M.2 later</text>
+
+  <!-- M2_0 -->
+  <rect x="660" y="550" width="40" height="20" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="650" y="557" class="tb" text-anchor="end" fill="#94a3b8">M2_0</text>
+  <text x="650" y="572" class="ts" text-anchor="end">Gen3 ×4 only — DO NOT USE</text>
+
+  <!-- OCP -->
+  <rect x="660" y="600" width="40" height="20" rx="3" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="650" y="607" class="tb" text-anchor="end" fill="#94a3b8">OCP 3.0</text>
+  <text x="650" y="622" class="ts" text-anchor="end">unused</text>
+
+  <!-- GPU boxes -->
+  <g>
+    <rect x="900" y="120" width="300" height="58" rx="7" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="916" y="142" class="tb">GPU 1 · R9700</text>
+    <text x="916" y="160" class="ts">40 mm · 2-slot · blower · 12V-2×6</text>
+
+    <rect x="900" y="175" width="300" height="58" rx="7" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="916" y="197" class="tb">GPU 2 · R9700</text>
+    <text x="916" y="215" class="ts">40 mm · 2-slot · blower · 12V-2×6</text>
+
+    <rect x="900" y="230" width="300" height="58" rx="7" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="916" y="252" class="tb">GPU 3 · R9700</text>
+    <text x="916" y="270" class="ts">40 mm · 2-slot · blower · 12V-2×6</text>
+
+    <rect x="900" y="366" width="300" height="58" rx="7" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="916" y="388" class="tb">GPU 4 · R9700</text>
+    <text x="916" y="406" class="ts">40 mm · 2-slot · blower · 12V-2×6</text>
+  </g>
+
+  <!-- adapters -->
+  <rect x="740" y="367" width="140" height="56" rx="7" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.4"/>
+  <text x="810" y="387" class="t" text-anchor="middle" font-weight="600">C-Payne CP-0232</text>
+  <text x="810" y="403" class="ts" text-anchor="middle">MCIO → PCIe ×16</text>
+  <text x="810" y="417" class="ts" text-anchor="middle">needs 6-pin 12 V</text>
+
+  <rect x="740" y="432" width="140" height="56" rx="7" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.4"/>
+  <text x="810" y="452" class="t" text-anchor="middle" font-weight="600">KALEA MCIO</text>
+  <text x="810" y="468" class="ts" text-anchor="middle">8i → 2× M.2 Gen5</text>
+  <text x="810" y="482" class="ts" text-anchor="middle">needs 4-pin 12 V</text>
+
+  <!-- M.2 array -->
+  <rect x="900" y="424" width="300" height="112" rx="7" fill="#fff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="916" y="446" class="tb">2× 1 TB Gen5 M.2 · RAID0</text>
+  <rect x="916" y="456" width="128" height="34" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.2"/>
+  <text x="980" y="478" class="t" text-anchor="middle">drive 1</text>
+  <rect x="1056" y="456" width="128" height="34" rx="4" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.2"/>
+  <text x="1120" y="478" class="t" text-anchor="middle">drive 2</text>
+  <text x="916" y="508" class="ts">/dev/md0 — mdadm --level=0 (board RAID = N/A)</text>
+  <text x="916" y="524" class="ts">BIOS U2_P0_G2 Lanes = x4x4</text>
+
+  <!-- links: slots to GPUs -->
+  <line x1="700" y1="150" x2="896" y2="150" stroke="var(--blue)" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="700" y1="205" x2="896" y2="205" stroke="var(--blue)" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="700" y1="260" x2="896" y2="260" stroke="var(--blue)" stroke-width="2.4" marker-end="url(#ab)"/>
+
+  <!-- links: MCIO G0 -->
+  <line x1="700" y1="395" x2="736" y2="395" stroke="var(--violet)" stroke-width="2.6" marker-end="url(#av)"/>
+  <line x1="880" y1="395" x2="896" y2="395" stroke="var(--blue)" stroke-width="2.4" marker-end="url(#ab)"/>
+
+  <!-- links: MCIO G2 -->
+  <line x1="700" y1="460" x2="736" y2="460" stroke="var(--violet)" stroke-width="2.6" marker-end="url(#av)"/>
+  <line x1="880" y1="460" x2="896" y2="460" stroke="var(--violet)" stroke-width="2.2" marker-end="url(#av)"/>
+
+  <!-- legend -->
+  <line x1="280" y1="678" x2="316" y2="678" stroke="var(--blue)" stroke-width="2.4"/>
+  <text x="324" y="682" class="lg">native PCIe slot (card seated directly)</text>
+  <line x1="620" y1="678" x2="656" y2="678" stroke="var(--violet)" stroke-width="2.4"/>
+  <text x="664" y="682" class="lg">MCIO cable + adapter</text>
+  <line x1="900" y1="678" x2="936" y2="678" stroke="var(--grey)" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="944" y="682" class="lg">unused</text>
+</svg>
+
+<!-- ============ POWER ============ -->
+<h2>2 · Power</h2>
+<svg viewBox="0 0 1240 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Power connection schematic">
+  <rect x="60" y="60" width="220" height="390" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="1.6"/>
+  <text x="80" y="90" class="ttl">PSU</text>
+  <text x="80" y="108" class="ts">≥ 1600 W</text>
+  <text x="80" y="140" class="ts">24-pin ATX · ×1</text>
+  <text x="80" y="162" class="ts">EPS 8-pin · ×2</text>
+  <text x="80" y="184" class="ts">12V-2×6 · ×4</text>
+  <text x="80" y="206" class="ts">PCIe 6-pin · ×1</text>
+  <text x="80" y="228" class="ts">4-pin 12 V · ×1</text>
+  <text x="80" y="262" class="ts" fill="#b91c1c">check lead count</text>
+  <text x="80" y="278" class="ts" fill="#b91c1c">before buying</text>
+
+  <!-- loads -->
+  <g>
+    <rect x="720" y="80" width="460" height="44" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.3"/>
+    <text x="736" y="98" class="tb">MZ33-CP1 motherboard</text>
+    <text x="736" y="115" class="ts">24-pin ATX + 2× EPS 8-pin + 6-pin slot feed</text>
+
+    <rect x="720" y="138" width="460" height="40" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.3"/>
+    <text x="736" y="163" class="t">GPU 1 — 12V-2×6</text>
+
+    <rect x="720" y="192" width="460" height="40" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.3"/>
+    <text x="736" y="217" class="t">GPU 2 — 12V-2×6</text>
+
+    <rect x="720" y="246" width="460" height="40" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.3"/>
+    <text x="736" y="271" class="t">GPU 3 — 12V-2×6</text>
+
+    <rect x="720" y="300" width="460" height="40" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.3"/>
+    <text x="736" y="325" class="t">GPU 4 — 12V-2×6</text>
+
+    <rect x="720" y="354" width="460" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.3"/>
+    <text x="736" y="371" class="t">CP-0232 (GPU 4) — PCIe 6-pin 12 V</text>
+    <text x="736" y="386" class="ts">mandatory; wrong connector destroys the adapter</text>
+
+    <rect x="720" y="408" width="460" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.3"/>
+    <text x="736" y="425" class="t">KALEA M.2 adapter — 4-pin 12 V</text>
+    <text x="736" y="440" class="ts">12 V or 5 V per vendor</text>
+  </g>
+
+  <!-- lines -->
+  <line x1="280" y1="102" x2="716" y2="102" stroke="#94a3b8" stroke-width="2.2"/>
+  <line x1="280" y1="158" x2="716" y2="158" stroke="#ea580c" stroke-width="2.4"/>
+  <line x1="280" y1="212" x2="716" y2="212" stroke="#ea580c" stroke-width="2.4"/>
+  <line x1="280" y1="266" x2="716" y2="266" stroke="#ea580c" stroke-width="2.4"/>
+  <line x1="280" y1="320" x2="716" y2="320" stroke="#ea580c" stroke-width="2.4"/>
+  <line x1="280" y1="374" x2="716" y2="374" stroke="#ea580c" stroke-width="2.4"/>
+  <line x1="280" y1="428" x2="716" y2="428" stroke="#7c3aed" stroke-width="2.4"/>
+
+  <text x="60" y="492" class="lg">Budget: 4 × 300 W GPU + 200 W CPU + ~150 W board/drives ≈ 1550 W — arithmetic from vendor TDPs, not a measured draw.</text>
+  <text x="60" y="512" class="lg">Minimum 1600 W; 2000 W leaves headroom for transients. Confirm the unit ships 4 native 12V-2×6 leads.</text>
+</svg>
+
+<div class="note">
+  <strong>Two adapters, two different power leads.</strong> The C-Payne GPU adapter takes a <strong>PCIe 6-pin</strong>; the KALEA M.2 adapter takes a <strong>4-pin 12 V</strong>. Neither is powered from the slot. Count your PSU's spare leads before ordering.
+</div>
+
+<!-- ============ BIOS ============ -->
+<h2>3 · BIOS settings that make this work</h2>
+<table>
+  <tr><th>Setting (Advanced → PCI Subsystem)</th><th>Value</th><th>Why</th></tr>
+  <tr><td><code>U2_P0_G0 Lanes</code></td><td><strong>x16</strong></td><td>Gives GPU 4 a single full x16 link across both MCIO ports</td></tr>
+  <tr><td><code>U2_P0_G2 Lanes</code></td><td><strong>x4x4</strong></td><td>Two x4 drives on one MCIO 8i port</td></tr>
+  <tr><td><code>U2_P0_G2B</code></td><td>x4x4 (later)</td><td>Second adapter when you go to 4 drives</td></tr>
+  <tr><td><code>SLOT #_Link Speed</code></td><td><strong>Auto</strong></td><td>Forcing Gen4 costs performance; the menu has no Gen5 entry, which is a UI quirk, not a limit</td></tr>
+  <tr><td><code>U2_P0_G0/1/2 Link Speed</code></td><td><strong>Auto</strong></td><td>Same reason — Auto is what trains Gen5</td></tr>
+</table>
+
+<div class="note bad">
+  <strong>The menu shows no “Gen5” option.</strong> That is true of the slots and the MCIO ports alike — the same limitation on hardware the datasheet calls Gen5. Leave everything on <strong>Auto</strong>. Do not “fix” it by picking Gen4.
+</div>
+
+<!-- ============ ASSEMBLY ============ -->
+<h2>4 · Assembly order</h2>
+<ol class="chk">
+  <li>Fit CPU + 12 DIMMs, then the board into the chassis with 8 adjacent bracket positions free.</li>
+  <li>Seat GPUs in <strong>Slot_2, Slot_4, Slot_6</strong>. Test-fit first — 40 mm cards leave <strong>0.6 mm</strong> between neighbours.</li>
+  <li>Route the G0 MCIO pair to the CP-0232 adapter, mount it, seat GPU 4, connect its 6-pin.</li>
+  <li>Route G2A to the KALEA adapter, connect its 4-pin, fit the two M.2 drives.</li>
+  <li>Power: 24-pin, 2× EPS, 4× 12V-2×6, 6-pin, 4-pin.</li>
+  <li>BIOS: <code>G0 = x16</code>, <code>G2 = x4x4</code>, all link speeds Auto. Confirm all four GPUs and both drives enumerate.</li>
+  <li>Create the array: <code>mdadm --create /dev/md0 --level=0 --raid-devices=2 …</code></li>
+  <li>Before any tensor-parallel run, set <code>NCCL_P2P_DISABLE=1</code> and <code>iommu=pt</code>, then test whether direct P2P is stable on current ROCm.</li>
+</ol>
+
+<div class="note">
+  <strong>Leave Slot_1 empty.</strong> It sits one slot pitch from Slot_2 — 20.3 mm centre-to-centre — so no 40 mm card can go there. It is the board's only Gen4 x16 slot anyway.
+</div>
+
+<p class="sub" style="margin-top:26px">Derived from <code>docs/research/RECOMMENDATION.md</code>. Prices and part numbers there; this page is wiring only.</p>
+
+</body>
+</html>
