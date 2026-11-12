@@ -11,6 +11,14 @@
 > extra cost. See "Why the H14SSL-N now leads" below. The CP1 analysis is kept
 > as the runner-up: it is ~€98 cheaper but needs ~€105 of MCIO adapters to reach
 > the same storage, and it has no Gen5 M.2 at all.
+>
+> **Variant note 2026-11-12: the H14SSL-NT is the same board with dual 10GbE**
+> (2× BCM57416 instead of 2× BCM5720 1GbE) for **+€73.84** (€1,049.00 Geizhals
+> DE). Identical slots, MCIO, M.2, SATA and DIMM layout, so the whole build plan
+> is unchanged. **Worth it only on a 10G network** — the BCM57416 does
+> 10GBASE-T/1000BASE-T and **no 2.5G/5G**, so a 2.5GbE switch yields 1G. See the
+> "-NT" section for the media-server implications (no iGPU, SATA layout, 24/7
+> idle power).
 
 **Runner-up: GIGABYTE MZ33-CP1 (rev 3.x)** — one of only two SP5 boards found whose
 own spec sheet states DDR5-6400 at 1DPC for EPYC 9005 and that can hold four
@@ -60,7 +68,7 @@ adapted card**. The difference is storage, and it goes to Supermicro:
 | 12 DIMM / 12-channel @ 6400 | yes | **yes** (manual: "3 TB registered ECC DDR5 at 6400 MT/s in 12 DIMM slots") |
 | Gen5 x16 slots | 3 (+1 Gen4 x16) | **3** (+2 Gen5 **x8**) |
 | 2-slot cards native | 3 | **3** (Slot1/3/5) |
-| **Onboard Gen5 M.2** | **none** (1× Gen3 x4) | **2× PCIe 5.0 x4** (manual p.16: "Two M.2 connectors (PCIe 5.0 x4)") |
+| **Onboard Gen5 M.2** | **none** (1× Gen3 x4) | **2× PCIe 5.0 x4** (manual p.16: "Two M.2 connectors (PCIe 5.0 x4)") — **but see the M.2 generation caveat below: the M.2 QVL lists only Gen4 drives** |
 | Storage cost to reach **2× Gen5 M.2 RAID0** | **+€104.90** (KALEA €59.90 + 1 C-Payne cable €45) | **€0** — drives go straight in |
 | Storage cost to reach **4× Gen5 M.2 RAID0** | **+€209.80** (2 adapters + 2 cables) | **+€104.90** (1 adapter + 1 cable on NVMe4/5) |
 | Total, 4 GPUs + **2×** Gen5 M.2 RAID0 | €876.98 + €104.90 = **€981.88** | **€975.16** |
@@ -916,6 +924,62 @@ the exact SKU instead of trusting any scraped number, including mine.
 bandwidth*, **12× 32 GB at 6400 (384 GB)** is the answer per the population table
 — not a sub-6400 bin. Go sub-6400 only if you also need ≥768 GB and cannot pay
 6400 prices, in which case take 12× 64 GB at 5600 and accept ~12.5 % less.
+
+## H14SSL-NT — the dual 10GbE variant, for the same-machine media server (2026-11-12)
+
+Asked because the plan is one box doing compute **and** media serving.
+
+**It is the same board with one part swapped.** Per Supermicro's own spec lists
+(manual feature list; product pages for both SKUs):
+
+| | H14SSL-N | H14SSL-NT |
+|---|---|---|
+| LAN | 2× RJ45 **Broadcom BCM5720 1 GbE** | 2× RJ45 **Broadcom BCM57416 10 GbE** |
+| PCIe | 3× 5.0 x16, 2× 5.0 x8 | **identical** |
+| MCIO | 2× x8 + 1× x8 hybrid | **identical** |
+| M.2 | 2× PCIe 5.0 x4 | **identical** |
+| SATA | 8× SATA3 | **identical** |
+| DIMM | 12 | **identical** |
+| BMC | AST2600, dedicated 1 GbE IPMI | **identical** |
+
+So **the entire 4-GPU / MCIO / M.2 wiring plan carries over unchanged**, and the
+10G ports cost **no slot** — they are onboard.
+
+**Price:** Geizhals DE **H14SSL-N €975.16** vs **H14SSL-NT €1,049.00** →
+**+€73.84** (idealo independently lists the NT from €1,049.00). A dual-port
+10GBASE-T PCIe card is ~€150–400 and would eat one of the only **two free x8
+slots** (SLOT2/SLOT4), which are exactly the slots a media server might want for
+an HBA or extra NVMe. At €74 the onboard NIC is the cheaper and better trade.
+
+**The one caveat that decides it.** The BCM57416 is **10GBASE-T and 1000BASE-T
+only** — Broadcom's own adapter datasheet (BCM957416N4160C-DS) lists
+IEEE 802.3an 10GBASE-T and 802.3ab 1000BASE-T, with **no 2.5G/5G NBASE-T**.
+So on a **2.5GbE** switch the port links at **1G** — identical to the plain
+H14SSL-N, i.e. you paid €74 for nothing. The benefit needs a **10G switch or a
+direct 10G link**, on **Cat6/6A** cable (10GBASE-T is rated for Cat6/6A/7).
+
+**Media-server notes that matter more than the NIC:**
+
+- **No iGPU.** The EPYC 9135 has no integrated graphics, so there is **no
+  QuickSync**. Transcoding has to come from an R9700 (RDNA4 VCN via VAAPI — Linux
+  media-stack support is recent; **UNVERIFIED** for Jellyfin/Plex today) or from
+  the CPU. If transcoding is a real requirement, a cheap Intel Arc card in a free
+  x8 slot is the low-power, well-supported answer — **untested on this board**
+  and it needs Above-4G decoding in BIOS.
+- **Storage headroom is good but has one either/or.** **8 SATA ports
+  (SATA8–15) are always available.** SATA0–7 exist **only** if the hybrid MCIO3
+  port is switched from NVMe4/5 to SATA via the **JSATA1** jumper — so
+  **8 HDDs + 4 NVMe** needs no HBA, while 16 SATA costs you NVMe4/5. Both are
+  plenty for a media library.
+- **Power and thermals are the real constraint, not the board.** A media server
+  is on 24/7, and this one would idle with **four dual-slot 300 W-class blowers**
+  installed. R9700 idle draw is **UNVERIFIED** — measure it before committing to
+  always-on. Four GPUs plus a stack of HDDs in one chassis also means the HDDs
+  sit in the GPUs' exhaust; case layout matters more here than any spec above.
+
+**Verdict:** take the **H14SSL-NT** if the network is (or will become) 10G — it
+is €74, uses no slot, and leaves both x8 slots free. Stay on the **H14SSL-N** if
+the switch is 2.5GbE, because the port will negotiate 1G and buy nothing.
 
 ## "12× 32 GB at 5000" — the bin doesn't exist, and slower is not cheaper
 
@@ -1923,3 +1987,24 @@ bracket (verified 2026-11-10T05:35Z).
   12 channels at 6400 on the 9135** — they are kits, not a validated 12-DIMM
   population; **buy ONE kit, prove 6400 at 12 channels, then buy the other two.**
   Leader and parts list unchanged.
+- 2026-11-12T03:22Z — **H14SSL-NT evaluated for the combined compute+media box.**
+  Same board as the -N with **2x BCM57416 10GbE** instead of 2x BCM5720 1GbE;
+  everything else (3x x16 + 2x x8, MCIO set, 2x M.2, 8x SATA, 12 DIMM, AST2600
+  BMC) is **identical** per Supermicro's spec lists, so the 4-GPU/MCIO plan is
+  unchanged. **Price €1,049.00 vs €975.16 = +€73.84** (Geizhals DE; idealo
+  agrees at €1,049.00). 10G is **onboard**, so it costs no slot — the two free
+  x8 slots stay free for an HBA/NVMe, vs ~€150–400 for a dual-10G card.
+  **Key caveat: BCM57416 is 10GBASE-T + 1000BASE-T only** (Broadcom
+  BCM957416N4160C-DS: 802.3an + 802.3ab) — **no 2.5G/5G NBASE-T**, so a 2.5GbE
+  switch negotiates **1G** and the €74 buys nothing; needs a 10G switch/direct
+  link and Cat6/6A.
+  Media-server notes recorded: **EPYC 9135 has no iGPU → no QuickSync**, so
+  transcode is R9700 VAAPI (RDNA4 support recent; **UNVERIFIED** for
+  Jellyfin/Plex) or CPU, with a cheap Intel Arc in a free x8 slot as the
+  pragmatic alternative (**untested on this board**, needs Above-4G decoding).
+  **8 SATA (SATA8–15) always available; SATA0–7 only by switching MCIO3 from
+  NVMe4/5 to SATA via JSATA1** — 8 HDDs + 4 NVMe needs no HBA. **24/7 power and
+  HDD-in-GPU-exhaust thermals are the real constraints**; R9700 idle draw
+  **UNVERIFIED — measure before committing to always-on**.
+  **Verdict: take -NT on a 10G network, stay -N on 2.5G.** Also fixed the leader
+  table's M.2 row to point at the Gen4-vs-Gen5 caveat.
