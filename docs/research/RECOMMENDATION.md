@@ -1252,6 +1252,79 @@ to the seller. **UNVERIFIED:** there is no public POST-rate data for 9005 ES on
 Supermicro H14 — the risk is real but unquantified, and I am not going to invent
 a number for it.
 
+## Sourcing: the QS bundles that exist (2026-11-12)
+
+Searched for seller-tested board+CPU bundles. eBay 403s this host, so listings
+were read through **PicClick's eBay mirror**, which returns title + Buy-It-Now
+price. **Prices are indexed snapshots and may be stale; returns policy could not
+be read** (the item pages also 403). Treat every line as "listing exists at this
+price", not as a quote.
+
+**There is no H14SSL-N/-NT + 9555 QS bundle.** The H14 bundles are the wrong
+CPUs for this build:
+
+| Listing | Price | Verdict |
+|---|---|---|
+| **EPYC 9965 QS 192C + H14SSL-N** | $6,000 | 192c at **2.25 GHz**, 500 W — slower per core, no extra bandwidth. No. |
+| EPYC **9D85** 158C + H14SSL-N | $4,274.50 | OEM-only SKU, 158c — same objection. No. |
+| H14SSL-N + 9965 (retail) | $7,300 | No. |
+
+**The 9555 QS bundles are all H13SSL-N / H13SSL-NT** — and that is not the
+downgrade it looks like:
+
+| Listing | Price | Board |
+|---|---|---|
+| **H13SSL-NT + 9555 QS 64C/128T, 10GbE** | **$2,100** | `398148252060` |
+| H13SSL-NT + 9555 QS 64C/128T, 10GbE | $2,376.21 | `198463960228` |
+| H13SSL-N + 9555 QS 64C | $2,100 | `198463955981` |
+| H13SSL-N + 9555 QS 64C | $2,000 | `920128372571` |
+
+(eBay item numbers; readable at `picclick.com/...-<item>.html`.)
+
+**Why H13SSL-NT is close to equivalent.** Supermicro's own page: **12 DIMM,
+3× PCIe 5.0 x16 + 2× x8, 2× MCIO x8 + 1 hybrid, 2× M.2 PCIe 5.0 x4, 8× SATA,
+2× 10GbE BCM57416** — the same expansion set as the H14SSL-NT. The memory line is
+the whole story:
+
+- **rev 1.x** — 9004 only, **no 9005**.
+- **rev 2.0** — 9005 works, **6000 MT/s** cap.
+- **rev 2.01** — 9005 at **6400 MT/s**.
+
+So the bundle is only equivalent **if the board is rev 2.01**. That is a question
+to put to the seller in writing before paying, because rev 2.0 silently costs
+**6.25 % of the memory bandwidth that this whole build is about**.
+
+**Standalone CPU prices (same check):**
+
+| Part | Price | Note |
+|---|---|---|
+| **9555 QS** `100-000001247-12` | **$1,500.46** | QS suffix **-12** |
+| 9555 ES `100-000001247-12` / `-13` | $1,030–1,035 | **1.9–3.35 GHz** listed vs 3.2–4.4 retail |
+| 9555 retail | €4,529 | — |
+
+**The part-number split is the useful finding:** sample OPN **`-12` is the QS**,
+**`-13` is the 1.9–3.35 GHz ES**. So the lottery is identifiable before buying.
+
+**Cost of the two routes:**
+
+| Route | Cost | Bandwidth |
+|---|---|---|
+| H13SSL-NT + 9555 QS bundle (rev 2.01) | **~$2,100–2,376** | 6400 ✅ |
+| H14SSL-NT €1,049 + 9555 QS ~$1,500 | **~€2,350** | 6400 ✅ |
+| H14SSL-NT €1,049 + retail 9355 €2,379 | ~€3,430 | 6400 ✅ |
+
+The bundle is the cheapest way to get a **seller-tested 64-core** by roughly
+€500, at the cost of a used H13 board of unknown revision and no warranty either
+way.
+
+**Questions to ask the seller before paying (all four, in writing):**
+1. **Board revision — 2.01 or 2.0?** (2.01 for 6400; 2.0 caps at 6000; 1.x
+   won't boot 9005 at all.)
+2. **CPU OPN — `100-000001247-12` (QS) or `-13` (ES)?**
+3. **Return window and who pays return shipping?**
+4. **Has this exact board+CPU pair been POST-tested together, and at what memory
+   speed?**
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2211,3 +2284,22 @@ a number for it.
   12 DIMMs @6400 → 4 GPUs inside it; seller-tested H13SSL-N+9555 QS combos exist.
   **UNVERIFIED: no public POST-rate data for 9005 ES on Supermicro H14** — risk
   real but unquantified, no number invented.
+- 2026-11-12T04:31Z — **sourced the QS bundles.** eBay 403s this host; read
+  through **PicClick's eBay mirror** (title+Buy-It-Now only; **returns policy
+  UNVERIFIED**, item pages also 403, prices are indexed snapshots). **No
+  H14SSL-N/-NT + 9555 QS bundle exists** — the H14 combos are **9965 QS 192C
+  $6,000**, **9D85 158C $4,274.50** and **9965 retail $7,300**, all wrong for
+  this workload (2.25GHz / OEM SKU). **The 9555 QS bundles are H13SSL-N and
+  H13SSL-NT: $2,000–2,376**, the -NT ones (`398148252060` $2,100,
+  `198463960228` $2,376.21) carrying **dual 10GbE BCM57416**, and the non-T
+  (`198463955981` $2,100, `920128372571` $2,000). **Board revision decides
+  everything on H13:** rev 1.x = 9004 only; **rev 2.0 = 9005 but 6000 MT/s**;
+  **rev 2.01 = 9005 at 6400**. Expansion set otherwise matches H14SSL-NT
+  (3x x16 + 2x x8, 2x MCIO + 1 hybrid, 2x M.2 Gen5 x4, 8 SATA, 10GbE).
+  Standalone: **9555 QS `100-000001247-12` $1,500.46**; **ES $1,030–1,035 and
+  listed at 1.9–3.35GHz** vs 3.2–4.4 retail — so **sample OPN -12 = QS,
+  -13 = low-clock ES**, identifiable before buying. Cheapest route to a
+  seller-tested 64-core: **H13SSL-NT + 9555 QS ~$2,100–2,376**, ~€500 under
+  H14SSL-NT (€1,049) + QS (~$1,500) ≈ €2,350, and ~€1,300 under H14 + retail
+  9355. Four written questions recorded: **rev 2.01?, OPN -12?, return window?,
+  POST-tested at what memory speed?** Leader unchanged; no purchase made.
