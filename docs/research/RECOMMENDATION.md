@@ -742,59 +742,59 @@ figure, so the exact offer is **UNVERIFIED** until read on a product page.
 
 ## H14SSL-N memory QVL and M.2 generation — verified 2026-11-12
 
-You asked me to verify the 12-channel 1DPC 6400 claim against the QVL rather than
-the datasheet. Result: **the memory side holds up; the M.2 Gen5 claim does not,
-and that is a correction to what I told you.**
+**QVL links (these are the working ones — the generic page errors out):**
 
-**1 · Memory: 12 DIMM, 1DPC, 6400 — supported, but NOT by a fetched QVL.**
-- Supermicro product page: *"Support up to DDR5 12 DIMM slots (1DPC), speed up
-  to **6400MT/s**"* and *"Max Memory (1DPC): Up to 3TB 6400MT/s ECC DDR5
-  RDIMM/3DS (AMD EPYC 9005 Series)"* — the 1DPC qualifier and the 6400 figure
-  are both explicit. **This is a board+CPU claim, not a per-module one.**
-- Gigabyte's **CP1** QVL grades the **same EPYC 9135** at **DDR5-6400, 200/240**
-  (live CPU tab, Oct 28 2026 stamp), and the 9135 is a 6400-capable part. So the
-  CPU side of the 6400 claim is independently corroborated.
-- **The Supermicro memory QVL itself could not be read.** Its data comes from
-  `POST /en/external_db_block/support/get_tested_memory`, which returns **403**
-  to anything but a same-origin browser session, and the HTML wrapper answers
-  *"ERROR: This page has been accessed improperly"*. The Wayback Machine has **no
-  snapshot** of the `ProductID=90505` memory page. So **"a DDR5-6400 RDIMM appears
-  on Supermicro's own H14SSL-N QVL" is UNVERIFIED** — exactly the same dead end
-  the CP1's memory QVL hit. What *is* verified is the board's 1DPC/6400 rating
-  and the 9135's 6400 grading on the CP1 sheet.
-
-**2 · M.2 generation: the Gen5 claim is contradicted, and I over-trusted the
-manual. Correction below.**
-Evidence, in order of weight:
-- **The tested-M.2 QVL for this board lists 14 drives and every single one is
-  `NVMe GEN4`.** Zero Gen5 entries.
+- **Memory QVL, DDR5-6400 RDIMM, Turin (your 9135):**
+  https://www.supermicro.com/en/support/resources/memory?mspd=6.4000001&mtyp=217&id=a29c222dc5b93356a5372920962bdec0&prid=90505&type=DDR5%20RDIMM&ecc=1&reg=1&fbd=0&cpu=turin&sku=H14SSL-N
+- **Tested M.2 list:**
   https://www.supermicro.com/en/support/resources/m2ssd?SystemID=90505&ProductName=H14SSL-N
-- **The archived product page** (Wayback, 2026-04-23) says **"M.2 Interface: 2
-  PCIe 4"** and "M.2 PCIe 4".
-- **Geizhals** lists **"2x M.2/M-Key (PCIe 4.0 x4/SATA, 22110/2280)"**.
-- Only the **manual** (p.16, "Two M.2 connectors (PCIe 5.0 x4)") and the
-  **current product page** say Gen5 — and the ServeTheHome thread already
-  documented that Supermicro's own pages disagree with each other on this exact
-  point, for both H13SSL-N and H14SSL-N.
+- Entry point (the "Tested Memory List" button on the product page POSTs to
+  `get_tested_memory`, and the plain `…/resources/mem?ProductID=90505` URL
+  answers *"accessed improperly"* — **use the two URLs above instead**):
+  https://www.supermicro.com/en/products/motherboard/h14ssl-n
 
-**Corrected position: treat the H14SSL-N's M.2 as `PCIe 4.0 x4` until proven
-otherwise in hardware.** The Gen5 reading rests on one manual line against a QVL,
-an archived page and a price-comparison listing. If the slots are Gen4, each drive
-tops out near ~7 GB/s instead of ~14 GB/s — **which still meets the "RAID0 Gen5
-M.2" requirement only in the sense that Gen5 drives will run (at Gen4 speed), not
-that you get Gen5 bandwidth.**
+**1 · Memory QVL — CLOSED. It does list a DDR5-6400 RDIMM at 1DPC.**
 
-**What this means for the leader decision:** the H14SSL-N's storage advantage
-shrinks but does not vanish. Two onboard M.2 (even at Gen4 x4) still beat the
-CP1's **single Gen3 x4** slot, and still cost €0 versus the CP1's ~€105 of
-adapters. **So the recommendation stands** — but if **true Gen5** M.2 bandwidth
-is a hard requirement, then neither board does it onboard and **the MCIO route on
-either board is the only way to actually get Gen5** (CP1 G2 group, H14SSL-N
-NVMe4/5). That is a genuine change in the reasoning, not a change in the pick.
+The API behind the button (`POST /en/external_db_block/support/get_tested_memory`)
+returns, for this board, exactly one 6400 option per CPU family:
 
-**Action before buying:** ask Supermicro support (or a distributor) to confirm
-the M.2 link speed for board revision 1.00, and verify with `lspci -vv` on
-arrival. Budget the ~€105 MCIO adapter as a fallback if Gen5 is required.
+- `[turin] DDR5 RDIMM-6400 Registered ECC`
+- `[genoaBergamo] DDR5 RDIMM-6400 Registered ECC`
+
+and following the `turin` link yields the tested-module table:
+
+| Part Number | Description | MB Rev | Wide Temp | DRAM | Ranks | Profile |
+|---|---|---|---|---|---|---|
+| **MEM-DR564MC-ER64** | **64GB DDR5-6400 2RX4 (16Gb) ECC RDIMM** | Any | N | 16Gb | 2 | Low Profile |
+
+**So the 1DPC-6400 claim is backed by a real QVL entry, not just a datasheet
+line.** Caveats worth stating plainly:
+- **The list is thin — one module.** That is Supermicro's own tested set for
+  6400 RDIMM on this board; it is not a broad compatibility matrix. Buying that
+  exact part is the only *QVL-backed* way to guarantee 6400.
+- The entry is a **64GB 2RX4** RDIMM, so a 12-DIMM build at that part is
+  **768 GB**.
+- Earlier claim retracted: I said the memory QVL was unreadable. It is readable
+  via the data URL above; only the generic page is broken.
+
+**2 · M.2 generation — still Gen4 on the evidence, and this correction stands.**
+
+- The tested-M.2 QVL lists **14 drives and every single one is `NVMe GEN4`** —
+  zero Gen5 entries (URL above; read directly, not via the broken wrapper).
+- The **archived product page** (Wayback 2026-04-23) says **"M.2 Interface: 2
+  PCIe 4"**; **Geizhals** says PCIe 4.0 x4.
+- Only the **manual p.16** ("Two M.2 connectors (PCIe 5.0 x4)") and the
+  **current** product page say Gen5, and the ServeTheHome thread already
+  documented Supermicro contradicting itself on this spec for both H13SSL-N and
+  H14SSL-N.
+
+**Position: treat the onboard M.2 as `PCIe 4.0 x4` until `lspci -vv` proves
+otherwise.** Two onboard Gen4 x4 slots still beat the CP1's single **Gen3 x4**
+and still cost €0 versus ~€105 of MCIO parts, **so the pick stands** — but
+**neither board provides true Gen5 M.2 onboard**, and if Gen5 bandwidth is a
+hard requirement the **MCIO route is the only way to actually get it**
+(H14SSL-N NVMe4/5, or CP1 G2).
+
 
 ## WRX90 / Threadripper PRO — asked directly 2026-11-12, and the answer is **no**
 
@@ -1671,3 +1671,22 @@ bracket (verified 2026-11-10T05:35Z).
   get it** (H14SSL-N NVMe4/5, or CP1 G2). This changes the reasoning, not the
   leader. Action: confirm M.2 link speed with Supermicro/ distributor before
   buying; budget ~€105 MCIO as fallback.
+- 2026-11-12T02:24Z — **QVL FOUND AND READ. The "unreadable" claim at 02:12Z is
+  retracted: Supermicro's memory QVL is readable at a data URL, and it does list
+  a DDR5-6400 RDIMM at 1DPC for Turin.** Working links recorded in the
+  "H14SSL-N memory QVL" section: the `…/resources/memory?mspd=6.4000001&mtyp=217
+  &id=a29c222d…&prid=90505&type=DDR5 RDIMM&ecc=1&reg=1&fbd=0&cpu=turin&sku=H14SSL-N`
+  URL for memory, and `…/resources/m2ssd?SystemID=90505&ProductName=H14SSL-N`
+  for M.2. The generic `…/resources/mem?ProductID=90505` page still answers
+  "accessed improperly" — that is why it looked dead.
+  **Memory QVL content (Turin):** API index returns one 6400 option,
+  `DDR5 RDIMM-6400 Registered ECC`; the tested table has **one module**:
+  **MEM-DR564MC-ER64 — 64GB DDR5-6400 2RX4 (16Gb) ECC RDIMM, any MB rev, 2
+  ranks, Low Profile**. So the 1DPC/6400 claim is **QVL-backed**, but the tested
+  list is **thin (a single SKU)** — that part is the only guaranteed-6400
+  module, and 12× it = **768 GB**. Blocker 3 analogue for this board: closed,
+  with the caveat that broad 6400 compatibility is untested by the vendor.
+  **M.2 correction re-confirmed, unchanged:** M.2 QVL = **14 drives, all
+  `NVMe GEN4`, zero Gen5**; archived page + Geizhals say Gen4; only the manual
+  and current page say Gen5. Treat M.2 as **PCIe 4.0 x4** until `lspci -vv`.
+  Leader unchanged; no change to the parts list.
