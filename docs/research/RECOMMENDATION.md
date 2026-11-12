@@ -796,6 +796,63 @@ hard requirement the **MCIO route is the only way to actually get it**
 (H14SSL-N NVMe4/5, or CP1 G2).
 
 
+## 64 GB DDR5-6400 RDIMM pricing — asked 2026-11-12
+
+Short answer: **yes, but "an arm and a leg" is currently the market price, not a
+vendor markup.** This is the 2026 DRAM shortage, not a bad shop.
+
+**Actual prices found (different sellers and part numbers, all agreeing):**
+
+| Module / kit | Capacity | Price seen | Where |
+|---|---|---|---|
+| **G.Skill F5-6400R3644E64GQ4-T5N** (4× 64 GB, registered ECC, EXPO) | 256 GB kit | **€12,269.00** | Alternate DE, "Sofort verfügbar" (in stock) |
+| **Kingston KSM64R52BD4-64MD** (1× 64 GB, 2Rx4 CL52) | 64 GB | **€2,838.93** | heise Preisvergleich, 4 offers €2,838.93–2,842.74 |
+| **Kingston KSM64R52BD4-64HA** (1× 64 GB) | 64 GB | €3,705.77 | heise, single offer |
+| **ADATA AD5CU640064G-S** (CUDIMM, not RDIMM) | 64 GB | €1,487.00 | Alternate, not in stock |
+| **Kingston KVR64A52BD8-64** (CUDIMM, ValueRAM) | 64 GB | €1,549.00 | Alternate |
+
+**Per-GB reality check:** independent trackers put server DDR5 RDIMM at roughly
+**$38 per GB (Sept 2026)** — so a 64 GB module at ~$2,400 / ~€2,200 is the going
+rate, and €2,839 is a normal retail quote rather than an outlier. Sources:
+https://capitalandcompute.net/memory-prices/server/ ·
+https://datacenterdisk.com/news/memory-chip-shortage-2026-server-ram-prices
+
+**So for a 12-DIMM 768 GB build at QVL-backed 6400: 12 × €2,839 ≈ €34,000 of
+memory.** That is the honest number and it dwarfs the €975 board and the four
+GPUs' worth of interconnect. **This is the single biggest cost in the build right
+now, and it is a market condition, not a spec requirement.**
+
+**Three ways to spend less, in order of what I would actually do:**
+
+1. **Run fewer DIMMs at 6400 rather than 12.** You do not need 12 channels
+   populated to boot or to get most of the bandwidth — but **you do lose
+   channels** (memory bandwidth scales with populated channels on SP5), so this
+   is a real performance trade, not a free saving. A 6-DIMM build halves the
+   memory cost and loses ~half the peak bandwidth.
+2. **Drop to DDR5-5600 or 6000.** 5600 RDIMMs are far cheaper per GB than 6400
+   and are still QVL-supported on this class of board. The 9135 at 1DPC will run
+   5600 happily. **Cost of this compromise: ~12.5 % memory bandwidth vs 6400**
+   (5600/6400), for a large price drop. Given that the 6400 requirement was never
+   tied to a workload measurement, this is the compromise I would question hardest
+   — see the note below.
+3. **Buy used/refurb RDIMMs.** The market report notes DDR4 up 60–80 % and DDR5
+   doubled; used 5600 RDIMMs from decommissioned servers are the cheapest path,
+   at the cost of warranty.
+
+**A question worth asking yourself:** the entire 6400 specification has been
+treated as fixed since the first run of this research, but **nothing in the build
+plan actually demonstrates that 6400 is needed** rather than 5600 or 6000. At
+current prices the 6400 requirement costs **roughly €10,000–15,000 more** across
+12 DIMMs than a 5600 build. If the workload is LLM inference, capacity (GB) almost
+always beats bandwidth (MT/s) once the model fits — 768 GB at 5600 will serve
+bigger models than 384 GB at 6400. **Worth confirming the requirement before
+committing the budget.** (Flagged, not decided — the spec came from you.)
+
+**UNVERIFIED:** EU street price for the exact Supermicro QVL part
+`MEM-DR564MC-ER64`; it is an order-only Supermicro SKU and I found no retail
+listing. The Kingston KSM64R52BD4-64MD is the closest retail equivalent
+(same 64 GB 2Rx4 6400 CL52 class) and is the price quoted above.
+
 ## WRX90 / Threadripper PRO — asked directly 2026-11-12, and the answer is **no**
 
 The question was: switch to WRX90 + TR PRO, giving up 4 RAM channels. Verified
@@ -1690,3 +1747,21 @@ bracket (verified 2026-11-10T05:35Z).
   `NVMe GEN4`, zero Gen5**; archived page + Geizhals say Gen4; only the manual
   and current page say Gen5. Treat M.2 as **PCIe 4.0 x4** until `lspci -vv`.
   Leader unchanged; no change to the parts list.
+- 2026-11-12T02:38Z — **64 GB DDR5-6400 RDIMM priced. Answer: no cheap option —
+  it is the 2026 DRAM shortage, not a bad shop.** Real quotes, multiple sellers:
+  **Kingston KSM64R52BD4-64MD (1x 64GB 2Rx4 CL52) €2,838.93** (heise
+  Preisvergleich, 4 offers €2,838.93–2,842.74); KSM64R52BD4-64HA €3,705.77;
+  **G.Skill F5-6400R3644E64GQ4-T5N (4x 64GB registered ECC kit) €12,269.00**
+  at Alternate DE, in stock. ADATA/Kingston **CUDIMM** 64GB at €1,487–1,549 are
+  **not RDIMM** and do not apply. Independent trackers put server DDR5 RDIMM near
+  **$38/GB (Sep 2026)**, so ~€2,800/module is the going rate. **12x 64GB = 768GB
+  at 6400 would cost ~€34,000 in memory alone** — dwarfing board + GPUs.
+  Recorded three cheaper paths: fewer DIMMs (loses channels/bandwidth), **drop to
+  DDR5-5600/6000 (~12.5% bandwidth vs 6400, far cheaper)**, or used RDIMMs.
+  **Flagged, not decided: nothing in this program ever demonstrated that 6400 is
+  required rather than 5600** — at current prices that spec costs roughly
+  €10–15k extra across 12 DIMMs, and for LLM inference capacity usually beats
+  bandwidth once the model fits. Spec came from the user, so left as a question.
+  **UNVERIFIED: EU price for the exact QVL SKU `MEM-DR564MC-ER64`** (order-only
+  Supermicro part, no retail listing found); Kingston KSM64R52BD4-64MD quoted as
+  closest retail equivalent. Leader and parts list unchanged.
