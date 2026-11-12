@@ -1103,6 +1103,60 @@ card in the fourth chassis position. The 0.6 mm side gap at 2.0-slot pitch is
 no longer a thermal concern — both R9700 SKUs are blowers that exhaust out the
 bracket (verified 2026-11-10T05:35Z).
 
+## EPYC 9555 ES (or higher) instead of the 9135 — evaluated 2026-11-12
+
+The appeal is obvious: eBay **ES 9555 asking $1,034–C$1,527**, i.e. *below* the
+retail 9135 (**€1,629**), for **4× the cores**. Retail 9555 is **€4,529**
+(Geizhals; 9555P €4,044.41), so the ES is ~⅓ of retail.
+
+**AMD's own numbers (product pages):**
+
+| | EPYC 9135 | EPYC 9555 |
+|---|---|---|
+| Cores / threads | 16 / 32 | **64 / 128** |
+| L3 | 64 MB | **256 MB** |
+| Base clock | 3.65 GHz | 3.2 GHz |
+| Default TDP | **200 W** | **360 W** |
+| cTDP range | **200–240 W** | **320–400 W** |
+| 1kU price | $1,214 | **$7,973** |
+| Memory | 12 ch, up to 6400, **614 GB/s** | **identical** |
+| PCIe | 128 lanes Gen5 | **identical** |
+
+**Why it does not help this build:**
+
+1. **The platform is identical where it matters.** Same 12 channels, same
+   6400 MT/s, same 614 GB/s, same 128 PCIe 5.0 lanes. Four-GPU inference is
+   GPU-bound; the 9135's 16c/32t already feeds four GPUs. The 9555 adds cores
+   this workload cannot use.
+2. **Power goes the wrong way.** +160 W at default TDP, and its **official cTDP
+   floor is 320 W** — you cannot officially run it at the 9135's 200 W. The BIOS
+   does expose `Package Power Limit Control` (Manual PPT), so it *can* be capped,
+   but then you are paying for 64 cores to run them at 16-core clocks. With the
+   GPUs at 210 W (840 W total), the 9135 keeps the box near **~1,180 W**; a 9555
+   at its 320 W floor pushes **~1,300 W**.
+3. **ES risk lands exactly on this board's hard parts.** ES silicon is
+   pre-production: Supermicro's BIOS microcode may not carry the ES CPUID, in
+   which case the board **does not POST** and it appears on no support list. The
+   cheap listing is **100-000001247-12 at 1.9 GHz base** vs 3.2 GHz retail — an
+   early sample. No warranty, no RMA. And the things this build stresses —
+   **12 DIMMs training at 6400, four GPUs on Gen5 lanes** — are precisely what
+   pre-production silicon is least proven at.
+4. **"Or higher" is worse.** 9655 is 400 W, 9755 and 9965 are 500 W (9965 =
+   192 cores) with lower clocks: more power, more heat, more ES risk, still no
+   workload for the cores.
+5. **The saving is small relative to the risk.** ~€600 under the retail 9135.
+   One non-POSTing sample erases it and costs weeks.
+
+**If you still want to try:** buy a **QS** (qualification sample) rather than an
+ES — QS is normally the retail stepping and eBay even sells QS+Supermicro board
+combos, which is weak evidence that QS boots on these boards. Buy only from a
+seller with a real return window, and inside that window test **POST, 12 DIMMs
+at 6400, and all four GPUs** before it closes.
+
+**Verdict: no.** The 9135 is the cheapest *retail* part that meets the platform
+requirement, and the extra cores are unusable in a GPU-bound box. Put the delta
+into memory or the PSU.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2008,3 +2062,20 @@ bracket (verified 2026-11-10T05:35Z).
   **UNVERIFIED — measure before committing to always-on**.
   **Verdict: take -NT on a 10G network, stay -N on 2.5G.** Also fixed the leader
   table's M.2 row to point at the Gen4-vs-Gen5 caveat.
+- 2026-11-12T03:41Z — **EPYC 9555 ES (or higher) evaluated; answer: no.** eBay ES
+  9555 asking **$1,034–C$1,527** vs retail **€4,529** (Geizhals; 9555P €4,044.41)
+  and vs retail 9135 **€1,629**. AMD pages: 9555 = 64c/128t, 256MB L3, **360W,
+  cTDP 320–400W**, $7,973 1kU; 9135 = 16c/32t, 64MB, **200W, cTDP 200–240W**,
+  $1,214. **Both have identical 12ch/6400/614 GB/s and 128 Gen5 lanes**, so the
+  4-GPU workload gains nothing. Rejected on: (1) no benefit for GPU-bound work;
+  (2) **+160W default and a 320W cTDP floor** — cannot officially run at the
+  9135's 200W, pushes a 210W-GPU box from ~1,180W to ~1,300W (BIOS PPT override
+  exists but then 64 cores run at 16-core clocks); (3) **ES risk** — pre-production
+  CPUID may not be in Supermicro microcode → **no POST**; cheap listing
+  **100-000001247-12 is 1.9GHz base vs 3.2GHz retail**; no warranty; and 12-DIMM
+  @6400 training + 4 Gen5 GPUs are exactly what ES silicon is least proven at;
+  (4) 9655/9755/9965 = 400–500W and lower clocks, worse; (5) saving only ~€600 vs
+  retail 9135. If tried anyway: buy **QS not ES**, with a return window, and test
+  POST + 12 DIMMs @6400 + all 4 GPUs before it closes. Leader/CPU unchanged
+  (**EPYC 9135**). Also noted user's plan: GPUs power-capped to 210W, HDDs in a
+  separate chassis (thermals no longer co-located).
