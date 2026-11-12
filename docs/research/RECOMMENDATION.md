@@ -52,6 +52,7 @@ MZ23-SU0 section.
 | Form factor | E-ATX 304.8 x 330.2 mm |
 | Price | **€876.98 (Plexcom, in stock 1–3 days)**, **GTIN 4719331867232**, Plexcom Art.Nr. **111142** — re-verified **09:19Z** straight off the product page's schema.org `Product`/`Offer` JSON-LD (`"price":"876.98"`, `"availability":"InStock"`, `"itemCondition":"NewCondition"`, `"mpn":"MZ33-CP1"`), so it is a structured-data read, not a scraped price string; use the GTIN when asking any other distributor. First read **08:50Z** on Plexcom's *own* search endpoint (`advanced_search_result.php?keywords=MZ33-CP1`): Art.Nr. **111142**, *"lagernd, 1-3 Werktage (Ausland abweichend)"*, 876,98 EUR incl. 19 % MwSt., "In den Warenkorb" live; **cross-checked 08:54Z on the product page itself** (`/gigabyte-mainboard-mz33-cp1-rev-3-x-e-atx-sockel-sp5-single-mainboard-e-atx.html`) — same Art.Nr., same 876,98 EUR, same "lagernd" — **but its "Lagerbestand" counter is blank, so the unit count is not published**; "lagernd" is the shop's own status word, not a quantity. idealo.de **8 offers €881.97–€1,247, data stamp 10.11.2026 08:49** (jacob.de €881.97 + €2.99 shipping = €884.96, delivery by 12.11.; future-x €881.99; galaxus €929.21, delivery by 27.11.; voelkner €984.60; kaufland €991.96; pccomponentes €1,041.89; senetic €1,110.63; eBay/ersazza €1,247.00); Happyware €931 excl. VAT. EU: AT €894.40 / IT €995.99 / ES €1,041.99 / FR €1,119.96 |
 | Card clearance | **not a constraint: both R9700 SKUs are blowers** (ASRock 39 mm, ASUS 40 mm), exhausting out the bracket |
+| **Gen5 M.2 for RAID0 (new 2026-11-12)** | **onboard M.2 is Gen3 x4 only** — Gen5 drives must ride MCIO. **4 Gen5 M.2 fit alongside all 4 GPUs**: the 4th-GPU adapter consumes the G0 x16 group, leaving the **G2 group (2x MCIO 8i) = 4 Gen5 NVMe at x4** with BIOS `x4x4x4x4`. 2 drives = 1 adapter + 1 cable (~€105); 4 drives = 2 + 2 (~€210). RAID0 is **software** (mdadm/ZFS) — board spec says `RAID: N/A`. See "Storage — Gen5 M.2 RAID0" below. |
 | 4th-card adapter | **C-Payne MCIO gen5 device adapter x8/x16, €50 + 2x MCIO 8i gen5 cable €45 = €140, ships from Germany, no customs** (verified 08:20Z, re-verified 08:51Z). Buy the **CP-0232 vertical** variant if the card sits in a 1-slot gap — vendor: *"the vertical model can be placed with single width spacing"*; CP-0231 flat needs 2 slots. |
 
 It still wins, but by a smaller margin than first recorded: the CP1 is a
@@ -216,12 +217,64 @@ that position later without the -P2 variant. Still **$55.00, 99968 in stock**,
 and the page still describes the port as **2x MCIO 8i (74-pin) → PCIe 5.0 x16**.
 
 Trade-off: the fourth card loses native slot x16 and one MCIO pair is consumed
-(otherwise 8x Gen5 NVMe). Card 4 stays Gen5 x16 electrically, so no bandwidth
+by the GPU adapter, which halves the free Gen5 NVMe capacity from **8 drives to
+4** (the G2 group survives intact — see "Storage — Gen5 M.2 RAID0"). Card 4
+stays Gen5 x16 electrically, so no bandwidth
 loss — the cost is mechanical (adapter, mounting, airflow) only. The adapter
 itself is **12 V-fed** (10Gtek's own spec: "With 12V PCIe 6 pin power … 6A
 12V→3.3V buck regulator"), so the build needs a free PCIe 6-pin from the PSU;
 the CP1 already exposes a 6-pin 12V PCIE header but that one is 3-pin
 board-side for the slots, not a PSU feed.
+
+### Storage — Gen5 M.2 RAID0 (requirement added 2026-11-12)
+
+**The CP1's onboard M.2 is not usable for this: it is `1 x M.2 (2280/22110), PCIe
+Gen3 x4`** — Gigabyte's own datasheet, "Storage Interface → M.2", and the manual
+legend item 30 `M2_0 M.2 slot (PCIe Gen3 x4, Support NGFF-2280/22110)`. The
+block diagram agrees: `M.2 → PCIe3.0 x4`. Gen3 x4 caps a single drive near
+~3.5 GB/s, so **the Gen5 requirement has to be met on MCIO**, not on that slot.
+(Every other board examined is the same or worse here: MZ33-AR0/AR1 = M.2 Gen4
+x4, MZ23-SU0 = `2 x M.2 PCIe Gen3 x2`.)
+
+**Does it still fit 4 GPUs plus 4 Gen5 M.2? Yes — the x16 groups are separate.**
+The CP1 exposes two independent x16 "U2" groups plus a Gen4 group, all wired
+straight to the CPU (block diagram):
+- **U2_P0_G0** (0A/0B) → Gen5 x16 — **consumed by the 4th-GPU adapter**
+- **U2_P0_G2** (2A/2B) → Gen5 x16 — **free for storage**
+- **U2_P0_G3** (3A/3B) → Gen4 x8 or SATA — free, and Gen4-only, so not for Gen5 drives
+
+The manual's BIOS menu confirms the split and the required mode: `U2_P0_G0/1/2
+Lanes` offers `x4x4x4x4` (manual §2-2-8, pp. 46–47). One MCIO 8i port = x8 =
+**two x4 drives**; a Gen5 x16 group = **four x4 drives**. So **2 drives** need 1
+adapter on one port, **4 drives** need 2 adapters across G2A+G2B — and none of
+that touches G0, which the fourth R9700 owns.
+
+| Parts (2 or 4 drives) | Part | Price | Source |
+|---|---|---|---|
+| MCIO 8i → 2x M.2 Gen5 | LR-LINK **LRFNA922A** (74-pin MCIO, 2x M.2 x4, 2260/2280/22110, **4-pin 12 V or 5 V power**, "Requires BIOS Bifurcation") | UNVERIFIED (datasheet is login-gated) | https://lr-link.com/products/lrfna922a.html |
+| MCIO 8i → 2x M.2 Gen5 | KALEA-INFORMATIQUE **"2x M.2 ↔ MCIO 8i"**, 145x85 mm, 74-pin, Gen5, 4-pin 12 V/5 V, in stock | **€59.90** incl. VAT (**€49.92** excl.) | https://www.kalea-informatique.com/adapter-for-2-ssd-m2-pcie-nvme-m-key-to-sff8654-for-mounting-two-ssd-m2-in-place-of-ssd-u2.htm |
+| MCIO 8i → 2x M.2 Gen5 | HiFiber **SM22N21-M**, in stock | **$43.99** | https://www.hifiber.com/item/SM22N21-M/... |
+| MCIO 8i gen5 cable (45/75 cm) | C-Payne, same cable as the GPU adapter | **€45.00** each | https://c-payne.com/products/mcio-sff-ta-1016-8i-cable-pcie-gen5 |
+
+**Cost of the storage path: 4 Gen5 M.2 ≈ €210 (2 adapters @ €59.90 + 2 cables
+@ €45), all EU-sourced from KALEA (FR) and C-Payne (DE).** The 2-drive build is
+half that (~€105). Both adapters need a free 4-pin 12 V feed and a **x4x4x4x4**
+bifurcation setting, not `Auto`.
+
+**RAID0 itself is software.** Gigabyte's spec sheet states `RAID: N/A` — the
+board ships no RAID option ROM or VROC key for NVMe. Use Linux `mdadm --raid0`
+or a ZFS/mdadm pool over the four namespaces. That is the correct tool for
+RAID0 anyway, and it costs nothing. **This is not a downgrade versus a "hardware
+RAID" board** — consumer NVMe RAID on these platforms is always host software
+anyway; the only real alternative would be a tri-mode HBA, which would need one
+of the x16 slots a GPU is using.
+
+**One caveat worth stating:** the 4th-GPU adapter and the storage adapters all
+draw from the same 128-lane CPU budget. Recount with storage included: 3x
+Gen5 x16 GPU (48) + 1x Gen4 x16 GPU (16) + OCP Gen5 x16 (16) + G0 x16 for GPU4
+(16) + G2 x16 for 4 SSDs (16) + G3 Gen4 x8 (8) = **120 lanes of 128**. It fits,
+with 8 lanes spare — but there is **no room for a fifth PCIe device** without
+giving something up. Not needed for this build.
 
 **Anti-trap note (2026-11-10T06:43Z):** the manual's BIOS §2-2-8 lists
 `SLOT #_Link Speed` *and* `U2_P0_G0/1/2/3 Link Speed` with options only
@@ -357,7 +410,15 @@ QVL-backed memory list of the two — but the SU0 uses the same CPU and the same
 
 Caveat on its MCIO budget: it has **only 2 Gen5 MCIO** (plus 2 more that are
 Gen5-or-SATA), so the 4th-card adapter consumes both Gen5 MCIO and leaves the
-SATA pair — a thinner storage story than the CP1's 4 Gen5 MCIO.
+Gen5-or-SATA pair — a thinner storage story than the CP1's 4 Gen5 MCIO.
+**Re-read 2026-11-12T00:5xZ against the new M.2 requirement: the SU0 is now
+clearly behind on storage.** Its datasheet lists `2 x M.2 (2280/22110), PCIe
+**Gen3 x2**` — half the width of the CP1's Gen3 x4 slot, and still Gen3. So
+neither board can run a Gen5 M.2 from the onboard slot; both must use MCIO, and
+after the 4th-GPU adapter the SU0's surviving Gen5-capable pair is the weaker
+one. **This does not flip the pick, but it removes the last "SU0 is better on
+paper" argument** — on the storage axis the CP1 is now at least equal and the
+onboard slot is twice as wide.
 
 Slot pitch re-verified two independent ways this run: the earlier datasheet
 measurement, and the full-resolution Newegg board photo
@@ -370,7 +431,7 @@ complete the build:
 
 | Path | What you give up | Cost |
 |---|---|---|
-| **CP1 + 1x MCIO→x16 adapter** (recommended) | nothing electrical; the 4th card is Gen5 x16 via 2x MCIO 8i. Consumes one Gen5 MCIO pair, leaving 2 Gen5 MCIO (4 NVMe) + 2 Gen4 MCIO. Mechanical only: adapter mounting + airflow. **Pick CP-0232 (vertical) if the 4th card gets a 1-slot gap; CP-0231 (flat) needs 2 slots.** **Parts, both EU-sourced: C-Payne MCIO gen5 device adapter x8/x16 €50 + 2x MCIO 8i gen5 cable €45 = €140, ships from Germany, no customs** (08:20Z, re-verified 08:51Z; the cheap €79,90 Amazon.de riser is a splitter and drops card 4 to x8). | **€876.98 board** (Plexcom, in stock) + **€140 adapter set** (C-Payne, DE) |
+| **CP1 + 1x MCIO→x16 adapter** (recommended) | nothing electrical; the 4th card is Gen5 x16 via 2x MCIO 8i. Consumes one Gen5 MCIO pair, **leaving 2 Gen5 MCIO (4 NVMe)** for the RAID0 M.2 set + 2 Gen4 MCIO. Mechanical only: adapter mounting + airflow. **Pick CP-0232 (vertical) if the 4th card gets a 1-slot gap; CP-0231 (flat) needs 2 slots.** **Parts, both EU-sourced: C-Payne MCIO gen5 device adapter x8/x16 €50 + 2x MCIO 8i gen5 cable €45 = €140, ships from Germany, no customs** (08:20Z, re-verified 08:51Z; the cheap €79,90 Amazon.de riser is a splitter and drops card 4 to x8). | **€876.98 board** (Plexcom, in stock) + **€140 adapter set** (C-Payne, DE) + **€210 for 4 Gen5 M.2** (KALEA + C-Payne, EU) |
 | Any 12-ch board at 1DPC that gives up MT/s | **5200 MT/s** (MZ33-AR1) = 18.75 % less memory bandwidth; and the AR1 fits only 2 dual-slot cards natively, so it needs 2 adapters anyway. | AR1 price UNVERIFIED + 2 adapters, and slower |
 | Riser-only build on a 3x-x16 board | native slot x16 for cards 3–4, and **4800–5200 MT/s** on those boards | board + risers + chassis |
 
@@ -1025,3 +1086,28 @@ bracket (verified 2026-11-10T05:35Z).
   (pitch) and blocker 2 (price/EU stock) closed in earlier runs; blocker 3's QVL
   half stays on the archived 2025-05-12 sheet (live sheet unobtainable). No
   further research after cutoff; scheduled watch deleted.
+- 2026-11-12T00:58Z — **new requirement: RAID0 over 2–4 Gen5 M.2. Leader
+  still MZ33-CP1; no board change, but one documented assumption corrected.**
+  (1) **The CP1 has no Gen5 M.2 slot at all.** Datasheet "Storage Interface →
+  M.2" says `1 x M.2 (2280/22110), PCIe Gen3 x4`; manual legend item 30
+  `M2_0 … Gen3 x4`; block diagram `M.2 → PCIe3.0 x4`. So Gen5 drives cannot go
+  in the onboard slot — they must ride MCIO. Same or worse everywhere else in
+  the shortlist (MZ33-AR0/AR1 M.2 Gen4 x4; MZ23-SU0 **Gen3 x2**). (2) **It
+  still fits, because the x16 groups are independent**: block diagram gives
+  U2_P0_G0 = Gen5 x16 (4th GPU), U2_P0_G2 = Gen5 x16 (**free**), U2_P0_G3 =
+  Gen4 x8/SATA. A Gen5 x16 group = 4 x4 drives, and BIOS `U2_P0_G0/1/2 Lanes`
+  offers `x4x4x4x4` (manual §2-2-8 pp.46–47). So **2 drives = 1 MCIO→2xM.2
+  adapter, 4 drives = 2 adapters**, none touching G0. (3) **Parts, EU, priced
+  today**: KALEA-INFORMATIQUE MCIO 8i → 2x M.2 Gen5, 74-pin, 4-pin 12V/5V,
+  in stock, **€59.90** incl. VAT (€49.92 excl.); C-Payne MCIO 8i gen5 cable
+  **€45.00**; alternates LR-LINK LRFNA922A (price UNVERIFIED, datasheet gated)
+  and HiFiber SM22N21-M **$43.99**. **4 Gen5 M.2 ≈ €210, 2 drives ≈ €105.**
+  (4) **RAID0 is software** — Gigabyte's spec sheet states `RAID: N/A`; use
+  mdadm/ZFS. Not a downgrade: NVMe RAID0 on these platforms is host software
+  regardless, and a tri-mode HBA would cost one of the x16 GPU slots.
+  (5) **Lane recount including storage: 120 of 128** (GPUs 48+16+16, OCP 16,
+  G2 16, G3 8) — still fits, but no headroom for a fifth PCIe device.
+  (6) Corrected the two places that implied all 8 Gen5 NVMe survived the 4th
+  GPU: the GPU adapter halves free Gen5 NVMe from 8 drives to **4**. Board
+  price/stock unchanged (€876.98 Plexcom). **UNVERIFIED: an actual Gen5 M.2
+  RAID0 run on this board, and LRFNA922A pricing.**
