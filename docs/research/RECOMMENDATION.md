@@ -303,6 +303,71 @@ itself is **12 V-fed** (10Gtek's own spec: "With 12V PCIe 6 pin power … 6A
 the CP1 already exposes a 6-pin 12V PCIE header but that one is 3-pin
 board-side for the slots, not a PSU feed.
 
+### Parts — the adapters, with links (consolidated 2026-11-12)
+
+These are the four parts that matter, each fetched and checked this run. **Order
+the C-Payne pair from Germany — they ship inside the EU, so no customs.**
+
+**A · GPU 4 adapter — MCIO → PCIe x16 (the one that replaces Slot_1)**
+- **C-Payne "MCIO PCIe gen5 Device Adapter x8/x16" — €50,00.** Two MCIO 8i in,
+  one x16 out; x16 only with both cables, same CPU host port, lane order
+  0-7→8-15; **mandatory 12 V connector.** Pick the **vertical (CP-0232)** if the
+  card sits in a 1-slot gap, flat (CP-0231) otherwise.
+  https://c-payne.com/products/mcio-pcie-gen5-device-adapter-x8-x16 — *verified
+  2026-11-12: page live, price €50,00.*
+- Alternate: **10Gtek SA22N2116P, $55.00** — https://store.10gtek.com/mcio-pcie-gen5-device-adapter-2-8i-to-x16/p-29134
+  (*verified live*; ships from US, so import VAT applies. Vendor note: not for
+  ASUS RTX cards — irrelevant for AMD, but do not swap in a GeForce later.)
+
+**B · MCIO cable — the same cable feeds either adapter**
+- **C-Payne "MCIO SFF-TA-1016 8i cable — PCIe gen5", €45,00** (45 cm or 75 cm).
+  https://c-payne.com/products/mcio-sff-ta-1016-8i-cable-pcie-gen5 — *verified
+  2026-11-12: price €45,00, both lengths listed.*
+- **You need 2 of these for the GPU adapter** — x16 mode uses both MCIO
+  inputs — **plus 1 more per 2 M.2 drives** on the storage adapter.
+
+**C · Gen5 M.2 adapter — MCIO 8i → 2× M.2 (storage)**
+- **KALEA-INFORMATIQUE, €59.90 incl. VAT, in stock.** 74-pin MCIO, 2× M.2
+  M-key x4 (2230/2242/2260/2280/22110), 145×85 mm, **4-pin 12 V or 5 V**,
+  "BIOS must support bifurcation". *Verified live 2026-11-12.*
+  https://www.kalea-informatique.com/adapter-for-2-ssd-m2-pcie-nvme-m-key-to-sff8654-for-mounting-two-ssd-m2-in-place-of-ssd-u2.htm
+- Alternates: **LR-LINK LRFNA922A** (identical topology, price UNVERIFIED —
+  datasheet is login-gated) https://lr-link.com/products/lrfna922a.html ·
+  **HiFiber SM22N21-M, $43.99, in stock** https://www.hifiber.com/item/SM22N21-M/mcio-8i-to-2x-m-2-gen5-adapter-for-nvme-ssd-requires-motherboard-bios-support-for-bifurcation-3500.html
+
+**Basket for the start-up build (3 GPUs native + 4th + 2× M.2 RAID0):**
+2× C-Payne cable (€90) + 1× C-Payne GPU adapter (€50) + 1× KALEA M.2 adapter
+(€59.90) = **€199.90**, all EU-shipped.
+
+**Verdict on the AliExpress item you sent
+(`pl.aliexpress.com/item/1005011740529907.html`): correct direction, wrong
+variant, and not cheaper.**
+- It is ADT-Link **"PCIe 5.0 x16 → MCIO 8i riser, 1U, external GPU backplane
+  kit"**. The direction is right for us (host slot or adapter → MCIO), and your
+  screenshot shows the **device-side board** — a PCIe slot plus two MCIO 8i
+  ports and a power header. That is the same part class as the C-Payne adapter.
+- **But the listing is a multi-variant kit and the cheapest tile is a bare
+  cable.** The variant names on the page are `MCIO-55cm`, `Set-A`, `Set-B`,
+  `MCIO to PCIE5.0`, `Pcie5.0 x16(1u)`, `16x-MCIO 2U-PCIE5.0`,
+  `MCIO-PCIE5.0X16`, `Pcie5.0 x8 1u`. The **~100 zł / CHF 10.18 tile that the
+  page defaults to is the `MCIO-55cm` variant — a cable only**, not the
+  adapter board. You must switch the variant to the 1U x16 board, and the
+  price then changes.
+- **Two of those variants are the wrong width — `Pcie5.0 x8 1u` is x8**, which
+  would put GPU 4 at half bandwidth. Do not pick it.
+- It is an ADT-Link kit with a backplane, so it is aimed at mounting a card in a
+  1U/2U chassis; **the C-Payne part is a bare adapter designed for exactly this
+  "one card in a tower slot position" use and is a known-good €50.**
+- **Recommendation: stay with C-Payne.** Not because AliExpress is bad, but
+  because the specific listing hides the correct variant behind a variant
+  selector, defaults to a €10 cable, mixes in an x8 trap, and gives no
+  lane-ordering or same-host-port documentation — all of which the C-Payne page
+  states explicitly. Saving ~€20 is not worth guessing on the part that feeds a
+  €1,100 GPU.
+- **UNVERIFIED: the price of the 1U x16 board variant** — AliExpress did not
+  expose a per-variant price to a non-JS fetch, so any number here would be a
+  guess.
+
 ### Storage — Gen5 M.2 RAID0 (requirement added 2026-11-12)
 
 **Start-up build confirmed 2026-11-12: 2x 1 TB Gen5 M.2 in RAID0, not 4.**
@@ -1313,3 +1378,24 @@ bracket (verified 2026-11-10T05:35Z).
   only onboard 4x Gen5 M.2 + lane headroom. Stay on EPYC. **UNVERIFIED: WRX90E
   board price in the EU**, so the TCO line is incomplete; the bandwidth and
   slot arguments do not depend on it.
+- 2026-11-12T01:52Z — **all adapter links consolidated and re-fetched live; the
+  AliExpress alternative judged and rejected on variant risk.**
+  (1) Verified this run: **C-Payne MCIO→x16 adapter €50,00** and **C-Payne
+  MCIO 8i gen5 cable €45,00** (both pages live, prices read off the page);
+  **KALEA MCIO→2x M.2 Gen5 €59.90 in stock**; **10Gtek SA22N2116P $55**;
+  **HiFiber SM22N21-M $43.99 in stock**. LR-LINK LRFNA922A still live but
+  **price UNVERIFIED** (datasheet login-gated).
+  (2) **Cable count corrected: the GPU adapter needs TWO MCIO cables**, not one
+  — x16 mode uses both inputs. Basket for the start-up build is therefore
+  2 cables (€90) + GPU adapter (€50) + KALEA M.2 adapter (€59.90) = **€199.90**,
+  all EU-shipped. Earlier text implied one GPU cable.
+  (3) **AliExpress `item/1005011740529907` (ADT-Link "PCIe 5.0 x16 → MCIO 8i
+  riser, 1U backplane kit") is the right direction but the wrong buy.** Read the
+  live page: it is a **multi-variant** listing with variants `MCIO-55cm`,
+  `Set-A`, `Set-B`, `MCIO to PCIE5.0`, `Pcie5.0 x16(1u)`, `16x-MCIO
+  2U-PCIE5.0`, `MCIO-PCIE5.0X16`, `Pcie5.0 **x8** 1u`. The tile the page
+  defaults to (**CHF 10.18 / ~100 zł**) is the **`MCIO-55cm` cable-only**
+  variant, not the adapter board; and `Pcie5.0 x8 1u` is an **x8 trap** that
+  would halve GPU 4. No lane-ordering / same-host-port documentation either.
+  **Stay with C-Payne** — same part class, €50, explicit x16 rules, EU-shipped.
+  **UNVERIFIED: the 1U x16 variant's price** (not exposed to a non-JS fetch).
