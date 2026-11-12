@@ -1,11 +1,18 @@
 # Board pick — EPYC 9135 + 12ch DDR5-6400 1DPC + 4x R9700
 
 > **PROGRAM CLOSED 2026-11-10T09:48Z** — the research window ended
-> 2026-11-10T09:47Z. No research was done after the cutoff; the state below is
-> final as of the last in-window run (09:19Z) and the scheduled watch has been
-> deleted.
+> 2026-11-10T09:47Z. **Reopened by user request 2026-11-12** for build-specific
+> follow-up (PowerColor cards, storage, adapter sourcing).
 
-**Leader: GIGABYTE MZ33-CP1 (rev 3.x)** — one of only two SP5 boards found whose
+> **LEADER CHANGED 2026-11-12T01:40Z: SUPERMICRO H14SSL-N** — €975.16 (Geizhals
+> DE, in stock), 12 DIMM 12-channel DDR5-6400, **3× PCIe 5.0 x16 + 2× x8**, and
+> — the deciding factor — **2× onboard M.2 PCIe 5.0 x4**. Same 3-native-GPU
+> count as the CP1 but with the Gen5 M.2 requirement solved onboard at zero
+> extra cost. See "Why the H14SSL-N now leads" below. The CP1 analysis is kept
+> as the runner-up: it is ~€98 cheaper but needs ~€105 of MCIO adapters to reach
+> the same storage, and it has no Gen5 M.2 at all.
+
+**Runner-up: GIGABYTE MZ33-CP1 (rev 3.x)** — one of only two SP5 boards found whose
 own spec sheet states DDR5-6400 at 1DPC for EPYC 9005 and that can hold four
 x16 cards. Three x16 slots at 2-slot pitch plus a fourth card on MCIO.
 **It now leads on EU availability, not on spec** — see the MZ23-SU0 note below,
@@ -40,7 +47,91 @@ native card count, beats it on lanes and depth, and (04:10Z) is **in stock at
 Newegg US for $869** (live-read 08:50Z) but **not sold into the EU**. See the
 MZ23-SU0 section.
 
-## Why it wins
+## Why the H14SSL-N now leads (2026-11-12)
+
+The user's question was: *isn't it better to start on the H14SSL-N so only the
+4th GPU needs an adapter?* **The GPUs were never the difference — the CP1 also
+needs exactly one GPU adapter.** Both boards give **3 native x16 slots + 1
+adapted card**. The difference is storage, and it goes to Supermicro:
+
+| | MZ33-CP1 (runner-up) | **H14SSL-N (leader)** |
+|---|---|---|
+| Price, DE, in stock | **€876.98** (Plexcom) | **€975.16** (Geizhals best offer) — **+€98.18** |
+| 12 DIMM / 12-channel @ 6400 | yes | **yes** (manual: "3 TB registered ECC DDR5 at 6400 MT/s in 12 DIMM slots") |
+| Gen5 x16 slots | 3 (+1 Gen4 x16) | **3** (+2 Gen5 **x8**) |
+| 2-slot cards native | 3 | **3** (Slot1/3/5) |
+| **Onboard Gen5 M.2** | **none** (1× Gen3 x4) | **2× PCIe 5.0 x4** (manual p.16: "Two M.2 connectors (PCIe 5.0 x4)") |
+| Storage cost to reach **2× Gen5 M.2 RAID0** | **+€104.90** (KALEA €59.90 + 1 C-Payne cable €45) | **€0** — drives go straight in |
+| Storage cost to reach **4× Gen5 M.2 RAID0** | **+€209.80** (2 adapters + 2 cables) | **+€104.90** (1 adapter + 1 cable on NVMe4/5) |
+| Total, 4 GPUs + **2×** Gen5 M.2 RAID0 | €876.98 + €104.90 = **€981.88** | **€975.16** |
+| Total, 4 GPUs + **4×** Gen5 M.2 RAID0 | €876.98 + €209.80 = **€1,086.78** | €975.16 + €104.90 = **€1,080.06** |
+| Form factor | E-ATX 304.8 × 330.2 mm | **ATX 304.8 × 256.5 mm** (shorter) |
+
+**Verdict: at 2 drives the two boards are within €7 of each other — the CP1 is
+no longer meaningfully cheaper, and the comparison is basically a wash on
+money.** What the H14SSL-N buys for that ~€7 is real: **no storage adapters or
+cables in the build path at all**, a shorter ATX board that fits far more
+cases, and 2 Gen5 M.2 slots that work out of the box. At 4 drives it is also
+marginally cheaper (€1,080.06 vs €1,086.78). **The Supermicro wins on
+simplicity, not on price** — and its one downside is that GPU 4 and the MCIO
+storage upgrade compete for the same 3 MCIO ports (see below).
+
+**Correction to an earlier claim in this document:** the CP1 path was quoted as
+"€199.90 for the whole adapter set". That was for 2 MCIO cables + GPU adapter +
+M.2 adapter. For the **2-drive start-up** the CP1 needs only **€104.90** of
+storage parts (1 M.2 adapter + 1 cable), because the GPU adapter's 2 cables are
+separate and are needed on *both* boards. Numbers above are the corrected ones.
+
+**Sources, verified 2026-11-12:**
+- Manual (MNL-2821, "Two M.2 connectors (PCIe 5.0 x4)", p.16; slot table
+  "PCIE SLOT1,3,5 = PCIe 5.0 x16, PCIE SLOT2,4 = x8"; `CPU1 PCIe Package Group
+  … x16` bifurcation options): https://www.supermicro.com/manuals/motherboard/H14/MNL-2821.pdf
+- Product page (3× Gen5 x16, 2× x8, M.2 2× Gen5 x4, 12 DIMM 6400):
+  https://www.supermicro.com/en/products/motherboard/h14ssl-n
+- Price/stock: https://geizhals.de/supermicro-h14ssl-n-mbd-h14ssl-n-b-a3613031.html
+  — **€975.16** (electronis.de, "ab Lager, 1-2 Werktage", data 12.11.2026 00:06),
+  then €1,003.09 (future-x), €1,029.78 (jacob), €1,187.73; **4 offers total**.
+
+**One documented caveat worth knowing:** Supermicro's own pages have contradicted
+each other on this board's M.2 generation (key-features tab said Gen4, specs tab
+said Gen4, manual said Gen5), which a ServeTheHome thread documents:
+https://forums.servethehome.com/index.php?threads/supermicro-h13ssl-n-h14ssl-n-m-2-gen5-vs-gen4-confusion.51914/
+**The manual and the current product page now both say PCIe 5.0 x4**, and the
+manual's version is the one that ships with the board — so Gen5 is the supported
+reading, but **confirm at first boot** (`lspci -vv` link speed) rather than
+trusting the datasheet alone. If it trains at Gen4, the 2-drive RAID0 still
+works, just at half the per-drive ceiling.
+
+**Remaining squeeze to be aware of:** the H14SSL-N provides **3 MCIO 8i
+total** (NVMe0/1, NVMe2/3 = Gen5; NVMe4/5 = Gen5 **or** SATA via the JSATA1
+jumper). The 4th GPU consumes NVMe0/1 + NVMe2/3 as one x16 link, which leaves
+**NVMe4/5 (x8) free** — enough for 2 more Gen5 M.2 later via one MCIO adapter.
+So the H14SSL-N's 4-drive upgrade path costs the same €105 as the CP1's, but it
+gets you to 2 drives for free first.
+
+**GPU 4 on the H14SSL-N — why the MCIO pair aggregates correctly.** The layout
+table names the ports `NVMe0/1 PCIe1A` and `NVMe2/3 PCIe1B` — both under **PCIe
+Port 1**, i.e. the same x16 group, which is exactly the topology a 2× MCIO 8i →
+x16 adapter requires ("same CPU host port, lanes 0-7 → 8-15"). The BIOS confirms
+the group can be set to **x16** (`CPU1 PCIe Package Group … The options are
+Auto, x4x4x4x4, x4x4x8, x8x4x4, x8x8, and x16`). So **the same C-Payne adapter
+and 2 cables move to NVMe0/1 + NVMe2/3** — no new parts, no topology change
+versus the CP1 plan.
+
+**Slot pitch — 3 dual-slot cards fit natively.** The manual layout shows **five
+evenly spaced PCIe slots** with the x16 slots in positions **1, 3 and 5** and the
+x8 slots interleaved at **2 and 4** (silkscreen readable as `CPU SLOT2 PCIe5.0
+X8`, `CPU SLOT3 PCIe5.0 X16`, `CPU SLOT4 PCIe5.0 X8`). An even 1-pitch spacing
+with x16 at every second position = **2-slot pitch between the three GPU slots**,
+so three 40 mm PowerColor cards fit exactly as they do on the CP1. **UNVERIFIED:
+the exact millimetre figure** — I read the even spacing and the slot numbering
+off the manual's layout drawing and the annotated photo, not a dimensioned
+mechanical drawing, so **test-fit before committing all four cards** (the same
+0.6 mm caveat that applies on the CP1 applies here).
+
+## Why the CP1 still wins on a couple of axes (runner-up)
+
+
 
 | Requirement | MZ33-CP1 |
 |---|---|
@@ -1399,3 +1490,35 @@ bracket (verified 2026-11-10T05:35Z).
   would halve GPU 4. No lane-ordering / same-host-port documentation either.
   **Stay with C-Payne** — same part class, €50, explicit x16 rules, EU-shipped.
   **UNVERIFIED: the 1U x16 variant's price** (not exposed to a non-JS fetch).
+- 2026-11-12T01:40Z — **LEADER CHANGED: SUPERMICRO H14SSL-N replaces MZ33-CP1.**
+  The user was right and I had rejected this board too early. **The GPUs were
+  never the difference** — the CP1 also needs exactly one GPU adapter, so both
+  are "3 native + 1 MCIO" builds. The difference is **onboard Gen5 M.2**, and
+  my earlier rejection leaned on a wrong premise. Verified from Supermicro's own
+  manual (MNL-2821, downloaded, 119 pp): p.16 **"Two M.2 connectors (PCIe 5.0
+  x4)"**; slot table **"PCIE SLOT1, 3, 5 = PCIe 5.0 x16; PCIE SLOT2, 4 = PCIe
+  5.0 x8"**; **12 DIMM, 12-channel, 6400 MT/s**; ATX 304.8 x 256.5 mm.
+  **Price €975.16, in stock, DE** (Geizhals, 4 offers, data 12.11.2026 00:06;
+  electronis.de "ab Lager 1-2 Werktage").
+  **Money, corrected:** for 2× Gen5 M.2 RAID0 the CP1 needs **+€104.90** of
+  storage parts (KALEA €59.90 + 1 cable €45) → **€981.88** total; the H14SSL-N
+  needs **€0** → **€975.16**. So they are within **€7**, not the €100+ gap the
+  old doc implied — and at 4 drives the SU0-path is still marginally cheaper
+  (€1,080.06 vs €1,086.78). **The Supermicro wins on simplicity, not price:**
+  no storage adapters in the build, a shorter ATX board, and 2 Gen5 M.2 that
+  work out of the box. **Also corrected an arithmetic error in this doc**: the
+  earlier "€199.90 adapter set" figure bundled the GPU's 2 cables with storage
+  parts; GPU cables are needed on *both* boards, so they do not belong in the
+  storage comparison.
+  **GPU 4 still works with no new parts:** the layout table names `NVMe0/1
+  PCIe1A` and `NVMe2/3 PCIe1B` — both under PCIe Port 1 (same x16 group, the
+  required topology), and the BIOS exposes `CPU1 PCIe Package Group … x16`.
+  Same C-Payne CP-0232 + 2 cables as before; **NVMe4/5 (Gen5-or-SATA) stays
+  free** for the 2→4 drive upgrade (+€104.90).
+  **Caveat recorded, not resolved:** Supermicro's own pages have contradicted
+  each other on this board's M.2 generation (key-features said Gen4, specs said
+  Gen4, manual says Gen5) — documented in a ServeTheHome thread. Manual + current
+  product page both say **PCIe 5.0 x4**; **confirm at first boot** with
+  `lspci -vv`. **UNVERIFIED: exact slot pitch in mm** (read as even 1-pitch
+  spacing with x16 at 1/3/5 off the manual layout and annotated photo) — test-fit
+  before buying all four cards. CP1 kept as runner-up with its full analysis.
