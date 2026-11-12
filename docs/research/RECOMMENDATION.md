@@ -689,6 +689,57 @@ Slot pitch re-verified two independent ways this run: the earlier datasheet
 measurement, and the full-resolution Newegg board photo
 (`c1.neweggimages.com/productimage/nb1280/13-145-624-04.png`), which shows five
 evenly spaced x16 slots with no adjacent pair. Five gaps, no doubled gap.
+## MZ73-LM0 as a 24-DIMM future base — evaluated and rejected 2026-11-12
+
+The question: use the dual-socket MZ73-LM0 as a base so you can later go to
+**24 DIMM (2× 12-channel)**. Verified from Gigabyte's own rev 3.0 manual
+(142 pp, downloaded) and datasheet.
+
+**It does not work as a single-CPU future base, and it is slower today.**
+
+| | **H14SSL-N (leader)** | MZ73-LM0 |
+|---|---|---|
+| Sockets / DIMM | 1 / **12** (12-ch) | 2 / **24** (12-ch **per CPU**) |
+| 1DPC speed, EPYC 9005 | **6400 MT/s** | **6000 MT/s** (datasheet) |
+| Gen5 x16 slots | 3 | **4** |
+| Slots usable with **one** CPU | **3 of 3** | **2 of 4** — see below |
+| Gen5 M.2 onboard | **2× PCIe 5.0 x4** | 1× **Gen4** x4 |
+| Board price DE | **€975.16** | from **€1,652.99** (idealo, 11 offers) |
+
+**The blocker: the 4 slots are split across the two sockets.** Gigabyte's
+manual, "Expansion Slots":
+- `Slot_4: PCIe x16 (Gen4 x16), from CPU_0`
+- `Slot_3: PCIe x16 (Gen4 x16), from CPU_0`
+- `Slot_2: PCIe x16 (Gen4 x16), from CPU_1`
+- `Slot_1: PCIe x16 (Gen4 x16), from CPU_1`
+
+plus Gigabyte's own caveat: *"If only 1 CPU is installed, some PCIe or memory
+functions might be unavailable."* So with your single 9135 you get **Slot_3 +
+Slot_4 only — two GPUs** — and 12 of the 24 DIMMs are dead. You would pay
+**€1,653** for a board that runs two cards.
+
+**Note also the manual says all four are Gen4**, while the datasheet feature list
+says "4 x PCIe Gen5 x16". Same species of internal contradiction as the
+Supermicro M.2 question; it needs resolving before purchase, but it does not
+change the verdict — the slot-to-CPU split kills it regardless.
+
+**On 24 DIMM specifically:** 24 DIMMs *is* two 12-channel CPUs. That is not a
+future upgrade of this machine, it is a different machine — you would also need
+the second EPYC, a second set of 12 DIMMs, a bigger PSU and case. **Buying the
+LM0 now to "keep the option open" costs €678 more today and halves your usable
+GPU slots today.** Bad trade.
+
+**Honest path if 24 DIMM genuinely becomes a requirement:** build single-socket
+now (H14SSL-N), and when the capacity is actually needed buy the dual-socket
+board *then*, with the second CPU. 12 channels today, 24 later, is a two-machine
+decision — not a motherboard choice.
+
+**Sources:** manual https://download.gigabyte.com/FileList/Manual/server_manual_e_mz73lm0_e_v3.0.pdf?v=5ea8a2b32e82a5eef74398c6e4bb2e5a ·
+product page https://www.gigabyte.com/us/Enterprise/Server-Motherboard/MZ73-LM0-rev-3x ·
+price https://www.idealo.de/preisvergleich/ProductCategory/3018F1611816.html —
+**from €1,652.99 across 11 offers**, but that is a category-page best-price
+figure, so the exact offer is **UNVERIFIED** until read on a product page.
+
 ## WRX90 / Threadripper PRO — asked directly 2026-11-12, and the answer is **no**
 
 The question was: switch to WRX90 + TR PRO, giving up 4 RAM channels. Verified
@@ -1522,3 +1573,20 @@ bracket (verified 2026-11-10T05:35Z).
   `lspci -vv`. **UNVERIFIED: exact slot pitch in mm** (read as even 1-pitch
   spacing with x16 at 1/3/5 off the manual layout and annotated photo) — test-fit
   before buying all four cards. CP1 kept as runner-up with its full analysis.
+- 2026-11-12T01:58Z — **MZ73-LM0 evaluated as a 24-DIMM future base; rejected.
+  Leader stays H14SSL-N.** Downloaded Gigabyte's rev 3.0 manual (142 pp) and
+  read the expansion-slot table — it is decisive: `Slot_4` and `Slot_3` come
+  from **CPU_0**, `Slot_2` and `Slot_1` from **CPU_1**, with Gigabyte's own note
+  *"If only 1 CPU is installed, some PCIe or memory functions might be
+  unavailable."* **With one 9135 you get 2 usable GPUs, not 4**, and 12 of the
+  24 DIMMs are dead. Also **6000 MT/s at 1DPC** (datasheet — slower than the
+  H14SSL-N's 6400), one **Gen4** M.2, and **from €1,652.99** (idealo, 11
+  offers; category-page figure, exact offer UNVERIFIED). So it costs €678 more
+  than the leader *today* and halves the GPU slots *today*.
+  Recorded the manual-vs-datasheet contradiction: manual calls all four slots
+  **Gen4**, datasheet feature list calls them **Gen5 x16** — unresolved, but
+  irrelevant to the verdict. **On the 24-DIMM premise itself: 24 DIMM = two
+  12-channel CPUs, i.e. a different machine, not an upgrade path** — it needs a
+  second EPYC, a second set of DIMMs, a bigger PSU and case. Advice recorded:
+  build single-socket now, buy dual-socket only if/when 24 DIMM is a real
+  requirement. No change to the leader or the parts list.
