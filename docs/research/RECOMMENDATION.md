@@ -1153,9 +1153,53 @@ combos, which is weak evidence that QS boots on these boards. Buy only from a
 seller with a real return window, and inside that window test **POST, 12 DIMMs
 at 6400, and all four GPUs** before it closes.
 
-**Verdict: no.** The 9135 is the cheapest *retail* part that meets the platform
-requirement, and the extra cores are unusable in a GPU-bound box. Put the delta
-into memory or the PSU.
+**Correction 2026-11-12T03:5xZ — the MoE case, where the 9135 is genuinely too
+small.** If the plan includes **large MoE models whose experts spill to system
+RAM**, CPU-side expert compute is real work on this box, not host duty: Zen 5 has
+**full-width AVX-512** (plus VNNI/BF16), and CPU expert FFNs are **memory-
+bandwidth-bound**. That changes the CPU requirement in two ways:
+
+1. **16 cores is not enough to feed 12 channels.** 614 GB/s theoretical (~460–550
+   real) needs a lot of outstanding loads; 16 Zen 5 cores leave a large fraction
+   of it idle. This is the one workload where the 9135 is the wrong part.
+2. **But the ceiling is bandwidth, not cores.** All 9005 SKUs ship the **same
+   614 GB/s**, so beyond the core count that saturates ~500 GB/s, extra cores buy
+   almost nothing.
+
+**AMD's verified 9005 ladder** (product pages) against DE prices:
+
+| SKU | Cores | Base | L3 | TDP / cTDP | 1kU | DE price |
+|---|---|---|---|---|---|---|
+| **9135** | 16 | 3.65 GHz | 64 MB | 200 W / 200–240 | $1,214 | **€1,629** |
+| **9355** | **32** | **3.55 GHz** | **256 MB** | **280 W / 240–300** | $3,694 | **€2,379** |
+| 9455 | 48 | 3.15 GHz | 256 MB | 300 W / 240–300 | $4,959 | €3,690 |
+| 9555 | 64 | 3.2 GHz | 256 MB | 360 W / 320–400 | $7,973 | €4,529 |
+| 9655 | 96 | 2.6 GHz | 384 MB | 400 W / 320–400 | $8,999 | — |
+
+**That table kills the 9555 ES argument in a better way than "you don't need
+cores":**
+
+- **The 9555 is not the value point even at retail.** It costs **€4,529** and its
+  base clock is **3.2 GHz — lower than the 9355's 3.55 GHz and the 9135's
+  3.65 GHz** — for 32/48 more cores that the 614 GB/s ceiling cannot feed. On a
+  bandwidth-capped path, base clock and L3 matter as much as core count.
+- **The 9355 is the part for this workload:** **32 cores at 3.55 GHz, 256 MB L3,
+  280 W (cTDP floor 240 W), €2,379** — i.e. **+€750 over the 9135** for double the
+  cores, 4× the L3, essentially the same clock, and only **+80 W**. That is the
+  cheapest retail SKU likely to reach the bandwidth knee.
+- **The ES is the worst possible sample for this exact use.** Its listed **1.9 GHz
+  base** is 40 % below the retail 9555's 3.2 GHz, and CPU expert compute is
+  precisely the workload that runs at base clock. You would buy cores to run them
+  at the lowest clock in the stack, with no warranty and a real no-POST risk.
+  **A €2,379 retail 9355 beats a ~€1,000 1.9 GHz ES at the job the ES is
+  supposedly for.**
+- **9655/9755/9965 stay rejected:** 2.6 GHz and below, 400–500 W, and still
+  614 GB/s. More cores, slower per core, no extra bandwidth.
+
+**Revised verdict:** if MoE-to-RAM is out of scope, keep the **9135**. If it is
+in scope, buy the **retail 9355 (€2,379)** — not a 9555, and never the 1.9 GHz
+ES. Note this also makes the **DDR5-6400 requirement load-bearing** for the first
+time: on the CPU-expert path the memory speed *is* the throughput.
 
 ## Open questions
 
@@ -2079,3 +2123,20 @@ into memory or the PSU.
   POST + 12 DIMMs @6400 + all 4 GPUs before it closes. Leader/CPU unchanged
   (**EPYC 9135**). Also noted user's plan: GPUs power-capped to 210W, HDDs in a
   separate chassis (thermals no longer co-located).
+- 2026-11-12T03:55Z — **corrected the 9555 verdict for the MoE-to-RAM case.**
+  User is right that experts spilling to system RAM make CPU compute real work,
+  and Zen 5 AVX-512 (full width, VNNI/BF16) plus 12-channel bandwidth is the
+  point. Revised analysis: (a) **16 cores cannot feed 614 GB/s**, so the 9135 is
+  genuinely undersized *if* MoE offload is in scope; (b) **the ceiling is
+  bandwidth, not cores — every 9005 SKU has the same 614 GB/s**, so cores past
+  the knee buy little; (c) **the 9555 is not the value point even at retail**:
+  AMD-verified **€4,529 / 64c / 3.2 GHz base / 360W** vs **9355 €2,379 / 32c /
+  3.55 GHz / 256MB L3 / 280W** — the 9355 has the *higher* base clock for
+  €2,150 less; (d) **the 1.9 GHz ES is the worst sample for this job**, since CPU
+  expert compute runs at base clock — a retail 9355 beats it outright.
+  Full ladder recorded (9135 €1,629 / 9355 €2,379 / 9455 €3,690 / 9555 €4,529;
+  AMD 1kU $1,214 / $3,694 / $4,959 / $7,973; 9655 96c 2.6GHz 400W). **Revised
+  verdict: 9135 if MoE-to-RAM is out of scope, retail 9355 if it is in scope;
+  9555 and everything above is rejected.** Also noted this is the first workload
+  that makes the **DDR5-6400 requirement load-bearing** (on the CPU-expert path
+  memory speed *is* throughput).
