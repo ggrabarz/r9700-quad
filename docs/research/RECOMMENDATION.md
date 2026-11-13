@@ -1513,12 +1513,15 @@ in **USD** and the `.de` page is a currency conversion.
 
 So **yes: the €1,050 and €932 9555 samples ship from outside the EU.** My earlier
 line "no import VAT, no customs" applies to the **board only** and was wrong for
-the CPU. Corrected cost:
+the CPU. Corrected cost — **rate depends on the country of import: 19 % in
+Germany, 23 % in Poland**:
 
-| Listing | Price | + 19 % import VAT | + carrier handling | Landed |
+| Listing | Price | + 23 % (PL) | + carrier handling | Landed, private |
 |---|---|---|---|---|
-| 9555 sample `365767517640` | €1,050.00 | €1,249.50 | ~€6–15 | **≈ €1,255–1,265** |
-| 9555 sample `206400401738` | €932.37 | €1,109.52 | ~€6–15 | **≈ €1,115–1,125** |
+| 9555 sample `365767517640` | €1,050.00 | €1,291.50 | ~€10–25 | **≈ €1,300–1,315** |
+| 9555 sample `206400401738` | €932.37 | €1,146.82 | ~€10–25 | **≈ €1,155–1,170** |
+
+(At the German 19 % the same parts land at ~€1,255 and ~€1,115.)
 
 Duty itself is normally **0 %** — CPUs are ITA duty-free (HS 8473.30 / 8542) — so
 the "Zoll" in practice is **import VAT plus the carrier's handling fee**. The
@@ -1589,6 +1592,19 @@ Requires the German seller to invoice with your **PL VAT number at 0 %**
 **One caveat for a JDG:** deduction follows business use. A box that also serves
 privately needs a pre-proportional split (art. 86 ust. 1 / art. 90), which is
 exactly what an audit checks on a build like this.
+
+### End price of the CPU for a Polish JDG
+
+| Line | Amount |
+|---|---|
+| 9555 sample `365767517640` | €1,050.00 |
+| Duty (ITA, 0 %) | €0.00 |
+| Import VAT 23 % | €241.50 — **deductible, cash flow only** |
+| Carrier handling / disbursement | ~€10–25 — real cost |
+| **Net, VAT czynny** | **≈ €1,060–1,075** |
+| **Net, VAT zwolniony** | **≈ €1,300–1,315** |
+
+The €932 listing nets at **≈ €945** and €1,155–1,170 respectively.
 
 ## Open questions
 
@@ -2652,3 +2668,9 @@ exactly what an audit checks on a build like this.
   seller is describing the part accurately. Unchanged: demand the IHS photo,
   the title writes the OPN as `100-00000 1247-12` (truncated) while `-13` is the
   1.9-3.35 GHz part.
+- 2026-11-13T01:2xZ — **corrected the import-VAT rate in the landed-cost table: it
+  is 23 % for Poland, not 19 %.** The 19 % figures were German; both are now
+  shown. PL landed, private: **€1,050 -> ~€1,300-1,315**, **€932 -> ~€1,155-1,170**.
+  Added the JDG end price for the CPU: **net ~€1,060-1,075 for a VAT czynny JDG**
+  (23 % = €241.50 deductible, cash flow only; carrier handling €10-25 is the real
+  cost) vs **~€1,300-1,315 for a zwolniony JDG**; the €932 part nets ~€945.
