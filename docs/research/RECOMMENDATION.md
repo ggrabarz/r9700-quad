@@ -1392,6 +1392,61 @@ while quoting the **`-12` QS OPN** — the title and part number disagree. Get t
 **OPN printed on the IHS** in writing (or a CPU-Z screenshot) before paying, and
 confirm the return window. **`-13` is the 1.9–3.35 GHz part — refuse it.**
 
+## Higher QS samples in the EU — what actually exists (2026-11-13)
+
+Searched the EU market for samples above the 9555. **There is exactly one
+interesting higher SKU, and the cheap listing for it is probably not the part it
+claims to be.**
+
+**AMD's verified specs for the candidates:**
+
+| SKU | Cores | Base | L3 | TDP / cTDP | 1kU |
+|---|---|---|---|---|---|
+| **9755** | **128** | **2.7 GHz** | **512 MB** | **500 W / 450–500** | $10,931 |
+| 9965 | 192 | 2.25 GHz | 384 MB | 500 W / 450–500 | $11,988 |
+| 9655 | 96 | 2.6 GHz | 384 MB | 400 W / 320–400 | $8,999 |
+| 9565 | 72 | 3.15 GHz | 384 MB | 400 W / 320–400 | $8,233 |
+| 9575F | 64 | 3.3 GHz | 256 MB | 400 W / 320–400 | $9,238 |
+| 9475F | 48 | 3.65 GHz | 256 MB | 400 W / 320–400 | $6,539 |
+
+**What the EU market has:**
+
+| Listing | Price | Read |
+|---|---|---|
+| **9755 "QS (ES)" 128C, 2.7 GHz** | **€1,477.91** (2 listings) | **Almost certainly the 1.9 GHz ES** — see below |
+| **9755 QS 128C, 2.5–4.05 GHz, OPN `100-000001535-05`** | **€3,299.00 / €3,471.60** | A real near-retail-clock QS |
+| 9755 **ES** 128C, **1.9–2.7 GHz** + Gigabyte board | €2,522–2,704 | Low-clock ES, bundled |
+| **9965 QS** 192C, 2.25 GHz | €5,049.59 | Not "reasonable" |
+| 9655 / 9565 / 9575F / 9475F **QS** | **none in EU** | Retail only, €4,129–6,699 |
+| 9655P retail | ~€4,500 | No sample |
+
+**Why the €1,478 is a trap.** The pattern repeats exactly as it did with the
+9555: the cheap listing's **"2.7 GHz" is the *boost* of a 1.9 GHz part**, not the
+base clock. Every cheap 9755 sample in the EU is described **1.9–2.7 GHz**, while
+the genuine QS is listed **2.5–4.05 GHz** against a retail **2.7/4.1**. The price
+ladder confirms it: €1,478 (ES) → €3,299 (QS) → €4,058 (retail). Ask for the
+**OPN on the IHS**; the real QS OPN seen is **`100-000001535-05`**.
+
+**Is the 9755 worth it at all?** One genuine architectural gain: **512 MB L3,
+double the 9555's 256 MB.** On the MoE-expert path that is the *only* thing that
+gets better — more hot experts stay cached, which cuts DRAM traffic. Cores and
+clock do not add bandwidth; the path is still **614 GB/s**. And the power is
+brutal: **cTDP floor 450 W**, so 4×210 W GPUs (840 W) + 450 W + ~150 W ≈
+**1,440 W**, i.e. a **2000 W PSU** (a 1600 W unit sits at ~90 %, too tight).
+
+**This is also the one case where the H14's 500 W rating actually matters** — an
+H13SSL-NT is rated **400 W** and cannot take a 9755 at all.
+
+**Verdict:**
+- **9555 QS at €1,050 stays the value pick.** 64 cores, 256 MB L3, 360 W, runs
+  on a 1600 W PSU, leaves the GPU budget alone.
+- **9755 QS at €3,299 is only justified if your expert working set actually
+  benefits from 512 MB L3** — it is 3× the CPU price, forces a 2000 W PSU, and
+  buys no bandwidth. It is the only "higher QS" in the EU worth a second look.
+- **€1,478 "2.7 GHz" listing: assume 1.9 GHz until the IHS OPN proves otherwise.**
+- 9965/9655/9565/9575F/9475F: not available as samples in the EU; retail prices
+  make them irrelevant.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2391,3 +2446,21 @@ confirm the return window. **`-13` is the 1.9–3.35 GHz part — refuse it.**
   bundle. Still to verify with the EU CPU seller: **titles say "ES" but quote the
   `-12` QS OPN** — get the **IHS OPN** (or CPU-Z) in writing plus the return
   window; **refuse `-13`**.
+- 2026-11-13T00:2xZ — **higher QS samples scoped for the EU.** AMD-verified specs:
+  **9755 128c/2.7GHz/512MB L3/500W (cTDP 450–500)/$10,931**; 9965 192c/2.25/
+  384MB/500W; 9655 96c/2.6/384MB/400W; 9565 72c/3.15/384MB/400W; 9575F
+  64c/3.3/256MB/400W; 9475F 48c/3.65/256MB/400W. **EU market: only the 9755 has
+  samples.** Listings: **9755 "QS (ES)" 2.7GHz €1,477.91 (x2)** — assessed as
+  **almost certainly the 1.9GHz ES**, because every cheap EU 9755 sample is
+  described **1.9–2.7GHz** while the genuine QS is **2.5–4.05GHz** vs retail
+  2.7/4.1; **9755 QS OPN `100-000001535-05` €3,299.00/€3,471.60** is the real
+  article; 9755 ES + Gigabyte board €2,522–2,704; **9965 QS €5,049.59**;
+  **9655/9565/9575F/9475F: no QS in the EU at all** (retail €4,129–6,699).
+  Analysis: the **only** architectural gain on the 9755 is **512MB L3 vs 256MB**
+  — cores/clocks add no bandwidth (still 614GB/s) — and its **cTDP floor of 450W**
+  makes 4x210W GPU + CPU + board ≈ **1,440W**, i.e. a **2000W PSU**. Noted this is
+  the **one place the H14's 500W rating actually bites** (H13SSL-NT's 400W cannot
+  take a 9755 at all). **Verdict: 9555 QS €1,050 stays the value pick; 9755 QS
+  €3,299 only if the expert set benefits from 512MB L3; treat the €1,478 "2.7GHz"
+  listing as the 1.9GHz ES until the IHS OPN proves otherwise.** No purchase made;
+  leader unchanged.
