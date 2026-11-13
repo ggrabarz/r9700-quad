@@ -1965,6 +1965,60 @@ it is not a drop-in on every board, and capacity above 128 GB often forces talle
 decision**, not an upgrade path. For this build, DDR5-6400 RDIMM on SP5 stays the
 value choice, and even the 1.67× SP7 RDIMM path waits for boards.
 
+## Proshop FURY Renegade Pro “6400” kits — the wrong bin for the H14SSL-N (2026-11-13)
+
+Question: are the Proshop Kingston FURY Renegade Pro **DDR5-6400** listings the
+12× 32 GB for the EPYC 9555 + H14SSL-N box?
+
+**No. Two separate problems:** (1) the only sweet spot in the line — 32 GB
+1Rx8 — does not exist at 6400 (Kingston's 6400 4×32 kit is 2Rx8); and (2) the
+6400 CL32 kits are the one bin that **cannot reach 6400 at all** on this board,
+while the cheaper **7200/7600 Renegade kits carry a JEDEC-6400 SPD** and are
+**~€4.4 k cheaper** for the same 12× 32 GB.
+
+Cause: on a **JEDEC-only server BIOS** only the SPD's JEDEC profile runs, and
+Kingston programs the two lines differently (datasheets read 2026-11-13):
+
+| Module line | Rated / profile speed | **JEDEC SPD default** |
+|---|---|---|
+| **KF564R32RBE** (6400 CL32) | 6400 @ 32-39-39, **1.4 V**, EXPO/XMP | **DDR5-4800** 40-39-39 @ 1.1 V |
+| **KF572RH38RB** (7200 CL38) | 7200 @ 38-50-50, 1.4 V, EXPO/XMP | **DDR5-6400** 52-52-52 @ 1.1 V |
+| **KF576RH40RB** (7600 CL40) | 7600 @ 40-52-52, 1.4 V, EXPO/XMP | **DDR5-6400** 52-52-52 @ 1.1 V |
+
+The H14SSL-N/NT BIOS has **no EXPO/XMP entry, no DIMM voltage and no DRAM
+timing menu** (manual, Memory Configuration: target speed Auto/3600–5200,
+interleaving, bank swap, power down, scrub, TSME, PPR — read from the archived
+MNL-2821 PDF), so the 1.4 V profile cannot be applied. The 6400 CL32 kit would
+train at **4800** (−25 % bandwidth); the 7200/7600 kits declare JEDEC 6400 in
+SPD and train at 6400 with no overclocking. **UNVERIFIED on this board** (off
+QVL, untested in this build) — the standing rule applies: buy one kit first.
+
+**Prices (Proshop PL, 2026-11-13; NBP EUR 4.4070 PLN):**
+
+| Buy | Modules | Capacity / channels | Gross | Net (JDG) | €/GB (gross) |
+|---|---|---:|---:|---:|---:|
+| **3× KF576RH40RBK4-128** (7600 CL40, 4×32, 1Rx8) | 12 | **384 GB / 12** | **77 907 zł / €17,678** | 63 339 zł / €14,372 | €46.04 |
+| 3× KF564R32RBE2K4-128 (6400 CL32, 4×32, 2Rx8) | 12 | 384 GB / 12 | 97 374 zł / €22,096 | 79 166 zł / €17,964 | €57.54 |
+| 1× KF572RH38RBK8-256 (7200 CL38, 8×32, 1Rx8) | 8 | 256 GB / 8 | 50 712 zł / €11,507 | 41 229 zł / €9,356 | €44.95 |
+| 12× KF556R36RB-32 (5600, Xeon-W SKU; JEDEC 4800) | 12 | 384 GB / 12 | 80 808 zł / €18,336 | 65 698 zł / €14,907 | €47.75 |
+
+- **The 7600 4-piece kit is the pick:** same 384 GB, same 12 channels, €4.4 k
+  under the 6400 CL32 kit, and the only one of the two that actually runs 6400.
+  1Rx8 is also the lighter rank (board table: RDIMM 1R = 6400 at 12 DIMMs).
+- **8×32 7200 kit** = cheapest 256 GB / 8-channel start; completing it to 12
+  needs four 7600 32 GB singles (the 7200 4×32 kit, item 3462073, is
+  **withdrawn** at Proshop), i.e. a mixed two-part population.
+- **All of it is off-QVL.** The H14 6400 QVL contains exactly one module
+  (MEM-DR564MC-ER64, 64 GB 2Rx4); the QVL-backed 768 GB route is 12× that part
+  ≈ €34 k.
+- Proshop caveats: **4–5 day import lead time**, and a “**max 2 per customer**”
+  banner on these pages — confirm a 3-kit order.
+- **“H14SSL-NB” is not a board model.** The family is H14SSL-N / H14SSL-NT;
+  `AS-H14SSL-N-B` / `MBD-H14SSL-N-B` is the **bulk-pack** order suffix.
+- Capacity note unchanged: 384 GB is the cheapest full-bandwidth (12-channel)
+  configuration; if the MoE experts really spill to RAM, 768 GB (12× 64 GB) is
+  the next step at roughly double the money.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -3142,3 +3196,17 @@ value choice, and even the 1.67× SP7 RDIMM path waits for boards.
   publish 32/64/128GB; JEDEC still finalising Gen2 in May 2026). Flagged cost:
   **16 channels at ~$5.2k/128GB is ~$83k for 2TB**, and MRDIMM needs MRCD/MDB +
   BIOS support and often 2U-height modules. Recommendation unchanged.
+- 2026-11-13T14:1xZ — **the Proshop FURY Renegade Pro "6400" kits are the wrong
+  bin for the H14SSL-N; the 7200/7600 Renegade kits are the pick.** The H14 BIOS
+  is **JEDEC-only** (manual MNL-2821: no EXPO/XMP, no DIMM voltage, no DRAM
+  timing menu), and Kingston programs the two lines differently: **KF564R32RBE
+  (6400 CL32) SPD = JEDEC-4800** 40-39-39 @ 1.1 V, while **KF572RH38RB (7200) and
+  KF576RH40RB (7600) SPD = JEDEC-6400** 52-52-52 @ 1.1 V. So on this board the
+  "6400" kits train at **4800** and the 7200/7600 kits train at **6400**. Prices
+  (Proshop PL, EUR @ 4.4070): **3× KF576RH40RBK4-128 (4×32, 1Rx8) = 12× 32 GB =
+  384 GB, 77 907 zł / €17,678 gross (€14,372 net)** vs **3× KF564R32RBE2K4-128 =
+  97 374 zł / €22,096** for a likely-4800 result; 8×32 7200 kit = 50 712 zł /
+  €11,507 for a 256 GB / 8-channel start. All off-QVL (H14 6400 QVL = one 64 GB
+  part), so buy one kit, prove 6400 × 12 channels, then the rest; Proshop shows
+  a 4–5 day lead and a "max 2 per customer" banner. Also decoded: **"H14SSL-NB"
+  is not a model** — `-B` is the **bulk-pack** suffix for H14SSL-N.
