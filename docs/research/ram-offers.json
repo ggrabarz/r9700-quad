@@ -1,0 +1,109 @@
+{
+  "eurpln": 4.4070,
+  "updated": "2026-11-13T23:2xZ",
+  "offers": [
+    {
+      "part": "Kingston FURY Renegade Pro 7600 KF576RH40RBK4-128",
+      "spec": "4×32 GB, 1Rx8 · SPD = JEDEC-6400 CL52 @1.1 V (datasheet-verified) · 31.25 mm",
+      "shop": "Proshop.pl",
+      "country": "PL",
+      "price_net": "21 113,01 zł (€4,791)",
+      "price_gross": "25 969 zł (€5,893)",
+      "eur_per_gb": "€37.43",
+      "stock": "import 4–5 d · max 2/client",
+      "checked": "2026-11-13 22:1xZ",
+      "state": "stale",
+      "best": true,
+      "url": "https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079"
+    },
+    {
+      "part": "Kingston Server Premier KSM64R52BD4-64MD",
+      "spec": "64 GB, 2Rx4 · SPD = JEDEC-6400 CL52 @1.1 V (datasheet-verified)",
+      "shop": "ibfusion",
+      "country": "ES/CH",
+      "price_net": "€2,481.00",
+      "price_gross": "€2,681.96 (incl. CH 8.1%)",
+      "eur_per_gb": "€38.77",
+      "stock": "4 in stock · 7–21 d · B2B/VIES 0% VAT",
+      "checked": "2026-11-13 23:1xZ",
+      "state": "ok",
+      "best": false,
+      "url": "https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/"
+    },
+    {
+      "part": "Kingston Server Premier KSM64R52BD4-64MD",
+      "spec": "64 GB, 2Rx4 · same part, mainline PL distributor",
+      "shop": "senetic.pl",
+      "country": "PL",
+      "price_net": "11 509,07 zł (€2,612)",
+      "price_gross": "14 156,16 zł (€3,212)",
+      "eur_per_gb": "€40.81",
+      "stock": "41–50 pcs · 24 h",
+      "checked": "2026-11-13 23:1xZ",
+      "state": "ok",
+      "best": false,
+      "url": "https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106"
+    },
+    {
+      "part": "Samsung M321R8GA0EB2-CCP",
+      "spec": "64 GB, 2Rx4, DDR5-6400 CL52 @1.1 V · no SPD sentence published (JEDEC by construction)",
+      "shop": "Tonitrus",
+      "country": "DE",
+      "price_net": "€2,667.65",
+      "price_gross": "€3,174.50",
+      "eur_per_gb": "€41.68",
+      "stock": "50 in stock (last verified 17:4xZ; bot-walled since)",
+      "checked": "2026-11-13 23:1xZ",
+      "state": "stale",
+      "best": false,
+      "url": "https://www.tonitrus.com/M321R8GA0EB2-CCP"
+    },
+    {
+      "part": "Samsung M321RAJA0MB2-CCP",
+      "spec": "128 GB 3DS RDIMM, DDR5-6400 · the capacity route (12× = 1.5 TB @ 6400)",
+      "shop": "senetic.de",
+      "country": "DE",
+      "price_net": "€6,175.58",
+      "price_gross": "€7,348.94",
+      "eur_per_gb": "€48.25",
+      "stock": "6 pcs",
+      "checked": "2026-11-13 23:1xZ",
+      "state": "ok",
+      "best": false,
+      "url": "https://www.senetic.de/search/?q=M321R8GA0PB2-CCP&f_s_category=icecat_106"
+    },
+    {
+      "part": "V-Color RDIMM JEDEC DDR5-6400 CL52 (4×32 GB)",
+      "spec": "128 GB kit · JEDEC 6400 CL52 @1.1 V per Caseking product page",
+      "shop": "Caseking",
+      "country": "DE",
+      "price_net": "€5,392.42 (DE VAT incl.)",
+      "price_gross": "—",
+      "eur_per_gb": "€42.13",
+      "stock": "OUT OF STOCK (preorder badge)",
+      "checked": "2026-11-13 23:1xZ",
+      "state": "ok",
+      "best": false,
+      "url": "https://www.caseking.de/en/v-color-rdimm-jedec-ddr5-6400-ram-cl52-128-gb-4-x-32-gb-quad-channel-kit-black/MEVC-031.html"
+    },
+    {
+      "part": "Micron MTC40F2046S1RC64BH1",
+      "spec": "64 GB, 2Rx4, DDR5-6400 CL52 @1.1 V · no SPD sentence published",
+      "shop": "Tonitrus",
+      "country": "DE",
+      "price_net": "€2,654.20",
+      "price_gross": "€3,158.50",
+      "eur_per_gb": "€41.47",
+      "stock": "new stock small (unverified)",
+      "checked": "2026-11-13 20:0xZ",
+      "state": "stale",
+      "best": false,
+      "url": "https://www.tonitrus.com/MTC40F2046S1RC64BH1_1"
+    }
+  ],
+  "notes": [
+    "QVL part MEM-DR564MC-ER64 / Samsung M321R8GA0PB2-CCP: no EU price (4 passes, 2026-11-13).",
+    "Watch: Samsung M321R8GA0EB2-CWM 5600 64 GB at senetic.de €971 net (€15.17/GB, quote-only) — fails the 6400 rule but signals shortage cracks; if an EB2 6400 variant appears at this family price, reopen everything.",
+    "Renegade 6400-CL32 bins (KF564R32RBE*) are JEDEC-4800 — the trap; never buy for this board."
+  ]
+}

@@ -1,0 +1,97 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="refresh" content="0">
+<title>R9700 ×4 — RAM offer board (DDR5-6400 RDIMM, JEDEC-SPD rule)</title>
+<style>
+  :root { --bg:#101317; --panel:#171c22; --text:#e8edf2; --muted:#96a3b2; --line:#2b3540; --accent:#f5a524; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:36px 24px 60px; }
+  h1 { font-size:26px; margin:0 0 4px; letter-spacing:-.02em; }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  .kpi { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:22px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .card h2 { margin:0; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+  .big { font-size:26px; font-weight:700; margin-top:6px; letter-spacing:-.02em; }
+  table { width:100%; border-collapse:collapse; font-size:14px; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  th,td { text-align:left; padding:10px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); background:var(--panel); }
+  td.num,th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  tr:last-child td { border-bottom:0; }
+  a { color:#4cc9f0; text-decoration:none; }
+  .tag { font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); color:var(--muted); }
+  .tag.rec { background:var(--accent); border-color:var(--accent); color:#101317; font-weight:700; }
+  .tag.warn { border-color:var(--accent); color:var(--accent); }
+  .tag.bad { border-color:#f87171; color:#f87171; }
+  .k { color:var(--muted); font-size:12px; }
+  footer { margin-top:18px; color:var(--muted); font-size:12px; }
+  code { color:#4cc9f0; }
+</style></head><body><div class="wrap">
+<h1>RAM offer board — DDR5-6400 RDIMM (JEDEC-SPD rule)</h1>
+<p class="sub">Board: Supermicro H14SSL-NT · CPU: EPYC 9555 · 12 DIMM slots, 1DPC · JEDEC-only BIOS → a module counts only if its <b>JEDEC SPD default is 6400 @ 1.1 V</b> (no EXPO/XMP). Net = VAT-less where the shop allows it. PLN→EUR @ 4.407.</p>
+<div class="kpi">
+  <div class="card"><h2>Cheapest 12-ch 384 GB</h2><div class="big">€14,372</div><span class="k">3× Kingston FURY Renegade Pro 7600 KF576RH40RBK4-128 @ Proshop.pl</span></div>
+  <div class="card"><h2>Cheapest per GB (net)</h2><div class="big">€37.43</div><span class="k">baseline to beat</span></div>
+  <div class="card"><h2>Updated</h2><div class="big">2026-11-13 23:12Z</div><span class="k">by the 30-min scheduler · <code>docs/research/beam-eu-6400-repoke.md</code></span></div>
+</div>
+<table>
+<thead><tr><th>Part / spec</th><th>Shop</th><th class="num">Price (net / gross)</th><th class="num">€/GB net</th><th>Stock</th><th class="num">Checked</th><th>Link</th></tr></thead>
+<tbody>
+<tr>
+      <td>Kingston FURY Renegade Pro 7600 KF576RH40RBK4-128<br><span class="k">4×32 GB, 1Rx8 · SPD = JEDEC-6400 CL52 @1.1 V (datasheet-verified) · 31.25 mm</span> <span class="tag rec">BEST</span></td>
+      <td>Proshop.pl<br><span class="k">PL</span></td>
+      <td class="num">21 113,01 zł (€4,791)<br><span class="k">net / 25 969 zł (€5,893)</span></td>
+      <td class="num">€37.43</td>
+      <td>import 4–5 d · max 2/client</td>
+      <td class="num">2026-11-13 22:1xZ</td>
+      <td><a href="https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079">open ↗</a></td>
+    </tr><tr>
+      <td>Kingston Server Premier KSM64R52BD4-64MD<br><span class="k">64 GB, 2Rx4 · SPD = JEDEC-6400 CL52 @1.1 V (datasheet-verified)</span></td>
+      <td>ibfusion<br><span class="k">ES/CH</span></td>
+      <td class="num">€2,481.00<br><span class="k">net / €2,681.96 (incl. CH 8.1%)</span></td>
+      <td class="num">€38.77</td>
+      <td>4 in stock · 7–21 d · B2B/VIES 0% VAT</td>
+      <td class="num">2026-11-13 23:1xZ</td>
+      <td><a href="https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/">open ↗</a></td>
+    </tr><tr>
+      <td>Kingston Server Premier KSM64R52BD4-64MD<br><span class="k">64 GB, 2Rx4 · same part, mainline PL distributor</span></td>
+      <td>senetic.pl<br><span class="k">PL</span></td>
+      <td class="num">11 509,07 zł (€2,612)<br><span class="k">net / 14 156,16 zł (€3,212)</span></td>
+      <td class="num">€40.81</td>
+      <td>41–50 pcs · 24 h</td>
+      <td class="num">2026-11-13 23:1xZ</td>
+      <td><a href="https://www.senetic.pl/search/?q=KSM64R52BD4&amp;f_s_category=icecat_106">open ↗</a></td>
+    </tr><tr>
+      <td>Micron MTC40F2046S1RC64BH1<br><span class="k">64 GB, 2Rx4, DDR5-6400 CL52 @1.1 V · no SPD sentence published</span></td>
+      <td>Tonitrus<br><span class="k">DE</span></td>
+      <td class="num">€2,654.20<br><span class="k">net / €3,158.50</span></td>
+      <td class="num">€41.47</td>
+      <td>new stock small (unverified)</td>
+      <td class="num">2026-11-13 20:0xZ</td>
+      <td><a href="https://www.tonitrus.com/MTC40F2046S1RC64BH1_1">open ↗</a></td>
+    </tr><tr>
+      <td>Samsung M321R8GA0EB2-CCP<br><span class="k">64 GB, 2Rx4, DDR5-6400 CL52 @1.1 V · no SPD sentence published (JEDEC by construction)</span></td>
+      <td>Tonitrus<br><span class="k">DE</span></td>
+      <td class="num">€2,667.65<br><span class="k">net / €3,174.50</span></td>
+      <td class="num">€41.68</td>
+      <td>50 in stock (last verified 17:4xZ; bot-walled since)</td>
+      <td class="num">2026-11-13 23:1xZ</td>
+      <td><a href="https://www.tonitrus.com/M321R8GA0EB2-CCP">open ↗</a></td>
+    </tr><tr>
+      <td>V-Color RDIMM JEDEC DDR5-6400 CL52 (4×32 GB)<br><span class="k">128 GB kit · JEDEC 6400 CL52 @1.1 V per Caseking product page</span></td>
+      <td>Caseking<br><span class="k">DE</span></td>
+      <td class="num">€5,392.42 (DE VAT incl.)<br><span class="k">net / —</span></td>
+      <td class="num">€42.13</td>
+      <td>OUT OF STOCK (preorder badge)</td>
+      <td class="num">2026-11-13 23:1xZ</td>
+      <td><a href="https://www.caseking.de/en/v-color-rdimm-jedec-ddr5-6400-ram-cl52-128-gb-4-x-32-gb-quad-channel-kit-black/MEVC-031.html">open ↗</a></td>
+    </tr><tr>
+      <td>Samsung M321RAJA0MB2-CCP<br><span class="k">128 GB 3DS RDIMM, DDR5-6400 · the capacity route (12× = 1.5 TB @ 6400)</span></td>
+      <td>senetic.de<br><span class="k">DE</span></td>
+      <td class="num">€6,175.58<br><span class="k">net / €7,348.94</span></td>
+      <td class="num">€48.25</td>
+      <td>6 pcs</td>
+      <td class="num">2026-11-13 23:1xZ</td>
+      <td><a href="https://www.senetic.de/search/?q=M321R8GA0PB2-CCP&amp;f_s_category=icecat_106">open ↗</a></td>
+    </tr>
+</tbody></table>
+<footer>Rule reminder: "6400" only counts if JEDEC SPD default = 6400 @ 1.1 V (Kingston datasheet sentence verified per part; Samsung/Micron publish no SPD sentence). Source of truth: docs/research/RECOMMENDATION.md + beam-eu-6400-*.md. This page is generated from docs/research/ram-offers.json.</footer>
+</div></body></html>
