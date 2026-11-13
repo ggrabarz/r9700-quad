@@ -38,9 +38,7 @@ best_kit = next((o for o in data["offers"] if o.get("best")), data["offers"][0])
 gen = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%MZ")
 
 page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta http-equiv="refresh" content="0">
-<title>R9700 ×4 — RAM offer board (DDR5-6400 RDIMM, JEDEC-SPD rule)</title>
-<style>
+<title>R9700 ×4 — RAM offer board (DDR5-6400 RDIMM, JEDEC-SPD rule)</title><style>
   :root {{ --bg:#101317; --panel:#171c22; --text:#e8edf2; --muted:#96a3b2; --line:#2b3540; --accent:#f5a524; }}
   body {{ margin:0; background:var(--bg); color:var(--text); font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif; }}
   .wrap {{ max-width:1100px; margin:0 auto; padding:36px 24px 60px; }}
