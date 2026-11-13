@@ -3335,6 +3335,25 @@ Micron 32 GB, NEMIX, A-Tech).
   re-fetched and confirmed. Standing rule restated: **one kit first, prove
   6400 × 12 channels, then the rest** (no public H14 12-DIMM 6400 report found;
   H13SSL-N rev 2.0/2.01 shows board/BIOS sets the ceiling).
+- 2026-11-13T20:1xZ — **"stage with 2×64 and resell later" rejected; the 4×32
+  kit dominates it and is a third of the endgame.** Two premise errors checked
+  live: (1) **DDR5-5600 is not cheaper than 6400 right now** — ibfusion lists
+  **KSM56R46BD4-64MD (5600) at €2,550 net** vs **KSM64R52BD4-64MD (6400) at
+  €2,481 net**, i.e. the slower part costs **+2.8 %**, both in stock (10 vs 4);
+  Tonitrus agrees (Samsung 5600 €2,614.71 vs 6400 €2,667.65 net, ~3 % apart).
+  (2) **2×64 GB = 2 channels = 102.4 GB/s = ⅙ of the 614 GB/s the CPU expert
+  lane runs on**, so it cannot serve the spilling-MoE workload at all — the
+  build's own §3.6 already says the 2×64 staging configuration "is not a
+  DeepSeek configuration." It is a placeholder, not a start. **The dominant
+  purchase is one `KF576RH40RBK4-128` kit: €4,791 net = 128 GB, 4 channels,
+  JEDEC-6400 SPD** — *cheaper* than 2×64 (€4,962 net) and with **double the
+  channels** at the same capacity, and it is literally **one third of the
+  12×32 GB / 384 GB / 12-channel endgame** (3 kits, €14,372 net). Each step
+  (1 kit 128 GB/4ch → 2 kits 256 GB/8ch → 3 kits 384 GB/12ch) is a strict
+  superset of the last: **there is nothing to resell.** A 12×64 GB / 768 GB
+  build (€29,772 net) remains a *capacity* decision, not a staging one.
+  Staging ladder recorded; the "sell when the market cools" plan has no step
+  that a same-SKU ladder does not already cover better.
 - 2026-11-13T18:0xZ — **HEDT OC-line audit closes the candidate set.** 24
   Kingston Renegade Pro SKUs checked datasheet-by-datasheet: **only the 7200
   (`KF572RH38RB*`) and 7600 (`KF576RH40RB*`) bins are JEDEC-6400 CL52 @1.1 V**;
