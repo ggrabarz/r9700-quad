@@ -1758,6 +1758,36 @@ capacity or more VRAM**, never a bigger CPU.
 way to settle it later: `llama-bench` at two core counts with `--n-cpu-moe`
 fixed — if decode is flat between 32 and 64 threads, the knee is confirmed.)*
 
+## Cheapest 9555 sample, net of VAT (swept 2026-11-13)
+
+| Listing | Price | Net after PL VAT deduction | OPN in title |
+|---|---|---|---|
+| **`206400401738`** / `127729238519` / `127962185845` | **€932.37** | **≈ €942–957** | one of the three says `-12` |
+| `365767517640` / `177406631221` | €1,050.00 | ≈ €1,060–1,075 | **`-12`** |
+| `177406631223` | €1,076.12 | ≈ €1,086–1,101 | `-12` |
+| `177292135854` etc. (US) | $1,500.46 | more, plus freight | — |
+| **9555P retail** | €4,493–4,509 | — | no QS exists |
+
+**Cheapest is €932.37 — net ≈ €945.** The 23 % is €214.44, paid at the border and
+reclaimed; the carrier's handling fee (€10–25) is the only real cost.
+
+**VAT deduction does not change the ranking** — 23 % is proportional, so the
+cheapest listing stays the cheapest. What it changes is the cash flow: you pay
+**€1,146.82 + handling** up front and get **€214.44** back.
+
+**Two cautions on the €932.37 listing:**
+
+- **Three listings share that price and only one names the OPN (`-12`).** The
+  others describe the part only as "9555 ES 64 Core 128 Thread". At this price
+  the odds of receiving `-13` are real.
+- **Listings at €1,035–1,038 explicitly state "1.9–3.35 GHz" with `-13`** — so
+  the low-clock part is being sold in the same price band. **Do not pay without a
+  CPU-Z screenshot showing 3.2 GHz base.**
+
+The **€118 premium** for the `-12` listing at €1,050 is cheap insurance if the
+seller will not provide a screenshot: an RMA to China costs more than the
+difference.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2870,3 +2900,14 @@ fixed — if decode is flat between 32 and 64 threads, the knee is confirmed.)*
   headroom, not decode t/s**; slowness in decode is a RAM-capacity/VRAM problem.
   Estimates flagged; test recorded (`llama-bench`, `--n-cpu-moe` fixed, 32 vs 64
   threads).
+- 2026-11-13T02:4xZ — **cheapest 9555 sample swept: €932.37 -> net ~€942-957**
+  (`206400401738` and two siblings `127729238519`/`127962185845`; only one of the
+  three names the `-12` OPN). Next: **€1,050** (`365767517640`,
+  `177406631221`, both `-12`), then **€1,076.12** (`177406631223`). US QS
+  $1,500.46 not competitive. **9555P retail €4,493-4,509, no QS exists** for it.
+  **VAT deduction is proportional, so the ranking is unchanged** — it only
+  converts €214.44 of the €932 listing into float. Warned that **€1,035-1,038
+  listings explicitly say "1.9-3.35 GHz" with `-13`**, so the low-clock part sits
+  in the same price band; **no purchase without a CPU-Z 3.2 GHz screenshot**, and
+  the €118 premium for a listing that names `-12` is cheap insurance vs an RMA to
+  China.
