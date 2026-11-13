@@ -1502,6 +1502,41 @@ number.
 | **Case** | ATX board + 4× dual-slot blowers; needs the right slot spacing and airflow. |
 | **2× 1 TB Gen5 M.2** | No model chosen; any 2280/22110 M-key Gen5 x4 works. |
 
+## Correction: the cheap 9555 samples are not EU stock (2026-11-13)
+
+The seller's own listing text says it outright: *"You will also need to pay
+customs duties when the item arrives at customs"* / *"Sie müssen den Zoll
+rechtzeitig abfertigen und Steuern zahlen."* **A seller inside the EU never
+writes that.** And the same title is also listed at **$1,034.00** on the US
+mirror while the German mirror shows **€932.37 / €1,050.00** — the seller prices
+in **USD** and the `.de` page is a currency conversion.
+
+So **yes: the €1,050 and €932 9555 samples ship from outside the EU.** My earlier
+line "no import VAT, no customs" applies to the **board only** and was wrong for
+the CPU. Corrected cost:
+
+| Listing | Price | + 19 % import VAT | + carrier handling | Landed |
+|---|---|---|---|---|
+| 9555 sample `365767517640` | €1,050.00 | €1,249.50 | ~€6–15 | **≈ €1,255–1,265** |
+| 9555 sample `206400401738` | €932.37 | €1,109.52 | ~€6–15 | **≈ €1,115–1,125** |
+
+Duty itself is normally **0 %** — CPUs are ITA duty-free (HS 8473.30 / 8542) — so
+the "Zoll" in practice is **import VAT plus the carrier's handling fee**. The
+carrier picks the tariff code, so that is the expectation, not a guarantee.
+
+**What this changes:** the EU build becomes **H14SSL-N €975 + 9555 ≈ €1,255 =
+≈ €2,230**, not €2,025. Still ~€200 under the landed US bundle and ~€1,150 under
+H14 + retail 9355 (€2,379) — the recommendation holds, the margin does not.
+
+**What it costs you in rights:** a foreign seller means **no EU consumer
+withdrawal right**, return shipping abroad is on you unless the seller pays, and
+AMD warranties neither ES nor QS parts. eBay's Money Back Guarantee still covers
+"not as described", but enforcing it means shipping a CPU back across a border.
+
+**Therefore the IHS-OPN ask is now mandatory, not prudent:** if the part arrives
+as `-13` (1.9–3.35 GHz) you are returning it internationally. Get the photo
+before paying.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2531,3 +2566,14 @@ number.
   cables (2 GPU + 1 M.2), €11,280.90 on the €990 board. RAM/PSU/heatsink/case/
   SSD deliberately left open. Corrected a subtotal that had counted only 2
   cables. Leader unchanged.
+- 2026-11-13T00:5xZ — **corrected: the 9555 samples are non-EU stock.** Seller
+  text says the buyer must clear customs; the same title is listed at
+  **$1,034.00** while the .de mirror shows **€932.37/€1,050.00**, i.e. the seller
+  prices in **USD** and the .de page is a conversion. **Landed: €1,050 -> ~€1,255-1,265;
+  €932 -> ~€1,115-1,125** (19% import VAT + carrier handling; CPUs are ITA
+  duty-free so duty is normally 0%). **The earlier "no import VAT" claim held
+  only for the board** — EU build becomes **H14SSL-N €975 + 9555 ~€1,255 =
+  ~€2,230**, still ~€200 under the landed US bundle and ~€1,150 under H14 +
+  retail 9355. Added the consequence: **no EU withdrawal right, return shipping
+  abroad on the buyer, no AMD warranty on ES/QS** — so the **IHS-OPN photo
+  before paying is mandatory**. Leader unchanged.
