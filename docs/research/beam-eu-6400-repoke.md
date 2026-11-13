@@ -101,3 +101,30 @@ Notes: the **128 GB 3DS Samsung at €6,175.58 net with 6 in stock** is the firs
 ### 4. Verdict
 
 **Did anything beat €4,791/128 GB net? — No.** New data this pass: senetic.de opens the **QVL-family 128 GB 3DS route** (€48.25/GB, 6 in stock) and a **€15.17/GB 5600 64 GB** (quote-only, fails the 6400 rule but is the first crack in the shortage pricing — watch it).
+
+---
+
+## Pass 4 — 2026-11-13T23:4xZ (scheduled poke)
+
+### 1. Re-check of the bests
+
+| Offer | Result | Price string seen | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **BLOCKED** (Cloudflare 403, 3rd consecutive) — last verified 21 113,01 zł netto at 22:1xZ | — | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** | "2 481,00 € excl. VAT - B2B price", **4 in stock** | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| Tonitrus M321R8GA0EB2-CCP | **BLOCKED** (4th pass, 403 via r.jina.ai) — last verified €2,667.65 net / 50 in stock | — | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| senetic.pl 64MD | **UNCHANGED** | 11 509,07 zł netto | https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106 |
+| senetic.de Samsung watch rows | **UNCHANGED** | M321R8GA0EB2-CWM (5600) 971,07 € exkl; M321R8GA0PB0-CWM (5600) 3 087,21 € exkl; no 6400 EB2 variant appeared | https://www.senetic.de/search/?q=M321R8GA0PB2&f_s_category=icecat_106 |
+| Caseking V-Color JEDEC 6400 4×32 | **still OutOfStock** | — | https://www.caseking.de/en/v-color-rdimm-jedec-ddr5-6400-ram-cl52-128-gb-4-x-32-gb-quad-channel-kit-black/MEVC-031.html |
+
+### 2. New-listing sweep
+
+senetic probed for Renegade kits (`KF572RH38RBK8`), the 32 GB Server Premier (`KSM64R52BD8`) and the -64MH die variant: **no new rows** — senetic carries only the 16/64/96 GB Server Premier parts already recorded. No other shop fetched fresh this pass (all previously blocked/unreachable).
+
+### 3. QVL part hunt
+
+`MEM-DR564MC-ER64` / Samsung `M321R8GA0PB2-CCP`: **still no EU price** (5th consecutive pass).
+
+### 4. Verdict
+
+**Did anything beat €4,791/128 GB net? — No.** Third pass in a row with zero market movement; Proshop.pl and Tonitrus stay bot-walled, and the watch items (senetic.de Samsung 5600 at €971, Caseking V-Color restock) are unchanged.
