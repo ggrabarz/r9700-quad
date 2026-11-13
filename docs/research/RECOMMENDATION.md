@@ -1918,6 +1918,16 @@ standard at once:
   SP7 board is in EU retail**. Typical ramp: OEM systems first, DIY boards
   months later, at launch premiums.
 
+- **PCIe 6.0 is not what unlocks DDR5-8000.** DRAM speed is set by the **memory
+  controller and the channel count**, not by the I/O standard — **AM5 is PCIe 5.0
+  and runs DDR5-8000**. The 1024 GB/s comes from **16 channels × DDR5-8000** (Zen 6
+  I/O die + SP7 socket); PCIe 6.0 is a separate change that ships in the same
+  generation and, for this build, buys nothing.
+- **The speed-up on spilled experts is 1.67×, not 2×.** 1024 ÷ 614 = **1.67**
+  (MRDIMM-12800 gives **2.67×**), and that is a ceiling on the **CPU-bound
+  portion** only — end-to-end decode also spends time on attention and dense
+  layers on the GPUs, so the realised gain is smaller.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -3079,3 +3089,10 @@ standard at once:
   **PCIe 6.0 does not help this build** — R9700 is a Gen5 card and Gen6 slots run
   it at Gen5 — so the 9006 case rests on memory bandwidth alone. Still a **paper
   launch**: 0 offers on the 9556 tray, no SP7 board in EU retail.
+- 2026-11-13T03:5xZ — **separated PCIe 6.0 from DRAM speed.** Corrected the causal
+  link: DRAM rate is set by the **memory controller + channel count**, not the I/O
+  standard (**AM5 is PCIe 5.0 and runs DDR5-8000**); the 1024 GB/s comes from
+  **16 channels x DDR5-8000** on the Zen 6 IOD/SP7, while PCIe 6.0 is a co-shipping
+  but unrelated change that buys this build nothing (R9700 is Gen5). Also put a
+  number on the hope: **1024/614 = 1.67x** on the CPU-bound portion (MRDIMM-12800 =
+  2.67x), so **not 2x end-to-end**.
