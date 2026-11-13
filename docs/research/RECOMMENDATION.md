@@ -1537,6 +1537,59 @@ AMD warranties neither ES nor QS parts. eBay's Money Back Guarantee still covers
 as `-13` (1.9–3.35 GHz) you are returning it internationally. Get the photo
 before paying.
 
+### If the buyer is a VAT-registered business
+
+Two different things get confused here:
+
+- **A VAT ID does not remove import VAT on goods from a third country.** Reverse
+  charge covers B2B *services* and intra-EU *goods*; an import is taxed at the
+  border regardless of who buys it.
+- **But the import VAT is recoverable.** Declare the business as importer
+  (EORI + USt-IdNr. on the customs declaration, arranged with the carrier) and
+  the 19 % is deducted as input tax (§15 UStG / Art. 168 VAT Directive) on the
+  next return. The **Einfuhrungsbescheid** is the document you book it against.
+
+So for a business the real landed cost of the €1,050 part is **≈ €1,060** — price
+plus carrier handling — with **€199.50 of cash flow** in and back out. Duty stays
+0 %. That is the one arrangement in which buying the sample abroad is close to
+free versus buying in the EU.
+
+**Not a shop:** `vateu.eu` is a **Peppol VAT-number verification service**, and
+`vat.eu` redirects to a Dutch customs broker. Neither sells hardware.
+
+### Poland, JDG (sole proprietorship) — the actual treatment
+
+**Importing the CPU from outside the EU:**
+
+| Step | Detail |
+|---|---|
+| Duty | **0 %** — CPUs are ITA duty-free |
+| Import VAT | **23 %** on goods + shipping, collected by the carrier |
+| Deduction | **yes, if VAT czynny** — art. 86 ust. 2 pkt 2 ustawy o VAT: *"kwota podatku wynikająca z otrzymanego dokumentu celnego"* |
+| Document | the **customs document (PZC / zgłoszenie celne)**, not the seller's invoice |
+| EORI | required to import as a business — **free**, applied for on PUESC (biznes.gov.pl, *Numer EORI*) |
+| Exempt JDG (zwolniony) | **no deduction — the 23 % is a real cost** |
+
+**The condition that decides whether you get the money back:** the customs
+declaration must name **your JDG as the importer** (your EORI + NIP). Clear it
+through the carrier as your agent, not as a private consignment — a declaration
+in someone else's name kills the deduction.
+
+**Art. 33a (pay nothing at the border, VAT straight into JPK_V7M)** exists, but
+its conditions — no-arrears certificate valid 6 months, monthly JPK_V7M,
+reporting the import within 4 months (MDDP, art. 33a ust. 2) — are not worth
+arranging for a single CPU. **Pay the carrier, deduct in the next return.** The
+only real loss is the carrier's disbursement fee for advancing the VAT.
+
+**Buying from Germany instead (board, GPUs):** that is **WNT** — 23 % declared
+and deducted in the same JPK_V7, **zero cash out**, no customs, no carrier fee.
+Requires the German seller to invoice with your **PL VAT number at 0 %**
+("odwrotne obciążenie"); give it at checkout.
+
+**One caveat for a JDG:** deduction follows business use. A box that also serves
+privately needs a pre-proportional split (art. 86 ust. 1 / art. 90), which is
+exactly what an audit checks on a build like this.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2577,3 +2630,17 @@ before paying.
   retail 9355. Added the consequence: **no EU withdrawal right, return shipping
   abroad on the buyer, no AMD warranty on ES/QS** — so the **IHS-OPN photo
   before paying is mandatory**. Leader unchanged.
+- 2026-11-13T01:0xZ — **Polish JDG VAT treatment written down.** Import from a
+  third country: **0% duty (ITA), 23% import VAT** collected by the carrier,
+  **deductible under art. 86 ust. 2 pkt 2 ustawy o VAT** on the **customs
+  document (PZC)**, not the seller's invoice; **EORI required and free via
+  PUESC**; **exempt JDG gets no deduction, 23% becomes cost**. Hard condition:
+  **the declaration must name the JDG as importer (EORI+NIP)** or the deduction
+  is lost. **Art. 33a** (no cash at the border, VAT in JPK_V7M) needs a 6-month
+  no-arrears certificate + monthly JPK + 4-month reporting (MDDP) — **not worth
+  it for one CPU**; pay the carrier, deduct next return, lose only the
+  disbursement fee. **German purchases are WNT**: 23% declared and deducted in
+  the same JPK, **zero cash**, needs the PL VAT number on the invoice at 0%.
+  Caveat recorded: **private use needs an art. 86/90 pre-proportional split**.
+  Also noted `vateu.eu` is a **Peppol VAT verification service**, `vat.eu` a
+  Dutch customs broker — neither sells hardware.
