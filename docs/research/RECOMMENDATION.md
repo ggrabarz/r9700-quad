@@ -1447,6 +1447,61 @@ H13SSL-NT is rated **400 W** and cannot take a 9755 at all.
 - 9965/9655/9565/9575F/9475F: not available as samples in the EU; retail prices
   make them irrelevant.
 
+## Parts to order — links (consolidated 2026-11-13)
+
+Pinned parts only. **This is not a complete BOM** — RAM, PSU, heatsink, case and
+the SSD model are still open (see below).
+
+| # | Part | Price | Link |
+|---|---|---|---|
+| 1 | **Supermicro H14SSL-NT** (dual 10GbE BCM57416) | **€1,049.00** Geizhals | https://geizhals.de/supermicro-h14ssl-nt-mbd-h14ssl-nt-b-a3613182.html |
+| 1a | H14SSL-NT, cheaper EU offer | €990.00 | https://www.ebay.de/itm/188303743859 |
+| 1b | *Alt:* **H14SSL-N** (2× 1GbE) if the network is 2.5G | €975.16 | https://geizhals.de/supermicro-h14ssl-n-mbd-h14ssl-n-b-a3613031.html |
+| 2 | **EPYC 9555 QS**, OPN `100-000001247-12` | **€1,050.00** | https://www.ebay.de/itm/365767517640 |
+| 2a | 9555 sample, cheaper, **no OPN in title** | €932.37 | https://www.ebay.de/itm/206400401738 |
+| 3 | **4× PowerColor AI PRO R9700 32G-B** | **€2,249.00 each** | https://www.caseking.de/en/powercolor-radeon-ai-pro-r9700-graphics-card-32gb-gddr6/GCPC-079.html |
+| 4 | **C-Payne MCIO → PCIe 5.0 x16 adapter** | **€50.00** | https://c-payne.com/products/mcio-pcie-gen5-device-adapter-x8-x16 |
+| 5 | **C-Payne MCIO 8i gen5 cable**, 45/75 cm ×2 | **€45.00 each** | https://c-payne.com/products/mcio-sff-ta-1016-8i-cable-pcie-gen5 |
+| 6 | **KALEA MCIO 8i → 2× M.2 Gen5** | **€59.90** incl. VAT | https://www.kalea-informatique.com/adapter-for-2-ssd-m2-pcie-nvme-m-key-to-sff8654-for-mounting-two-ssd-m2-in-place-of-ssd-u2.htm |
+
+**Pinned subtotal: €11,339.90** — board €1,049 + CPU €1,050 + 4 GPUs €8,996 +
+adapter €50 + **3 cables** €135 + M.2 adapter €59.90. Take the €990 board offer
+and it is **€11,280.90**. RAM, PSU, heatsink, case and SSDs are not in this
+number.
+
+**Notes that decide whether these are the right clicks:**
+
+- **GPU stock is ambiguous.** Caseking's page text says *"Fast delivery – While
+  Supplies Last"*, but its schema.org data says **OutOfStock**, and the price is
+  **€2,249** (verified 2026-11-13). Confirm stock before ordering four.
+- **CPU listing titles say "ES" while quoting the `-12` QS OPN.** The OPN, not
+  the title, is what matters. **Get an IHS photo or CPU-Z shot in writing** and
+  the return window before paying. If it is `-13`, it is the **1.9–3.35 GHz**
+  part — refuse it.
+- **Adapter variant:** C-Payne sells a **flat (CP-0231)** and a **vertical
+  (CP-0232)** version at the same €50. Use **flat for a normal 2-slot tower
+  position**; vertical only if the card ends up in a 1-slot gap. Confirm the
+  variant at checkout.
+- **Cables: 2 for the GPU adapter** (x16 mode uses both MCIO inputs) **+ 1 for
+  the M.2 adapter**. That is 3, not 2, for the 2-drive start-up.
+- The **KALEA** price is €49.92 net; €59.90 is with French 20 % VAT.
+- **Onboard M.2 is not part of this plan** — the M.2 QVL lists only Gen4 drives,
+  so the Gen5 array rides the MCIO port instead.
+- **Link check, 2026-11-13:** Geizhals, C-Payne, KALEA and Caseking all load
+  directly. **eBay returns 403 to this host**, so the two eBay links were
+  confirmed through PicClick's mirror (listing exists, same price, same seller
+  title) — open them in a browser, not from here.
+
+**Still to choose (deliberately not linked yet):**
+
+| Part | Why open |
+|---|---|
+| **RAM** | Capacity is the real decision. Cheapest 12-channel 6400 was 3× G.Skill 4×16 GB kits ≈ €6,630 for **192 GB** — too small if MoE experts spill to RAM. 12× 64 GB at 6400 is ~€34k. No capacity decision has been made. |
+| **PSU** | 4×210 W + 360 W + ~150 W ≈ **1,350 W**, so a **1600 W** unit for the 9555. A 9755 would need 2000 W. |
+| **SP5 heatsink** | Must be rated for a **360 W** 9555 (SP5 socket, 6096). |
+| **Case** | ATX board + 4× dual-slot blowers; needs the right slot spacing and airflow. |
+| **2× 1 TB Gen5 M.2** | No model chosen; any 2280/22110 M-key Gen5 x4 works. |
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2464,3 +2519,15 @@ H13SSL-NT is rated **400 W** and cannot take a 9755 at all.
   €3,299 only if the expert set benefits from 512MB L3; treat the €1,478 "2.7GHz"
   listing as the 1.9GHz ES until the IHS OPN proves otherwise.** No purchase made;
   leader unchanged.
+- 2026-11-13T00:4xZ — **parts list with live links added.** Pinned: **H14SSL-NT
+  €1,049.00** (Geizhals a3613182, title verified "ab € 1049,00"), **€990.00**
+  eBay.de offer `188303743859` (789 EUR net, listing confirmed via PicClick
+  mirror — eBay 403s this host), **9555 QS `100-000001247-12` €1,050.00**
+  (`365767517640`), cheaper sample **€932.37** (`206400401738`, no OPN in
+  title), **4x PowerColor AI PRO R9700 €2,249.00 each** (Caseking GCPC-079 —
+  page text says fast delivery but **schema.org says OutOfStock**, confirm
+  stock), **C-Payne adapter €50.00**, **C-Payne 8i cable €45.00**, **KALEA
+  MCIO->2x M.2 €59.90 incl. VAT (€49.92 net)**. **Subtotal €11,339.90** with 3
+  cables (2 GPU + 1 M.2), €11,280.90 on the €990 board. RAM/PSU/heatsink/case/
+  SSD deliberately left open. Corrected a subtotal that had counted only 2
+  cables. Leader unchanged.
