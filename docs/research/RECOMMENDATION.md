@@ -2019,6 +2019,74 @@ QVL, untested in this build) — the standing rule applies: buy one kit first.
   configuration; if the MoE experts really spill to RAM, 768 GB (12× 64 GB) is
   the next step at roughly double the money.
 
+## Every EU-buyable JEDEC-6400 RDIMM for this board — beam sweep (2026-11-13)
+
+Four beam agents swept the EU market; **every price below was re-fetched by the
+parent** (row-by-row verify, not agent hearsay). The qualifying rule is the one
+established above: **DDR5-6400 must come from the JEDEC SPD at 1.1 V**, because
+the H14SSL-N/NT BIOS has no EXPO/XMP and no voltage/timing menu.
+
+**1 · Modules with a manufacturer-quoted JEDEC-6400 SPD (strongest evidence).**
+
+| Part | Size / ranks | EU shop | Price | Stock / lead | URL |
+|---|---|---|---|---|---|
+| **Kingston `KSM64R52BD4-64MD`** (=-64MH, -64HA) | 64 GB 2Rx4 | ibfusion | **€2,481.00 excl. VAT** (€2,681.96 incl. CH 8.1 %) | **4 in stock**, EU delivery 7–21 days | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| **Kingston `KSM64R52BD8-32MH`** (=-32MD, -32HA) | 32 GB 2Rx8 | ibfusion | **€1,421.00 excl. VAT** (€1,536.10 incl.) | **5 in stock**, 7–21 days | https://ibfusion.com/ram/32gb-ddr5-rdimm-ecc-6400mhz/ |
+| **Kingston `KF576RH40RBK4-128`** (4×32) | 32 GB 1Rx8 | Proshop PL | 25 969 zł = **€5,893 gross** (€4,791 net) per kit | 4–5 days, max 2/client | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| **Kingston `KF572RH38RBK8-256`** (8×32) | 32 GB 1Rx8 | Proshop PL | 50 712 zł = **€11,507 gross** (€9,356 net) | 4–5 days, max 2/client | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7200-256GB-CL38-Octa-Channel-8-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462075 |
+
+Datasheet quote, identical across the Server Premier family and the two
+Renegade kits: *“SPD(s) … programmed to JEDEC standard latency DDR5-6400 timing
+of 52-52-52 at 1.1V.”* (Read directly; the `KF564R32RBE` “6400 CL32” part quotes
+**4800** in the same sentence — it remains the trap.)
+
+**2 · Real-stock EU shop for the JEDEC 6400 server RDIMMs — Tonitrus (DE),
+3–4 working days, VAT shown both ways:**
+
+| Part | Size | Net | Gross | Stock |
+|---|---|---|---|---|
+| **Samsung `M321R8GA0EB2-CCP`** | 64 GB 2Rx4 | **€2,667.65** | €3,174.50 | **50 available** |
+| Micron `MTC40F2046S1RC64BH1` | 64 GB 2Rx4 | €2,654.20 | €3,158.50 | new stock UNVERIFIED (agent saw 2) |
+| Samsung `M321R4GA3EB2-CCP` | 32 GB 2Rx8 | €2,100.42 | €2,499.50 | 3 available |
+| Samsung `M321R4GA3EB2-CCP` | 32 GB 2Rx8 | €1,598.00 | €1,727.44 | 4 in stock (ibfusion, 11–24 days) |
+| Samsung `M321R8GA0PB2-CCP` — **the QVL-mapped family** | 64 GB 2Rx4 | price on request | — | **out of stock** |
+
+Samsung/Micron parts carry **no EXPO/XMP profile at all** and state CL52 at
+1.1 V — JEDEC by construction — but their manufacturers publish no SPD
+sentence, so those rows stay **UNVERIFIED wording** (the Kingston rows are
+verbatim). Supermicro’s own QVL part `MEM-DR564MC-ER64` maps to the Samsung
+`M321R8GA0PB2-CCP` family and has **no EU retail price**; only US channels
+(Supermicro eStore $2,860; eBay UK ~€1,919 snippet-only).
+
+**3 · Cost summary — 12 DIMMs, all 12 channels populated (EUR):**
+
+| Buy | Capacity | Net (PL JDG: WNT 0 %) | Gross | €/GB net |
+|---|---:|---:|---:|---:|
+| 3× `KF576RH40RBK4-128` (Proshop) | **384 GB** | **€14,372** | €17,678 | **€37.4** |
+| 12× `KSM64R52BD8-32MH` (ibfusion) | 384 GB | €17,052 | — | €44.4 |
+| 12× Samsung 32 GB (ibfusion) | 384 GB | €19,176 | — | €49.9 |
+| 12× Samsung 32 GB (Tonitrus) | 384 GB | €25,205 | €29,994 | €65.6 |
+| **12× `KSM64R52BD4-64MD` (ibfusion)** | **768 GB** | **€29,772** | — | **€38.8** |
+| 12× Micron `-BH1` (Tonitrus) | 768 GB | €31,850 | €37,902 | €41.5 |
+| **12× Samsung `M321R8GA0EB2-CCP` (Tonitrus)** | **768 GB** | **€32,012** | €38,094 | €41.7 |
+
+**Reading the table:** 384 GB is cheapest as **3× Renegade 7600 kits**
+(€37.4/GB) — but they are the off-QVL HEDT route with a 2-per-customer limit.
+For **768 GB the Kingston Server Premier at ibfusion is the value pick**
+(€38.8/GB, i.e. the same cost per byte as the Renegade route), and the
+**Samsung at Tonitrus is the only option that can actually ship 12 modules
+today** (50 in stock). “Cheapest” here is a function of capacity first:
+€14.4 k buys 384 GB, €29.8 k buys 768 GB, and both work out ~€38/GB.
+
+**Caveats.** ibfusion is a quote-based specialist (Spanish IBAN, 0 % VAT for
+VIES-registered EU businesses, prices change daily) — **send the 12-module
+request for a written quote**. Tonitrus quotes are retail with DE VAT shown
+net; it is the in-stock path. Proshop limits are per customer. And the
+standing rule still applies: **buy one kit/module, confirm 6400 × 12 channels,
+then buy the rest** — 12-DIMM training on off-QVL modules remains unbenchmarked
+on this board (no public H14 report found; the H13SSL-N rev 2.0 vs 2.01
+precedent shows the board/BIOS sets the ceiling).
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -3196,6 +3264,28 @@ QVL, untested in this build) — the standing rule applies: buy one kit first.
   publish 32/64/128GB; JEDEC still finalising Gen2 in May 2026). Flagged cost:
   **16 channels at ~$5.2k/128GB is ~$83k for 2TB**, and MRDIMM needs MRCD/MDB +
   BIOS support and often 2U-height modules. Recommendation unchanged.
+- 2026-11-13T17:5xZ — **beam sweep: every EU-buyable JEDEC-6400 RDIMM for this
+  board, parent-verified prices.** Qualifying rule unchanged (6400 must come from
+  the **JEDEC SPD at 1.1 V**). Verbatim-SPD parts: Kingston Server Premier
+  **KSM64R52BD4-64MD/-MH/-HA (64 GB 2Rx4, ibfusion €2,481 net, 4 in stock)** and
+  **KSM64R52BD8-32MH/-MD/-HA (32 GB 2Rx8, ibfusion €1,421 net, 5 in stock)**, plus
+  the Renegade **KF576RH40RBK4-128** / **KF572RH38RBK8-256** kits (Proshop)
+  already covered above. Real-stock retail: **Tonitrus DE** 3–4 days —
+  Samsung **M321R8GA0EB2-CCP 64 GB €2,667.65 net (50 available)**,
+  **M321R4GA3EB2-CCP 32 GB €2,100.42 net**, Micron **-BH1 €2,654.20 net**;
+  Samsung/Micron have no SPD sentence published, so those rows stay unverified
+  wording (CL52 @1.1 V, no EXPO → JEDEC by construction). Supermicro QVL part
+  **MEM-DR564MC-ER64** maps to Samsung **M321R8GA0PB2-CCP** — still **no EU
+  price** (order only; Tonitrus out of stock; US eStore $2,860; eBay UK ~€1,919
+  snippet-only). Cost of 12 DIMMs @ 12 channels: **384 GB from €14,372 net
+  (3× Renegade 7600)**, **768 GB from €29,772 net (12× Kingston ibfusion)
+  €38.8/GB — same per-GB as the Renegade route and the value pick at that
+  capacity**; Tonitrus Samsung 768 GB €32,012 net is the only 12-module order
+  that can ship immediately. Agent-vs-agent discrepancy resolved: ibfusion runs
+  **two** 32 GB products (Kingston €1,421 / Samsung €1,598) — both pages
+  re-fetched and confirmed. Standing rule restated: **one kit first, prove
+  6400 × 12 channels, then the rest** (no public H14 12-DIMM 6400 report found;
+  H13SSL-N rev 2.0/2.01 shows board/BIOS sets the ceiling).
 - 2026-11-13T14:1xZ — **the Proshop FURY Renegade Pro "6400" kits are the wrong
   bin for the H14SSL-N; the 7200/7600 Renegade kits are the pick.** The H14 BIOS
   is **JEDEC-only** (manual MNL-2821: no EXPO/XMP, no DIMM voltage, no DRAM
