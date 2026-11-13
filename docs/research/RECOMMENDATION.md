@@ -1631,6 +1631,47 @@ not an invoice. That is why the €1,060 figure is a genuine net cost while a
 German invoice at €1,050 gross would net to €882 — the eBay listing was never
 gross.
 
+## 9555 QS vs 9655 QS vs 9755 QS for a spilling MoE (2026-11-13)
+
+**Answer: 9555 QS.** The other two cannot change the number that matters.
+
+| | 9555 | 9655 | 9755 |
+|---|---|---|---|
+| Cores / base | 64 / 3.2 GHz | 96 / 2.6 GHz | 128 / 2.7 GHz |
+| **L3** | 256 MB | 384 MB | **512 MB** |
+| TDP / cTDP floor | 360 W / 320 W | 400 W / 320 W | **500 W / 450 W** |
+| **Memory BW** | **614 GB/s** | **614 GB/s** | **614 GB/s** |
+| Gen5 lanes | 128 | 128 | 128 |
+| QS in the EU | **€1,050** | **none** | €3,299 |
+| PSU class with 4×210 W GPUs | **1600 W** | 1600 W | **2000 W** |
+
+**Why the two bigger parts mostly don't help:**
+
+- **Bandwidth is identical.** Expert weights stream from RAM at 614 GB/s
+  whichever chip sits in the socket. At 4-bit, expert GEMM is bandwidth-bound,
+  so 128 cores do not move more bytes per second than 64 — they sit waiting.
+- **9655 is not purchasable.** No QS in the EU; retail is €4,129+. Paying a
+  premium for **+128 MB L3** when the alternative is €1,050 is not a real option.
+- **9755 buys exactly one thing: 512 MB L3.** That is genuine — it is the only
+  spec that reduces DRAM traffic on a spilling MoE. Everything else about it is
+  either neutral (bandwidth, lanes) or a penalty (450 W floor → 2000 W PSU, more
+  heat, 3× the CPU price).
+
+**Decision rule:** L3 earns its keep only if the **hot-expert working set** is
+larger than 256 MB and smaller than 512 MB. Below 256 MB the 9555 already holds
+it; above 512 MB it spills either way and both are bandwidth-bound.
+
+**The money argument that settles it:** the €2,249 delta to the 9755 buys
+**+256 MB of L3**. The same money buys roughly **60–70 GB of RDIMM** — and for a
+spilling MoE, **capacity beats cache**, because an expert you cannot hold has a
+100 % miss rate no matter how big the L3 is. A 12× 32 GB (384 GB) start is a far
+better use of the delta than the 9755.
+
+**Caveat:** this assumes the GPUs keep attention, dense layers and the hottest
+experts. If a measurement shows the CPU side dominating token time *and* the
+working set landing in the 256–512 MB window, revisit the 9755 — that is the one
+scenario where it wins, and the H14SSL-N can take it (500 W).
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2709,3 +2750,13 @@ gross.
   **eBay price is not "net" — it contains no VAT at all**; it is the customs
   value, the recoverable tax is the border assessment (PZC), which is why €1,060
   is a true net cost while a €1,050 German gross invoice would net to €882.
+- 2026-11-13T02:0xZ — **CPU for a spilling MoE: 9555 QS.** All three SKUs are
+  **614 GB/s / 128 Gen5 lanes**, so none changes the streaming ceiling; at 4-bit
+  expert GEMM is bandwidth-bound and the extra cores idle. **9655 QS does not
+  exist in the EU** (retail €4,129+), so it is not an option. **9755 buys only
+  512 MB L3** (vs 256 MB) — real, since L3 is the one spec that cuts DRAM traffic
+  — but costs **3x (€3,299)** and its **450 W cTDP floor forces a 2000 W PSU**.
+  Rule recorded: **L3 pays only if the hot-expert working set is >256 MB and
+  <512 MB**. Settling argument: the €2,249 delta buys **+256 MB L3 or ~60-70 GB
+  of RDIMM**, and **capacity beats cache** — an expert you cannot hold misses
+  100% of the time. Recommend 9555 QS + more RAM. Leader unchanged.
