@@ -1687,6 +1687,31 @@ What actually moves the needle, in order: **VRAM** (fixed at 4 cards — no fift
 slot on this board) → **RAM capacity** → **PCIe link quality for tensor
 parallel** → CPU. The CPU is last.
 
+### 9355 / 9455 instead — no, and the numbers are not close (2026-11-13)
+
+AMD-verified:
+
+| | 9355 | 9455 | **9555** |
+|---|---|---|---|
+| Cores / base | 32 / 3.55 GHz | **48 / 3.15 GHz** | **64 / 3.2 GHz** |
+| L3 | 256 MB | 256 MB | 256 MB |
+| TDP / cTDP | **280 W** / 240–300 | 300 W / 240–300 | 360 W / 320–400 |
+| Bandwidth | 614 GB/s | 614 GB/s | 614 GB/s |
+| Cheapest EU | **€2,050** | **€3,499** | **€1,050 (QS)** |
+
+**Same cache. Same bandwidth. Fewer cores. 2× and 3.3× the price.** The 9455 is
+strictly dominated by the 9555 — fewer cores at a *lower* clock for the same L3.
+The 9355's only win is **80 W** (280 vs 360) and an 11 % clock bump traded for
+**half the cores**.
+
+**And "QS" does not exist for either.** Searching the EU market returns only
+retail and used parts (`100-000001148` for the 9355, `100-000001542` for the
+9455) — the sample market is concentrated on the high-core SKUs. So there is no
+cheap route in.
+
+**Verdict: no.** 9555 QS remains, and the answer to a spilling MoE on 128 GB of
+VRAM does not change with core count, only with bytes per second.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2781,3 +2806,10 @@ parallel** → CPU. The CPU is last.
   appliance** — same for all three SKUs, choose on price and watts. Restated the
   build priority order: **VRAM (capped at 4 cards) > RAM capacity > PCIe links for
   TP > CPU**. 9555 QS stands.
+- 2026-11-13T02:2xZ — **9355 and 9455 rejected on AMD-verified specs.** 9355
+  **32c/3.55GHz/256MB/280W**, 9455 **48c/3.15GHz/256MB/300W**, both 614 GB/s —
+  i.e. **same L3 as the 9555, same bandwidth, fewer cores, at €2,050 and €3,499**
+  vs the 9555 QS at €1,050. 9455 is strictly dominated (fewer cores, lower clock,
+  same cache, 3.3x price); 9355 buys 80 W and +11% clock for half the cores.
+  **No QS exists for either** — EU listings are retail/used (`100-000001148`,
+  `100-000001542`). Leader unchanged.
