@@ -2644,3 +2644,11 @@ exactly what an audit checks on a build like this.
   Caveat recorded: **private use needs an art. 86/90 pre-proportional split**.
   Also noted `vateu.eu` is a **Peppol VAT verification service**, `vat.eu` a
   Dutch customs broker — neither sells hardware.
+- 2026-11-13T01:1xZ — **decoded the seller note "only single-channel motherboards"
+  on the 9555 ES listing: it is a translation of 单路 = single-socket (1P), not a
+  memory-channel restriction.** Harmless here — H14SSL-N/H13SSL-N are 1P — and
+  it explains the price: a 1P-only sample has no 2P-server market. The 12
+  memory channels and 1DPC 6400 are unaffected. Noted as a mild positive: the
+  seller is describing the part accurately. Unchanged: demand the IHS photo,
+  the title writes the OPN as `100-00000 1247-12` (truncated) while `-13` is the
+  1.9-3.35 GHz part.
