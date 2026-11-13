@@ -1672,6 +1672,21 @@ experts. If a measurement shows the CPU side dominating token time *and* the
 working set landing in the 256–512 MB window, revisit the 9755 — that is the one
 scenario where it wins, and the H14SSL-N can take it (500 W).
 
+### 128 GB of VRAM makes the L3 argument weaker still (2026-11-13)
+
+The four R9700s hold **128 GB**. Whatever a Flash-class MoE weighs at 4 bits, the
+part left for the CPU is **(model − 128 GB)** — comfortably **hundreds of GB** in
+any realistic quant. Against that residual, **256 vs 384 vs 512 MB of L3 is a
+rounding error**: the stream is dominated by cold experts that miss in all three.
+
+So the GPUs being the primary compute does not soften the conclusion, it
+sharpens it: the CPU is a **bandwidth appliance** on this build, and all three
+SKUs are the same **614 GB/s appliance**. Choose on price and watts. **9555 QS.**
+
+What actually moves the needle, in order: **VRAM** (fixed at 4 cards — no fifth
+slot on this board) → **RAM capacity** → **PCIe link quality for tensor
+parallel** → CPU. The CPU is last.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2760,3 +2775,9 @@ scenario where it wins, and the H14SSL-N can take it (500 W).
   <512 MB**. Settling argument: the €2,249 delta buys **+256 MB L3 or ~60-70 GB
   of RDIMM**, and **capacity beats cache** — an expert you cannot hold misses
   100% of the time. Recommend 9555 QS + more RAM. Leader unchanged.
+- 2026-11-13T02:1xZ — **with 4x R9700 (128 GB) confirmed as the primary compute,
+  the L3 window closes.** CPU residual = model minus 128 GB, i.e. hundreds of GB,
+  so 256/384/512 MB L3 is noise and the CPU is a pure **614 GB/s bandwidth
+  appliance** — same for all three SKUs, choose on price and watts. Restated the
+  build priority order: **VRAM (capped at 4 cards) > RAM capacity > PCIe links for
+  TP > CPU**. 9555 QS stands.
