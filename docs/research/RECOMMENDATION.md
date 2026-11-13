@@ -1849,6 +1849,49 @@ from a normal browser, the same rule applies: **CPU-Z showing 3.2 GHz**, and
 remember AliExpress collects **VAT only under €150 (IOSS)** — above that the
 carrier bills it at the border anyway, so there is no VAT advantage there.
 
+## SP7 / EPYC 9556 (9006 series) — the right idea, not yet buyable (2026-11-13)
+
+Checked AMD's own 9006 pages and the EU retail index. **The 9006 series is real,
+the 9556 exists — but it is SP7, not SP8, and nothing is purchasable.**
+
+| | **9556 (9006)** | 9555 (9005) |
+|---|---|---|
+| Cores | 64 / 128 | 64 / 128 |
+| **Memory channels** | **16** | 12 |
+| **Memory speed / bandwidth** | **DDR5-8000 → 1024 GB/s**, MRDIMM-12800 → **1638 GB/s** | DDR5-6400 → **614 GB/s** |
+| L3 | **192 MB** | 256 MB |
+| PCIe | **6.0 x96** | 5.0 x128 |
+| Socket | **SP7** | SP5 |
+| Power | 300–400 W, **cTDP-down 220 W** | 360 W, cTDP 320–400 |
+| List | **$8,008** | $7,973 |
+| Tray OPN | **`100-000001647`** | `100-000001142` |
+| **EU availability** | **0 offers**, no SP7 board listed | in stock, €975 board |
+
+**What it would buy:** **+67 % memory bandwidth** (1024 vs 614 GB/s). That is
+exactly the bottleneck for CPU-offloaded experts, and unlike every 9005 SKU
+comparison, this one is not noise — it is the first platform change that actually
+moves decode. It also idles down to **220 W cTDP**, which is kind to the PSU.
+
+**What it costs:** **192 MB L3** instead of 256, **96 PCIe lanes** instead of 128
+(enough for 4× x16 + M.2 + NIC, but no headroom), and **16 DIMMs to reach full
+bandwidth** — the same capacity needs 33 % more modules during a DRAM shortage.
+
+**The blocker is availability, not merit.** Geizhals lists the 9556 tray with
+**0 Angebote**, and **no H15SSL/SP7 board appears in EU retail** (searching
+"H15SSL" only returns the older H12/H13 boards). Supermicro's catalogue shows an
+**H15 (5 products)** family, so the boards exist — they are simply not on sale
+yet.
+
+**Clocks are disputed:** AMD's page reads **3.6 GHz base / up to 5.1 GHz boost /
+400 W**; Geizhals reads **2.75 / 4.30 GHz / 300 W**. Both are flagged
+**UNVERIFIED** — do not quote either until a retail board exists to test.
+
+**Verdict: no switch now.** Platform cost today is **€2,025** (H14SSL-N €975 +
+9555 QS €1,050); an SP7 equivalent would be **€5,000+ CPU and a board that cannot
+be bought**. Stay on SP5 and **revisit when H15 boards appear in EU retail** —
+at that point the 9556 is the obvious upgrade for this workload, and the €2,025
+SP5 platform is cheap enough to have been a bridge rather than a mistake.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2992,3 +3035,14 @@ carrier bills it at the border anyway, so there is no VAT advantage there.
   retail clocks at a sample price**, and the €932 cluster is where the 1.9 GHz
   parts concentrate. Restated: AliExpress VAT is IOSS-only under €150, so no VAT
   advantage above that.
+- 2026-11-13T03:3xZ — **SP7/9006 checked: right direction, not buyable.** AMD's
+  9006 pages are live; **9556 is 64c on SP7 (not SP8)**, tray OPN
+  **`100-000001647`**, list **$8,008**, and offers **16 channels / DDR5-8000 =
+  1024 GB/s** (+67% over SP5's 614) or **MRDIMM-12800 = 1638 GB/s**, **PCIe 6.0
+  x96**, **L3 192 MB** (down from 256), **cTDP-down 220 W**. Clocks conflict
+  (**AMD: 3.6/5.1 @400 W; Geizhals: 2.75/4.30 @300 W**) -> **UNVERIFIED both**.
+  **Blocker: Geizhals shows 0 offers and no SP7/H15 board exists in EU retail**
+  (Supermicro lists an H15 family of 5, none on sale). Also **16 DIMMs** needed
+  for full bandwidth = +33% modules. **Verdict: stay on SP5 now** (EUR2,025
+  platform), **revisit when H15 boards reach retail** — the 9556 is then the
+  obvious upgrade for CPU-offloaded experts.
