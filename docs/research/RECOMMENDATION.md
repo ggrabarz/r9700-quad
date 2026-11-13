@@ -1928,6 +1928,43 @@ standard at once:
   portion** only — end-to-end decode also spends time on attention and dense
   layers on the GPUs, so the realised gain is smaller.
 
+## IOD, in plain words — and what MRDIMM actually costs (2026-11-13)
+
+### The IOD
+
+A modern EPYC is not one chip. Inside the package there are:
+
+- **CCDs** — the compute chiplets, each holding a handful of cores and its slice of
+  L3. These are the offices where the work happens.
+- **One IOD** — the **I/O die**. Think of it as the **building's lobby**: every
+  request to memory, every PCIe card and every network packet goes through it,
+  and the **memory controllers live inside it**.
+
+That is the whole reason a new generation can suddenly support faster RAM: the
+**lobby was rebuilt**. Zen 5's IOD drives **12 channels at DDR5-6400**; Zen 6's
+drives **16 channels at DDR5-8000** and understands **MRDIMM**. PCIe is a
+different department in the same lobby — the speed of the driveway does not set
+the speed of the mailroom.
+
+### MRDIMM on the market — yes, but read the price
+
+| Generation | Status | Evidence |
+|---|---|---|
+| **MRDIMM-8800 (Gen1)** | **buyable** | Samsung 128 GB 4Rx8 (M327RAJA…) listed at **$5,199.99/module** on eBay; SK hynix, Micron, SMART Modular shipping |
+| **MRDIMM-12800 (Gen2)** | **early / OEM channel** | HPE-branded **128 GB 12,800 MT/s quad-rank** listed; SMART Modular and Innodisk publish 32/64/128 GB parts; JEDEC was still finalising 2nd-gen MRDIMM as of May 2026 |
+
+**The cost is the story.** At ~$5,200 per 128 GB module, filling **16 channels**
+is ~$83k for 2 TB — before the shortage premium. Even 16× 64 GB lands far above
+the DDR5-6400 RDIMM plan.
+
+**Also**: MRDIMM needs **MRCD/MDB** buffer chips on the module and BIOS support;
+it is not a drop-in on every board, and capacity above 128 GB often forces taller
+(2U) modules.
+
+**Practical read:** the 2.67× MRDIMM number is real but is a **five-figure RAM
+decision**, not an upgrade path. For this build, DDR5-6400 RDIMM on SP5 stays the
+value choice, and even the 1.67× SP7 RDIMM path waits for boards.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -3096,3 +3133,12 @@ standard at once:
   but unrelated change that buys this build nothing (R9700 is Gen5). Also put a
   number on the hope: **1024/614 = 1.67x** on the CPU-bound portion (MRDIMM-12800 =
   2.67x), so **not 2x end-to-end**.
+- 2026-11-13T04:1xZ — **IOD explained and MRDIMM market checked.** IOD = the
+  package's I/O die (lobby): owns the **memory controllers**, PCIe and socket
+  links, which is why Zen 6's new IOD — not PCIe 6.0 — is what moves 12ch/6400 to
+  **16ch/8000 + MRDIMM**. Market: **MRDIMM-8800 is buyable** (Samsung 128GB 4Rx8
+  at **$5,199.99/module** on eBay; SK hynix/Micron/SMART shipping);
+  **MRDIMM-12800 is early/OEM** (HPE-branded 128GB 12,800 listed; SMART + Innodisk
+  publish 32/64/128GB; JEDEC still finalising Gen2 in May 2026). Flagged cost:
+  **16 channels at ~$5.2k/128GB is ~$83k for 2TB**, and MRDIMM needs MRCD/MDB +
+  BIOS support and often 2U-height modules. Recommendation unchanged.
