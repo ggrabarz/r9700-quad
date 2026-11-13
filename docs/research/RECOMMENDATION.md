@@ -1298,12 +1298,29 @@ to put to the seller in writing before paying, because rev 2.0 silently costs
 
 | Part | Price | Note |
 |---|---|---|
-| **9555 QS** `100-000001247-12` | **$1,500.46** | QS suffix **-12** |
+| **9555 QS** `100-000001247-12` | **$1,500.46** | listed as QS |
 | 9555 ES `100-000001247-12` / `-13` | $1,030–1,035 | **1.9–3.35 GHz** listed vs 3.2–4.4 retail |
 | 9555 retail | €4,529 | — |
 
-**The part-number split is the useful finding:** sample OPN **`-12` is the QS**,
-**`-13` is the 1.9–3.35 GHz ES**. So the lottery is identifiable before buying.
+**RETRACTED 2026-11-13 — the OPN suffix is not an ES/QS code.** The earlier claim
+"`-12` = QS, `-13` = ES" does not survive a wider look:
+
+- **9755 QS** is `100-000001535-**05**`, **9554 QS** `100-000000896-**02**`,
+  **9654 QS** `100-000000894-**04**`. Different SKUs sit at different numbers, so
+  the digits cannot encode "QS".
+- **The same `-12` suffix appears on listings labelled QS, on listings labelled
+  ES, and even on a **9554** (Genoa) listing** — the last one is plainly a
+  copy-paste error by the seller, which is the real lesson: **listing OPNs are
+  pasted between items and are weak evidence.**
+
+**What the suffix actually is:** an AMD internal **revision/stepping index** for
+that SKU, incremented as the silicon and its validation move on. AMD does not
+publish the mapping, so `-12` vs `-13` cannot be decoded from documentation.
+
+**The practical discriminator is therefore not the OPN but the clock.** A QS runs
+production clocks (**9555: 3.2 GHz base / 4.4 GHz boost**); the cheap parts are
+listed **1.9–3.35 GHz**. Ask for a **CPU-Z screenshot** (or the IHS photo), and
+treat the OPN only as a cross-check against what is printed on the part.
 
 **Cost of the two routes:**
 
@@ -1605,6 +1622,14 @@ exactly what an audit checks on a build like this.
 | **Net, VAT zwolniony** | **≈ €1,300–1,315** |
 
 The €932 listing nets at **≈ €945** and €1,155–1,170 respectively.
+
+**Is the eBay €1,050 "net"?** Not in the tax sense — **it contains no VAT at
+all.** A third-country seller charges no EU VAT, so there is nothing inside the
+price to reclaim; the €1,050 is simply the **customs value**. The VAT you recover
+is the **import VAT assessed at the border**, and its document is the **PZC**,
+not an invoice. That is why the €1,060 figure is a genuine net cost while a
+German invoice at €1,050 gross would net to €882 — the eBay listing was never
+gross.
 
 ## Open questions
 
@@ -2674,3 +2699,13 @@ The €932 listing nets at **≈ €945** and €1,155–1,170 respectively.
   Added the JDG end price for the CPU: **net ~€1,060-1,075 for a VAT czynny JDG**
   (23 % = €241.50 deductible, cash flow only; carrier handling €10-25 is the real
   cost) vs **~€1,300-1,315 for a zwolniony JDG**; the €932 part nets ~€945.
+- 2026-11-13T01:4xZ — **retracted the OPN-suffix rule and clarified "net".**
+  `-12` is **not** a QS code: **9755 QS is `-05`, 9554 QS `-02`, 9654 QS `-04`**,
+  and **the same `-12` shows up on QS listings, ES listings and a 9554 (Genoa)
+  listing** — i.e. sellers paste OPNs between items. The suffix is an **AMD
+  internal revision/stepping index**, unpublished, not decodable. **Practical
+  discriminator is the clock: QS = 3.2 GHz base / 4.4 GHz boost vs the cheap
+  parts' 1.9-3.35**, so ask for **CPU-Z**, not an OPN. Also answered that the
+  **eBay price is not "net" — it contains no VAT at all**; it is the customs
+  value, the recoverable tax is the border assessment (PZC), which is why €1,060
+  is a true net cost while a €1,050 German gross invoice would net to €882.
