@@ -1892,6 +1892,32 @@ be bought**. Stay on SP5 and **revisit when H15 boards appear in EU retail** —
 at that point the 9556 is the obvious upgrade for this workload, and the €2,025
 SP5 platform is cheap enough to have been a bridge rather than a mistake.
 
+### Yes — this is the generational step (2026-11-13)
+
+**9006 is the 6th Gen EPYC** (Zen 6, "Venice"), successor to 9005 Turin, and it
+is the generation that moves the socket, the memory standard and the PCIe
+standard at once:
+
+| | 9005 (Turin) | **9006 (Venice)** |
+|---|---|---|
+| Generation | 5th | **6th** |
+| Socket | SP5 | **SP7** (family also lists SP8) |
+| PCIe | 5.0 × 128 | **6.0 × 96** |
+| Channels | 12 | **16** |
+| Memory | DDR5-6400 | **DDR5-8000 / MRDIMM-12800** |
+| Top SKU | 9755, 128c | **9996, 256c / 512t** |
+
+**So yes: PCIe 6.0 boards and 6th-gen EPYC arrive together** — the Supermicro
+**H15** family is that board generation. But two things to keep straight:
+
+- **PCIe 6.0 does not help this build.** The R9700 is a **PCIe 5.0** card; a Gen6
+  slot runs it at Gen5. The only reason to want 9006 here is **memory bandwidth**
+  (614 → 1024 GB/s), not the slot standard.
+- **It is a paper launch.** AMD's own footnotes already cite "as of July 2026,
+  6th Gen EPYC 9996 has 256 cores", yet the **9556 tray shows 0 offers** and **no
+  SP7 board is in EU retail**. Typical ramp: OEM systems first, DIY boards
+  months later, at launch premiums.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -3046,3 +3072,10 @@ SP5 platform is cheap enough to have been a bridge rather than a mistake.
   for full bandwidth = +33% modules. **Verdict: stay on SP5 now** (EUR2,025
   platform), **revisit when H15 boards reach retail** — the 9556 is then the
   obvious upgrade for CPU-offloaded experts.
+- 2026-11-13T03:4xZ — **confirmed 9006 is the generational step**: 6th Gen EPYC
+  (Zen 6 "Venice"), **SP7** (family also lists SP8), **PCIe 6.0 x96**, **16
+  channels**, DDR5-8000/MRDIMM-12800, top SKU **9996 256c/512t** (AMD footnote
+  "as of July 2026"). Supermicro **H15** is the matching board family. Noted that
+  **PCIe 6.0 does not help this build** — R9700 is a Gen5 card and Gen6 slots run
+  it at Gen5 — so the 9006 case rests on memory bandwidth alone. Still a **paper
+  launch**: 0 offers on the 9556 tray, no SP7 board in EU retail.
