@@ -1821,6 +1821,34 @@ runs identically. But:
 ever appears at a genuinely lower price than the QS 9555 — it will run in this
 board just fine.
 
+## AliExpress and Polish sources for a near-retail-clock 9555 (2026-11-13)
+
+**Answer: neither channel yields one. The eBay €1,050 listing is still the only
+route to retail clocks at a sample price.**
+
+| Source | Result | Status |
+|---|---|---|
+| **AliExpress** (`pl.aliexpress.com`, `de.`) | search renders titles, **prices come from a client-side API behind an anti-bot gate** — no price could be read | **UNVERIFIED** |
+| **Ceneo** — 9555 tray `100-000001142` | **from 30 188,10 zł** (2 shops); another 9555 product at **20 846,72 zł** | read 2026-11-13 |
+| **Ceneo** — 9555P tray `100-000001523` | listed, **no price shown** in the extract | partially read |
+| **OLX** | no 9555 listings at all | read |
+| **Allegro** | **403 (DataDome)** to this host | UNVERIFIED |
+
+**Polish retail is 20 847–30 188 zł ≈ €4 850–7 000** (≈4.3 zł/€ — check the day's
+rate), i.e. **5–7× the QS price**, and it is **tray only**. There is no ES/QS
+channel in Poland: the domestic market sells boxed/tray parts with invoices, not
+samples.
+
+**So the "near-retail clocks" question reduces to one thing:** a listing that
+states **3.2 GHz base / 4.4 GHz boost**, not one that says "1.9–3.35 GHz". Of the
+listings found, only the **€1,050 one (`365767517640`)** names the `-12` OPN *and*
+sits in the higher price band; the €932 cluster is where the 1.9 GHz parts live.
+
+**Do not buy on an AliExpress price you cannot read.** When the page is readable
+from a normal browser, the same rule applies: **CPU-Z showing 3.2 GHz**, and
+remember AliExpress collects **VAT only under €150 (IOSS)** — above that the
+carrier bills it at the border anyway, so there is no VAT advantage there.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2953,3 +2981,14 @@ board just fine.
   9555P would fit perfectly, **but EU street is €4,493-4,509 vs €4,529** — the
   list discount never reaches retail — and **no P samples exist**. Verdict:
   irrelevant now, worth revisiting only if a tray 9555P undercuts the QS 9555.
+- 2026-11-13T03:1xZ — **AliExpress and Polish sources swept for a near-retail-clock
+  9555.** **AliExpress UNVERIFIED**: the search page renders titles but prices are
+  behind a client-side API plus anti-bot, so **no price could be read** and none is
+  cited. **Poland: Ceneo 9555 tray `100-000001142` from 30 188,10 zł (2 shops)**
+  and another 9555 product at **20 846,72 zł** => **€4 850-7 000 at ~4.3 zł/€**,
+  5-7x the QS, **tray only, no ES/QS channel in PL**; 9555P tray `100-000001523`
+  listed without a readable price; **OLX has none**; **Allegro 403 (DataDome)**.
+  Conclusion: **the €1,050 eBay listing naming `-12` is still the only route to
+  retail clocks at a sample price**, and the €932 cluster is where the 1.9 GHz
+  parts concentrate. Restated: AliExpress VAT is IOSS-only under €150, so no VAT
+  advantage above that.
