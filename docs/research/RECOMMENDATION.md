@@ -1712,6 +1712,52 @@ cheap route in.
 **Verdict: no.** 9555 QS remains, and the answer to a spilling MoE on 128 GB of
 VRAM does not change with core count, only with bytes per second.
 
+### Do cores and AVX-512 matter for decode, or only prefill? (2026-11-13)
+
+**They matter differently, and decode is the one where they stop mattering
+early.**
+
+| | Decode (batch 1) | Prefill (batch N) |
+|---|---|---|
+| Bound by | **DRAM bytes** | **FLOPs** |
+| Arithmetic intensity | ~4 FLOP/byte at 4-bit | rises with N |
+| Cores help? | **only until 614 GB/s is saturated** | **yes, roughly linearly** |
+| AVX-512 width | marginal | direct |
+
+**Why decode is bandwidth-bound:** one token activates a few experts, so each
+expert's weight matrix is used for a **matrix-vector** product. Every weight byte
+is read once and used once — 2 FLOP per 4-bit parameter, i.e. **~4 FLOP/byte**.
+At 614 GB/s that caps useful compute at **~2.4 TFLOP/s**, far below what 64 Zen 5
+cores can issue. **The cores sit waiting on memory.**
+
+**So what are the cores for at decode?** Two things: **hiding DRAM latency**
+(enough independent streams in flight to actually reach ~614 GB/s on scattered
+expert reads, which achieve well under peak) and **spreading the routed experts**
+across cores. The knee for a dequantising GEMV is roughly **24–40 cores**; past
+that, extra cores add nothing because the channels are already busy. 64 clears
+the knee with margin; **128 buys literally zero decode throughput**.
+
+**Prefill is the opposite.** With hundreds of tokens in flight, each loaded
+weight is reused N times, so the CPU-side expert GEMM becomes **compute-bound**
+and performance tracks **cores × clock × SIMD width** almost linearly. This is
+where 64 cores beat 32 by close to 2× — and where the 9755's 128 cores would
+finally earn something, at 2× the power for a phase that is not usually the
+bottleneck on a GPU-heavy box.
+
+**One 9005-specific point worth knowing:** Zen 5 has **full-width 512-bit
+AVX-512** (Zen 4 executes it as two 256-bit halves). So the same core count is
+worth more on 9005 than 9004 — a real reason not to "save" by dropping to a
+Genoa board.
+
+**Practical read for this build:** the 9555's 64 cores buy **prefill speed and
+latency headroom**, not decode tokens/s. Decode is a RAM-bandwidth number and
+will be the same on all three SKUs. If decode feels slow, the fix is **more RAM
+capacity or more VRAM**, never a bigger CPU.
+
+*(These are first-principles estimates, not measurements on this box. The cheap
+way to settle it later: `llama-bench` at two core counts with `--n-cpu-moe`
+fixed — if decode is flat between 32 and 64 threads, the knee is confirmed.)*
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2813,3 +2859,14 @@ VRAM does not change with core count, only with bytes per second.
   same cache, 3.3x price); 9355 buys 80 W and +11% clock for half the cores.
   **No QS exists for either** — EU listings are retail/used (`100-000001148`,
   `100-000001542`). Leader unchanged.
+- 2026-11-13T02:3xZ — **decode vs prefill on CPU-offloaded experts analysed.** Decode
+  is **bandwidth-bound** (~4 FLOP/byte at 4-bit, so 614 GB/s caps useful compute
+  at ~2.4 TFLOP/s): cores only help to **hide DRAM latency** and spread the routed
+  experts, with the knee at roughly **24-40 cores** — so **128 cores add zero
+  decode throughput** and 64 clears the knee. Prefill is **compute-bound** and
+  tracks **cores x clock x SIMD width**, which is where 64 vs 32 is ~2x. Noted
+  **Zen 5 runs AVX-512 full-width (Zen 4 double-pumps it)**, a real 9005
+  advantage at equal bandwidth. Practical: 9555's cores buy **prefill and latency
+  headroom, not decode t/s**; slowness in decode is a RAM-capacity/VRAM problem.
+  Estimates flagged; test recorded (`llama-bench`, `--n-cpu-moe` fixed, 32 vs 64
+  threads).
