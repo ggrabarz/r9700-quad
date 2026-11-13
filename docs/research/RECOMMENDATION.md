@@ -1788,6 +1788,39 @@ The **€118 premium** for the `-12` listing at €1,050 is cheap insurance if t
 seller will not provide a screenshot: an RMA to China costs more than the
 difference.
 
+### What "P" actually means (AMD-verified, 2026-11-13)
+
+**Nothing except socket count and price.** The two spec sheets are otherwise
+identical line for line:
+
+| | 9555 | **9555P** |
+|---|---|---|
+| Cores / threads | 64 / 128 | 64 / 128 |
+| Base clock | 3.2 GHz | 3.2 GHz |
+| L3 | 256 MB | 256 MB |
+| TDP / cTDP | 360 W / 320–400 | 360 W / 320–400 |
+| **PCIe 5.0 lanes** | **x128** | **x128** |
+| Memory channels | 12 | 12 |
+| **Socket count** | **1P / 2P** | **1P** |
+| **1kU price** | **$7,973** | **$6,130 (−23 %)** |
+
+**P is not an optimisation, it is a restriction.** The second socket's Infinity
+Fabric links are fused off and the part is validated for single-socket boards
+only; AMD charges 23 % less because it does less. **The xGMI lanes are not
+repurposed as PCIe** — still x128 either way, so no extra lanes, no extra
+bandwidth, no clock or cache advantage.
+
+**For this build it would be a perfect fit** — the H14SSL-N is 1P, so a 9555P
+runs identically. But:
+
+- **EU street price is €4,493–4,509 vs €4,529 for the 9555** — the 23 % list
+  discount **does not reach retail buyers** here, so there is nothing to gain.
+- **No samples exist** for the P SKU; the €932–1,050 market is all non-P.
+
+**Verdict:** irrelevant for this purchase. Worth remembering only if a tray 9555P
+ever appears at a genuinely lower price than the QS 9555 — it will run in this
+board just fine.
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2911,3 +2944,12 @@ difference.
   in the same price band; **no purchase without a CPU-Z 3.2 GHz screenshot**, and
   the €118 premium for a listing that names `-12` is cheap insurance vs an RMA to
   China.
+- 2026-11-13T02:5xZ — **"P" decoded from AMD's own spec tables: it is a
+  restriction, not an optimisation.** 9555 vs 9555P are **line-for-line
+  identical** — 64c/128t, 3.2 GHz, 256 MB L3, 360 W, cTDP 320-400, **PCIe 5.0
+  x128**, 12 channels — with **Socket Count 1P/2P vs 1P** and **list $7,973 vs
+  $6,130 (-23%)** as the only differences. The second socket's Infinity Fabric is
+  fused off; **the xGMI lanes are not repurposed as PCIe**. Since the H14 is 1P a
+  9555P would fit perfectly, **but EU street is €4,493-4,509 vs €4,529** — the
+  list discount never reaches retail — and **no P samples exist**. Verdict:
+  irrelevant now, worth revisiting only if a tray 9555P undercuts the QS 9555.
