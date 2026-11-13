@@ -2087,6 +2087,55 @@ then buy the rest** — 12-DIMM training on off-QVL modules remains unbenchmarke
 on this board (no public H14 report found; the H13SSL-N rev 2.0 vs 2.01
 precedent shows the board/BIOS sets the ceiling).
 
+## HEDT OC-RDIMM audit — only the Renegade 7200/7600 bins survive the JEDEC rule (2026-11-13)
+
+A beam agent fetched **24 Kingston Renegade Pro datasheet SKUs** and published
+the SPD sentence per part; parent spot-checked the same sentences in the cached
+PDFs. Result: **the split is the bin, not the kit size** —
+
+- **PASS, JEDEC-6400 CL52-52-52 @ 1.1 V:** every `KF572RH38RB*` (7200) and
+  `KF576RH40RB*` (7600) SKU — singles 16/32 GB, 4-kits (64/128 GB), and the
+  7200 8-kit 256 GB.
+- **FAIL, JEDEC-4800 CL40-39-39 @ 1.1 V:** every `KF556R36*` (5600),
+  `KF560R32*` (6000), `KF564R32*` (6400 CL32) SKU. The three “6400” families
+  are **4800 out of the box** on this BIOS.
+
+**The other HEDT OC lines publish no JEDEC SPD speed at all** — G.Skill Zeta R5
+& Zeta R5 Neo & T5 Neo, Corsair WS DDR5 RDIMM, V-Color OC R-DIMM, TeamGroup
+T-Create Master OC RDIMM. Rated 6400 via XMP/EXPO at 1.30–1.40 V, SPD speed
+unstated → **UNVERIFIED**, i.e. non-qualifying until a datasheet says otherwise.
+That demotes the G.Skill 4×64 / 8×64 kits in the earlier options lists from
+“candidates” to “unknown”; they were never SPD-checked.
+
+**Buying details the audit adds:**
+
+- **No 7600 8-module kit exists** (`KF576…K8-*` do not resolve) — 384 GB is
+  **3× 4-kit** (or 12 singles), and Proshop’s **max 2 pcs/customer** forces
+  more than one order.
+- Proshop.de (agent-reported; Cloudflare blocked the parent’s re-fetch) has the
+  4×32 GB kit at **€5,739.82 incl. VAT**, the single 32 GB at **€1,439.07**,
+  the 4×16 GB at **€3,777.63**, 3–5 days. Cross-check: parent-verified
+  Proshop.pl has the same 4×32 kit at **25 969 zł = €5,893**, so the two
+  shopfronts agree within a few percent.
+- **Mechanical risk, unverified:** the 7200+ parts use a **34.12 mm aluminium
+  heat spreader** versus **31.25 mm** on the graphene-labelled ≤6400 modules.
+  Whether that clears the DIMM channels next to the 9555 socket (and any
+  server-style airflow shroud) is untested — check before ordering 12.
+
+### Final qualifying set, all evidence in one place
+
+| Route | Module | JEDEC 6400 evidence | EU price (12 modules) |
+|---|---|---|---|
+| Cheapest 384 GB | Kingston `KF576RH40RBK4-128` | datasheet sentence ✔ | **€14,372 net** (Proshop.pl, 3× kit) |
+| 384 GB, server-grade | Kingston `KSM64R52BD8-32MH` | datasheet sentence ✔ | €17,052 net (ibfusion, 12 singles) |
+| 768 GB value | Kingston `KSM64R52BD4-64MD` | datasheet sentence ✔ | **€29,772 net** (ibfusion) |
+| 768 GB, ships today | Samsung `M321R8GA0EB2-CCP` | CL52 @1.1 V, no EXPO, no SPD text ✖ | €32,012 net (Tonitrus, 50 in stock) |
+| QVL-backed | Supermicro `MEM-DR564MC-ER64` | on the board’s QVL ✔ | no EU price — order only |
+
+Everything else found by the sweep either fails the JEDEC rule, has no stated
+SPD (all G.Skill/Corsair/V-Color/TeamGroup), or has no EU listing (SK hynix,
+Micron 32 GB, NEMIX, A-Tech).
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -3286,6 +3335,22 @@ precedent shows the board/BIOS sets the ceiling).
   re-fetched and confirmed. Standing rule restated: **one kit first, prove
   6400 × 12 channels, then the rest** (no public H14 12-DIMM 6400 report found;
   H13SSL-N rev 2.0/2.01 shows board/BIOS sets the ceiling).
+- 2026-11-13T18:0xZ — **HEDT OC-line audit closes the candidate set.** 24
+  Kingston Renegade Pro SKUs checked datasheet-by-datasheet: **only the 7200
+  (`KF572RH38RB*`) and 7600 (`KF576RH40RB*`) bins are JEDEC-6400 CL52 @1.1 V**;
+  all 5600/6000/**6400 CL32** SKUs are JEDEC-4800. **G.Skill Zeta/T5 Neo,
+  Corsair WS, V-Color OC and TeamGroup T-Create OC lines publish no JEDEC SPD
+  speed** (EXPO/XMP 1.30–1.40 V only) → UNVERIFIED and non-qualifying, which
+  demotes the G.Skill 4×64/8×64 kits previously listed as options. Buying
+  details: **no 7600 8-kit exists** (3× 4-kit for 384 GB), Proshop **max 2
+  pcs/customer** forces multiple orders, Proshop.de agent-reported €5,739.82
+  (4×32)/€1,439.07 (single 32)/€3,777.63 (4×16) 3–5 days — cross-checks with
+  parent-verified Proshop.pl 25 969 zł = €5,893 for the same kit. **Mechanical
+  risk flagged, unverified: 7200+ modules are 34.12 mm tall (aluminium heat
+  spreader) vs 31.25 mm for ≤6400 graphene** — check DIMM-channel clearance
+  before ordering 12. Final qualifying set: 384 GB from €14,372 net
+  (Renegade 7600) or €17,052 net (Kingston 32 GB server), 768 GB from €29,772
+  net (Kingston 64 GB, ibfusion) or €32,012 net (Samsung, Tonitrus, in stock).
 - 2026-11-13T14:1xZ — **the Proshop FURY Renegade Pro "6400" kits are the wrong
   bin for the H14SSL-N; the 7200/7600 Renegade kits are the pick.** The H14 BIOS
   is **JEDEC-only** (manual MNL-2821: no EXPO/XMP, no DIMM voltage, no DRAM
