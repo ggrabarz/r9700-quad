@@ -1325,6 +1325,73 @@ way.
 4. **Has this exact board+CPU pair been POST-tested together, and at what memory
    speed?**
 
+## H14 vs H13 — the real delta, and EU sourcing (2026-11-13)
+
+### What the H14 actually adds over the H13
+
+Both are ATX single-SP5 boards with the **same expansion set**: 3× PCIe 5.0 x16 +
+2× x8, 2× MCIO x8 + 1 hybrid, 2× M.2 PCIe 5.0 x4, 8× SATA3, 2× 10GbE
+BCM57416 (-NT), AST2600 BMC, 6 fan headers, 6× USB 3.0. Even the **rear I/O
+shield is the same part** (MCP-260-00073-0N fits both), which is good evidence
+they are the same physical layout.
+
+Verified from Supermicro's own product pages, **the entire difference is three
+lines**:
+
+| | **H14SSL-NT** | **H13SSL-NT** |
+|---|---|---|
+| Max CPU TDP | **500 W** | **400 W** |
+| 9005 support | native, every board | **rev 2.x only** |
+| DDR5 at 1DPC | **6400, every board** | 4800 (9004) / **6000 on rev 2.0** / **6400 only on rev 2.01** |
+| Expansion, NIC, BMC, M.2, SATA, fans | — | **identical** |
+
+So:
+
+- **500 W vs 400 W is the only non-revision spec advantage**, and it is
+  **irrelevant for this build**: a 9555 is 360 W and a 9355 is 280 W. It only
+  matters if you later fit a 9755/9965 (500 W), which are already rejected.
+- **The rest is revision luck.** H13 needs rev 2.x to boot 9005 at all, and
+  **rev 2.01 specifically** to hit 6400. On the used market that is a
+  coin-flip you cannot inspect before paying.
+- Plus the boring one: **H14 is new with warranty and current firmware**;
+  the bundle boards are used.
+
+**Conclusion: for a 9555 or 9355 at 6400, the H14's only real value is that it
+removes the revision lottery. That is worth paying for — and, as below, it is
+not even more expensive.**
+
+### Are the bundles available in Europe? Effectively no.
+
+The bundle listings surface on eBay.de, but they are **USD-priced** ($2,100 /
+$2,376) — i.e. US/Asia sellers shipping in, not EU stock. Landed in the EU they
+take **+19 % import VAT** (plus handling), which puts $2,100 at roughly
+**€2,300–2,400**.
+
+Meanwhile the **same components are EU-stock, separately**:
+
+| Item | EU price | Where |
+|---|---|---|
+| **H14SSL-N** | **€975.16** | Geizhals DE |
+| **H14SSL-NT** (10GbE) | **€990.00** / €1,049.00 | picclick.de / Geizhals DE |
+| H13SSL-NT **rev 2.00** | €1,059–1,171 | EU sellers |
+| H13SSL-NT **rev 2.01** | **€1,037.15** | EU seller |
+| 9555 sample, OPN **`-12`** | **€1,050.00** / €1,076.12 | EU sellers |
+| 9555 sample, no OPN listed | €932.37 | EU seller |
+| 9555 ES **`-13`** (1.9–3.35 GHz) | listed, avoid | EU seller |
+
+**The H13 bundle no longer makes sense even on price: an H13SSL-NT rev 2.01
+costs €1,037 in the EU — the same as the H14SSL-NT (€990–1,049).** You would pay
+H14 money for an older board with a 400 W ceiling and a revision trap.
+
+**The EU build: H14SSL-N €975 + 9555 QS €1,050 = ~€2,025**, new board with
+warranty, 6400 guaranteed, no import VAT, no customs. That beats the landed US
+bundle by roughly €300 and removes two of the four questions (revision, import).
+
+**What still has to be asked of the EU CPU seller:** the listings say **"ES"**
+while quoting the **`-12` QS OPN** — the title and part number disagree. Get the
+**OPN printed on the IHS** in writing (or a CPU-Z screenshot) before paying, and
+confirm the return window. **`-13` is the 1.9–3.35 GHz part — refuse it.**
+
 ## Open questions
 
 1. ~~**CP1 slot pitch**~~ — **RESOLVED 2026-11-10T02:35Z**: 1.0 / 2.0 / 2.0
@@ -2303,3 +2370,24 @@ way.
   H14SSL-NT (€1,049) + QS (~$1,500) ≈ €2,350, and ~€1,300 under H14 + retail
   9355. Four written questions recorded: **rev 2.01?, OPN -12?, return window?,
   POST-tested at what memory speed?** Leader unchanged; no purchase made.
+- 2026-11-13T00:0xZ — **H14-vs-H13 delta pinned, and EU sourcing resolved.**
+  From Supermicro's own pages the **entire difference is three lines**: **500W CPU
+  support vs 400W** (irrelevant here — 9555=360W, 9355=280W; only matters for the
+  already-rejected 9755/9965), **native 9005 vs rev 2.x only**, and **6400 on
+  every board vs 6400 only on rev 2.01** (rev 2.0 = 6000, rev 1.x = no 9005).
+  Expansion is otherwise **identical** (3x x16 + 2x x8, 2 MCIO + hybrid, 2x M.2
+  Gen5 x4, 8 SATA, 2x 10G BCM57416, AST2600, 6 fans); even the **rear I/O shield
+  is the same part, MCP-260-00073-0N**.
+  **EU availability: boards yes, bundles effectively no.** Bundle listings on
+  eBay.de are **USD-priced** (US/Asia sellers) → +19% import VAT lands $2,100 at
+  ~€2,300–2,400. EU-stock prices found: **H14SSL-N €975.16**,
+  **H14SSL-NT €990.00–1,049.00**, **H13SSL-NT rev 2.00 €1,059–1,171**,
+  **H13SSL-NT rev 2.01 €1,037.15**, **9555 sample OPN -12 €1,050.00/€1,076.12**,
+  another sample **€932.37** (no OPN listed), and a **-13 (1.9–3.35GHz) to
+  avoid**. **Because H13SSL-NT rev 2.01 (€1,037) costs the same as H14SSL-NT
+  (€990–1,049), the bundle logic collapses.** Revised recommendation:
+  **buy in the EU — H14SSL-N €975 + 9555 QS €1,050 ≈ €2,025**, new board with
+  warranty, 6400 guaranteed, no import VAT — roughly €300 under the landed US
+  bundle. Still to verify with the EU CPU seller: **titles say "ES" but quote the
+  `-12` QS OPN** — get the **IHS OPN** (or CPU-Z) in writing plus the return
+  window; **refuse `-13`**.
