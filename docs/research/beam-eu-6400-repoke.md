@@ -343,3 +343,20 @@ Parent then did the Algolia JSON query itself (public search-key in the site JS,
 **UK verdict: no threat to the bar** — the UK Kingston channel prices ~60% above the PL/DE market even on the cheapest die. (Lead-quality: Algolia JSON snapshot, currency assumed GBP, FX assumed ~5.45 PLN/GBP — unverified against NBP for 2026-11-13; stock field came back blank.)
 
 QVL/coverage: this addendum covered the UK slice-A pool. No board changes.
+
+---
+
+## Pass 12 addendum — 2026-11-14T03:5xZ (huihui PL/LT/SK slice closes; parent DNS-verifies)
+
+Huihui slice B found the PL/Baltic probe pool mostly dark, and one new reachable Baltic seller. **Parent verification from this host: the DNS deaths are REAL, not sandbox-local** — `ramshop.pl, sklepy-serwerowe.pl, notebooki-serwery.pl, ramek.com.pl, hmem.eu, discount-memory.com` all return NXDOMAIN from the parent resolver too (shops offline/parked, not scrape failures). `itpro.lt` resolves (79.98.25.1) but bot-blocked all loaders; `abstock.com` resolves but every loader failed (its `KSM64R52BD4-96MC` product page exists per DDG — worth one retry next pass); `dataprint.sk` is a print-shop, no RAM.
+
+**New listing (lead, parent-verified page 200, price read by huihui):**
+
+| Part | Shop | Price (net, "Excl. VAT & shipping") | Stock/lead | URL |
+|---|---|---|---|---|
+| Kingston KSM64R52BD4-**64MD** | **corewavelabs.com** (CoreWave Labs SIA, Rīga, LV — ships EU) | "$ 3,076" (page markers verified: 100+, 2-3 Days, Excl. VAT) ≈ **€2,772 → €43.31/GB** | 100+ pcs, 2–3 d (tier 46 pcs $3,233) | https://corewavelabs.com/ksm64r52bd4-64md-kingston-64gb-ddr5-6400-rdimm/ |
+| Samsung M321R8GA0EB2-**CCP** | corewavelabs.com (search cards) | "$ 3,087" ex VAT ≈ €43.5/GB | shown in results | https://corewavelabs.com/?s=M321R8GA0EB2&post_type=product |
+
+**Verdict unchanged:** cheapest per-GB anywhere seen across ALL slices (UK, PL/LT/SK, DE/Geizhals, own probes) is still the PL market at €38.6–39.4/GB (post price-move); CoreWave/UK/US channels sit 15–60% higher. No listing beat the bar — and the bar itself has drifted up (Proshop kit now €39.44/GB), so **ibfusion (€38.79/GB net, 4 pcs) is the current cheapest verified route per 128 GB.**
+
+Coverage: slice B pool (ramshop.pl, sklepy-serwerowe.pl, notebooki-serwery.pl, ramek.com.pl, hmem.eu, discount-memory.com, itpro.lt, abstock.com, dataprint.sk) + corewavelabs.com. All three huihui slices (A UK, B PL/LT/SK, C parts/DE) are now closed and folded in.

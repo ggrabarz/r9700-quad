@@ -1,6 +1,6 @@
 {
   "eurpln": 4.407,
-  "updated": "2026-11-14T03:0xZ",
+  "updated": "2026-11-14T03:5xZ",
   "offers": [
     {
       "part": "Kingston FURY Renegade Pro 7600 KF576RH40RBK4-128",
@@ -169,6 +169,20 @@
       "state": "new",
       "best": false,
       "url": "https://www.amazon.pl/s?k=KSM64R52BD4-64MD"
+    },
+    {
+      "part": "Kingston Server Premier KSM64R52BD4-64MD",
+      "spec": "SPD-verified family 2Rx4 · ships EU from Rīga, USD-quoted net",
+      "shop": "corewavelabs.com",
+      "country": "LV",
+      "price_net": "$3,076 ex VAT (≈€2.772)",
+      "price_gross": "—",
+      "eur_per_gb": "€43.31",
+      "stock": "100+ pcs · 2–3 d",
+      "checked": "2026-11-14T03:5xZ",
+      "state": "lead",
+      "best": false,
+      "url": "https://corewavelabs.com/ksm64r52bd4-64md-kingston-64gb-ddr5-6400-rdimm/"
     }
   ],
   "notes": [
