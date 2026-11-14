@@ -286,3 +286,40 @@ smicro.eu (Cloudflare Turnstile, 20×3 s loop no clear; curl 403), senetic.pl **
 **Did anything beat €4,791/128 GB net? — No.** Seventh flat pass. Cheapest lead this pass = Micron BH1 tray €39.4/GB net (est.), 5% above the bar; the new QVL-family price (€54.8/GB) confirms the PB2 bin is premium everywhere.
 
 This pass probed: huihui slice C pool (Micron BH1/BH1T/BD2, SK hynix 480N, PB2-CCP, geizhals/idealo, smicro/ANAFRA), Amazon.de search (browser), picclick.de, heise preissuchmaschine, mem-tek.fr, senetic.pl 32GB-Server-Premier price hunt, plus full bests re-check.
+
+---
+
+## Pass 10 — 2026-11-14T03:0xZ (scheduled poke, EXPANDING: senetic 96GB variant, Amazon.pl, otto/serverpartdeals/memory.net, **Proshop PL price movement**)
+
+### 1. Re-check of the bests — **THE BAR MOVED (upward)**
+
+| Offer | Result | Exact strings seen | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **CHANGED — INCREASE +5.3%** (browser, confirmed twice) | "**27 362,00 zł / 22 245,53 zł netto**" (was 25 969,00 / 21 113,01), lead 3–4 dni → **net €5,047.77 / kit = €39.44/GB** | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| — same-store family check | **ALL RAISED ~+5%**: 32 GB single 6 875,00 / **5 589,43 zł netto** (was 5 305,69); 8×16 octa 35 983,99 / **29 255,28 zł netto** (was 27 765,04) → single €39.71/GB, octa €51.71/GB → Proshop.pl raising the whole Renegade 7600 line | ditto /3462077, /3462080 |
+| Tonitrus Samsung CCP | **UNCHANGED** (browser) | 2.667,65 € netto · 50 pcs | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** (curl) | 2 481,00 € excl. VAT · 4 in stock | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl KSM64R52BD4 | unchanged | 11 509,07 zł netto | (search page) |
+
+**Ranking consequence:** the Proshop kit is no longer the cheapest per 128 GB. At the new 22 245,53 zł netto, **ibfusion at €2,481×2 = €4,962/128 GB (€38.79/GB) beats the kit (€5,047.77, €39.44/GB)** — first rank change of the hunt, on the incumbent's own price hike. Caveat: ibfusion has only **4 pcs** stock (max 256 GB).
+
+### 2. NEW listings this pass
+
+| Part | JEDEC SPD verdict | Shop | Exact price | Stock/lead | URL |
+|---|---|---|---|---|---|
+| Kingston **KSM64R52BD4-96MC** (96 GB 2Rx4!) | **SPD-verified**: "SPD is programmed to JEDEC standard latency DDR5-6400 timing of 52-52-52 at 1.1V … 96GB 2Rx4 12G" → qualifies; **384 GB per 4 modules** | senetic.pl | **16 417,58 zł** netto (= €3.725,80 / €38.81/GB) | (card stock not captured) | https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106 |
+| Kingston **KSM64R52BD4-64MD** | SPD-verified family (6400 CL52 @1.1V, 2Rx4) | **Amazon.pl** (marketplace) | **13 403,64 zł** incl. VAT ("125 zł dostawa 20-21 lis") = €3,041.4 gross; ÷1.23 = **€2,472.7 net = €38.63/GB — cheapest net/GB seen** | delivery 20–21 XI | https://www.amazon.pl/s?k=KSM64R52BD4-64MD |
+
+### 3. QVL hunt
+
+Not re-run (pool rotation); state stands: smicro.eu lead €3.504,44 ex VAT, else no EU price.
+
+### Blocked this pass
+
+otto.de (HTTP 400 on search URL), serverpartdeals.com (429 local rate limit), memory.net (Cloudflare "Just a moment"), Proshop.pl search.php route returned zero nodes for KF572RH38RB keyword (page renders but no result items — treated as no-listing, not blocked).
+
+### 4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — The old bar is dead upward: the kit moved to €5,047.77/128 GB. New verified cheapest per-GB: Amazon.pl KSM64R52BD4-64MD at €38.63/GB net (marketplace, gross÷1.23 basis) / ibfusion €38.79/GB — but NO offer beats €37.43/GB any more.** Decision unchanged (32 GB 1Rx8 kit route), now 2.8% pricier.
+
+This pass probed: senetic.pl KSM64R52BD4 family sweep (found 96MC 96 GB variant — new, SPD-verified), Amazon.pl (found marketplace listing for 64MD — new), Proshop.pl family price re-verify (movement +5%), otto.de, serverpartdeals.com, memory.net, KSM64R52BD4-96MC datasheet.
