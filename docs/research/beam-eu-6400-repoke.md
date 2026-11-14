@@ -466,3 +466,33 @@ ebattery.com.au search route 404; picclick.de browser card selectors returned no
 **Did anything beat €4,791/128 GB net? — No.** Tenth flat-to-upward pass. Nothing purchasable undercuts ibfusion €4,962/128 GB.
 
 This pass probed: kingstonmemoryshop Algolia Renegade family (new: 7200/7600 kit UK prices — sanity), senetic.de 128 GB 3DS watch row (holds), senetic.pl 96MC re-check, ebattery.com.au (route dead), picclick retry (no cards), plus full bests re-check.
+
+---
+
+## Pass 16 — 2026-11-14T05:5xZ (scheduled poke; memorycow Algolia, abstock HTTPS-ignored, QVL 11th retry)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Result | Method |
+|---|---|---|
+| Proshop.pl kit (27 362,00 / 22 245,53 zł netto) | unchanged at post-hike level | browser |
+| Tonitrus CCP (2.667,65 € netto · 50 pcs) | unchanged | browser |
+| ibfusion 64MD (2 481,00 € · 4 pcs) | unchanged | curl |
+| senetic.pl 64MD (11 509,07 zł netto) | unchanged | curl |
+| senetic.de CWM/CCP (971,07 / 3.387,48 €) | unchanged (raw grep) | curl |
+
+### 2. New probes
+
+- **memorycow.co.uk Algolia** (`memcowindex`, same app C7SR80KDDJ): 12 hits, prices **byte-identical to kingstonmemoryshop** (64MD £3.861,99; 32HA £1.265,41; 96HM £5.824,64) → **sister shops, one price book — no new listing**. Extra data point: 16 GB `KSM64R52BS8-16HA` £650,17 (cheap 16 GB bin, fails family premium test anyway).
+- **abstock.com** (browser, HTTPS errors ignored — cert CN mismatch explains earlier failures): the DDG-indexed product page **404s** ("Not Found on this server") → stale URL, effectively **no listing** for the 96MC there.
+- **QVL part `MEM-DR564MC-ER64`, 11th retry**: DDG returns ServerSupply / AddOn Networks / Newegg / eBay.com / ProLine / ServerOrbit / ProLabs — **all US channels. EU price: still none.**
+
+### Blocked list
+
+memorycow Algolia key found in site JS; abstock cert CN invalid (browser works with ignore); no new blocks.
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Eleventh flat-to-upward pass; purchasable floor remains ibfusion €4,962/128 GB (€38.79/GB).
+
+This pass probed: memorycow.co.uk (Algolia — twin of Kingston shop), abstock.com (404 on its indexed page), QVL MEM-DR564MC-ER64 DDG retry, plus full bests re-check (browser + curl).
