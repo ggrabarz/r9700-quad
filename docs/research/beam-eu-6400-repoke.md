@@ -360,3 +360,41 @@ Huihui slice B found the PL/Baltic probe pool mostly dark, and one new reachable
 **Verdict unchanged:** cheapest per-GB anywhere seen across ALL slices (UK, PL/LT/SK, DE/Geizhals, own probes) is still the PL market at €38.6–39.4/GB (post price-move); CoreWave/UK/US channels sit 15–60% higher. No listing beat the bar — and the bar itself has drifted up (Proshop kit now €39.44/GB), so **ibfusion (€38.79/GB net, 4 pcs) is the current cheapest verified route per 128 GB.**
 
 Coverage: slice B pool (ramshop.pl, sklepy-serwerowe.pl, notebooki-serwery.pl, ramek.com.pl, hmem.eu, discount-memory.com, itpro.lt, abstock.com, dataprint.sk) + corewavelabs.com. All three huihui slices (A UK, B PL/LT/SK, C parts/DE) are now closed and folded in.
+
+---
+
+## Pass 13 — 2026-11-14T04:2xZ (scheduled poke; verifies the Proshop hike held, probes abstock 96MC / Komputerbay / senetic 32HA)
+
+### 1. Re-check of the bests
+
+| Offer | Result | Exact strings | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **HIKE HOLDS** (browser) — no reversion | "27 362,00 zł / **22 245,53 zł netto**" (= €39.44/GB), lead 3–4 dni | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| Tonitrus Samsung CCP | **UNCHANGED** (browser) | 2.667,65 € netto · 50 pcs | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** | 2 481,00 € excl. VAT · 4 pcs | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl 64MD | unchanged (pass 12 file) | 11 509,07 zł netto | senetic.pl search |
+| senetic.de CCP/CWM watch rows | **UNCHANGED** (raw grep) | 3.387,48 € / 971,07 € both present | senetic.de search |
+
+### 2. NEW listings / probes this pass
+
+| Part | Probe result |
+|---|---|
+| KSM64R52BD4-**96MC** @ abstock.com (Korea; DDG showed a product page) | page exists, **HTTP 422 through r.jina.ai** — part number visible, **no price captured** |
+| KSM64R52BD8-**32HA** @ senetic.pl | 1 result, **priceless card** (senetic.pl card-price rendering fails curl again) |
+| Komputerbay "DDR5 6400 RDIMM" | search URL **404** — route broken, not retried |
+
+No new priced listings this pass.
+
+### 3. QVL hunt
+
+State stands: smicro.eu lead only (€3.504,44 ex VAT); no re-run.
+
+### Blocked this pass
+
+abstock.com 422 via r.jina (curl itself fails transport), Komputerbay legacy search 404, senetic.pl card prices (curl-side), Caseking not re-probed.
+
+### 4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No** (and the incumbent kit itself is now €5,047.77/128 GB; ibfusion remains the cheapest verified route at €4,962/128 GB, €38.79/GB). Eighth flat-to-upward pass; the Proshop +5.3% is confirmed persistent, not a transient display glitch.
+
+This pass probed: abstock.com 96MC page, Komputerbay search, senetic.pl 32HA search, senetic.de raw watch re-grep, plus full bests re-check (browser + curl).
