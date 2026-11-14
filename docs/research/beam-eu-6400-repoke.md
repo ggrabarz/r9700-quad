@@ -589,3 +589,32 @@ No new priced listings; QVL hunt not re-run this pass (11-pass state stands, smi
 **Did anything beat €4,791/128 GB net? — No.** Fourteenth pass; floor stays ibfusion €4,962/128 GB (€38.79/GB, 5 pcs).
 
 This pass probed: Kaufland.de (wall), memory.net (wall), bargainhardware.co.uk (wall), serverpartdeals.com (403 via proxy), plus full bests re-check (browser + curl). The reachable-EU pool is now effectively exhausted: every remaining entry is DNS-dead, US-only, marketplace-lead (eBay), or bot-walled with interactive checks.
+
+---
+
+## Pass 20 — 2026-11-14T07:5xZ (scheduled poke; DDG generic sweep for unseen EU sellers, QVL 12th retry, senetic variant audit)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Result | Method |
+|---|---|---|
+| Proshop.pl kit | 27 362,00 / 22 245,53 zł netto | browser |
+| Tonitrus CCP | 2.667,65 € netto · 50 pcs | browser |
+| ibfusion 64MD | 2 481,00 € excl. VAT · 5 pcs | curl |
+| senetic.pl 64MD / 96MC | 11 509,07 / 16 417,58 zł netto — audit: **only these two cards listed under KSM64R52BD4 (no -64MH/-64HA variants stocked)** | curl |
+| senetic.de CWM/CCP | 971,07 / 3.387,48 € | curl raw |
+
+### 2. New probes
+
+- **QVL `M321R8GA0PB2-CCP`, 12th retry**: DDG-lite's **first organic result is now smicro.eu** (the same CZ lead, €3.504,44 ex VAT) — no new EU shop has appeared; the QVL part remains a one-shop market.
+- **Generic DDG sweep** ("DDR5-6400" RDIMM 64GB ECC buy −usa −uk): returned no previously-unseen EU seller with a readable price — organic hits route back to Amazon/Bing-ad surfaces and the tracked channels (no new domain to chase).
+
+### Blocked list
+
+No new blocks this pass (DDG via r.jina fine; ad-URL noise filtered).
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Fifteenth pass; floor stays ibfusion €4,962/128 GB (€38.79/GB, 5 pcs).
+
+This pass probed: QVL 12th retry (smicro.eu confirmed sole EU listing), generic EU seller sweep via DDG (no new domains), senetic.pl KSM64R52BD4 variant audit (only 64MD+96MC carried), plus full bests re-check (browser + curl).
