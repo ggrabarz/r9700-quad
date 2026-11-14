@@ -128,3 +128,27 @@ senetic probed for Renegade kits (`KF572RH38RBK8`), the 32 GB Server Premier (`K
 ### 4. Verdict
 
 **Did anything beat €4,791/128 GB net? — No.** Third pass in a row with zero market movement; Proshop.pl and Tonitrus stay bot-walled, and the watch items (senetic.de Samsung 5600 at €971, Caseking V-Color restock) are unchanged.
+
+---
+
+## Pass 5 — 2026-11-14T00:0xZ (scheduled poke — first pass through the Camouflage browser)
+
+This pass ran through **Playwright Chromium** (real engine, JS on, challenge auto-wait, `navigator.webdriver` masked) instead of curl, to get through the bot walls. **It worked: both walled shops are readable again.**
+
+### 1. Re-check through the browser
+
+| Offer | Result | Exact strings seen | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **UNBLOCKED, UNCHANGED** | "25 969,00 zł / 21 113,01 zł netto", "Produkt sprowadzany, czas dostawy **3-4 dni**", "max 2 szt./klienta" | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| Tonitrus Samsung M321R8GA0EB2-CCP | **UNBLOCKED, UNCHANGED** | "Neu Neuware **3.174,50 € brutto / 2.667,65 € netto** · Verfügbar: **50** · Lieferzeit ca. 3–4 Werktage" (refurb: 3.693,50 € brutto / 3.103,78 € netto, also 50) | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | unchanged (curl, not walled) | 2 481,00 € excl. VAT, 4 in stock | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl 64MD | unchanged (curl) | 11 509,07 zł netto | https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106 |
+| Caseking V-Color JEDEC kit | still OutOfStock (curl) | — | https://www.caseking.de/en/v-color-rdimm-jedec-ddr5-6400-ram-cl52-128-gb-4-x-32-gb-quad-channel-kit-black/MEVC-031.html |
+
+### 2–3. New listings / QVL hunt
+
+No new listings this pass; the browser re-verified the two walled bests instead. QVL part (`MEM-DR564MC-ER64` / Samsung `M321R8GA0PB2-CCP`) — Tonitrus product page now reachable through the browser, but the specific QVL sibling page was not re-fetched this pass; prior finding (no EU price, 5 passes) stands.
+
+### 4. Verdict
+
+**Did anything beat €4,791/128 GB net? — No.** But the pass is notable: **the Camouflage/Playwright route unblocks both bot-walled shops** — Proshop.pl shows a *shorter* lead time than before (3–4 days, was 4–5), and Tonitrus confirms 50 pcs new at €2,667.65 net live from the page. All tracked bests intact.
