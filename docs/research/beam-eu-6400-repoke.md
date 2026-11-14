@@ -618,3 +618,30 @@ No new blocks this pass (DDG via r.jina fine; ad-URL noise filtered).
 **Did anything beat €4,791/128 GB net? — No.** Fifteenth pass; floor stays ibfusion €4,962/128 GB (€38.79/GB, 5 pcs).
 
 This pass probed: QVL 12th retry (smicro.eu confirmed sole EU listing), generic EU seller sweep via DDG (no new domains), senetic.pl KSM64R52BD4 variant audit (only 64MD+96MC carried), plus full bests re-check (browser + curl).
+
+---
+
+## Pass 21 — 2026-11-14T08:2xZ (scheduled poke; US $/GB tracker for cross-market context, HPE parts probe)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Result | Method |
+|---|---|---|
+| Proshop.pl kit | 27 362,00 / 22 245,53 zł netto | browser |
+| Tonitrus CCP | 2.667,65 € netto · 50 pcs | browser |
+| ibfusion 64MD | 2 481,00 € excl. VAT · 5 pcs | curl |
+| senetic.pl 64MD / 96MC | 11 509,07 / 16 417,58 zł netto | curl |
+| senetic.de CWM/CCP | 971,07 / 3.387,48 € | curl raw |
+
+### 2. New probes
+
+- **datacenterdisk.com live $/GB tracker** (US, ships EU): headline **$40.02/GB** for 64 GB DDR5-6400 RDIMM, module prices $2.561–3.110 (A-Tech 6400 RDIMM $3.109,55 sample). At NBP (1 USD = 1.1058 €): low module **≈ €40.3/GB net** — **the US market now sits ~4% ABOVE the EU floor (€38.79/GB)** → import arbitrage is closed; US pulls are no longer a cheat code.
+- **HPE parts store** (parts.hpe.com search route): 404 — route dead from this host; HPE genuine-channel probe inconclusive.
+
+No new listings. QVL not re-run (state: smicro.eu sole EU listing).
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Sixteenth pass; EU floor stands at ibfusion €4,962/128 GB (€38.79/GB, 5 pcs) — now confirmed the global floor, not just European.
+
+This pass probed: datacenterdisk $/GB tracker (new: US ≥ EU confirmation), parts.hpe.com route (404), plus full bests re-check (browser + curl).
