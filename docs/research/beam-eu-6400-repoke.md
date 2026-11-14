@@ -528,3 +528,35 @@ State stands (pass 16: 11 retries, US-only; smicro.eu lead €3.504,44 ex VAT as
 **Did anything beat €4,791/128 GB net? — No.** Twelfth flat pass; floor stays ibfusion €4,962/128 GB (€38.79/GB, 4 pcs). Two armed triggers both still off (Caseking OOS; no 6400-EB2 at senetic.de family price).
 
 This pass probed: ebay.de browser searches (inconclusive route), bulk-memory.eu + server-warehouse.de (defunct), Caseking stock re-flag (OOS holds), plus full bests re-check (browser + curl).
+
+---
+
+## Pass 18 — 2026-11-14T06:5xZ (scheduled poke; ibfusion stock tick, Mindfactory/Galaxus/ebay.de browser attempts)
+
+### 1. Re-check of the bests
+
+| Offer | Result | Method |
+|---|---|---|
+| **ibfusion KSM64R52BD4-64MD** | price unchanged 2 481,00 € excl. VAT — **stock 4 → 5 pcs (first positive movement of the night)** | curl |
+| Proshop.pl kit | unchanged 27 362,00 / 22 245,53 zł netto | browser |
+| Tonitrus CCP | unchanged 2.667,65 € netto · 50 pcs | browser |
+| senetic.pl 64MD / 96MC | unchanged 11 509,07 / 16 417,58 zł netto | curl |
+| senetic.de CWM/CCP | unchanged 971,07 / 3.387,48 € | curl raw |
+
+### 2. New probes (all no-result)
+
+- **Mindfactory.de** (browser): interactive "SECURITY CHECK … I am human" click-wall; click registered but headless session stays walled (JS handshake required). Blocked.
+- **Galaxus.de**: `ERR_HTTP2_PROTOCOL_ERROR` on search URL — blocked at transport level.
+- **ebay.de** (`_nkw` SERP, `s-item`/`si-card` selectors, browser): card array came back **empty again** — the route stays inconclusive a second pass (no challenge page, no parsed items; likely lazy-rendered results).
+
+No new priced listings.
+
+### 3. QVL hunt
+
+State stands (11 passes; smicro.eu lead only).
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Thirteenth pass; first *positive* market signal is stock, not price: ibfusion restocked 4→5 pcs at the unchanged €2.481 net. Floor stays ibfusion €4,962/128 GB.
+
+This pass probed: ibfusion stock watch (tick up), Mindfactory (wall), Galaxus (HTTP2 block), ebay.de selector retry (inconclusive), plus full bests re-check (browser + curl).
