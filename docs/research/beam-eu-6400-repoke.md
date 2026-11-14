@@ -496,3 +496,35 @@ memorycow Algolia key found in site JS; abstock cert CN invalid (browser works w
 **Did anything beat €4,791/128 GB net? — No.** Eleventh flat-to-upward pass; purchasable floor remains ibfusion €4,962/128 GB (€38.79/GB).
 
 This pass probed: memorycow.co.uk (Algolia — twin of Kingston shop), abstock.com (404 on its indexed page), QVL MEM-DR564MC-ER64 DDG retry, plus full bests re-check (browser + curl).
+
+---
+
+## Pass 17 — 2026-11-14T06:2xZ (scheduled poke; ebay.de browser attempt, bulk-memory/server-warehouse via proxy, Caseking stock flag)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Result | Method |
+|---|---|---|
+| Proshop.pl kit | 27 362,00 / 22 245,53 zł netto (€39.44/GB) — stable post-hike | browser |
+| Tonitrus CCP | 2.667,65 € netto · 50 pcs | browser |
+| **Caseking V-Color 4×32** | **still Out of Stock**, price unchanged 6.392,42 € incl. | browser |
+| ibfusion 64MD | 2 481,00 € excl. VAT · 4 pcs | curl |
+| senetic.pl 64MD / 96MC | 11 509,07 / 16 417,58 zł netto | curl |
+| senetic.de CWM/CCP | 971,07 / 3.387,48 € (raw grep) | curl |
+
+### 2. New probes
+
+- **ebay.de via browser** (category-1140 searches, `M321R8GA0EB2-CCP` and `KF576RH40RBK4`): pages loaded **without challenge** but the result/price lines parsed **empty** — eBay.de's current SERP layout defeats the row parser; treated as *route inconclusive*, NOT as "no listings" (picclick mirror says listings do exist there).
+- **bulk-memory.eu** and **server-warehouse.de** through r.jina proxy: both **HTTP 422** — the domains no longer serve; consistent with the sandbox DNS deaths. Marked defunct for this hunt.
+
+No new priced listings this pass.
+
+### 3. QVL hunt
+
+State stands (pass 16: 11 retries, US-only; smicro.eu lead €3.504,44 ex VAT as sole EU signal).
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Twelfth flat pass; floor stays ibfusion €4,962/128 GB (€38.79/GB, 4 pcs). Two armed triggers both still off (Caseking OOS; no 6400-EB2 at senetic.de family price).
+
+This pass probed: ebay.de browser searches (inconclusive route), bulk-memory.eu + server-warehouse.de (defunct), Caseking stock re-flag (OOS holds), plus full bests re-check (browser + curl).
