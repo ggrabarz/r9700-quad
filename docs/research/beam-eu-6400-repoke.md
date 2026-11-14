@@ -248,3 +248,41 @@ Geizhals via r.jina.ai: page loads but shows only the generic "Preisvergleich" f
 **Did anything beat €4,791/128 GB net? — No.** Sixth flat pass; closest new finding: 32 GB singles at parity (€37.62/GB), 16 GB dies carry the family premium (€49+/GB).
 
 This pass probed: Proshop.pl Renegade PRO family variants (4 SKUs priced — new), KSM64R52BD8-32MH datasheet SPD (qualifies), geizhals (no-listing), senetic.de raw price re-check (both watch rows unchanged), plus full bests re-check.
+
+---
+
+## Pass 9 — 2026-11-14T02:2xZ (scheduled poke, EXPANDING: huihui slice C lands — Micron/SK hynix/Geizhals/QVL part; plus Amazon.de, picclick, heise, mem-tek probes)
+
+### 1. Re-check of the bests
+
+| Offer | Result | Exact strings / method | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **UNCHANGED** (browser) | "25 969,00 / 21 113,01 zł netto" | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| Tonitrus Samsung M321R8GA0EB2-CCP | **UNCHANGED** (browser) | 2.667,65 € netto · 50 pcs | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** (curl) | 2 481,00 € excl. VAT · 4 in stock | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl KSM64R52BD4-64MD | **UNCHANGED** (curl) | 11 509,07 zł netto | https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106 |
+| Caseking V-Color | not re-probed (Cloudflare pass-7 state stands: OOS) | — | MEVC-031 product page |
+
+### 2. NEW listings this pass — huihui slice C (Micron / SK hynix / QVL part). LEAD-verified: huihui agent fetched these; parent re-verification blocked this host (marked per row). Geizhals/idealo prices are **gross** → net estimated ÷1.19.
+
+| Part | JEDEC SPD verdict | Shop | Exact price seen | Stock/lead | URL |
+|---|---|---|---|---|---|
+| Micron **MTC40F2046S1RC64BH1T** (tray) | 6400 confirmed via micron.com part page (MT/s 6400, CL52, PC5-51200R); no SPD sentence published | Geizhals.de (lead) | "ab € 2999,81" **inkl. MwSt** (≈ €2.521 net → **€39.4/GB net**) | 5 Angebote; Jacob "Sofort lieferbar" | https://geizhals.de/micron-rdimm-64gb-mtc40f2046s1rc64bh1t-a3877100.html |
+| Micron **MTC40F2046S1RC64BH1** | same | Geizhals.de (lead) | "ab € 3289,98" inkl. MwSt (≈ €43.2/GB net) | 5 Angebote | https://geizhals.de/micron-rdimm-64gb-mtc40f2046s1rc64bh1-a3871706.html |
+| Samsung **M321R8GA0EB2-CCP** | no SPD sentence published | Geizhals.de (lead) | "ab € 3069,00" inkl. MwSt (≈ €40.3/GB net), 15 Angebote | — | https://geizhals.de/samsung-rdimm-64gb-m321r8ga0pb0-cwm-a3138665.html (aggregator slug) |
+| SK hynix **HMCG94AHBRA480N** | no SPD sentence published; 6400 per Geizhals/seller listings only | Geizhals.de (lead) | "um € 3564,32 (€ 55,69 / GB)" inkl. MwSt (≈ €46.8/GB net) | 1 Angebot | https://geizhals.de/sk-hynix-rdimm-64gb-hmcg94ahbra480n-a3657519.html |
+| **Samsung M321R8GA0PB2-CCP (QVL-family part!)** | no SPD sentence published | **smicro.eu / ANAFRA (CZ, ships EU)** (lead; parent re-verify BLOCKED — Turnstile) | "**€ 3 504,44 ex VAT**" (≈ €54.8/GB net) — "price volatility, contact for quote" | shop 0 · supplier 1 pc · EU courier 26.11–02.12 | https://smicro.eu/samsung-64-gb-ddr5-6400mhz-ecc-rdimm-m321r8ga0pb2-ccp-2 |
+
+**QVL-part streak status:** the 8-pass "no EU price" for the Supermicro-QVL family part is **broken by a lead**: smicro.eu lists the Samsung `M321R8GA0PB2-CCP` at €3.504,44 ex VAT (1 pc supplier stock, quote-flagged). The literal Supermicro SKU `MEM-DR564MC-ER64` still has no EU street price (US channels only). Price is **46% above** the bar anyway — no ranking change.
+
+Parent's own new probes: **Amazon.de** (browser): served CHF-priced (session geo) — 109 results, only relevant hit = Micron 128 GB 2Rx4 6400 CL52 `MTC40F2047S1RC64BR` at **8.230,75 CHF** (≈ €65+/GB) — far above. **senetic.pl KSM64R52BD8** (32 GB Server Premier): 3 search hits, **no price nodes** (search cards render priceless; product page hit senetic's "you have been blocked" wall this pass).
+
+### Blocked this pass
+
+smicro.eu (Cloudflare Turnstile, 20×3 s loop no clear; curl 403), senetic.pl **product** pages (DSI block interstitial; search pages fine), picclick.de (403), heise.preissuchmaschine.com + mem-tek.fr (DNS unresolvable from sandbox), Amazon.de price parsing (CHF session). Geizhals rows are huihui-agent-sourced leads (this host gets the generic frame).
+
+### 4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Seventh flat pass. Cheapest lead this pass = Micron BH1 tray €39.4/GB net (est.), 5% above the bar; the new QVL-family price (€54.8/GB) confirms the PB2 bin is premium everywhere.
+
+This pass probed: huihui slice C pool (Micron BH1/BH1T/BD2, SK hynix 480N, PB2-CCP, geizhals/idealo, smicro/ANAFRA), Amazon.de search (browser), picclick.de, heise preissuchmaschine, mem-tek.fr, senetic.pl 32GB-Server-Premier price hunt, plus full bests re-check.
