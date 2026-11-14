@@ -323,3 +323,23 @@ otto.de (HTTP 400 on search URL), serverpartdeals.com (429 local rate limit), me
 **Did anything beat €4,791/128 GB net? — The old bar is dead upward: the kit moved to €5,047.77/128 GB. New verified cheapest per-GB: Amazon.pl KSM64R52BD4-64MD at €38.63/GB net (marketplace, gross÷1.23 basis) / ibfusion €38.79/GB — but NO offer beats €37.43/GB any more.** Decision unchanged (32 GB 1Rx8 kit route), now 2.8% pricier.
 
 This pass probed: senetic.pl KSM64R52BD4 family sweep (found 96MC 96 GB variant — new, SPD-verified), Amazon.pl (found marketplace listing for 64MD — new), Proshop.pl family price re-verify (movement +5%), otto.de, serverpartdeals.com, memory.net, KSM64R52BD4-96MC datasheet.
+
+---
+
+## Pass 11 addendum — 2026-11-14T03:3xZ (huihui UK slice closes; parent ran the Algolia follow-up it recommended)
+
+Huihui slice A hit its step cap without reading a price, but produced the **UK reachability map**: bargainhardware.co.uk = Cloudflare-gated Magento; svp.co.uk = TCP-unresponsive; **etb-online.com, etbhost.com, ramexpert.co.uk, po-memory.com/.co.uk, mr-memory.co.uk = NXDOMAIN (shops DNS-dead right now, not scrape failures)**; memorycow.co.uk + kingstonmemoryshop.co.uk = OpenCart+Algolia (prices JS-only); offtek = POST-form search.
+
+Parent then did the Algolia JSON query itself (public search-key in the site JS, app C7SR80KDDJ, index `kingstonindex`):
+
+| Part (kingstonmemoryshop.co.uk, GBP — UK retail is 20% VAT-incl) | Price seen | Net est. (÷1.2, GBP≈5.45 PLN assumption) | €/GB net est. |
+|---|---|---|---:|
+| KSM64R52BD4-**64MH / -64HA / -64MD** | **£3,861.99** each | zł 17,536 → €3,979 | **≈€62/GB** |
+| KSM64R52BD4-**96MC / -96HM** 96 GB | £5,824.64 | zł 26,410 → €6,000 | ≈€62/GB |
+| KSM64R52BD4-**128MB** | £7,128.53 | — | ≈€66/GB |
+| KSM64R52BD8-**32HA** 32 GB | **£1,265.41** | zł 5,746 → €1,304 | **≈€40.7/GB** |
+| KSM64R52BD8-**32MH** 32 GB | £1,882.18 | — | ≈€61/GB |
+
+**UK verdict: no threat to the bar** — the UK Kingston channel prices ~60% above the PL/DE market even on the cheapest die. (Lead-quality: Algolia JSON snapshot, currency assumed GBP, FX assumed ~5.45 PLN/GBP — unverified against NBP for 2026-11-13; stock field came back blank.)
+
+QVL/coverage: this addendum covered the UK slice-A pool. No board changes.
