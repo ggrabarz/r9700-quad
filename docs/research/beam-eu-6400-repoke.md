@@ -208,3 +208,43 @@ Kaufland.de (403 RayID bot-wall), eBay.com listing page (r.jina.ai thin response
 **Did anything beat €4,791/128 GB net? — No.** Fifth flat pass. The new senetic.de CCP row (€3,387.48 net/64 GB = 12× = €40,650 net) sits **27% above** Tonitrus at 50 pcs, so Tonitrus remains the Samsung-route source.
 
 This pass probed: senetic.de CCP product row (new), Alternate.de (search, JS-blocked), Kaufland.de (403), bulk-memory.eu + server-warehouse.de (DNS), QVL PB2-CCP retry (US-only), Kingston KF576RH40RB-32 single datasheet (SPD-verified).
+
+---
+
+## Pass 8 — 2026-11-14T01:4xZ (scheduled poke, EXPANDING: Proshop Renegade-PRO whole family, KSM64R52BD8-32MH SPD, geizhals, senetic.de raw)
+
+### 1. Re-check of the bests (browser for walled, curl for open)
+
+| Offer | Result | Exact strings seen | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **UNCHANGED** (browser) | "25 969,00 zł / 21 113,01 zł netto", lead 3–4 dni | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| Tonitrus Samsung M321R8GA0EB2-CCP | **UNCHANGED** (browser) | 3.174,50 € brutto / 2.667,65 € netto · Verfügbar: 50 | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** | 2 481,00 € excl. VAT · 4 in stock | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl KSM64R52BD4-64MD | **UNCHANGED** | 11 509,07 zł netto | https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106 |
+| senetic.de CCP / CWM watch rows | **UNCHANGED** (raw HTML contains 971,07 € and 3.387,48 €) | same as pass 7 | https://www.senetic.de/search/?q=M321R8GA0EB2&f_s_category=icecat_106 |
+
+### 2. NEW listings found this pass — the whole Renegade PRO 7600 family on Proshop.pl (browser, product-page variant links)
+
+| Part | JEDEC SPD verdict | Shop | Price (net → €/GB) | Stock/lead | URL |
+|---|---|---|---|---|---|
+| KF576RH40RB-32 **single 32 GB** | **SPD-verified** — "JEDEC standard latency DDR5-6400 timing of 52-52-52 at 1.1V" (datasheet KF576RH40RB-32.pdf) | Proshop.pl | 5 305,69 zł netto = €1,203.92 → **€37.62/GB** (0.5% over the bar) | 3–4 dni · max 2 szt./klienta | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-32GB-CL38-Single-Channel-1-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462077 |
+| KF576RH40RBK4-64 **4×16 GB kit** | same family (16 GB bin; SPD not separately pulled) | Proshop.pl | 13 900,81 zł netto = €3,154.26 → €49.29/GB | 3–4 dni · max 2 | 4×16 variant of 3462079 |
+| **8×16 GB octa kit** (128 GB) | same family | Proshop.pl | 27 765,04 zł netto = €6,300.21 → €49.22/GB | 3–4 dni · max 2 | 8×16 variant of 3462079 |
+| 16 GB single | same family | Proshop.pl | 3 503,25 zł netto = €794.93 → €49.68/GB | 3–4 dni · max 2 | 16 GB single variant |
+| Kingston **KSM64R52BD8-32MH** 32 GB Server Premier | **SPD-verified**: "The SPD is programmed to JEDEC standard latency **DDR5-6400** timing of 52-52-52 at **1.1V**" → qualifies | (datasheet only, no price found yet) | — | — | https://www.kingston.com/datasheets/KSM64R52BD8-32MH.pdf |
+
+Note: the 32 GB single at **€37.62/GB** is effectively at parity with the 4×32 kit (€37.43) — and its 2 szt./klienta limit is per-SKU, so singles are the staging path if the kit purchase cap binds (6 purchases × 2 = 12 singles for 384 GB at €1,203.92 × 12 = €14,447 net, vs 3 kits = €14,372 — 0.5% premium).
+
+### 3. QVL hunt
+
+Not re-run this pass (pool rotation); pass-7 finding stands: **no EU price, 7 passes**.
+
+### Blocked this pass
+
+Geizhals via r.jina.ai: page loads but shows only the generic "Preisvergleich" frame, no product price node → treated as no-listing (bot-lite block). Caseking page not re-probed (pass-7 Cloudflare state stands).
+
+### 4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Sixth flat pass; closest new finding: 32 GB singles at parity (€37.62/GB), 16 GB dies carry the family premium (€49+/GB).
+
+This pass probed: Proshop.pl Renegade PRO family variants (4 SKUs priced — new), KSM64R52BD8-32MH datasheet SPD (qualifies), geizhals (no-listing), senetic.de raw price re-check (both watch rows unchanged), plus full bests re-check.
