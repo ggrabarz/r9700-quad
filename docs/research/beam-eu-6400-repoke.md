@@ -173,3 +173,38 @@ No new-listing fetches this pass (browser pass focused on re-verifying the walle
 ### 4. Verdict
 
 **Did anything beat €4,791/128 GB net? — No.** Fourth flat pass; all three bests byte-identical to the 22:1xZ snapshot.
+
+---
+
+## Pass 7 — 2026-11-14T01:1xZ (scheduled poke, EXPANDING: senetic.de CCP row, Alternate, Kaufland, server-warehouse/bulk-memory, QVL retry, KF576RH40RB-32 datasheet)
+
+### 1. Re-check of the bests (browser route for walled shops)
+
+| Offer | Result | Exact strings seen | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **UNCHANGED** (browser) | "25 969,00 zł / 21 113,01 zł netto", lead **3–4 dni** | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| Tonitrus Samsung M321R8GA0EB2-CCP | **UNCHANGED** (browser) | "Neu Neuware 3.174,50 € brutto / 2.667,65 € netto", **Verfügbar: 50** | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** (curl) | 2 481,00 € excl. VAT, 4 in stock | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl KSM64R52BD4-64MD | **UNCHANGED** (curl) | 11 509,07 zł netto, 41–50 pcs | https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106 |
+| senetic.de watch row 5600 | **UNCHANGED** | card "M321R8GA0EB2-CWM … **971,07 €**" | https://www.senetic.de/search/?q=M321R8GA0EB2&f_s_category=icecat_106 |
+
+### 2. NEW listings found this pass
+
+| Part | JEDEC SPD verdict | Shop | Exact price | Stock/lead | URL |
+|---|---|---|---|---|---|
+| Samsung **M321R8GA0EB2-CCP** 64 GB DDR5-6400 RDIMM (no SPD sentence published; part is the JEDEC-native 6400 bin) | counts (native 6400) | **senetic.de — NEW row, first time listed** | card: "Samsung RDIMM DDR5 64GB 2Rx4 6400MHz PC5-51200 … **3.387,48 € exkl. MwSt** / 4.031,10 € inkl." (€52.93/GB) | **Verfügbarkeit: 41–50 Stück** | https://www.senetic.de/product/M321R8GA0EB2-CCP |
+| Kingston **KF576RH40RB-32** single 32 GB 7600 module | **SPD-verified**: datasheet "tested to run at DDR5-7600 … JEDEC standard latency **DDR5-6400** timing of 52-52-52 at **1.1V**" → qualifies, same family as the kit | (Kingston datasheet only; single stick not separately price-hunted yet) | — | — | https://www.kingston.com/datasheets/KF576RH40RB-32.pdf |
+
+### 3. QVL hunt (MEM-DR564MC-ER64 / M321R8GA0PB2-CCP)
+
+DDG-lite now returns only **US** channels for PB2-CCP: serversupply.com, newegg, harddiskdirect, corewavelabs, ebay.com (the eBay listing fetch itself was blocked, 262 B). **EU: still no price — 7th consecutive pass.**
+
+### Blocked this pass
+
+Kaufland.de (403 RayID bot-wall), eBay.com listing page (r.jina.ai thin response), bulk-memory.eu + server-warehouse.de (**DNS unresolvable from this sandbox host**), Alternate.de search (JS-rendered, no result nodes in curl HTML; not browser-tried this pass), Caseking V-Color page (Cloudflare JS interstitial this time — last-verified state stands: OOS preorder).
+
+### 4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Fifth flat pass. The new senetic.de CCP row (€3,387.48 net/64 GB = 12× = €40,650 net) sits **27% above** Tonitrus at 50 pcs, so Tonitrus remains the Samsung-route source.
+
+This pass probed: senetic.de CCP product row (new), Alternate.de (search, JS-blocked), Kaufland.de (403), bulk-memory.eu + server-warehouse.de (DNS), QVL PB2-CCP retry (US-only), Kingston KF576RH40RB-32 single datasheet (SPD-verified).
