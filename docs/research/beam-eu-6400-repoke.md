@@ -560,3 +560,32 @@ State stands (11 passes; smicro.eu lead only).
 **Did anything beat €4,791/128 GB net? — No.** Thirteenth pass; first *positive* market signal is stock, not price: ibfusion restocked 4→5 pcs at the unchanged €2.481 net. Floor stays ibfusion €4,962/128 GB.
 
 This pass probed: ibfusion stock watch (tick up), Mindfactory (wall), Galaxus (HTTP2 block), ebay.de selector retry (inconclusive), plus full bests re-check (browser + curl).
+
+---
+
+## Pass 19 — 2026-11-14T07:2xZ (scheduled poke; Kaufland/memory.net/bargainhardware/serverpartdeals via browser — all walled)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Result | Method |
+|---|---|---|
+| Proshop.pl kit | 27 362,00 / 22 245,53 zł netto | browser |
+| Tonitrus CCP | 2.667,65 € netto · 50 pcs | browser |
+| ibfusion 64MD | 2 481,00 € excl. VAT · **5 pcs** (holds restock level) | curl |
+| senetic.pl 64MD / 96MC | 11 509,07 / 16 417,58 zł netto | curl |
+| senetic.de CWM/CCP | 971,07 / 3.387,48 € | curl raw |
+
+### 2. New probes — the last four live-looking pool shops all resist a real browser:
+
+- **Kaufland.de**: Cloudflare "Verifizierung erforderlich / Bitte bestätige, dass du kein Roboter bist" (RayID present) — interactive bot check, headless stays walled.
+- **memory.net**: "Sicherheitsüberprüfung wird durchgeführt" — DSI/Cloudflare check page, no content.
+- **bargainhardware.co.uk**: same security-check interstitial; huihui's "Cloudflare is probabilistic" didn't hold across 3 more tries (r.jina + browser).
+- **serverpartdeals.com**: r.jina followed redirects onto the filtered SERP, which returned **403**; the page body carries only placeholder prices ($0.00 / $50,000.00) — no real results.
+
+No new priced listings; QVL hunt not re-run this pass (11-pass state stands, smicro.eu lead only).
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Fourteenth pass; floor stays ibfusion €4,962/128 GB (€38.79/GB, 5 pcs).
+
+This pass probed: Kaufland.de (wall), memory.net (wall), bargainhardware.co.uk (wall), serverpartdeals.com (403 via proxy), plus full bests re-check (browser + curl). The reachable-EU pool is now effectively exhausted: every remaining entry is DNS-dead, US-only, marketplace-lead (eBay), or bot-walled with interactive checks.
