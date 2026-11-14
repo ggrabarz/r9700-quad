@@ -431,3 +431,38 @@ This pass probed: abstock.com 96MC page, Komputerbay search, senetic.pl 32HA sea
 **Did anything beat €4,791/128 GB net? — No.** Ninth flat-to-upward pass; second price **increase** observed (Caseking +18.5% display, still OOS). Nothing purchasable undercuts ibfusion's €4,962/128 GB.
 
 This pass probed: Caseking V-Color (browser, price+stock fresh), offtek POST search, serverpartdeals retry, bargainhardware r.jina retry, picclick.de browser (eBay mirror), plus full bests re-check.
+
+---
+
+## Pass 15 — 2026-11-14T05:2xZ (scheduled poke; UK Renegade-kit sanity via Algolia, senetic.de 3DS watch, ebattery/picclick retries)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Exact strings | Method |
+|---|---|---|
+| Proshop.pl kit | 27 362,00 / 22 245,53 zł netto (€39.44/GB) — hike level holds | browser |
+| Tonitrus CCP | 2.667,65 € netto · 50 pcs | browser |
+| ibfusion 64MD | 2 481,00 € excl. VAT · 4 in stock | curl |
+| senetic.pl 64MD / 96MC | 11 509,07 / 16 417,58 zł netto | curl |
+| senetic.de CWM/CCP/3DS | 971,07 / 3.387,48 / **6.175,58 €** (128 GB 3DS watch row intact) | curl raw grep |
+
+### 2. NEW listings this pass (UK Algolia, kingstonmemoryshop.co.uk — GBP incl 20% VAT, lead-quality as before)
+
+| Part | Price | Net est. ÷1.2 (GBP≈5.45 zł) | €/GB net est. | vs bar |
+|---|---|---|---:|---|
+| KF576RH40RBK4-128 (our 7600 kit) | **£ 6.040,52** | ≈ €5.050 | **≈€39.5/GB** | +0.2% vs Proshop's *new* 39.44 — UK ≈ parity with post-hike PL |
+| KF572RH38RBK4-128 (7200 kit) | £ 5.903,14 | ≈ €4.940 | ≈€38.6/GB | −2% vs 7600 bin |
+| KF572RH38RBK8-256 (7200 8×32) | £ 11.802,53 | — | ≈€44/GB | premium |
+| KF576RH40RB-32 single | £ 1.512,96 | ≈ €1.261 | €39.4/GB | parity |
+
+**Read:** the UK channel prices at exact parity with Proshop's *post-hike* level — consistent with a market-wide repricing wave, not a PL-only spike. If this pattern holds for days, it confirms the hike is the new global floor, not a local glitch.
+
+### Blocked / no-result this pass
+
+ebattery.com.au search route 404; picclick.de browser card selectors returned no M321R8GA0 cards this run (mirror markup varies); bargainhardware/offtek/serverpartdeals carry over from pass 14 (still Cloudflare / no-result / 429).
+
+### 3–4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Tenth flat-to-upward pass. Nothing purchasable undercuts ibfusion €4,962/128 GB.
+
+This pass probed: kingstonmemoryshop Algolia Renegade family (new: 7200/7600 kit UK prices — sanity), senetic.de 128 GB 3DS watch row (holds), senetic.pl 96MC re-check, ebattery.com.au (route dead), picclick retry (no cards), plus full bests re-check.
