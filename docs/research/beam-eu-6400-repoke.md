@@ -398,3 +398,36 @@ abstock.com 422 via r.jina (curl itself fails transport), Komputerbay legacy sea
 **Did anything beat €4,791/128 GB net? — No** (and the incumbent kit itself is now €5,047.77/128 GB; ibfusion remains the cheapest verified route at €4,962/128 GB, €38.79/GB). Eighth flat-to-upward pass; the Proshop +5.3% is confirmed persistent, not a transient display glitch.
 
 This pass probed: abstock.com 96MC page, Komputerbay search, senetic.pl 32HA search, senetic.de raw watch re-grep, plus full bests re-check (browser + curl).
+
+---
+
+## Pass 14 — 2026-11-14T04:5xZ (scheduled poke; Caseking unblocked via browser — price moved; offtek/serverpartdeals/bargainhardware/picclick probes)
+
+### 1. Re-check of the bests
+
+| Offer | Result | Exact strings | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | unchanged at new level (browser) | 27 362,00 / **22 245,53 zł netto** (€39.44/GB) | product page 3462079 |
+| Tonitrus Samsung CCP | **UNCHANGED** (browser) | 2.667,65 € netto · 50 pcs | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** | 2 481,00 € excl. VAT · 4 pcs | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.pl 64MD | unchanged | 11 509,07 zł netto | senetic.pl search |
+| senetic.de CCP/CWM | unchanged (raw grep) | 3.387,48 / 971,07 € | senetic.de search |
+
+### 2. CHANGED listing found this pass
+
+| Part | Shop | Result |
+|---|---|---|
+| **V-Color RDIMM JEDEC DDR5-6400 CL52 4×32 kit** (TR532G64D852Q; "JEDEC standard at 1.1 V" on-page confirms the bin) | Caseking.de | **browser unblocked**: now shows "**6.392,42 €** — Out of Stock — Incl. VAT" (was last-verified 5.392,42 € VAT-incl = **+1.000 € / +18.5% raise**; ÷1.19 = €5.372,6 net = €41.97/GB). Still unpurchasable (OOS preorder). |
+
+### 3. New probes (all no-result)
+
+- offtek.co.uk POST-search "KSM64R52BD4": 200 OK, page rendered but **no result nodes** for the part (UK form returned the search form).
+- serverpartdeals.com: 429 rate-limit again.
+- bargainhardware.co.uk via r.jina: Cloudflare "Just a moment" again.
+- **picclick.de (browser)**: eBay.de mirror shows several **live Samsung M321R8GA0EB2-CCP listings** (incl. "B2B price incl VAT 3 yr warranty"), but the mirror's price nodes didn't parse — marketplace-lead only, no price recorded.
+
+### 4. Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Ninth flat-to-upward pass; second price **increase** observed (Caseking +18.5% display, still OOS). Nothing purchasable undercuts ibfusion's €4,962/128 GB.
+
+This pass probed: Caseking V-Color (browser, price+stock fresh), offtek POST search, serverpartdeals retry, bargainhardware r.jina retry, picclick.de browser (eBay mirror), plus full bests re-check.

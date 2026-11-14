@@ -1,6 +1,6 @@
 {
   "eurpln": 4.407,
-  "updated": "2026-11-14T04:2xZ",
+  "updated": "2026-11-14T04:5xZ",
   "offers": [
     {
       "part": "Kingston FURY Renegade Pro 7600 KF576RH40RBK4-128",
@@ -11,7 +11,7 @@
       "price_gross": "27 362 zł",
       "eur_per_gb": "€39.44",
       "stock": "import 3–4 d · max 2/client · price +5.3% 14 XI",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": true,
       "url": "https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079"
@@ -25,7 +25,7 @@
       "price_gross": "€2,681.96 (incl. CH 8.1%)",
       "eur_per_gb": "€38.77",
       "stock": "4 in stock · 7–21 d · B2B/VIES 0% VAT",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/"
@@ -39,7 +39,7 @@
       "price_gross": "14 156,16 zł (€3,212)",
       "eur_per_gb": "€40.81",
       "stock": "41–50 pcs · 24 h",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106"
@@ -53,7 +53,7 @@
       "price_gross": "€3,174.50",
       "eur_per_gb": "€41.68",
       "stock": "50 in stock (last verified 17:4xZ; bot-walled since)",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.tonitrus.com/M321R8GA0EB2-CCP"
@@ -67,7 +67,7 @@
       "price_gross": "€7,348.94",
       "eur_per_gb": "€48.25",
       "stock": "6 pcs",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.senetic.de/search/?q=M321R8GA0PB2-CCP&f_s_category=icecat_106"
@@ -77,11 +77,11 @@
       "spec": "128 GB kit · JEDEC 6400 CL52 @1.1 V per Caseking product page",
       "shop": "Caseking",
       "country": "DE",
-      "price_net": "€5,392.42 (DE VAT incl.)",
+      "price_net": "6.392,42 € DE-VAT-incl (÷1.19 = €5.372,6 net)",
       "price_gross": "—",
-      "eur_per_gb": "€42.13",
-      "stock": "OUT OF STOCK (preorder badge)",
-      "checked": "2026-11-14T04:2xZ",
+      "eur_per_gb": "€41.97 (net basis)",
+      "stock": "OUT OF STOCK (browser-verified)",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.caseking.de/en/v-color-rdimm-jedec-ddr5-6400-ram-cl52-128-gb-4-x-32-gb-quad-channel-kit-black/MEVC-031.html"
@@ -95,7 +95,7 @@
       "price_gross": "€3,158.50",
       "eur_per_gb": "€41.47",
       "stock": "new stock small (unverified)",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.tonitrus.com/MTC40F2046S1RC64BH1_1"
@@ -109,7 +109,7 @@
       "price_gross": "6 526 zł",
       "eur_per_gb": "€37.62",
       "stock": "3–4 d · max 2 szt./klienta (per SKU)",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-32GB-CL38-Single-Channel-1-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462077"
@@ -123,7 +123,7 @@
       "price_gross": "4.031,10 € inkl.",
       "eur_per_gb": "€52.93",
       "stock": "41–50 Stück",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "ok",
       "best": false,
       "url": "https://www.senetic.de/product/M321R8GA0EB2-CCP"
@@ -151,7 +151,7 @@
       "price_gross": "—",
       "eur_per_gb": "€38.81",
       "stock": "(karta bez statusu — sprawdzić)",
-      "checked": "2026-11-14T04:2xZ",
+      "checked": "2026-11-14T04:5xZ",
       "state": "new",
       "best": false,
       "url": "https://www.senetic.pl/search/?q=KSM64R52BD4&f_s_category=icecat_106"
