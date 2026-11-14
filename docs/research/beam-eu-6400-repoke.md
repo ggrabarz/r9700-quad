@@ -645,3 +645,31 @@ No new listings. QVL not re-run (state: smicro.eu sole EU listing).
 **Did anything beat €4,791/128 GB net? — No.** Sixteenth pass; EU floor stands at ibfusion €4,962/128 GB (€38.79/GB, 5 pcs) — now confirmed the global floor, not just European.
 
 This pass probed: datacenterdisk $/GB tracker (new: US ≥ EU confirmation), parts.hpe.com route (404), plus full bests re-check (browser + curl).
+
+---
+
+## Pass 22 — 2026-11-14T08:5xZ (scheduled poke; OEM genuine-parts channels: Lenovo verified-negative, Fujitsu/OTTO walls)
+
+### 1. Re-check of the bests — all **UNCHANGED**
+
+| Offer | Result | Method |
+|---|---|---|
+| Proshop.pl kit | 27 362,00 / 22 245,53 zł netto | browser |
+| Tonitrus CCP | 2.667,65 € netto · 50 pcs | browser |
+| ibfusion 64MD | 2 481,00 € excl. VAT · 5 pcs | curl |
+| senetic.pl 64MD / 96MC | 11 509,07 / 16 417,58 zł netto | curl |
+| senetic.de CWM/CCP | 971,07 / 3.387,48 € | curl raw |
+
+### 2. New probes — OEM genuine-parts channels
+
+- **Lenovo UK search** `KSM64R52BD4`: rendered result page, **"Sorry, there were no results found."** → verified negative: the OEM channel doesn't carry the Kingston Server Premier SKU family (they sell branded ECC DIMMs at list, not this class). Not a price channel for this hunt.
+- **Fujitsu TS** (ts.fujitsu.com): 429 + "Vercel Security Checkpoint — We're verifying your browser" → bot-walled.
+- **OTTO.de** search route: HTTP 400 again (route dead both URL shapes tried) → dropped from pool.
+
+No new listings. QVL state stands (smicro.eu sole EU listing).
+
+### Verdict + coverage
+
+**Did anything beat €4,791/128 GB net? — No.** Seventeenth pass; floor stands ibfusion €4,962/128 GB (€38.79/GB, 5 pcs).
+
+This pass probed: Lenovo genuine-parts search (verified no-result), Fujitsu TS (Vercel wall), OTTO.de route (400, retired), plus full bests re-check (browser + curl). The pool now also has the OEM channels resolved: Dell/HPE routes dead, Lenovo negative, Fujitsu walled.
