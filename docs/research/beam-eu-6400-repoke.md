@@ -152,3 +152,24 @@ No new listings this pass; the browser re-verified the two walled bests instead.
 ### 4. Verdict
 
 **Did anything beat €4,791/128 GB net? — No.** But the pass is notable: **the Camouflage/Playwright route unblocks both bot-walled shops** — Proshop.pl shows a *shorter* lead time than before (3–4 days, was 4–5), and Tonitrus confirms 50 pcs new at €2,667.65 net live from the page. All tracked bests intact.
+
+---
+
+## Pass 6 — 2026-11-14T00:4xZ (scheduled poke, Camouflage/Playwright route)
+
+### 1. Re-check of the bests
+
+| Offer | Result | Exact strings seen | URL |
+|---|---|---|---|
+| Proshop.pl KF576RH40RBK4-128 | **UNCHANGED** (via browser) | "25 969,00 zł / 21 113,01 zł netto", lead **3–4 dni**, max 2 szt./klienta | https://www.proshop.pl/RAM/Kingston-FURY-Renegade-PRO-DDR5-7600-128GB-CL38-Quad-Channel-4-pcs-AMD-EXPO-Intel-EXPO-Czarny/3462079 |
+| Tonitrus Samsung M321R8GA0EB2-CCP | **UNCHANGED** (via browser) | "Neu Neuware 3.174,50 € brutto / 2.667,65 € netto", **Verfügbar: 50** | https://www.tonitrus.com/M321R8GA0EB2-CCP |
+| ibfusion KSM64R52BD4-64MD | **UNCHANGED** | 2 481,00 € excl. VAT, 4 in stock | https://ibfusion.com/ram/64gb-ddr5-rdimm-ecc-6400mhz/ |
+| senetic.de watch row (5600 64 GB) | regex missed the price this pass; re-check next pass (row was 971,07 € exkl at 23:1xZ) | — | https://www.senetic.de/search/?q=M321R8GA0PB2&f_s_category=icecat_106 |
+
+### 2–3. New listings / QVL hunt
+
+No new-listing fetches this pass (browser pass focused on re-verifying the walled bests). QVL part: **no EU price, 6th consecutive pass**.
+
+### 4. Verdict
+
+**Did anything beat €4,791/128 GB net? — No.** Fourth flat pass; all three bests byte-identical to the 22:1xZ snapshot.
